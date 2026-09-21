@@ -1,7 +1,7 @@
 {
   "inicio": "2026-09-21",
   "base_por_ativo": 1000,
-  "reserva_usdt": 750.0,
+  "reserva_usdt": 375.0,
   "ativos": {
     "CRWV": {
       "token": "CRWVB",

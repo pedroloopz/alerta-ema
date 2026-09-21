@@ -1,20 +1,28 @@
 {
   "swings": {
     "O": {
-      "unidades": 4.4130625466231415,
+      "unidades": 8.826125093246283,
       "preco_medio": 56.650001525878906,
       "meia": 250.0,
+      "metades": 2,
+      "pregoes": 1,
+      "entrada": "2026-09-21"
+    },
+    "WTW": {
+      "unidades": 0.40740498343027437,
+      "preco_medio": 306.82000732421875,
+      "meia": 125.0,
       "metades": 1,
       "pregoes": 0,
       "entrada": "2026-09-21"
     }
   },
-  "offset": 50176768,
+  "offset": 50176769,
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
       "base_por_ativo": 1000,
-      "reserva_usdt": 1000,
+      "reserva_usdt": 750.0,
       "ativos": {
         "CRWV": {
           "token": "CRWVB",
@@ -61,15 +69,43 @@
       },
       "capital_inicial": 8056.05
     },
-    "swings": {},
+    "swings": {
+      "O": {
+        "unidades": 4.4130625466231415,
+        "preco_medio": 56.650001525878906,
+        "meia": 250.0,
+        "metades": 1,
+        "pregoes": 0,
+        "entrada": "2026-09-21"
+      }
+    },
     "chaves": [
-      "swing:O"
+      "metade:O",
+      "swing:WTW"
     ]
   },
   "validado": true,
   "revisar": {},
   "trocas": [],
   "desastre": {},
+  "pendentes": {
+    "metade:O": {
+      "tipo": "metade",
+      "ticker": "O",
+      "meia": 250.0,
+      "un": 4.4130625466231415,
+      "pm_antes": 56.650001525878906,
+      "msg_id": 26,
+      "data": "2026-09-21"
+    },
+    "swing:WTW": {
+      "tipo": "swing",
+      "ticker": "WTW",
+      "msg_id": 27,
+      "data": "2026-09-21"
+    }
+  },
+  "recusados": {},
   "varredura_em": "2026-09-21",
   "fechamento_em": "2026-09-21"
 }

@@ -1,0 +1,20 @@
+{
+  "swings": {},
+  "ultima": null,
+  "validado": true,
+  "revisar": {},
+  "trocas": [],
+  "desastre": {},
+  "pendentes": {},
+  "recusados": {},
+  "silencio": {},
+  "vendas_mes": {
+    "mes": "2026-09",
+    "acoes": 0.0,
+    "lucro_acoes": 0.0,
+    "bdr": 0.0,
+    "lucro_bdr": 0.0
+  },
+  "varredura_em": "2026-09-21",
+  "fechamento_em": "2026-09-21"
+}

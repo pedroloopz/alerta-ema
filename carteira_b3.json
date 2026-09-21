@@ -1,7 +1,7 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 0,
-  "capital_inicial": 29645.11,
+  "reserva_brl": 100.0,
+  "capital_inicial": 29745.11,
   "ativos": {
     "LREN3": {
       "qtd": 401,
