@@ -24,6 +24,8 @@ Respondidos na proxima execucao (ate 1 hora, em dias uteis).
 | Comando | Faz |
 |---|---|
 | `/carteira` | Mostra a carteira atual |
+| Botao **❌ Recusar** | Aparece em toda sugestao de entrada (swing, 2ª metade, troca). Desfaz a entrada, apaga a mensagem e nao sugere o ativo por 5 dias |
+| `/recusar NVDA` | Mesmo efeito do botao, digitando |
 | `/nao` | Desfaz a ultima ordem e nao repete no mesmo dia |
 | `/reserva 1200` | Corrige o saldo da reserva |
 | `/unidades CRWV 12,5` | Corrige a quantidade de um ativo |
