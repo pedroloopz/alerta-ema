@@ -1,0 +1,36 @@
+name: resumo-diario
+
+on:
+  schedule:
+    # 12h UTC = 9h em Brasilia, antes da abertura de Nova York
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  resumo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Gerar mapa e enviar
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BINANCE_KLINES: https://fapi.asterdex.com/fapi/v1/klines
+        run: python resumo_diario.py
+
+      - name: Avisar falha no Telegram
+        if: failure()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ O resumo diario FALHOU. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
