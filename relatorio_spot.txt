@@ -1,0 +1,65 @@
+REVERSAO SO COMPRADA - SPOT 1x
+universo: spot Binance
+da sua lista: 51 tem token spot | 29 com US$ 200 mil+/dia | 27 com historico
+maiores volumes: CRCL 20.590k, MSTR 8.545k, SNDK 6.530k, NVDA 3.870k, SNXX 3.720k, QQQ 3.551k, MU 1.920k, INTC 1.634k, KORU 1.018k, GOOGL 976k, TSLA 649k, BABA 648k
+custo medio estimado: +0,40% ida e volta (x1,5 no teste)
+
+A. PERDEDORES DA SEMANA, segura 1 semana: REPROVADA
+  ✅ lucro no treino (custo x1,5): US$ +935
+  ✅ lucro na validacao: US$ +5.746
+  ❌ bate comprar e segurar na validacao: US$ +5.746 x +20.775
+  ❌ positiva com custo em dobro: US$ -7.228
+  ❌ acaso vence menos de 5%: 43.3%
+
+B. 2 ATR ABAIXO DA EMA, sai ao cruzar a EMA: REPROVADA
+  ✅ lucro no treino (custo x1,5): US$ +4.546
+  ✅ lucro na validacao: US$ +5.824
+  ❌ bate comprar e segurar na validacao: US$ +5.824 x +20.775
+  ✅ positiva com custo em dobro: US$ +6.572
+
+Referencia comprar e segurar: treino US$ +17.185 | valid US$ +20.775
+QQQ no periodo: +662,95%
+
+ENTRADA A: perdedores da semana
+saida | treino | valid (por trade) | dias | prazo% | pior | t
+  1 semana: +0,07% | +0,62% | 5d | 0% | -49,11% | t +0,0/+0,0
+  cruzar a EMA: +0,51% | +0,99% | 6d | 10% | -71,88% | t +1,1/+0,2
+  alvo 3%: +0,50% | -0,05% | 7d | 18% | -47,62% | t +1,0/-1,0
+  alvo 5%: +0,87% | -0,36% | 10d | 31% | -56,76% | t +1,6/-1,3
+  alvo 8%: +1,42% | -0,09% | 13d | 46% | -56,76% | t +2,3/-1,0
+
+ENTRADA B: 2 ATR abaixo da EMA
+saida | treino | valid (por trade) | dias | prazo% | pior | t
+  1 semana: +0,04% | +0,83% | 5d | 0% | -58,16% | t -1,0/-0,4
+  cruzar a EMA: +1,27% | +2,05% | 12d | 22% | -71,88% | t +0,0/+0,0
+  alvo 3%: +0,35% | +0,41% | 5d | 16% | -55,29% | t -1,3/-1,4
+  alvo 5%: +0,70% | +1,39% | 8d | 26% | -68,10% | t -0,7/-0,1
+  alvo 8%: +1,16% | +1,72% | 12d | 42% | -68,10% | t -0,0/-0,0
+
+t: comparacao com a saida principal (A: 1 semana | B: cruzar EMA).
+Uma saida so substitui se t >= 2 no treino E na validacao,
+
+ANO A ANO (US$)
+ano | A 1 semana | B cruzar EMA | segurar
+  2015: -622 | +138 | +820
+  2016: +450 | +887 | +2.888
+  2017: +198 | +1.251 | +3.490
+  2018: -1.722 | +802 | -416
+  2019: +1.484 | +600 | +3.493
+  2020: +1.480 | -149 | +5.113
+  2021: -333 | +1.016 | +1.797
+  2022: -3.611 | -2.712 | -4.733
+  2023: +2.577 | +3.194 | +7.282
+  2024: +997 | +1.885 | +4.844
+  2025: +1.306 | +2.436 | +6.722
+  2026: +4.477 | +1.022 | +6.660
+  anos batendo o segurar: A 1 de 12 | B 2 de 12
+
+A: 2299 trades | capital medio investido US$ 3.902
+B: 634 trades | capital medio investido US$ 2.656
+
+LIMITACOES
+  - universo de hoje: vies de sobrevivencia
+  - historico das acoes; o token pode descolar
+  - taxa spot assumida: +0,10% por lado
+  - fora do teste: CBRS, DRAM
