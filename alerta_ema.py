@@ -21,7 +21,7 @@ import json
 import os
 import pathlib
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pandas as pd
 import requests
@@ -71,6 +71,7 @@ LIQ_BOA = 200_000.0
 LIQ_MINIMA = 50_000.0
 LIQ_CRITICA = 20_000.0     # abaixo disso, aviso na mensagem
 
+DIAS_LIMITE = 3            # nao andou nesse prazo, encerra
 NOTA_MINIMA = 7.0
 MAX_DIST_ENTRADA_ATR = 0.5
 PAUSA_ENTRE_CHAMADAS = 0.12
@@ -430,12 +431,24 @@ def main() -> None:
         aviso_liq = ("  \u26A0\uFE0F livro fino"
                      if c["liq_24h"] < LIQ_CRITICA else "")
 
+        # Ordem pronta para digitar na corretora
+        nocional = VALOR_OPERACAO * ALAVANCAGEM
+        quantidade = nocional / c["entrada"]
+        limite = (datetime.fromisoformat(c["carimbo"])
+                  + timedelta(days=DIAS_LIMITE)).strftime("%d/%m")
+
         avisar(
             f"{emoji} {c['direcao']} \u2014 {c['curto']}  |  NOTA {num(c['nota'], 1)}/10\n"
             f"Contrato: {c['simbolo']}  |  Setor: {c['setor']}\n\n"
+            f"\u2500\u2500 ORDEM \u2500\u2500\n"
+            f"Margem: US$ {num(VALOR_OPERACAO, 0)}  |  "
+            f"Alavancagem: {ALAVANCAGEM:.0f}x\n"
+            f"Quantidade: {num(quantidade, 3)} (arredonde p/ baixo)\n"
             f"Entrada: {num(c['entrada'], casas)}\n"
             f"SL: {num(c['preco_sl'], casas)}  ({num(c['sl_pct'])}%)\n"
-            f"TP: {num(c['preco_tp'], casas)}  ({num(c['tp_pct'])}%)\n\n"
+            f"TP: {num(c['preco_tp'], casas)}  ({num(c['tp_pct'])}%)\n"
+            f"Encerrar ate {limite} se nao andar\n"
+            f"\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n"
             f"Custo estimado ida+volta: {num(c['custo'])}%\n"
             f"Liquido: perde {num(c['perda_real'])}% / ganha {num(c['ganho_real'])}%\n\n"
             f"Risco: US$ {num(c['risco_usd'])} ({num(c['risco_banca'])}% da banca)\n"
