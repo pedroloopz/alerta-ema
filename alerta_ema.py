@@ -39,8 +39,13 @@ CANDLES_INCLINACAO = 5
 CANDLES_PARA_TRAS = 6
 CANDLES_BAIXADOS = 200
 
-MULT_SL = 1.5
-MULT_TP = 3.0
+# O stop e ancorado no ATR DIARIO, nao no de 4h.
+# Motivo: a posicao fica aberta 2 a 3 dias, entao o stop precisa
+# sobreviver ao ruido de um dia inteiro. Como um dia tem 6 candles
+# de 4h e a amplitude cresce com a raiz do tempo, o ATR diario e
+# sempre 2 a 3 vezes o de 4h - usar o de 4h deixava o stop dentro
+# da oscilacao normal de um unico dia.
+MULT_SL = 0.8               # stop = 0,8 x ATR diario
 SL_MINIMO = 1.5
 SL_MAXIMO = 8.0
 
@@ -200,11 +205,11 @@ def calcular_nota(sl_pct, tp_pct, atr_diario, inclinacao, distancia,
 
     compat = 0.0
     if SL_MINIMO < sl_pct < SL_MAXIMO:
-        compat += 0.8
-    if sl_pct >= atr_diario:
-        compat += 0.9
+        compat += 0.8          # stop nao saturou no piso nem no teto
+    if sl_pct >= 0.75 * atr_diario:
+        compat += 0.9          # stop cobre a maior parte do ruido de um dia
     if tp_pct <= 3 * atr_diario:
-        compat += 0.8
+        compat += 0.8          # alvo alcancavel em ~3 dias
     partes["volatilidade"] = compat
 
     prox = abs(distancia) / atr_4h if atr_4h > 0 else 99
@@ -327,7 +332,7 @@ def main() -> None:
 
         atr4 = atr_percentual(candles)
         atrd = atr_percentual(diario)
-        sl_pct = limitar(MULT_SL * atr4)
+        sl_pct = limitar(MULT_SL * atrd)
 
         media_vol = candles["Volume"].iloc[-PERIODO_VOLUME - 1:-1].mean()
         vol_rel = float(atual["Volume"] / media_vol) if media_vol > 0 else None
