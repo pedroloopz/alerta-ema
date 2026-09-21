@@ -9,7 +9,7 @@ BOT DA CARTEIRA DO PEDRO
 
 O bot ASSUME que voce executou cada ordem e atualiza a carteira sozinho.
 Se nao executou, responda /nao no Telegram e ele desfaz a ultima mensagem.
-Comandos: /carteira  /nao  /reserva 1200  /unidades CRWV 12.5
+Comandos: /carteira  /nao  /recusar NVDA  /reserva 1200  /unidades CRWV 12.5
 """
 
 import copy
@@ -73,11 +73,31 @@ pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
 
 
 # ============================================================== TELEGRAM
-def enviar(texto):
-    print("\n>>> TELEGRAM\n" + texto)
-    if TOKEN and CHAT_ID:
-        requests.post(f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-                      json={"chat_id": CHAT_ID, "text": texto[:4000]}, timeout=30)
+def tg(metodo, **dados):
+    if not (TOKEN and CHAT_ID):
+        return {}
+    try:
+        return requests.post(f"https://api.telegram.org/bot{TOKEN}/{metodo}",
+                             json=dados, timeout=30).json()
+    except Exception as e:
+        print("telegram falhou:", e)
+        return {}
+
+
+def enviar(texto, botao=None):
+    """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback)."""
+    print("\n>>> TELEGRAM" + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
+    extra = {}
+    if botao:
+        extra["reply_markup"] = {"inline_keyboard": [[{"text": botao[0], "callback_data": botao[1]}]]}
+    r = tg("sendMessage", chat_id=CHAT_ID, text=texto[:4000], **extra)
+    return r.get("result", {}).get("message_id")
+
+
+def apagar(msg_id):
+    if msg_id:
+        print(f">>> TELEGRAM apagar mensagem {msg_id}")
+        tg("deleteMessage", chat_id=CHAT_ID, message_id=msg_id)
 
 
 def enviar_foto(caminho, legenda):
@@ -90,6 +110,7 @@ def enviar_foto(caminho, legenda):
 
 
 def ler_comandos(estado):
+    """Devolve eventos: ('cmd', partes, msg_id) ou ('botao', dado, msg_id)."""
     if not TOKEN:
         return []
     try:
@@ -98,13 +119,19 @@ def ler_comandos(estado):
                          timeout=30).json()
     except Exception:
         return []
-    comandos = []
+    eventos = []
     for u in r.get("result", []):
         estado["offset"] = u["update_id"] + 1
+        if "callback_query" in u:
+            cq = u["callback_query"]
+            if str(cq.get("from", {}).get("id")) == str(CHAT_ID):
+                tg("answerCallbackQuery", callback_query_id=cq["id"], text="Recusado")
+                eventos.append(("botao", cq.get("data", ""), cq.get("message", {}).get("message_id")))
+            continue
         msg = u.get("message", {})
         if str(msg.get("chat", {}).get("id")) == str(CHAT_ID) and msg.get("text", "").startswith("/"):
-            comandos.append(msg["text"].strip().split())
-    return comandos
+            eventos.append(("cmd", msg["text"].strip().split(), msg.get("message_id")))
+    return eventos
 
 
 # ================================================================= DADOS
@@ -242,7 +269,7 @@ def carregar():
     with open(ARQ_CARTEIRA, encoding="utf-8") as f:
         cart = json.load(f)
     est = {"swings": {}, "offset": 0, "ultima": None, "validado": False,
-           "revisar": {}, "trocas": [], "desastre": {}}
+           "revisar": {}, "trocas": [], "desastre": {}, "pendentes": {}, "recusados": {}}
     if os.path.exists(ARQ_ESTADO):
         with open(ARQ_ESTADO, encoding="utf-8") as f:
             est.update(json.load(f))
@@ -285,10 +312,64 @@ def registrar_placar(linhas):
 
 
 # ============================================================ COMANDOS
+DIAS_SILENCIO_RECUSA = 5
+
+
+def recusar(cart, est, chave):
+    """Desfaz UMA entrada sugerida, apaga a mensagem e silencia o ativo."""
+    pend = est.get("pendentes", {}).pop(chave, None)
+    if not pend:
+        return False
+    tipo, t = pend["tipo"], pend.get("ticker")
+    ate = str((pd.Timestamp(hoje_ny()) + pd.Timedelta(days=DIAS_SILENCIO_RECUSA)).date())
+    if tipo == "swing" and t in est["swings"]:
+        s = est["swings"].pop(t)
+        cart["reserva_usdt"] += s["meia"] * s["metades"]
+        pend_metade = est["pendentes"].pop(f"metade:{t}", None)
+        if pend_metade:
+            apagar(pend_metade.get("msg_id"))
+        est.setdefault("recusados", {})[t] = ate
+    elif tipo == "metade" and t in est["swings"] and est["swings"][t]["metades"] == 2:
+        s = est["swings"][t]
+        s["unidades"] -= pend["un"]
+        s["preco_medio"] = pend["pm_antes"]
+        s["metades"] = 1
+        cart["reserva_usdt"] += pend["meia"]
+        sil = est.setdefault("silencio", {"data": hoje_ny(), "chaves": []})
+        if sil.get("data") != hoje_ny():
+            est["silencio"] = sil = {"data": hoje_ny(), "chaves": []}
+        sil["chaves"].append(chave)
+    elif tipo == "troca":
+        cart["ativos"].pop(pend["novo"], None)
+        cart["ativos"][pend["velho"]] = pend["antigo"]
+        est.setdefault("recusados", {})[pend["novo"]] = ate
+    apagar(pend.get("msg_id"))
+    return True
+
+
+def recusado(est, ticker):
+    ate = est.get("recusados", {}).get(ticker)
+    return bool(ate) and ate >= hoje_ny()
+
+
 def processar_comandos(cart, est, precos):
     respostas = []
-    for cmd in ler_comandos(est):
+    for evento in ler_comandos(est):
+        if evento[0] == "botao":
+            if evento[1].startswith("rec|"):
+                recusar(cart, est, evento[1][4:])
+            continue
+        cmd, msg_id = evento[1], evento[2]
         nome = cmd[0].lower().split("@")[0]
+        if nome == "/recusar" and len(cmd) == 2:
+            alvo = cmd[1].upper()
+            chaves = [k for k, v in est.get("pendentes", {}).items()
+                      if alvo in (v.get("ticker"), v.get("novo"))]
+            feitos = [recusar(cart, est, k) for k in chaves]
+            apagar(msg_id)
+            if not any(feitos):
+                respostas.append(f"Nao achei sugestao pendente de {alvo}.")
+            continue
         if nome == "/nao" and est.get("ultima"):
             antes = est["ultima"]
             cart.clear(); cart.update(antes["carteira"])
@@ -372,12 +453,15 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
             (ind["max"] > ind["min"] and (preco - ind["min"]) / (ind["max"] - ind["min"]) >= 0.66)
         if s["metades"] == 1 and confirmou and cart["reserva_usdt"] >= s["meia"] \
                 and not silenciado(est, f"metade:{t}"):
+            pm_antes = s["preco_medio"]
             s["unidades"] += s["meia"] / preco
             s["preco_medio"] = (s["meia"] * 2) / s["unidades"]
             s["metades"] = 2
             cart["reserva_usdt"] -= s["meia"]
             ordens.append((f"metade:{t}", f"✅ SWING {t} confirmou: COMPRE a 2ª metade, "
-                                          f"US$ {num(s['meia'])}"))
+                                          f"US$ {num(s['meia'])}",
+                           {"tipo": "metade", "ticker": t, "meia": s["meia"],
+                            "un": s["meia"] / preco, "pm_antes": pm_antes}))
 
     # --- candidatos a swing
     ocupados = set(cart["ativos"]) | set(est["swings"])
@@ -385,7 +469,7 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
         pre = []
         for t, ind in dados.items():
             if t in ocupados or t in ("SPY", "QQQ") or np.isnan(ind["sma200"]) \
-                    or silenciado(est, f"swing:{t}"):
+                    or silenciado(est, f"swing:{t}") or recusado(est, t):
                 continue
             esticada = (ind["ema20"] - ind["preco"]) / ind["atr"] if ind["atr"] else 0
             if esticada >= ESTICADA_MIN:
@@ -408,16 +492,15 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
                                 "metades": 1, "pregoes": 0,
                                 "entrada": str(dados[t]["data"].date())}
             cart["reserva_usdt"] -= meia
-            detal = " | ".join(f"{k} {num(v, 1)}" for k, v in partes.items() if v)
             outros = ", ".join(f"{x[1]} {num(x[0], 1)}" for x in melhores[1:4])
             ordens.append((f"swing:{t}",
                 f"🎣 SWING: {t} | nota {num(n, 1)}/10\n"
                 f"   COMPRE 1ª metade: US$ {num(meia)} (~{num(meia / preco, 4)} un. a US$ {num(preco)})\n"
-                f"   {num(esticada, 1)} ATR abaixo da EMA 20 | {detal}\n"
                 f"   2ª metade (US$ {num(meia)}) so quando confirmar\n"
                 f"   Saida: quando cruzar a EMA 20 (hoje em US$ {num(dados[t]['ema20'])})\n"
                 f"   ⚠️ Confirme se existe {t}on ou {t}B no Binance Wallet"
-                + (f"\n   Proximos da fila: {outros}" if outros else "")))
+                + (f"\n   Proximos da fila: {outros}" if outros else ""),
+                {"tipo": "swing", "ticker": t}))
 
     # --- trocas
     semana = pd.Timestamp.now(tz=NY).strftime("%G-%V")
@@ -435,7 +518,8 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
             if valor > base and pregoes_desde(a["desde"], pregoes) >= TROCA_CARENCIA \
                     and not silenciado(est, f"troca:{t}"):
                 elegiveis.append((notas[t], t, valor))
-        livres = sorted(((n, t) for t, n in notas.items() if t not in ocupados), reverse=True)
+        livres = sorted(((n, t) for t, n in notas.items()
+                         if t not in ocupados and not recusado(est, t)), reverse=True)
         if elegiveis and livres:
             nota_velho, velho, valor = min(elegiveis)
             nota_novo, novo = livres[0]
@@ -450,7 +534,9 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
                     f"🔄 TROCA: VENDA tudo de {antigo['token']} (US$ {num(valor)}, "
                     f"grafico {num(nota_velho, 0)}/10)\n"
                     f"   COMPRE US$ {num(valor)} de {novo} (grafico {num(nota_novo, 0)}/10)\n"
-                    f"   ⚠️ Confirme se existe {novo}on ou {novo}B no Binance Wallet"))
+                    f"   ⚠️ Confirme se existe {novo}on ou {novo}B no Binance Wallet",
+                    {"tipo": "troca", "velho": velho, "antigo": antigo, "novo": novo,
+                     "ticker": novo}))
 
     # --- revisao
     hoje = str(pd.Timestamp.now().date())
@@ -610,10 +696,12 @@ def main():
     precos = {t: d["preco"] for t, d in dados.items()}
 
     # pregao de hoje aconteceu?
-    hoje_ny = pd.Timestamp(datetime.now(NY).date())
-    pregao_hoje = "SPY" in dados and pd.Timestamp(dados["SPY"]["data"]).normalize() == hoje_ny
+    data_ny = pd.Timestamp(datetime.now(NY).date())
+    pregao_hoje = "SPY" in dados and pd.Timestamp(dados["SPY"]["data"]).normalize() == data_ny
     spy_ok = "SPY" in dados and dados["SPY"]["preco"] > dados["SPY"]["sma200"]
 
+    limite = str((pd.Timestamp(hoje_ny()) - pd.Timedelta(days=2)).date())
+    est["pendentes"] = {k: v for k, v in est.get("pendentes", {}).items() if v["data"] >= limite}
     respostas = processar_comandos(cart, est, precos)
     for resp in respostas:
         enviar(resp)
@@ -639,9 +727,16 @@ def main():
             notas = varredura(cart, est, univ, dados, spy_ok, ordens, pregoes)
             est["varredura_em"] = hoje_str
         if ordens:
-            est["ultima"] = {**antes, "chaves": [k for k, _ in ordens]}
-            enviar("\n\n".join(txt for _, txt in ordens)
-                   + "\n\nNao executou? Responda /nao que eu desfaco.")
+            ordens = [o if len(o) == 3 else (o[0], o[1], None) for o in ordens]
+            est["ultima"] = {**antes, "chaves": [o[0] for o in ordens]}
+            normais = [txt for _, txt, x in ordens if x is None]
+            if normais:
+                enviar("\n\n".join(normais) + "\n\nNao executou? Responda /nao que eu desfaco.")
+            for chave, txt, x in ordens:
+                if x is not None:
+                    mid = enviar(txt, botao=("❌ Recusar", f"rec|{chave}"))
+                    est.setdefault("pendentes", {})[chave] = {**x, "msg_id": mid,
+                                                              "data": hoje_ny()}
         if fazer_fechamento:
             if not notas:
                 rs = pd.Series({t: d["ret63"] for t, d in dados.items() if not np.isnan(d["ret63"])})
