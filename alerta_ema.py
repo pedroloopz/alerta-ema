@@ -79,8 +79,8 @@ PAUSA_ENTRE_CHAMADAS = 0.12
 
 ARQUIVO_ESTADO = pathlib.Path("estado.json")
 ARQUIVO_CSV = pathlib.Path("sinais.csv")
-TOKEN = os.environ["TELEGRAM_TOKEN"]
-CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
+TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 COLUNAS_CSV = [
     "horario_utc", "simbolo", "setor", "direcao", "nota", "enviado",
@@ -97,6 +97,8 @@ def num(valor: float, casas: int = 2) -> str:
 
 
 def avisar(texto: str) -> None:
+    if not TOKEN or not CHAT_ID:
+        raise RuntimeError("TELEGRAM_TOKEN ou TELEGRAM_CHAT_ID ausente")
     requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={"chat_id": CHAT_ID, "text": texto},
