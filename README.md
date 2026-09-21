@@ -1,37 +1,44 @@
-# Bot da carteira
+# Bot da carteira - EUA (Binance Wallet) + B3 (BRB)
 
 ## Horarios (Brasilia, dias uteis)
 
-| Horario | O que faz | Manda mensagem? |
+| Horario | EUA | B3 |
 |---|---|---|
-| 10h15 a 19h15, de hora em hora | Confere se alguma posicao bateu +10% e se algum swing caiu 20% | So se acontecer |
-| 16h15 | Varredura: swings, segunda metade, saidas, trocas e revisoes | So se houver ordem |
-| 18h15 | Fechamento: mapa do dia + vencedores e perdedores + sua carteira | Sempre (2 mensagens) |
+| De hora em hora | 10h15 a 19h15: realizacao de +10% e alerta de 20% nos swings | 10h15 a 17h15, so com a B3 aberta |
+| 15h15 | - | Varredura: swings, trocas, revisoes |
+| 16h15 | Varredura: swings, trocas, revisoes | - |
+| 18h15 | Fechamento: mapa + vencedores/perdedores + carteira | Fechamento B3 |
 
-Fim de semana e feriado americano: nada.
+Feriado de um mercado nao afeta o outro.
 
-## Regras
+## Regras - EUA
+- **+10% numa posicao:** vende o excesso acima de US$ 1.000 → reserva USDT
+- **Swing:** 2 ATR abaixo da EMA 20, nota 6+. Nota 8+ = ate US$ 500; 6 a 7,9 = ate US$ 250
+- **Troca:** so em posicao acima de US$ 1.000, com 10+ pregoes, para grafico 7+ e 2 pontos melhor
 
-- **+10% numa posicao:** vende o excesso acima de US$ 1.000 e manda para a reserva
-- **Swing:** candidato 2 ATR ou mais abaixo da EMA 20, nota 6+. Nota 8+ = ate US$ 500; 6 a 7,9 = ate US$ 250. Metade na queda, metade na confirmacao. Sai ao cruzar a EMA 20 ou em 20 pregoes. Maximo de 2 abertos
-- **Troca:** so em posicao acima de US$ 1.000, com pelo menos 10 pregoes, quando outro ativo tiver grafico 7+ e 2 pontos acima. Maximo de 2 por semana
-- **Revisao:** posicao abaixo de US$ 750 com grafico 3 ou menos. O bot nao vende, so avisa
+## Regras - B3
+- **Base de cada posicao = o que voce pagou** (preco medio x quantidade)
+- **+10% sobre o custo:** vende o excesso em acoes inteiras → reserva R$
+- **Swing:** mesma regra, nota 8+ = ate R$ 2.000; 6 a 7,9 = ate R$ 1.000
+- **Lotes:** abaixo de 100 acoes, o bot indica o fracionario (ticker + F)
+- **Trava da isencao:** realizacao ou troca que passaria de R$ 20 mil em vendas de acoes no mes fica adiada para o mes seguinte. Saida de swing nao e travada
+- **BDR (INBR32 e final 31-39):** sem isencao. Cada venda mostra o IR estimado
+- **Universo:** IBrX-100 + Small Caps direto da B3 (~180 a 200 acoes). Se a B3 nao responder, lista de reserva
 
-## Comandos no Telegram
+## Comandos no Telegram (respondidos na proxima execucao)
 
-Respondidos na proxima execucao (ate 1 hora, em dias uteis).
-
-| Comando | Faz |
-|---|---|
-| `/carteira` | Mostra a carteira atual |
-| Botao **❌ Recusar** | Aparece em toda sugestao de entrada (swing, 2ª metade, troca). Desfaz a entrada, apaga a mensagem e nao sugere o ativo por 5 dias |
-| `/recusar NVDA` | Mesmo efeito do botao, digitando |
-| `/nao` | Desfaz a ultima ordem e nao repete no mesmo dia |
-| `/reserva 1200` | Corrige o saldo da reserva |
-| `/unidades CRWV 12,5` | Corrige a quantidade de um ativo |
+| Comando | EUA | B3 |
+|---|---|---|
+| Botao **❌ Recusar** | Desfaz a entrada, apaga a mensagem, silencia 5 dias | Idem |
+| `/recusar TICKER` | Mesmo efeito do botao | Idem |
+| `/nao` | Desfaz a ultima ordem | - |
+| `/nao_br` | - | Desfaz a ultima ordem |
+| `/reserva 1200` | Corrige a reserva USDT | - |
+| `/reserva_br 3000` | - | Define a reserva em R$ (conta como aporte) |
+| `/unidades TICKER N` | Corrige a quantidade | Idem |
+| `/carteira` | Mostra a carteira | Idem |
 
 ## Arquivos
-
-- `bot.py` - o bot
-- `carteira.json` - seus ativos. Pode editar a mao
-- `estado_bot.json` e `placar_notas.csv` - o bot cria e atualiza sozinho
+- `bot.py` e `b3.py` - o bot
+- `carteira.json` e `carteira_b3.json` - suas posicoes. Podem ser editados a mao
+- `estado_*.json` e `placar_notas*.csv` - o bot cria e atualiza sozinho
