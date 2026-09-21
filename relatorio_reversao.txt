@@ -1,0 +1,62 @@
+REVERSAO SEMANAL - TESTE LONGO
+01/2015 a 09/2026 | 609 semanas | 5 acoes
+compra 4 que mais cairam, vende 4 que mais subiram | custo x1,5
+
+[1] RESULTADO GERAL
+  por posicao: -0,72% | acerto 44%
+  semanas positivas: 40%
+  total: US$ -34.835 | media/semana US$ -57
+  drawdown max: US$ 38.409
+
+[2] ANO A ANO (por posicao | sem+ | total)
+  2015: -1,16% | 25% | US$ -4.730
+  2016: -0,27% | 38% | US$ -1.126
+  2017: -0,27% | 38% | US$ -1.138
+  2018: -0,59% | 36% | US$ -2.492
+  2019: -0,38% | 44% | US$ -1.586
+  2020: -0,54% | 50% | US$ -2.228
+  2021: -1,50% | 35% | US$ -6.256
+  2022: -0,66% | 42% | US$ -2.764
+  2023: -0,55% | 44% | US$ -2.279
+  2024: -0,41% | 47% | US$ -1.741
+  2025: -1,52% | 38% | US$ -6.335
+  2026: -0,75% | 42% | US$ -2.161
+  anos positivos: 0 de 12
+
+[3] REGIME DE MERCADO (QQQ)
+  alta (QQQ > media 200) = sim: -0,74% (n=1860)
+  alta (QQQ > media 200) = nao: -0,62% (n=576)
+  agitado (vol alta) = sim: -0,44% (n=1240)
+  agitado (vol alta) = nao: -1,00% (n=1196)
+
+[4] DE ONDE VEM O RESULTADO
+  compra dos perdedores: +0,23% | US$ +5.661
+  venda dos vencedores: -1,66% | US$ -40.495
+
+[5] VIZINHANCA DE PARAMETROS (por posicao)
+  pregoes \ por lado:    2        4        6
+   3 pregoes:          -0,67%   -0,67%   -0,67%
+   5 pregoes:          -0,72%   -0,72%   -0,72%
+  10 pregoes:          -0,76%   -0,76%   -0,76%
+  celulas positivas: 0 de 9
+
+[6] MARGEM CONTRA O CUSTO
+  ganho bruto medio: -0,20% por posicao
+  custo estimado: +0,35% | com estresse: +0,52%
+  custo maximo suportavel: -0,20% (-0,6x o estimado)
+
+[7] JANELAS DE 12 SEMANAS
+  trimestres negativos: 81%
+  pior trimestre: US$ -3.985
+  melhor trimestre: US$ +3.134
+
+[8] ISSO E SORTE?
+  media semanal, intervalo 95%: US$ -78 a US$ -37
+  sorteio: 1000 carteiras aleatorias, total medio US$ -25.667
+  chance do acaso bater a estrategia: 93.3%
+
+LIMITACOES
+  - vies de sobrevivencia: universo e o de hoje
+  - acao nao e o perp: o perp pode descolar
+  - fora do teste: CRCL(sem dados)
+  - fonte: 5 Yahoo, 0 Stooq
