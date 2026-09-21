@@ -1,3 +1,6 @@
 horario_utc,simbolo,setor,direcao,nota,enviado,motivo_nao_envio,entrada,ema,dist_ema_pct,atr_4h_pct,atr_diario_pct,sl_pct,tp_pct,preco_sl,preco_tp,risco_usd,risco_banca_pct,inclinacao_pct,vol_relativo,candles_no_lado,liquidez_24h_usd,custo_estimado_pct,rejeicao,diario_concorda,perda_real_pct,ganho_real_pct,candle
 2026-09-21T00:36:05+00:00,VUSDT,financeiro,SHORT,,nao,sem rejeicao: fechou do outro lado da media,369.05,,,,,,,,,,,,,,,,,,,,2026-09-21T00:00:00+00:00
 2026-09-21T00:36:11+00:00,ANTHROPICUSDT,infra_ia,SHORT,2.6,nao,nota 2.6 abaixo de 7.0,2083.85,2094.327277,-0.5,0.81,3.04,1.5,9.3,2115.10775,1890.05195,30.0,0.38,-0.25,0.05,3,1752.0,2.1,1.0,nao,3.6,7.2,2026-09-21T00:00:00+00:00
+2026-09-21T00:43:37+00:00,VUSDT,financeiro,SHORT,,nao,sem rejeicao: fechou do outro lado da media,369.05,,,,,,,,,,,,,,,,,,,,2026-09-21T00:00:00+00:00
+2026-09-21T00:43:43+00:00,XIAOMIUSDT,big_tech,LONG,5.4,nao,nota 5.4 abaixo de 7.0,3.462,3.415437,1.36,1.0,4.9,3.92,14.14,3.326302,3.951501,78.39,0.98,0.32,0.17,6,301.0,2.1,0.95,nao,6.02,12.04,2026-09-21T00:00:00+00:00
+2026-09-21T00:43:43+00:00,ANTHROPICUSDT,infra_ia,SHORT,4.3,nao,nota 4.3 abaixo de 7.0,2083.84,2094.326325,-0.5,0.81,3.04,2.43,11.16,2134.513443,1851.211194,48.63,0.61,-0.25,0.33,3,2398.0,2.1,1.0,nao,4.53,9.06,2026-09-21T00:00:00+00:00
