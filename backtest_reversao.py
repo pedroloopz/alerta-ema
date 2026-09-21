@@ -1,17 +1,16 @@
 """
 Teste minucioso da REVERSAO SEMANAL nos ativos liquidos, em historico longo.
 
-A regra testada e exatamente a aprovada no teste de teses:
-  toda semana, entre os perps liquidos, compra os 4 que mais cairam
-  nos ultimos 5 pregoes e vende os 4 que mais subiram. Segura 1 semana.
+REGRA BASE (a aprovada no teste de teses):
+  toda semana, entre os liquidos, compra os 4 que mais cairam nos ultimos
+  5 pregoes e vende os 4 que mais subiram. Segura ate a semana seguinte.
 
-Como os perps sao recentes, o historico longo vem das ACOES subjacentes
-(2015 em diante). O custo aplicado e o custo do perp, x1,5.
+VEREDITO: 5 criterios definidos ANTES de ver o resultado.
 
-Limitacoes declaradas no relatorio:
-  - vies de sobrevivencia: o universo e o de HOJE (acoes que chegaram vivas
-    e liquidas ate 2026). Isso tende a favorecer a compra de perdedores.
-  - a acao nao e o perp: o perp pode descolar do subjacente.
+VARIACOES (stop, alvo, DCA, frequencia): so contam se melhorarem a base
+no treino (2015-2021) E na validacao (2022-2026).
+
+Historico longo vem das acoes subjacentes; custo aplicado e o do perp x1,5.
 """
 
 import io
@@ -25,24 +24,32 @@ from simbolos import SIMBOLOS, nome_curto
 from alerta_ema import baixar_candles, custo_ida_volta, avisar
 
 INICIO = "2015-01-01"
+INICIO_VALIDACAO = pd.Timestamp("2022-01-01")
 LIQ_MIN = 200_000.0
 ESTRESSE = 1.5
-NOCIONAL = 2000.0              # US$ 1.000 a 2x
-LOOKBACK = 5                   # pregoes
+MARGEM = 1000.0                # US$ por posicao
+ALAV_BASE = 2.0
+LOOKBACK = 5
 POR_LADO = 4
-LIMITE_SALTO = 0.40            # salto diario maior que isso = desdobramento/erro
-TOLERANCIA_PRECO = 0.15        # acao x perp: diferenca maxima aceitavel
+LIMITE_SALTO = 0.40
+TOLERANCIA_PRECO = 0.15
 REPS_SORTEIO = 1000
 REPS_BOOTSTRAP = 2000
-JANELA = 12                    # semanas (um trimestre)
+JANELA = 12
 
-# Perps sem acao americana correspondente
+STOPS = [5.0, 8.0, 12.0]
+ALVOS = [3.0, 5.0, 8.0]
+REFORCO_QUEDA = 5.0            # DCA: segunda metade entra se piorar 5%
+PENETRACAO = 0.20              # ordem limitada so executa se o preco passar 0,2% do nivel
+T_MINIMO = 2.0                 # melhoria precisa de t >= 2 no treino E na validacao
+
 SEM_SUBJACENTE = {
     "SPCX", "OPENAI", "ANTHROPIC", "UNITREE", "MINIMAX", "ZHIPU", "CXMT",
     "SAMSUNG", "SKHYNIX", "SKHY", "HYUNDAI", "MEITUAN", "KUAISHOU",
     "XIAOMI", "POPMART", "BNC", "GPRO",
 }
 MAPA = {"STXX": "STX", "BBX": "BB"}
+CAMPOS = ["Open", "High", "Low", "Close"]
 
 
 # ================================================================ dados
@@ -61,10 +68,9 @@ def universo_liquido():
             continue
         vol = float(d["VolumeUSD"].iloc[-30:].median())
         if vol >= LIQ_MIN:
-            liq[MAPA.get(curto, curto)] = {
-                "perp": s, "vol": vol, "custo": custo_ida_volta(vol),
-                "preco_perp": float(d["Close"].iloc[-1]),
-            }
+            liq[MAPA.get(curto, curto)] = {"perp": s, "vol": vol,
+                                            "custo": custo_ida_volta(vol),
+                                            "preco_perp": float(d["Close"].iloc[-1])}
     return liq
 
 
@@ -86,7 +92,7 @@ def historico_yahoo(tickers):
     for t in tickers:
         try:
             df = bruto[t] if isinstance(bruto.columns, pd.MultiIndex) else bruto
-            df = _naive(df[["Open", "Close"]].dropna().copy())
+            df = _naive(df[CAMPOS].dropna().copy())
             if len(df) > 120:
                 saida[t] = df
         except Exception:
@@ -99,7 +105,7 @@ def historico_stooq(t):
     if r.status_code != 200 or not r.text.startswith("Date"):
         raise RuntimeError(r.text[:60].strip())
     df = pd.read_csv(io.StringIO(r.text), parse_dates=["Date"]).set_index("Date")
-    return _naive(df.loc[df.index >= INICIO, ["Open", "Close"]].dropna())
+    return _naive(df.loc[df.index >= INICIO, CAMPOS].dropna())
 
 
 def carregar_historico(tickers):
@@ -117,88 +123,181 @@ def carregar_historico(tickers):
     return hist, fonte
 
 
-# ============================================================ simulacao
-def preparar_semanas(O, C, custos):
-    ret = C / C.shift(1) - 1
-    gap = O / C.shift(1) - 1
-    ruim = (ret.abs() > LIMITE_SALTO) | (gap.abs() > LIMITE_SALTO)
+# ============================================================ motor
+class Mercado:
+    """Paineis em numpy para simular caminhos diarios rapido."""
 
-    datas = C.index
-    primeiros = pd.Series(datas, index=datas).groupby(datas.to_period("W")).first().to_list()
-    pos = {d: i for i, d in enumerate(datas)}
+    def __init__(self, hist, custos):
+        tick = sorted(custos)
+        paineis = {c: pd.DataFrame({t: hist[t][c] for t in tick}).sort_index() for c in CAMPOS}
+        self.datas = paineis["Close"].index
+        self.tick = np.array(tick)
+        self.O, self.H, self.L, self.C = (paineis[c].to_numpy(float) for c in CAMPOS)
+        self.custo = np.array([custos[t] for t in tick])
+        ant = np.vstack([np.full(len(tick), np.nan), self.C[:-1]])
+        with np.errstate(invalid="ignore", divide="ignore"):
+            ruim = (np.abs(self.C / ant - 1) > LIMITE_SALTO) | (np.abs(self.O / ant - 1) > LIMITE_SALTO)
+        self.ruim_acum = np.cumsum(np.nan_to_num(ruim, nan=0).astype(int), axis=0)
 
-    semanas = {}
-    for lb in (3, 5, 10):
-        lista = []
-        for d_ent, d_sai in zip(primeiros[:-1], primeiros[1:]):
-            k, ks = pos[d_ent], pos[d_sai]
-            if k - 1 - lb < 0:
+    def contaminado(self, a, b):
+        antes = self.ruim_acum[a - 1] if a > 0 else 0
+        return (self.ruim_acum[b] - antes) > 0
+
+    def pontos(self, freq):
+        idx = pd.Series(np.arange(len(self.datas)), index=self.datas)
+        if freq == "D":
+            return idx.to_list()
+        sem = idx.groupby(self.datas.to_period("W")).first().to_list()
+        return sem if freq == "W" else sem[::2]
+
+    def periodos(self, freq, lookback):
+        """Para cada rebalanceamento: tickers validos, sinal e retorno de compra."""
+        pts = self.pontos(freq)
+        saida = []
+        for k, ks in zip(pts[:-1], pts[1:]):
+            if k - 1 - lookback < 0:
                 continue
-            c_fim, c_ini = C.iloc[k - 1], C.iloc[k - 1 - lb]
-            o_ent, o_sai = O.iloc[k], O.iloc[ks]
-            contaminado = ruim.iloc[k - lb:ks + 1].any()
-            ok = c_fim.notna() & c_ini.notna() & o_ent.notna() & o_sai.notna() & ~contaminado
-            tick = ok[ok].index.tolist()
-            if len(tick) < 4:
+            c_fim, c_ini, o_ent, o_sai = self.C[k - 1], self.C[k - 1 - lookback], self.O[k], self.O[ks]
+            ok = ~(np.isnan(c_fim) | np.isnan(c_ini) | np.isnan(o_ent) | np.isnan(o_sai))
+            ok &= ~self.contaminado(k - lookback, ks)
+            j = np.where(ok)[0]
+            if len(j) < 4:
                 continue
-            lista.append({
-                "data": d_ent,
-                "tick": np.array(tick),
-                "sinal": (c_fim[tick] / c_ini[tick] - 1).to_numpy(),
-                "bruto_long": ((o_sai[tick] / o_ent[tick] - 1) * 100).to_numpy(),
-                "custo": np.array([custos[t] for t in tick]),
-            })
-        semanas[lb] = lista
-    return semanas
+            saida.append({"k": k, "ks": ks, "data": self.datas[k], "j": j,
+                          "sinal": c_fim[j] / c_ini[j] - 1,
+                          "bruto_long": (o_sai[j] / o_ent[j] - 1) * 100,
+                          "custo": self.custo[j]})
+        return saida
 
 
-def rodar(semanas, por_lado):
+def selecionar(periodos, por_lado):
+    pos = []
+    for p in periodos:
+        k = min(por_lado, len(p["j"]) // 2)
+        ordem = np.argsort(p["sinal"])
+        for idx, lado in ((ordem[:k], 1), (ordem[-k:], -1)):
+            for i in idx:
+                pos.append({"k": p["k"], "ks": p["ks"], "data": p["data"], "j": p["j"][i],
+                            "lado": lado, "custo": p["custo"][i],
+                            "bruto_simples": lado * p["bruto_long"][i]})
+    return pos
+
+
+def executar(m, pos, stop=None, alvo=None, dca=None, alav=ALAV_BASE):
+    """
+    Resultado por posicao, em % do nocional PLANEJADO (pessimista).
+
+    Tranches: cada entrada e (fracao do nocional, preco). No DCA com reforco,
+    se o preco nao chegar ao nivel, so metade fica investida - e o resultado
+    e contado assim, sem dar tamanho cheio aos acertos.
+    """
+    limite_liq = (1 / alav) * 100 - 0.5
+    nocional = MARGEM * alav
     linhas = []
-    for s in semanas:
-        n = len(s["tick"])
-        k = min(por_lado, n // 2)
-        ordem = np.argsort(s["sinal"])
-        for idx, lado in [(ordem[:k], 1), (ordem[-k:], -1)]:
-            for j in idx:
-                bruto = lado * s["bruto_long"][j]
-                linhas.append({"data": s["data"], "ticker": s["tick"][j], "lado": lado,
-                               "bruto": bruto, "custo": s["custo"][j],
-                               "pess": bruto - ESTRESSE * s["custo"][j]})
+    for p in pos:
+        k, ks, j, lado = p["k"], p["ks"], p["j"], p["lado"]
+        O, H, L = m.O[k:ks + 1, j], m.H[k:ks, j], m.L[k:ks, j]
+        saida, liquidado = O[-1], False
+
+        if dca == "tres_parcelas" and ks - k >= 3:
+            tranches = [(1 / 3, O[0]), (1 / 3, O[1]), (1 / 3, O[2])]
+        elif dca == "reforco":
+            nivel = O[0] * (1 - lado * REFORCO_QUEDA / 100)
+            gatilho = nivel * (1 - lado * PENETRACAO / 100)
+            tranches = [(0.5, O[0])]
+            for d in range(len(H)):
+                if d > 0 and (O[d] - nivel) * lado <= 0:          # abriu alem do nivel
+                    tranches.append((0.5, O[d]))
+                    break
+                extremo = L[d] if lado == 1 else H[d]
+                if (extremo - gatilho) * lado <= 0:
+                    tranches.append((0.5, nivel))
+                    break
+        else:
+            tranches = [(1.0, O[0])]
+
+        entrada = O[0]
+        if dca is None and (stop or alvo):
+            px_stop = entrada * (1 - lado * stop / 100) if stop else None
+            px_alvo = entrada * (1 + lado * alvo / 100) if alvo else None
+            gat_alvo = px_alvo * (1 + lado * PENETRACAO / 100) if alvo else None
+            for d in range(len(H)):
+                pior = L[d] if lado == 1 else H[d]
+                melhor = H[d] if lado == 1 else L[d]
+                if (entrada - pior) / entrada * 100 * lado >= limite_liq:
+                    liquidado = True
+                    break
+                if d > 0 and px_stop and (O[d] - px_stop) * lado <= 0:
+                    saida = O[d]; break
+                if d > 0 and px_alvo and (O[d] - px_alvo) * lado >= 0:
+                    saida = O[d]; break
+                if px_stop and (pior - px_stop) * lado <= 0:     # stop antes do alvo
+                    saida = px_stop * (1 - lado * PENETRACAO / 100)  # escorrega contra
+                    break
+                if gat_alvo and (melhor - gat_alvo) * lado >= 0:
+                    saida = px_alvo; break
+        else:
+            extremo = L.min() if lado == 1 else H.max()
+            if (entrada - extremo) / entrada * 100 * lado >= limite_liq:
+                liquidado = True
+
+        investido = sum(f for f, _ in tranches)
+        if liquidado:
+            bruto = -(1 / alav) * 100 * investido                  # perde a margem investida
+        else:
+            bruto = sum(f * (saida / e - 1) * 100 * lado for f, e in tranches)
+        custo = p["custo"] * investido
+        pess = bruto - ESTRESSE * custo
+        linhas.append({"data": p["data"], "lado": lado, "custo": custo, "bruto": bruto,
+                       "pess": pess, "por_investido": pess / investido,
+                       "investido": investido, "liquidado": liquidado,
+                       "usd": pess * nocional / 100})
     return pd.DataFrame(linhas)
 
 
-def sorteio(semanas, por_lado, reps, rng):
-    """Total em US$ de cada repeticao escolhendo posicoes ao acaso."""
+def teste_t(dif_semanal):
+    d = dif_semanal.dropna()
+    if len(d) < 10 or d.std() == 0:
+        return 0.0
+    return float(d.mean() / (d.std() / np.sqrt(len(d))))
+
+
+def sorteio(periodos, por_lado, reps, rng):
     totais = np.zeros(reps)
-    for s in semanas:
-        n = len(s["tick"])
+    for p in periodos:
+        n = len(p["j"])
         k = min(por_lado, n // 2)
-        escolha = rng.random((reps, n)).argsort(axis=1)[:, :2 * k]
-        bl, cu = s["bruto_long"][escolha], s["custo"][escolha]
-        longs = (bl[:, :k] - ESTRESSE * cu[:, :k]).sum(axis=1)
-        shorts = (-bl[:, k:] - ESTRESSE * cu[:, k:]).sum(axis=1)
-        totais += (longs + shorts) * NOCIONAL / 100
+        esc = rng.random((reps, n)).argsort(axis=1)[:, :2 * k]
+        bl, cu = p["bruto_long"][esc], p["custo"][esc]
+        totais += ((bl[:, :k] - ESTRESSE * cu[:, :k]).sum(1)
+                   + (-bl[:, k:] - ESTRESSE * cu[:, k:]).sum(1)) * MARGEM * ALAV_BASE / 100
     return totais
 
 
-# ============================================================= metricas
-def por_semana(pos):
-    return pos.groupby("data")["pess"].sum() * NOCIONAL / 100
+# ============================================================= apoio
+def semanal(df):
+    return df.groupby("data")["usd"].sum()
 
 
 def drawdown(serie):
-    curva = serie.cumsum()
-    return float((curva.cummax().clip(lower=0) - curva).max())
+    c = serie.cumsum()
+    return float((c.cummax().clip(lower=0) - c).max())
+
+
+fmt = lambda x: f"{x:+.2f}".replace(".", ",")
+usd = lambda x: f"{x:+,.0f}".replace(",", ".")
+ok = lambda b: "SIM" if b else "nao"
+
+
+def dividir(df):
+    return df[df["data"] < INICIO_VALIDACAO], df[df["data"] >= INICIO_VALIDACAO]
 
 
 def main():
     rng = np.random.default_rng(42)
     liq = universo_liquido()
-    print(f"{len(liq)} perps liquidos com acao correspondente")
-
     hist, fonte = carregar_historico(sorted(liq) + ["QQQ"])
 
-    # Conferencia acao x perp
     aceitos, rejeitados = {}, []
     for t, info in liq.items():
         if t not in hist:
@@ -206,132 +305,165 @@ def main():
             continue
         razao = float(hist[t]["Close"].iloc[-1]) / info["preco_perp"]
         if abs(razao - 1) > TOLERANCIA_PRECO:
-            rejeitados.append(f"{t}(preco {razao:.2f}x)")
+            rejeitados.append(f"{t}({razao:.2f}x)")
             continue
         aceitos[t] = info
     print("Aceitos:", len(aceitos), "| Rejeitados:", rejeitados)
 
-    O = pd.DataFrame({t: hist[t]["Open"] for t in aceitos}).sort_index()
-    C = pd.DataFrame({t: hist[t]["Close"] for t in aceitos}).sort_index()
-    custos = {t: aceitos[t]["custo"] for t in aceitos}
-    semanas = preparar_semanas(O, C, custos)
+    m = Mercado(hist, {t: aceitos[t]["custo"] for t in aceitos})
+    per = {lb: m.periodos("W", lb) for lb in (3, 5, 10)}
+    base_pos = selecionar(per[LOOKBACK], POR_LADO)
+    base = executar(m, base_pos)
+    sem = semanal(base)
+    base_tr, base_va = dividir(base)
 
-    base = semanas[LOOKBACK]
-    pos = rodar(base, POR_LADO)
-    sem = por_semana(pos)
+    M1, M2, M3 = [], [], []
 
-    L = []
-    fmt = lambda x: f"{x:+.2f}".replace(".", ",")
-    usd = lambda x: f"{x:+,.0f}".replace(",", ".")
+    # ======================================== MENSAGEM 1: VEREDITO
+    anos = base.groupby(base["data"].dt.year)
+    anos_pos = sum(semanal(sub).sum() > 0 for _, sub in anos)
+    n_anos = anos.ngroups
 
-    # ---------- 1. visao geral
-    L += ["REVERSAO SEMANAL - TESTE LONGO",
-          f"{sem.index.min():%m/%Y} a {sem.index.max():%m/%Y} | {len(sem)} semanas | "
-          f"{len(aceitos)} acoes",
-          f"compra 4 que mais cairam, vende 4 que mais subiram | custo x1,5", "",
-          "[1] RESULTADO GERAL",
-          f"  por posicao: {fmt(pos['pess'].mean())}% | acerto {(pos['pess'] > 0).mean()*100:.0f}%",
-          f"  semanas positivas: {(sem > 0).mean()*100:.0f}%",
-          f"  total: US$ {usd(sem.sum())} | media/semana US$ {usd(sem.mean())}",
-          f"  drawdown max: US$ {drawdown(sem):,.0f}".replace(",", "."), ""]
+    grade = {}
+    for lb in (3, 5, 10):
+        for k in (2, 4, 6):
+            grade[(lb, k)] = executar(m, selecionar(per[lb], k))["pess"].mean()
+    celulas = sum(v > 0 for v in grade.values())
 
-    # ---------- 2. ano a ano
-    L.append("[2] ANO A ANO (por posicao | sem+ | total)")
-    anos_pos = 0
-    for ano, sub in pos.groupby(pos["data"].dt.year):
-        s_ano = por_semana(sub)
-        anos_pos += s_ano.sum() > 0
-        L.append(f"  {ano}: {fmt(sub['pess'].mean())}% | {(s_ano > 0).mean()*100:.0f}% | "
-                 f"US$ {usd(s_ano.sum())}")
-    n_anos = pos["data"].dt.year.nunique()
-    L += [f"  anos positivos: {anos_pos} de {n_anos}", ""]
+    aleat = sorteio(per[LOOKBACK], POR_LADO, REPS_SORTEIO, rng)
+    p_acaso = (aleat >= sem.sum()).mean()
+    bruto_med, custo_med = base["bruto"].mean(), base["custo"].mean()
 
-    # ---------- 3. regimes
-    L.append("[3] REGIME DE MERCADO (QQQ)")
+    crit = [
+        ("resultado geral positivo (custo x1,5)", base["pess"].mean() > 0,
+         f"{fmt(base['pess'].mean())}% por posicao"),
+        ("60%+ dos anos positivos", anos_pos / n_anos >= 0.6, f"{anos_pos} de {n_anos}"),
+        ("6+ de 9 na vizinhanca", celulas >= 6, f"{celulas} de 9"),
+        ("acaso vence menos de 5%", p_acaso < 0.05, f"{p_acaso*100:.1f}%"),
+        ("custo suportavel 2x+ o estimado", bruto_med >= 2 * custo_med,
+         f"{bruto_med / custo_med:.1f}x".replace(".", ",") if custo_med else "-"),
+    ]
+    aprovada = all(c[1] for c in crit)
+
+    M1 += ["REVERSAO SEMANAL - TESTE LONGO",
+           f"{sem.index.min():%m/%Y} a {sem.index.max():%m/%Y} | {len(sem)} semanas | "
+           f"{len(aceitos)} acoes", "",
+           f"VEREDITO: {'APROVADA' if aprovada else 'REPROVADA'}"]
+    for nome, passou, valor in crit:
+        M1.append(f"  {'✅' if passou else '❌'} {nome}: {valor}")
+    M1 += ["",
+           "RESULTADO GERAL (2x)",
+           f"  semanas positivas: {(sem > 0).mean()*100:.0f}%",
+           f"  total: US$ {usd(sem.sum())} | media/semana US$ {usd(sem.mean())}",
+           f"  drawdown max: US$ {drawdown(sem):,.0f}".replace(",", "."), "",
+           "ANO A ANO (por posicao | total)"]
+    for ano, sub in anos:
+        M1.append(f"  {ano}: {fmt(sub['pess'].mean())}% | US$ {usd(semanal(sub).sum())}")
+
+    # ======================================== MENSAGEM 2: DIAGNOSTICO
+    M2.append("REGIME DE MERCADO (QQQ)")
     if "QQQ" in hist:
         q = hist["QQQ"]["Close"]
         acima = (q > q.rolling(200).mean()).shift(1)
         vol = q.pct_change().rolling(20).std()
         agitado = (vol > vol.rolling(252, min_periods=60).median()).shift(1)
-        for nome, serie in (("alta (QQQ > media 200)", acima), ("agitado (vol alta)", agitado)):
-            marca = pos["data"].map(lambda d: serie.asof(d))
-            for valor, rot in ((True, "sim"), (False, "nao")):
-                sub = pos[marca == valor]
+        for nome, serie in (("mercado em alta", acima), ("mercado agitado", agitado)):
+            marca = base["data"].map(lambda d: serie.asof(d))
+            for val, rot in ((True, "sim"), (False, "nao")):
+                sub = base[marca == val]
                 if len(sub):
-                    L.append(f"  {nome} = {rot}: {fmt(sub['pess'].mean())}% "
-                             f"(n={len(sub)})")
-    L.append("")
+                    M2.append(f"  {nome} = {rot}: {fmt(sub['pess'].mean())}%")
+    M2 += ["", "SPOT x 2x (so compra = o que o spot permite)"]
+    for rot, lado in (("so compra (perdedores)", 1), ("so venda (vencedores)", -1)):
+        sub = base[base["lado"] == lado]
+        M2.append(f"  {rot}: {fmt(sub['pess'].mean())}%")
 
-    # ---------- 4. pernas
-    L.append("[4] DE ONDE VEM O RESULTADO")
-    for lado, rot in ((1, "compra dos perdedores"), (-1, "venda dos vencedores")):
-        sub = pos[pos["lado"] == lado]
-        L.append(f"  {rot}: {fmt(sub['pess'].mean())}% | US$ {usd(por_semana(sub).sum())}")
-    L.append("")
+    b1 = executar(m, base_pos, alav=1.0)
+    for rot, df in (("1x", b1), ("2x", base)):
+        s = semanal(df)
+        M2.append(f"  {rot}: total US$ {usd(s.sum())} | DD US$ {drawdown(s):,.0f} | "
+                  f"pior semana US$ {usd(s.min())} | liquidacoes {int(df['liquidado'].sum())}"
+                  .replace(",", "."))
 
-    # ---------- 5. vizinhanca
-    L.append("[5] VIZINHANCA DE PARAMETROS (por posicao)")
-    L.append("  pregoes \\ por lado:    2        4        6")
-    positivos_grade = 0
+    M2 += ["", "VIZINHANCA (pregoes x posicoes por lado)"]
     for lb in (3, 5, 10):
-        cel = []
-        for k in (2, 4, 6):
-            m = rodar(semanas[lb], k)["pess"].mean()
-            positivos_grade += m > 0
-            cel.append(f"{fmt(m):>7s}%")
-        L.append(f"  {lb:>2d} pregoes:        " + " ".join(cel))
-    L += [f"  celulas positivas: {positivos_grade} de 9", ""]
+        M2.append(f"  {lb:>2d}p: " + "  ".join(f"{fmt(grade[(lb, k)])}%" for k in (2, 4, 6)))
 
-    # ---------- 6. margem de custo
-    bruto_medio = pos["bruto"].mean()
-    custo_medio = pos["custo"].mean()
-    L += ["[6] MARGEM CONTRA O CUSTO",
-          f"  ganho bruto medio: {fmt(bruto_medio)}% por posicao",
-          f"  custo estimado: {fmt(custo_medio)}% | com estresse: {fmt(custo_medio*ESTRESSE)}%",
-          f"  custo maximo suportavel: {fmt(bruto_medio)}% "
-          f"({bruto_medio / custo_medio:.1f}x o estimado)".replace(".", ","), ""]
-
-    # ---------- 7. trimestres
     janelas = sem.rolling(JANELA).sum().dropna()
-    L += [f"[7] JANELAS DE {JANELA} SEMANAS",
-          f"  trimestres negativos: {(janelas < 0).mean()*100:.0f}%",
-          f"  pior trimestre: US$ {usd(janelas.min())}",
-          f"  melhor trimestre: US$ {usd(janelas.max())}", ""]
+    M2 += ["", "TRIMESTRES (12 semanas)",
+           f"  negativos: {(janelas < 0).mean()*100:.0f}% | pior US$ {usd(janelas.min())} | "
+           f"melhor US$ {usd(janelas.max())}",
+           "", "MARGEM CONTRA O CUSTO",
+           f"  bruto {fmt(bruto_med)}% | custo {fmt(custo_med)}% | x1,5 {fmt(custo_med*ESTRESSE)}%"]
 
-    # ---------- 8. confianca
     medias = np.array([rng.choice(sem.to_numpy(), len(sem)).mean() for _ in range(REPS_BOOTSTRAP)])
     lo, hi = np.percentile(medias, [2.5, 97.5])
-    total_real = sem.sum()
-    aleat = sorteio(base, POR_LADO, REPS_SORTEIO, rng)
-    p = (aleat >= total_real).mean()
-    L += ["[8] ISSO E SORTE?",
-          f"  media semanal, intervalo 95%: US$ {usd(lo)} a US$ {usd(hi)}",
-          f"  sorteio: {REPS_SORTEIO} carteiras aleatorias, total medio US$ {usd(aleat.mean())}",
-          f"  chance do acaso bater a estrategia: {p*100:.1f}%", ""]
+    M2 += [f"  media semanal 95%: US$ {usd(lo)} a {usd(hi)}"]
 
-    # ---------- limitacoes
-    n_stooq = sum(1 for t in aceitos if fonte.get(t) == "stooq")
-    L += ["LIMITACOES",
-          "  - vies de sobrevivencia: universo e o de hoje",
-          "  - acao nao e o perp: o perp pode descolar",
-          f"  - fora do teste: {', '.join(rejeitados) or 'nenhum'}",
-          f"  - fonte: {len(aceitos)-n_stooq} Yahoo, {n_stooq} Stooq"]
+    # ======================================== MENSAGEM 3: VARIACOES
+    M3 += ["VARIACOES", "treino 2015-21 | validacao 2022-26 | US$ ganho / US$ investido",
+           "adota so se melhorar com t >= 2 NOS DOIS periodos", "",
+           f"BASE: treino {fmt(base_tr['pess'].mean())}% | valid {fmt(base_va['pess'].mean())}%", ""]
 
-    texto = "\n".join(L)
-    print(texto)
+    def ponderado(df):
+        """Dolar ganho / dolar investido (soma sobre soma), em %."""
+        inv = df["investido"].sum()
+        return df["pess"].sum() / inv if inv else float("nan")
+
+    def por_semana_ponderado(df):
+        g = df.groupby("data")
+        return g["pess"].sum() / g["investido"].sum()
+
+    base_sem = por_semana_ponderado(base)
+
+    def linha(rot, df):
+        """Mesmas semanas da base; compara retorno por dolar investido, semana a semana."""
+        dif = (por_semana_ponderado(df) - base_sem).dropna()
+        t_tr = teste_t(dif[dif.index < INICIO_VALIDACAO])
+        t_va = teste_t(dif[dif.index >= INICIO_VALIDACAO])
+        tr, va = dividir(df)
+        melhora = t_tr >= T_MINIMO and t_va >= T_MINIMO
+        M3.append(f"  {rot}: {fmt(ponderado(tr))}% | {fmt(ponderado(va))}% "
+                  f"| t {t_tr:+.1f}/{t_va:+.1f} -> {ok(melhora)}".replace(".", ","))
+        return melhora
+
+    familias = {}
+    M3.append("STOP LOSS")
+    familias["stop"] = sum(linha(f"stop {s:.0f}%", executar(m, base_pos, stop=s)) for s in STOPS)
+    M3.append("ALVO (vende ao atingir)")
+    familias["alvo"] = sum(linha(f"alvo {a:.0f}%", executar(m, base_pos, alvo=a)) for a in ALVOS)
+    M3.append("DCA")
+    familias["dca"] = linha("3 parcelas em 3 dias", executar(m, base_pos, dca="tres_parcelas"))
+    ref = executar(m, base_pos, dca="reforco")
+    familias["dca"] += linha(f"reforco se cair {REFORCO_QUEDA:.0f}%", ref)
+    M3.append(f"    (reforco acionado em {(ref['investido'] > 0.5).mean()*100:.0f}% das posicoes)")
+
+    M3.append("FREQUENCIA")
+    for rot, freq, lb in (("diaria (1 pregao)", "D", 1), ("quinzenal (10 pregoes)", "2W", 10)):
+        df = executar(m, selecionar(m.periodos(freq, lb), POR_LADO))
+        tr, va = dividir(df)
+        n_ano = len(df) / max(df["data"].dt.year.nunique(), 1)
+        M3.append(f"  {rot}: {fmt(tr['pess'].mean())}% | {fmt(va['pess'].mean())}% | "
+                  f"{n_ano:.0f} posicoes/ano | total US$ {usd(df['usd'].sum())}")
+    M3.append(f"  semanal (base): {fmt(base_tr['pess'].mean())}% | {fmt(base_va['pess'].mean())}% | "
+              f"{len(base)/max(n_anos,1):.0f} posicoes/ano | total US$ {usd(base['usd'].sum())}")
+
+    M3 += ["", "LIMITACOES",
+           "  - universo de hoje: vies de sobrevivencia",
+           "  - acao nao e o perp: o perp pode descolar",
+           "  - alvo e reforco exigem o preco passar 0,2% do nivel",
+           "  - stop executa 0,2% pior que o nivel",
+           f"  - fora do teste: {', '.join(rejeitados) or 'nenhum'}"]
+
+    for bloco in (M1, M2, M3):
+        texto = "\n".join(bloco)
+        print(texto + "\n")
+        if os.environ.get("TELEGRAM_TOKEN"):
+            avisar(texto[:3900])
+
     with open("relatorio_reversao.txt", "w", encoding="utf-8") as f:
-        f.write(texto)
+        f.write("\n\n".join("\n".join(b) for b in (M1, M2, M3)))
     sem.rename("usd").to_csv("reversao_semanas.csv")
-
-    if os.environ.get("TELEGRAM_TOKEN"):
-        bloco = ""
-        for parte in texto.split("\n\n"):
-            if len(bloco) + len(parte) > 3800:
-                avisar(bloco)
-                bloco = ""
-            bloco += parte + "\n\n"
-        if bloco.strip():
-            avisar(bloco)
 
 
 if __name__ == "__main__":
