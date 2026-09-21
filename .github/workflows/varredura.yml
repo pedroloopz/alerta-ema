@@ -1,0 +1,47 @@
+name: varredura
+
+# Roda so quando voce mandar. Testa 81 combinacoes de parametros.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  varrer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Rodar varredura
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BINANCE_KLINES: https://fapi.asterdex.com/fapi/v1/klines
+        run: python backtest_varredura.py
+
+      - name: Salvar varredura.csv no repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add varredura.csv || true
+          git diff --staged --quiet || git commit -m "resultado da varredura"
+          git pull --rebase --autostash || true
+          git push || true
+
+      - name: Avisar falha no Telegram
+        if: failure()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ A varredura FALHOU. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
