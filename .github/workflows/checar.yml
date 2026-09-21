@@ -16,5 +16,17 @@ jobs:
 
       - run: pip install requests
 
-      - name: Conferir simbolos na Binance
+      - name: Conferir simbolos na corretora
         run: python checar_simbolos.py
+
+      # Confirma que o token e o chat ID guardados nos secrets funcionam.
+      - name: Mandar mensagem de teste no Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST \
+            "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            -d text="Teste do robo: token e chat ID funcionando." \
+            | head -c 300
