@@ -3,7 +3,6 @@ name: alerta-ema
 on:
   schedule:
     # A cada 30 min, todos os dias: perp de acao negocia fora do pregao.
-    # Candle de 4h nao exige checagem mais frequente que isso.
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
@@ -29,10 +28,21 @@ jobs:
           BINANCE_KLINES: https://fapi.asterdex.com/fapi/v1/klines
         run: python alerta_ema.py
 
-      - name: Salvar estado
+      - name: Salvar estado e registro de sinais
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           git add estado.json sinais.csv || true
           git diff --staged --quiet || git commit -m "atualiza estado"
+          git pull --rebase --autostash || true
           git push || true
+
+      - name: Avisar falha no Telegram
+        if: failure()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ O robo de alertas FALHOU. Enquanto isso nao for resolvido, nenhum sinal chega. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
