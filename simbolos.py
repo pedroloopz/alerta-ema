@@ -70,7 +70,7 @@ SETORES = {
     "espaco": ["SPCXUSDT", "RKLBUSDT", "ASTSUSDT"],
     "energia": ["XLEUSDT", "URNMUSDT", "USARUSDT"],
     "saude": ["LLYUSDT", "NVOUSDT", "MRNAUSDT", "HIMSUSDT"],
-    "consumo": ["WMTUSDT", "HDUSDT", "DISUSDT", "NKEUSDT", "DKNGUSDT", "GMEUSDT"],
+    "consumo": ["WMTUSDT", "HDUSDT", "DISUSDT", "DKNGUSDT", "GMEUSDT"],
     "financeiro": ["JPMUSDT", "VUSDT", "BXUSDT", "PAYPUSDT"],
     "indices": ["QQQUSDT", "UVXYUSDT", "KORUUSDT", "MUUUSDT", "KSTRUSDT",
                 "SNXXUSDT", "LYTEUSDT", "CBRSUSDT", "AGPUUSDT"],
