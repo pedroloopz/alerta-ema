@@ -1,0 +1,61 @@
+name: bot
+
+on:
+  schedule:
+    # De hora em hora, dias uteis, 13h15 a 22h15 UTC (10h15 a 19h15 em Brasilia).
+    # O proprio bot decide o que fazer em cada horario.
+    - cron: "15 13-22 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que rodar agora"
+        type: choice
+        default: tudo
+        options: [tudo, monitor, varredura, fechamento, auto]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-carteira
+  cancel-in-progress: false
+
+jobs:
+  rodar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pandas requests matplotlib yfinance lxml
+
+      - name: Rodar o bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MODO: ${{ inputs.modo || 'auto' }}
+        run: python bot.py
+
+      - name: Salvar carteira e estado
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add carteira.json estado_bot.json placar_notas.csv 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "bot: atualiza carteira"
+          git pull --rebase --autostash || true
+          git push || true
+
+      - name: Avisar falha no Telegram
+        if: failure()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ O bot da carteira FALHOU. Enquanto isso, nenhum alerta chega. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
