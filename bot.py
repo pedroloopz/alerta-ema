@@ -9,7 +9,8 @@ BOT DA CARTEIRA DO PEDRO
 
 O bot ASSUME que voce executou cada ordem e atualiza a carteira sozinho.
 Se nao executou, responda /nao no Telegram e ele desfaz a ultima mensagem.
-Comandos: /carteira  /nao  /recusar NVDA  /reserva 1200  /unidades CRWV 12.5
+Comandos EUA: /carteira  /nao  /recusar NVDA  /reserva 1200  /unidades CRWV 12.5
+Comandos B3:  /nao_br  /reserva_br 2000  (os demais servem para os dois mercados)
 """
 
 import copy
@@ -352,12 +353,15 @@ def recusado(est, ticker):
     return bool(ate) and ate >= hoje_ny()
 
 
-def processar_comandos(cart, est, precos):
-    respostas = []
-    for evento in ler_comandos(est):
+def processar_comandos(cart, est, precos, eventos):
+    """Trata o que e dos EUA e devolve o resto para a B3."""
+    respostas, restantes = [], []
+    for evento in eventos:
         if evento[0] == "botao":
             if evento[1].startswith("rec|"):
                 recusar(cart, est, evento[1][4:])
+            else:
+                restantes.append(evento)
             continue
         cmd, msg_id = evento[1], evento[2]
         nome = cmd[0].lower().split("@")[0]
@@ -365,28 +369,31 @@ def processar_comandos(cart, est, precos):
             alvo = cmd[1].upper()
             chaves = [k for k, v in est.get("pendentes", {}).items()
                       if alvo in (v.get("ticker"), v.get("novo"))]
-            feitos = [recusar(cart, est, k) for k in chaves]
-            apagar(msg_id)
-            if not any(feitos):
-                respostas.append(f"Nao achei sugestao pendente de {alvo}.")
-            continue
-        if nome == "/nao" and est.get("ultima"):
+            if chaves:
+                for k in chaves:
+                    recusar(cart, est, k)
+                apagar(msg_id)
+            else:
+                restantes.append(evento)
+        elif nome == "/nao" and est.get("ultima"):
             antes = est["ultima"]
             cart.clear(); cart.update(antes["carteira"])
             est["swings"] = antes["swings"]
             est["silencio"] = {"data": hoje_ny(), "chaves": antes.get("chaves", [])}
             est["ultima"] = None
-            respostas.append("↩️ Desfeito: a carteira voltou ao estado antes da ultima ordem.\n"
-                             "Essas ordens nao serao repetidas hoje.")
+            respostas.append("↩️ EUA: desfeito. Essas ordens nao serao repetidas hoje.")
         elif nome == "/reserva" and len(cmd) == 2:
             cart["reserva_usdt"] = float(cmd[1].replace(",", "."))
-            respostas.append(f"✅ Reserva ajustada para US$ {num(cart['reserva_usdt'])}")
+            respostas.append(f"✅ Reserva EUA ajustada para US$ {num(cart['reserva_usdt'])}")
         elif nome == "/unidades" and len(cmd) == 3 and cmd[1].upper() in cart["ativos"]:
             cart["ativos"][cmd[1].upper()]["unidades"] = float(cmd[2].replace(",", "."))
             respostas.append(f"✅ {cmd[1].upper()}: {cmd[2]} unidades")
         elif nome == "/carteira":
             respostas.append(texto_carteira(cart, est, precos))
-    return respostas
+            restantes.append(evento)                      # a B3 responde tambem
+        else:
+            restantes.append(evento)
+    return respostas, restantes
 
 
 def texto_carteira(cart, est, precos):
@@ -702,7 +709,8 @@ def main():
 
     limite = str((pd.Timestamp(hoje_ny()) - pd.Timedelta(days=2)).date())
     est["pendentes"] = {k: v for k, v in est.get("pendentes", {}).items() if v["data"] >= limite}
-    respostas = processar_comandos(cart, est, precos)
+    eventos = ler_comandos(est)
+    respostas, restantes = processar_comandos(cart, est, precos, eventos)
     for resp in respostas:
         enviar(resp)
 
@@ -746,9 +754,18 @@ def main():
             fechamento(cart, est, univ, dados, notas, spy_ok, brutos)
             est["fechamento_em"] = hoje_str
     else:
-        print("Sem pregao hoje - nada a fazer.")
+        print("EUA sem pregao hoje.")
 
     salvar(cart, est)
+
+    # ---------------- B3: mesmo esquema, feriados e horarios proprios
+    if os.path.exists("carteira_b3.json"):
+        try:
+            import b3
+            b3.rodar(restantes, MODO, agora)
+        except Exception as e:
+            enviar(f"⚠️ A parte da B3 falhou nesta execucao: {e}")
+            raise
 
 
 if __name__ == "__main__":
