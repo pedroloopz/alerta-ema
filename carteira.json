@@ -1,0 +1,50 @@
+{
+  "inicio": "2026-09-21",
+  "base_por_ativo": 1000,
+  "reserva_usdt": 1000,
+  "ativos": {
+    "CRWV": {
+      "token": "CRWVB",
+      "unidades": 12.039821,
+      "preco_print": 85.89,
+      "desde": "2026-09-21"
+    },
+    "NFLX": {
+      "token": "NFLXB",
+      "unidades": 13.93083,
+      "preco_print": 73.43,
+      "desde": "2026-09-21"
+    },
+    "MVLL": {
+      "token": "MVLLB",
+      "unidades": 29.18549,
+      "preco_print": 34.5,
+      "desde": "2026-09-21"
+    },
+    "ENPH": {
+      "token": "ENPHon",
+      "unidades": 28.76807,
+      "preco_print": 34.82,
+      "desde": "2026-09-21"
+    },
+    "BE": {
+      "token": "BEB",
+      "unidades": 3.6663,
+      "preco_print": 273.08,
+      "desde": "2026-09-21"
+    },
+    "UBER": {
+      "token": "UBERon",
+      "unidades": 14.0099274,
+      "preco_print": 71.0,
+      "desde": "2026-09-21"
+    },
+    "UNH": {
+      "token": "UNHon",
+      "unidades": 2.63575,
+      "preco_print": 377.3,
+      "desde": "2026-09-21"
+    }
+  },
+  "capital_inicial": 8056.05
+}
