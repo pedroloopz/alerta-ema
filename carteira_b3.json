@@ -1,6 +1,6 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 100.0,
+  "reserva_brl": 256.24000549316406,
   "capital_inicial": 29745.11,
   "ativos": {
     "LREN3": {
@@ -60,7 +60,7 @@
       "desde": "2026-09-21"
     },
     "MOVI3": {
-      "qtd": 200,
+      "qtd": 182,
       "pm": 7.86,
       "base": 1572.0,
       "preco_print": 8.48,
