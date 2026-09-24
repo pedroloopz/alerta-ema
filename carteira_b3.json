@@ -1,6 +1,6 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 256.24000549316406,
+  "reserva_brl": 633.5399961471558,
   "capital_inicial": 29745.11,
   "ativos": {
     "LREN3": {
@@ -18,7 +18,7 @@
       "desde": "2026-09-21"
     },
     "VAMO3": {
-      "qtd": 1000,
+      "qtd": 902,
       "pm": 3.47,
       "base": 3470.0,
       "preco_print": 3.66,

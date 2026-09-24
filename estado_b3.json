@@ -3,7 +3,7 @@
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
-      "reserva_brl": 100.0,
+      "reserva_brl": 256.24000549316406,
       "capital_inicial": 29745.11,
       "ativos": {
         "LREN3": {
@@ -63,7 +63,7 @@
           "desde": "2026-09-21"
         },
         "MOVI3": {
-          "qtd": 200,
+          "qtd": 182,
           "pm": 7.86,
           "base": 1572.0,
           "preco_print": 8.48,
@@ -88,14 +88,14 @@
     "swings": {},
     "vendas_mes": {
       "mes": "2026-09",
-      "acoes": 0.0,
-      "lucro_acoes": 0.0,
+      "acoes": 156.24000549316406,
+      "lucro_acoes": 14.760005493164057,
       "bdr": 0.0,
       "lucro_bdr": 0.0
     },
     "adiadas": {},
     "chaves": [
-      "realiza:MOVI3"
+      "realiza:VAMO3"
     ]
   },
   "validado": true,
@@ -107,8 +107,8 @@
   "silencio": {},
   "vendas_mes": {
     "mes": "2026-09",
-    "acoes": 156.24000549316406,
-    "lucro_acoes": 14.760005493164057,
+    "acoes": 533.5399961471558,
+    "lucro_acoes": 51.99999614715574,
     "bdr": 0.0,
     "lucro_bdr": 0.0
   },

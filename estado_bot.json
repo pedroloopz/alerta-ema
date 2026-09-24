@@ -88,23 +88,7 @@
   "revisar": {},
   "trocas": [],
   "desastre": {},
-  "pendentes": {
-    "metade:O": {
-      "tipo": "metade",
-      "ticker": "O",
-      "meia": 250.0,
-      "un": 4.4130625466231415,
-      "pm_antes": 56.650001525878906,
-      "msg_id": 26,
-      "data": "2026-09-21"
-    },
-    "swing:WTW": {
-      "tipo": "swing",
-      "ticker": "WTW",
-      "msg_id": 27,
-      "data": "2026-09-21"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "varredura_em": "2026-09-23",
   "fechamento_em": "2026-09-23"
