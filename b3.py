@@ -140,56 +140,9 @@ def carregar():
         with open(ARQ_ESTADO, encoding="utf-8") as f:
             est.update(json.load(f))
     if est["vendas_mes"]["mes"] != hoje()[:7]:          # virou o mes: zera o contador
-        fechar_mes_darf(est, est["vendas_mes"])
         est["vendas_mes"] = {"mes": hoje()[:7], "acoes": 0.0, "lucro_acoes": 0.0,
                              "bdr": 0.0, "lucro_bdr": 0.0}
     return cart, est
-
-
-# ================================================================ DARF
-MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
-
-
-def ir_do_mes(v):
-    """IR estimado do mes: acoes so se passou da isencao; BDR sempre. Nao desconta
-    prejuizo de meses anteriores - e uma estimativa, confira antes de pagar."""
-    ir = max(v["lucro_bdr"], 0) * ALIQUOTA
-    if v["acoes"] > ISENCAO:
-        ir += max(v["lucro_acoes"], 0) * ALIQUOTA
-    return ir
-
-
-def fechar_mes_darf(est, v):
-    """Na virada do mes, guarda o DARF do mes que fechou (vence no ultimo dia util
-    do mes seguinte, ou seja, o mes atual)."""
-    ir = ir_do_mes(v)
-    if ir < 1:
-        return
-    vence = (pd.Timestamp(hoje()) + pd.offsets.BMonthEnd(0)).date()
-    est["darf"] = {"mes": v["mes"], "ir": round(ir, 2), "vence": str(vence),
-                   "avisado": False, "lembrado": False}
-
-
-def avisos_darf(est):
-    """Aviso na virada do mes e lembrete 5 dias uteis antes. Some depois de vencer."""
-    dv = est.get("darf")
-    if not dv:
-        return []
-    vence, h = pd.Timestamp(dv["vence"]), pd.Timestamp(hoje())
-    if h > vence:
-        est.pop("darf", None)
-        return []
-    ano, mes = dv["mes"].split("-")
-    rot = f"{MESES[int(mes) - 1]}/{ano[2:]}"
-    saida = []
-    if not dv["avisado"]:
-        dv["avisado"] = True
-        saida.append(f"🧾 DARF de {rot}: IR estimado {brl(dv['ir'])}, vence {vence:%d/%m}. "
-                     f"Estimativa do bot (nao desconta prejuizo de meses anteriores).")
-    elif not dv["lembrado"] and len(pd.bdate_range(h, vence)) <= 5:
-        dv["lembrado"] = True
-        saida.append(f"⏰ Lembrete: DARF de {rot} ({brl(dv['ir'])}) vence {vence:%d/%m}.")
-    return saida
 
 
 def salvar(cart, est):
@@ -206,11 +159,6 @@ def silenciado(est, chave):
 
 def recusado(est, t):
     ate = est.get("recusados", {}).get(t)
-    return bool(ate) and ate >= hoje()
-
-
-def em_pausa(est):
-    ate = est.get("pausa_ate")
     return bool(ate) and ate >= hoje()
 
 
@@ -317,16 +265,16 @@ def processar_eventos(cart, est, eventos, precos):
             est["adiadas"] = antes.get("adiadas", {})
             est["silencio"] = {"data": hoje(), "chaves": antes.get("chaves", [])}
             est["ultima"] = None
-            nucleo.enviar("↩️ B3: desfeito. Essas ordens nao serao repetidas hoje.", silencioso=True)
+            nucleo.enviar("↩️ B3: desfeito. Essas ordens nao serao repetidas hoje.")
         elif nome == "/reserva_br" and len(cmd) == 2:
             novo = float(cmd[1].replace(".", "").replace(",", "."))
             aporte = novo - cart["reserva_brl"]
             cart["reserva_brl"] = novo
             cart["capital_inicial"] = cart.get("capital_inicial", 0) + aporte
-            nucleo.enviar(f"✅ Reserva B3: {brl(novo)} (conta como aporte, nao como lucro)", silencioso=True)
+            nucleo.enviar(f"✅ Reserva B3: {brl(novo)} (conta como aporte, nao como lucro)")
         elif nome == "/unidades" and len(cmd) == 3 and cmd[1].upper() in cart["ativos"]:
             cart["ativos"][cmd[1].upper()]["qtd"] = int(float(cmd[2].replace(",", ".")))
-            nucleo.enviar(f"✅ {cmd[1].upper()}: {cmd[2]} acoes", silencioso=True)
+            nucleo.enviar(f"✅ {cmd[1].upper()}: {cmd[2]} acoes")
         elif nome == "/recusar" and len(cmd) == 2:
             alvo = cmd[1].upper()
             chaves = [k for k, v in est["pendentes"].items() if alvo in (v.get("ticker"), v.get("novo"))]
@@ -335,13 +283,7 @@ def processar_eventos(cart, est, eventos, precos):
                     recusar(cart, est, k)
                 nucleo.apagar(msg_id)
         elif nome == "/carteira":
-            nucleo.enviar(texto_carteira(cart, est, precos), silencioso=True)
-        elif nome == "/pausa" and len(cmd) == 2 and cmd[1].isdigit():
-            dias = int(cmd[1])
-            if dias == 0:
-                est.pop("pausa_ate", None)
-            else:
-                est["pausa_ate"] = str((pd.Timestamp(hoje()) + pd.Timedelta(days=dias)).date())
+            nucleo.enviar(texto_carteira(cart, est, precos))
 
 
 def texto_carteira(cart, est, precos):
@@ -429,7 +371,7 @@ def varredura(cart, est, univ, dados, indice_ok, ordens, pregoes):
     # --- candidatos a swing
     ocupados = set(cart["ativos"]) | set(est["swings"])
     menor = TAMANHO_SWING[-1][1] / 2
-    if len(est["swings"]) < MAX_SWINGS and cart["reserva_brl"] >= menor and not em_pausa(est):
+    if len(est["swings"]) < MAX_SWINGS and cart["reserva_brl"] >= menor:
         pre = []
         for t, ind in dados.items():
             if t in ocupados or t == INDICE or np.isnan(ind["sma200"]) or recusado(est, t) \
@@ -463,8 +405,6 @@ def varredura(cart, est, univ, dados, indice_ok, ordens, pregoes):
                                f"   2ª metade (~{brl(meia)}) so quando confirmar\n"
                                f"   Saida: quando cruzar a EMA 20 (hoje em {brl(dados[t]['ema20'])})"
                                + ("\n   🧾 BDR: venda futura paga 15% sobre o lucro" if eh_bdr(t) else "")
-                               + (f"\n   📅 Balanco em {bal:%d/%m}: risco de gap"
-                                  if (bal := nucleo.proximo_resultado(f"{t}.SA")) else "")
                                + (f"\n   Proximos da fila: {outros}" if outros else ""),
                                {"tipo": "swing", "ticker": t}))
 
@@ -474,8 +414,7 @@ def varredura(cart, est, univ, dados, indice_ok, ordens, pregoes):
     percentil = rs.rank(pct=True)
     notas = {t: nucleo.nota_tendencia(d, percentil.get(t, 0)) for t, d in dados.items()
              if t != INDICE and not np.isnan(d["sma200"])}
-    if sum(1 for x in est["trocas"] if x.get("semana") == semana) < TROCAS_POR_SEMANA and pregoes is not None \
-            and not em_pausa(est):
+    if sum(1 for x in est["trocas"] if x.get("semana") == semana) < TROCAS_POR_SEMANA and pregoes is not None:
         elegiveis = []
         for t, a in cart["ativos"].items():
             if t in dados and t in notas and not silenciado(est, f"troca:{t}"):
@@ -540,7 +479,7 @@ def registrar_placar(linhas):
 
 
 # ============================================================ FECHAMENTO
-def fechamento(cart, est, univ, dados, notas, indice_ok, fonte, total_usd=None):
+def fechamento(cart, est, univ, dados, notas, indice_ok, fonte):
     acoes = {t: d for t, d in dados.items() if t != INDICE}
     var = {t: d["preco"] / d["ontem"] - 1 for t, d in acoes.items()}
     meus = set(cart["ativos"]) | set(est["swings"])
@@ -621,40 +560,15 @@ def fechamento(cart, est, univ, dados, notas, indice_ok, fonte, total_usd=None):
     v = est["vendas_mes"]
     L.append(f"  🧾 vendas de acoes no mes: {brl(v['acoes'], 0)} de {brl(ISENCAO, 0)} isentos"
              + (f" | BDR: {brl(v['bdr'], 0)}" if v["bdr"] else ""))
-    if est.get("darf"):
-        L.append(f"  🧾 DARF pendente: {brl(est['darf']['ir'])} ate "
-                 f"{pd.Timestamp(est['darf']['vence']):%d/%m}")
-    if em_pausa(est):
-        L.append(f"  ⏸️ em pausa ate {pd.Timestamp(est['pausa_ate']):%d/%m}")
     L.append(f"  universo: {len(acoes)} acoes ({fonte})")
-    L += nucleo.aviso_balancos(set(cart["ativos"]) | set(est["swings"]), ".SA")
-    if datetime.now(SP).weekday() == 4:
-        L += consolidado(total, total_usd)
     nucleo.enviar_foto("mapa_b3.png", f"Mapa B3 {dia:%d/%m} - cor = variacao do dia")
-    nucleo.enviar("\n".join(L), silencioso=True)
-
-
-def consolidado(total_brl, total_usd):
-    """Sextas: patrimonio somado em R$ (EUA convertido pelo dolar do dia)."""
-    if not total_usd:
-        return []
-    cambio = nucleo.baixar(["BRL=X"], periodo="6mo").get("BRL=X")
-    if cambio is None:
-        return []
-    dolar = float(cambio["Close"].iloc[-1])
-    eua = total_usd * dolar
-    return ["", "🌎 PATRIMONIO DA SEMANA",
-            f"  EUA {brl(eua, 0)} (US$ {num(total_usd, 0)} x {brl(dolar)})",
-            f"  B3 {brl(total_brl, 0)}",
-            f"  TOTAL {brl(eua + total_brl, 0)}"]
+    nucleo.enviar("\n".join(L))
 
 
 # ================================================================== RODAR
-def rodar(eventos, modo, agora, total_usd=None):
+def rodar(eventos, modo, agora):
     cart, est = carregar()
     d = hoje()
-    for aviso in avisos_darf(est):
-        nucleo.enviar(aviso)
     fazer_var = modo in ("tudo", "varredura") or (
         modo == "auto" and agora.hour >= HORA_VARREDURA and est.get("varredura_em") != d)
     fazer_fech = modo in ("tudo", "fechamento") or (
@@ -684,21 +598,6 @@ def rodar(eventos, modo, agora, total_usd=None):
                       + ("\n💡 Reserva B3 em R$ 0: mande /reserva_br VALOR para liberar swings"
                          if cart["reserva_brl"] <= 0 else ""))
         est["validado"] = True
-
-    try:
-        itens = [{"ticker": t, "tipo": "carteira", "valor": round(a["qtd"] * dados[t]["preco"], 2),
-                  "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
-                  "var_total": round(a["qtd"] * dados[t]["preco"] / a["base"] - 1, 4)}
-                 for t, a in cart["ativos"].items() if t in dados]
-        itens += [{"ticker": t, "tipo": "swing", "valor": round(s["qtd"] * dados[t]["preco"], 2),
-                   "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
-                   "var_total": round(dados[t]["preco"] / s["pm"] - 1, 4)}
-                  for t, s in est["swings"].items() if t in dados]
-        ibov = {"nome": "Ibovespa", "var_dia": round(dados[INDICE]["preco"] / dados[INDICE]["ontem"] - 1, 4),
-                "data": str(dados[INDICE]["data"].date())} if INDICE in dados else None
-        nucleo.exportar_heatmap("b3", itens, ibov)
-    except Exception as e:
-        print("heatmap B3 falhou:", e)
 
     if pregao_hoje or modo != "auto":
         antes = {"carteira": copy.deepcopy(cart), "swings": copy.deepcopy(est["swings"]),
@@ -730,7 +629,7 @@ def rodar(eventos, modo, agora, total_usd=None):
                 pc = rs.rank(pct=True)
                 notas = {t: nucleo.nota_tendencia(x, pc.get(t, 0)) for t, x in dados.items()
                          if t != INDICE and not np.isnan(x["sma200"])}
-            fechamento(cart, est, univ, dados, notas, indice_ok, fonte, total_usd)
+            fechamento(cart, est, univ, dados, notas, indice_ok, fonte)
             est["fechamento_em"] = d
     else:
         print("B3 sem pregao hoje.")
