@@ -5,7 +5,7 @@
       "preco_medio": 56.650001525878906,
       "meia": 250.0,
       "metades": 2,
-      "pregoes": 4,
+      "pregoes": 5,
       "entrada": "2026-09-21"
     },
     "WTW": {
@@ -13,7 +13,7 @@
       "preco_medio": 306.82000732421875,
       "meia": 125.0,
       "metades": 1,
-      "pregoes": 3,
+      "pregoes": 4,
       "entrada": "2026-09-21"
     }
   },
@@ -90,6 +90,6 @@
   "desastre": {},
   "pendentes": {},
   "recusados": {},
-  "varredura_em": "2026-09-24",
-  "fechamento_em": "2026-09-24"
+  "varredura_em": "2026-09-25",
+  "fechamento_em": "2026-09-25"
 }
