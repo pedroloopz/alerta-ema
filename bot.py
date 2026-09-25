@@ -11,6 +11,7 @@ O bot ASSUME que voce executou cada ordem e atualiza a carteira sozinho.
 Se nao executou, responda /nao no Telegram e ele desfaz a ultima mensagem.
 Comandos EUA: /carteira  /nao  /recusar NVDA  /reserva 1200  /unidades CRWV 12.5
 Comandos B3:  /nao_br  /reserva_br 2000  (os demais servem para os dois mercados)
+Futuros:      /perps  /fechei EWZ
 """
 
 import copy
@@ -69,8 +70,6 @@ EXTRAS = {
     "Saude": ["HIMS", "NVO"],
 }
 
-TOTAL_USD = None            # preenchido no fechamento; a B3 usa no consolidado de sexta
-
 num = lambda x, c=2: f"{x:,.{c}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
 
@@ -87,12 +86,10 @@ def tg(metodo, **dados):
         return {}
 
 
-def enviar(texto, botao=None, silencioso=False):
-    """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback).
-    silencioso=True chega sem som (so para o que nao pede acao)."""
-    print("\n>>> TELEGRAM" + (" [sem som]" if silencioso else "")
-          + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
-    extra = {"disable_notification": True} if silencioso else {}
+def enviar(texto, botao=None):
+    """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback)."""
+    print("\n>>> TELEGRAM" + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
+    extra = {}
     if botao:
         extra["reply_markup"] = {"inline_keyboard": [[{"text": botao[0], "callback_data": botao[1]}]]}
     r = tg("sendMessage", chat_id=CHAT_ID, text=texto[:4000], **extra)
@@ -105,13 +102,12 @@ def apagar(msg_id):
         tg("deleteMessage", chat_id=CHAT_ID, message_id=msg_id)
 
 
-def enviar_foto(caminho, legenda, silencioso=True):
+def enviar_foto(caminho, legenda):
     print(f"\n>>> TELEGRAM FOTO {caminho}\n{legenda}")
     if TOKEN and CHAT_ID:
         with open(caminho, "rb") as f:
             requests.post(f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
-                          data={"chat_id": CHAT_ID, "caption": legenda[:1000],
-                                "disable_notification": str(silencioso).lower()},
+                          data={"chat_id": CHAT_ID, "caption": legenda[:1000]},
                           files={"photo": f}, timeout=60)
 
 
@@ -229,53 +225,6 @@ def teve_resultado(ticker, dias=3):
                      (idx >= hoje - pd.Timedelta(days=dias + 2))).any())
     except Exception:
         return None
-
-
-def proximo_resultado(ticker, pregoes=2):
-    """Data do proximo balanco se cair nos proximos `pregoes` dias uteis; senao None."""
-    try:
-        import yfinance as yf
-        datas = yf.Ticker(ticker).get_earnings_dates(limit=8)
-        if datas is None or datas.empty:
-            return None
-        idx = datas.index.tz_localize(None) if datas.index.tz is not None else datas.index
-        hoje = pd.Timestamp.now().normalize()
-        fim = hoje + pd.offsets.BDay(pregoes)
-        futuras = sorted(d.normalize() for d in idx if hoje < d.normalize() <= fim)
-        return futuras[0] if futuras else None
-    except Exception:
-        return None
-
-
-def aviso_balancos(tickers, sufixo=""):
-    """Linhas de aviso para posicoes com balanco nos proximos 2 pregoes."""
-    dias = ["seg", "ter", "qua", "qui", "sex", "sab", "dom"]
-    L = []
-    for t in sorted(tickers):
-        d = proximo_resultado(f"{t}{sufixo}")
-        if d is not None:
-            L.append(f"  {t}: {dias[d.weekday()]} {d:%d/%m}")
-    return (["", "📅 BALANCO NOS PROXIMOS 2 PREGOES"] + L) if L else []
-
-
-def exportar_heatmap(mercado, itens, indice=None):
-    """Grava heatmap.json (lido pelo Claude para montar o heatmap). itens: dicts com
-    ticker, tipo, valor, var_dia, var_total. Cada mercado atualiza so a sua parte."""
-    arq = "heatmap.json"
-    try:
-        with open(arq, encoding="utf-8") as f:
-            hm = json.load(f)
-    except Exception:
-        hm = {}
-    hm[mercado] = {"atualizado": datetime.now(timezone.utc).isoformat(timespec="minutes"),
-                   "itens": itens, "indice": indice}
-    with open(arq, "w", encoding="utf-8") as f:
-        json.dump(hm, f, indent=1, ensure_ascii=False)
-
-
-def em_pausa(est):
-    ate = est.get("pausa_ate")
-    return bool(ate) and ate >= hoje_ny()
 
 
 # ================================================================= NOTAS
@@ -443,17 +392,6 @@ def processar_comandos(cart, est, precos, eventos):
         elif nome == "/carteira":
             respostas.append(texto_carteira(cart, est, precos))
             restantes.append(evento)                      # a B3 responde tambem
-        elif nome == "/pausa" and len(cmd) == 2 and cmd[1].isdigit():
-            dias = int(cmd[1])
-            if dias == 0:
-                est.pop("pausa_ate", None)
-                respostas.append("▶️ Pausa encerrada: swings e trocas voltam a aparecer.")
-            else:
-                ate = str((pd.Timestamp(hoje_ny()) + pd.Timedelta(days=dias)).date())
-                est["pausa_ate"] = ate
-                respostas.append(f"⏸️ Sem swings nem trocas novas ate {pd.Timestamp(ate):%d/%m}. "
-                                 f"Realizacoes, saidas e alertas continuam. /pausa 0 encerra.")
-            restantes.append(evento)                      # a B3 pausa junto
         else:
             restantes.append(evento)
     return respostas, restantes
@@ -535,7 +473,7 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
 
     # --- candidatos a swing
     ocupados = set(cart["ativos"]) | set(est["swings"])
-    if len(est["swings"]) < MAX_SWINGS and cart["reserva_usdt"] >= 125 and not em_pausa(est):
+    if len(est["swings"]) < MAX_SWINGS and cart["reserva_usdt"] >= 125:
         pre = []
         for t, ind in dados.items():
             if t in ocupados or t in ("SPY", "QQQ") or np.isnan(ind["sma200"]) \
@@ -569,7 +507,6 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
                 f"   2ª metade (US$ {num(meia)}) so quando confirmar\n"
                 f"   Saida: quando cruzar a EMA 20 (hoje em US$ {num(dados[t]['ema20'])})\n"
                 f"   ⚠️ Confirme se existe {t}on ou {t}B no Binance Wallet"
-                + (f"\n   📅 Balanco em {bal:%d/%m}: risco de gap" if (bal := proximo_resultado(t)) else "")
                 + (f"\n   Proximos da fila: {outros}" if outros else ""),
                 {"tipo": "swing", "ticker": t}))
 
@@ -580,7 +517,7 @@ def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
     percentil = rs.rank(pct=True)
     notas = {t: nota_tendencia(d, percentil.get(t, 0)) for t, d in dados.items()
              if t not in ("SPY", "QQQ") and not np.isnan(d["sma200"])}
-    if trocas_semana < TROCAS_POR_SEMANA and pregoes is not None and not em_pausa(est):
+    if trocas_semana < TROCAS_POR_SEMANA and pregoes is not None:
         elegiveis = []
         for t, a in cart["ativos"].items():
             if t not in dados or t not in notas:
@@ -712,18 +649,12 @@ def fechamento(cart, est, univ, dados, notas, spy_ok, brutos):
         L.append(f"  S&P 500 hoje {pct(dados['SPY']['preco'] / dados['SPY']['ontem'] - 1)} | "
                  f"tese {'✅ viva' if spy_ok else '⚠️ contrariada (abaixo da media de 200 dias)'}")
 
-    if em_pausa(est):
-        L.append(f"  ⏸️ em pausa ate {pd.Timestamp(est['pausa_ate']):%d/%m}")
-    L += aviso_balancos(set(cart["ativos"]) | set(est["swings"]))
-
     # ---------- placar da nota (sextas)
     if pd.Timestamp.now(tz=NY).weekday() == 4 and os.path.exists(ARQ_PLACAR):
         L += ["", placar_da_nota(brutos)]
 
-    global TOTAL_USD
-    TOTAL_USD = total
     enviar_foto("mapa_dia.png", f"Mapa do dia {dia:%d/%m} - cor = variacao do dia")
-    enviar("\n".join(L), silencioso=True)
+    enviar("\n".join(L))
 
 
 def placar_da_nota(brutos):
@@ -782,7 +713,7 @@ def main():
     eventos = ler_comandos(est)
     respostas, restantes = processar_comandos(cart, est, precos, eventos)
     for resp in respostas:
-        enviar(resp, silencioso=True)
+        enviar(resp)
 
     if not est.get("validado"):
         avisos = []
@@ -795,21 +726,6 @@ def main():
         enviar("🤖 Bot ligado.\n" + ("⚠️ Confira:\n" + "\n".join(avisos) if avisos
                                     else "✅ Os 7 ativos bateram com o seu print."))
         est["validado"] = True
-
-    try:
-        itens = [{"ticker": t, "tipo": "carteira", "valor": round(a["unidades"] * dados[t]["preco"], 2),
-                  "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
-                  "var_total": round(a["unidades"] * dados[t]["preco"] / cart["base_por_ativo"] - 1, 4)}
-                 for t, a in cart["ativos"].items() if t in dados]
-        itens += [{"ticker": t, "tipo": "swing", "valor": round(s["unidades"] * dados[t]["preco"], 2),
-                   "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
-                   "var_total": round(dados[t]["preco"] / s["preco_medio"] - 1, 4)}
-                  for t, s in est["swings"].items() if t in dados]
-        spy = {"nome": "S&P 500", "var_dia": round(dados["SPY"]["preco"] / dados["SPY"]["ontem"] - 1, 4),
-               "data": str(dados["SPY"]["data"].date())} if "SPY" in dados else None
-        exportar_heatmap("eua", itens, spy)
-    except Exception as e:
-        print("heatmap EUA falhou:", e)
 
     antes = {"carteira": copy.deepcopy(cart), "swings": copy.deepcopy(est["swings"])}
     ordens = []
@@ -847,9 +763,18 @@ def main():
     if os.path.exists("carteira_b3.json"):
         try:
             import b3
-            b3.rodar(restantes, MODO, agora, total_usd=TOTAL_USD)
+            b3.rodar(restantes, MODO, agora)
         except Exception as e:
             enviar(f"⚠️ A parte da B3 falhou nesta execucao: {e}")
+            raise
+
+    # ---------------- Futuros: vigilancia das posicoes alavancadas
+    if os.path.exists("perps.json"):
+        try:
+            import perps
+            perps.rodar(restantes, MODO, agora)
+        except Exception as e:
+            enviar(f"⚠️ A parte dos futuros falhou nesta execucao: {e}")
             raise
 
 
