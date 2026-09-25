@@ -1,169 +1,169 @@
 {
  "eua": {
-  "atualizado": "2026-09-25T02:54+00:00",
+  "atualizado": "2026-09-25T17:57+00:00",
   "itens": [
    {
     "ticker": "CRWV",
     "tipo": "carteira",
-    "valor": 1085.15,
-    "var_dia": 0.0372,
-    "var_total": 0.0851
+    "valor": 1055.65,
+    "var_dia": -0.0272,
+    "var_total": 0.0557
    },
    {
     "ticker": "NFLX",
     "tipo": "carteira",
-    "valor": 999.12,
-    "var_dia": 0.005,
-    "var_total": -0.0009
+    "valor": 990.27,
+    "var_dia": -0.0089,
+    "var_total": -0.0097
    },
    {
     "ticker": "MVLL",
     "tipo": "carteira",
-    "valor": 1010.69,
-    "var_dia": -0.0137,
-    "var_total": 0.0107
+    "valor": 1058.27,
+    "var_dia": 0.0471,
+    "var_total": 0.0583
    },
    {
     "ticker": "ENPH",
     "tipo": "carteira",
-    "valor": 944.17,
-    "var_dia": -0.0076,
-    "var_total": -0.0558
+    "valor": 933.52,
+    "var_dia": -0.0113,
+    "var_total": -0.0665
    },
    {
     "ticker": "BE",
     "tipo": "carteira",
-    "valor": 977.62,
-    "var_dia": -0.031,
-    "var_total": -0.0224
+    "valor": 1062.75,
+    "var_dia": 0.0871,
+    "var_total": 0.0628
    },
    {
     "ticker": "UBER",
     "tipo": "carteira",
-    "valor": 969.77,
-    "var_dia": -0.0029,
-    "var_total": -0.0302
+    "valor": 969.0,
+    "var_dia": -0.0008,
+    "var_total": -0.031
    },
    {
     "ticker": "UNH",
     "tipo": "carteira",
-    "valor": 988.43,
-    "var_dia": 0.01,
-    "var_total": -0.0116
+    "valor": 994.39,
+    "var_dia": 0.006,
+    "var_total": -0.0056
    },
    {
     "ticker": "O",
     "tipo": "swing",
-    "valor": 489.06,
-    "var_dia": -0.0036,
-    "var_total": -0.0219
+    "valor": 488.39,
+    "var_dia": -0.0014,
+    "var_total": -0.0232
    },
    {
     "ticker": "WTW",
     "tipo": "swing",
-    "valor": 119.63,
-    "var_dia": -0.0179,
-    "var_total": -0.043
+    "valor": 120.35,
+    "var_dia": 0.006,
+    "var_total": -0.0372
    }
   ],
   "indice": {
    "nome": "S&P 500",
-   "var_dia": -0.0008,
-   "data": "2026-09-24"
+   "var_dia": 0.0049,
+   "data": "2026-09-25"
   }
  },
  "b3": {
-  "atualizado": "2026-09-25T02:54+00:00",
+  "atualizado": "2026-09-25T17:57+00:00",
   "itens": [
    {
     "ticker": "LREN3",
     "tipo": "carteira",
-    "valor": 4398.97,
-    "var_dia": -0.0179,
-    "var_total": -0.0428
+    "valor": 4455.11,
+    "var_dia": 0.0128,
+    "var_total": -0.0305
    },
    {
     "ticker": "EZTC3",
     "tipo": "carteira",
-    "valor": 4071.0,
-    "var_dia": -0.0174,
-    "var_total": 0.0569
+    "valor": 4149.0,
+    "var_dia": 0.0192,
+    "var_total": 0.0771
    },
    {
     "ticker": "VAMO3",
     "tipo": "carteira",
-    "valor": 3481.72,
-    "var_dia": 0.0185,
-    "var_total": 0.0034
+    "valor": 3445.64,
+    "var_dia": -0.0104,
+    "var_total": -0.007
    },
    {
     "ticker": "TTEN3",
     "tipo": "carteira",
-    "valor": 3030.0,
-    "var_dia": -0.0079,
-    "var_total": -0.0232
+    "valor": 3042.0,
+    "var_dia": 0.004,
+    "var_total": -0.0193
    },
    {
     "ticker": "ALOS3",
     "tipo": "carteira",
-    "valor": 2912.0,
-    "var_dia": -0.0075,
-    "var_total": 0.0014
+    "valor": 2908.0,
+    "var_dia": -0.0014,
+    "var_total": -0.0
    },
    {
     "ticker": "INBR32",
     "tipo": "carteira",
-    "valor": 2610.0,
-    "var_dia": -0.0333,
-    "var_total": -0.0705
+    "valor": 2665.0,
+    "var_dia": 0.0211,
+    "var_total": -0.0509
    },
    {
     "ticker": "HBRE3",
     "tipo": "carteira",
-    "valor": 2540.0,
-    "var_dia": -0.0268,
-    "var_total": -0.0929
+    "valor": 2590.0,
+    "var_dia": 0.0197,
+    "var_total": -0.075
    },
    {
     "ticker": "LJQQ3",
     "tipo": "carteira",
     "valor": 2580.0,
-    "var_dia": -0.0301,
+    "var_dia": 0.0,
     "var_total": -0.0377
    },
    {
     "ticker": "MOVI3",
     "tipo": "carteira",
-    "valor": 1623.44,
-    "var_dia": 0.0384,
-    "var_total": 0.0327
+    "valor": 1641.64,
+    "var_dia": 0.0112,
+    "var_total": 0.0443
    },
    {
     "ticker": "MRVE3",
     "tipo": "carteira",
-    "valor": 522.0,
-    "var_dia": -0.0038,
-    "var_total": -0.0612
+    "valor": 525.0,
+    "var_dia": 0.0057,
+    "var_total": -0.0558
    },
    {
     "ticker": "SIMH3",
     "tipo": "carteira",
-    "valor": 496.54,
-    "var_dia": 0.0112,
-    "var_total": 0.049
+    "valor": 502.03,
+    "var_dia": 0.0111,
+    "var_total": 0.0606
    },
    {
     "ticker": "CURY3",
     "tipo": "swing",
-    "valor": 493.92,
-    "var_dia": 0.0051,
-    "var_total": 0.0
+    "valor": 495.36,
+    "var_dia": 0.0029,
+    "var_total": 0.0029
    }
   ],
   "indice": {
    "nome": "Ibovespa",
-   "var_dia": -0.0099,
-   "data": "2026-09-24"
+   "var_dia": -0.0031,
+   "data": "2026-09-25"
   }
  }
 }
