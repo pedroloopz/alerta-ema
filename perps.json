@@ -1,0 +1,31 @@
+{
+  "inicio": "2026-09-25",
+  "alavancagem_padrao": 2,
+  "eventos": {
+    "1o turno das eleicoes": "2026-10-04",
+    "2o turno das eleicoes": "2026-10-25"
+  },
+  "posicoes": {
+    "EWZ": {
+      "simbolo": "EWZUSDT",
+      "lado": "long",
+      "alavancagem": 7,
+      "tamanho": 92.54,
+      "entrada": 37.71,
+      "margem": 499.83,
+      "liquidacao": 33.13723,
+      "desde": "2026-09-25",
+      "tese": "semana das eleicoes"
+    },
+    "NVO": {
+      "simbolo": "NVOUSDT",
+      "lado": "long",
+      "alavancagem": 2,
+      "tamanho": 24.95,
+      "entrada": 39.85,
+      "margem": 497.13,
+      "liquidacao": 20.4359,
+      "desde": "2026-09-25"
+    }
+  }
+}
