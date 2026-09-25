@@ -258,6 +258,21 @@ def aviso_balancos(tickers, sufixo=""):
     return (["", "📅 BALANCO NOS PROXIMOS 2 PREGOES"] + L) if L else []
 
 
+def exportar_heatmap(mercado, itens, indice=None):
+    """Grava heatmap.json (lido pelo Claude para montar o heatmap). itens: dicts com
+    ticker, tipo, valor, var_dia, var_total. Cada mercado atualiza so a sua parte."""
+    arq = "heatmap.json"
+    try:
+        with open(arq, encoding="utf-8") as f:
+            hm = json.load(f)
+    except Exception:
+        hm = {}
+    hm[mercado] = {"atualizado": datetime.now(timezone.utc).isoformat(timespec="minutes"),
+                   "itens": itens, "indice": indice}
+    with open(arq, "w", encoding="utf-8") as f:
+        json.dump(hm, f, indent=1, ensure_ascii=False)
+
+
 def em_pausa(est):
     ate = est.get("pausa_ate")
     return bool(ate) and ate >= hoje_ny()
@@ -780,6 +795,21 @@ def main():
         enviar("🤖 Bot ligado.\n" + ("⚠️ Confira:\n" + "\n".join(avisos) if avisos
                                     else "✅ Os 7 ativos bateram com o seu print."))
         est["validado"] = True
+
+    try:
+        itens = [{"ticker": t, "tipo": "carteira", "valor": round(a["unidades"] * dados[t]["preco"], 2),
+                  "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
+                  "var_total": round(a["unidades"] * dados[t]["preco"] / cart["base_por_ativo"] - 1, 4)}
+                 for t, a in cart["ativos"].items() if t in dados]
+        itens += [{"ticker": t, "tipo": "swing", "valor": round(s["unidades"] * dados[t]["preco"], 2),
+                   "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
+                   "var_total": round(dados[t]["preco"] / s["preco_medio"] - 1, 4)}
+                  for t, s in est["swings"].items() if t in dados]
+        spy = {"nome": "S&P 500", "var_dia": round(dados["SPY"]["preco"] / dados["SPY"]["ontem"] - 1, 4),
+               "data": str(dados["SPY"]["data"].date())} if "SPY" in dados else None
+        exportar_heatmap("eua", itens, spy)
+    except Exception as e:
+        print("heatmap EUA falhou:", e)
 
     antes = {"carteira": copy.deepcopy(cart), "swings": copy.deepcopy(est["swings"])}
     ordens = []
