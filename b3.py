@@ -685,6 +685,21 @@ def rodar(eventos, modo, agora, total_usd=None):
                          if cart["reserva_brl"] <= 0 else ""))
         est["validado"] = True
 
+    try:
+        itens = [{"ticker": t, "tipo": "carteira", "valor": round(a["qtd"] * dados[t]["preco"], 2),
+                  "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
+                  "var_total": round(a["qtd"] * dados[t]["preco"] / a["base"] - 1, 4)}
+                 for t, a in cart["ativos"].items() if t in dados]
+        itens += [{"ticker": t, "tipo": "swing", "valor": round(s["qtd"] * dados[t]["preco"], 2),
+                   "var_dia": round(dados[t]["preco"] / dados[t]["ontem"] - 1, 4),
+                   "var_total": round(dados[t]["preco"] / s["pm"] - 1, 4)}
+                  for t, s in est["swings"].items() if t in dados]
+        ibov = {"nome": "Ibovespa", "var_dia": round(dados[INDICE]["preco"] / dados[INDICE]["ontem"] - 1, 4),
+                "data": str(dados[INDICE]["data"].date())} if INDICE in dados else None
+        nucleo.exportar_heatmap("b3", itens, ibov)
+    except Exception as e:
+        print("heatmap B3 falhou:", e)
+
     if pregao_hoje or modo != "auto":
         antes = {"carteira": copy.deepcopy(cart), "swings": copy.deepcopy(est["swings"]),
                  "vendas_mes": copy.deepcopy(est["vendas_mes"]),

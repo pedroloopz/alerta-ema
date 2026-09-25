@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          for f in carteira.json estado_bot.json placar_notas.csv carteira_b3.json estado_b3.json placar_notas_b3.csv; do
+          for f in carteira.json estado_bot.json placar_notas.csv carteira_b3.json estado_b3.json placar_notas_b3.csv heatmap.json; do
             [ -f "$f" ] && git add "$f"
           done
           git diff --staged --quiet || git commit -m "bot: atualiza carteira"
