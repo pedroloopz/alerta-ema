@@ -32,10 +32,10 @@ SIMBOLOS = [
     "SPCXUSDT", "RKLBUSDT", "ASTSUSDT",
 
     # Energia e materiais
-    "XLEUSDT", "URNMUSDT", "USARUSDT",
+    "XLEUSDT", "URNMUSDT", "USARUSDT", "ENPHUSDT", "BEUSDT",
 
     # Saude
-    "LLYUSDT", "NVOUSDT", "MRNAUSDT", "HIMSUSDT",
+    "LLYUSDT", "NVOUSDT", "MRNAUSDT", "HIMSUSDT", "UNHUSDT",
 
     # Consumo e varejo
     "WMTUSDT", "HDUSDT", "DISUSDT", "NKEUSDT", "DKNGUSDT", "GMEUSDT",
@@ -46,6 +46,18 @@ SIMBOLOS = [
     # Indices e alavancados
     "QQQUSDT", "UVXYUSDT", "KORUUSDT", "MUUUSDT", "KSTRUSDT",
     "SNXXUSDT", "LYTEUSDT", "CBRSUSDT", "AGPUUSDT",
+]
+
+# Posicoes que voce tem hoje na Binance Wallet. Entram em destaque no mapa
+# e sempre aparecem primeiro, mesmo que saiam da lista de monitorados.
+CARTEIRA = [
+    "CRWVUSDT",   # CoreWeave
+    "NFLXUSDT",   # Netflix
+    "MRVLUSDT",   # Marvell
+    "ENPHUSDT",   # Enphase
+    "BEUSDT",     # Bloom Energy
+    "UBERUSDT",   # Uber
+    "UNHUSDT",    # UnitedHealth
 ]
 
 SETORES = {
@@ -68,12 +80,28 @@ SETORES = {
                  "MEITUANUSDT", "KUAISHOUUSDT", "XIAOMIUSDT", "SAMSUNGUSDT",
                  "HYUNDAIUSDT", "POPMARTUSDT", "FUTUUSDT", "BBXUSDT", "GPROUSD1"],
     "espaco": ["SPCXUSDT", "RKLBUSDT", "ASTSUSDT"],
-    "energia": ["XLEUSDT", "URNMUSDT", "USARUSDT"],
-    "saude": ["LLYUSDT", "NVOUSDT", "MRNAUSDT", "HIMSUSDT"],
-    "consumo": ["WMTUSDT", "HDUSDT", "DISUSDT", "DKNGUSDT", "GMEUSDT"],
+    "energia": ["XLEUSDT", "URNMUSDT", "USARUSDT", "ENPHUSDT", "BEUSDT"],
+    "saude": ["LLYUSDT", "NVOUSDT", "MRNAUSDT", "HIMSUSDT", "UNHUSDT"],
+    "consumo": ["WMTUSDT", "HDUSDT", "DISUSDT", "NKEUSDT", "DKNGUSDT", "GMEUSDT"],
     "financeiro": ["JPMUSDT", "VUSDT", "BXUSDT", "PAYPUSDT"],
     "indices": ["QQQUSDT", "UVXYUSDT", "KORUUSDT", "MUUUSDT", "KSTRUSDT",
                 "SNXXUSDT", "LYTEUSDT", "CBRSUSDT", "AGPUUSDT"],
+}
+
+# Nome bonito do setor, usado nos titulos do mapa de calor.
+NOME_SETOR = {
+    "carteira": "Sua carteira",
+    "semicondutores": "Semicondutores",
+    "infra_ia": "Infra de IA e software",
+    "cripto": "Cripto",
+    "big_tech": "Big tech e consumo digital",
+    "espaco": "Espaco e defesa",
+    "energia": "Energia e materiais",
+    "saude": "Saude",
+    "consumo": "Consumo e varejo",
+    "financeiro": "Financeiro e pagamentos",
+    "indices": "Indices e alavancados",
+    "outros": "Outros",
 }
 
 # Mesma empresa em contratos diferentes: nunca enviar os dois em sequencia
@@ -97,3 +125,17 @@ def nome_curto(simbolo: str) -> str:
         if simbolo.endswith(sufixo):
             return simbolo[: -len(sufixo)]
     return simbolo
+
+
+def na_carteira(simbolo: str) -> bool:
+    return simbolo in CARTEIRA
+
+
+# Tudo que o mapa precisa varrer: monitorados + carteira, sem repetir.
+def universo():
+    vistos, saida = set(), []
+    for s in list(CARTEIRA) + list(SIMBOLOS):
+        if s not in vistos:
+            vistos.add(s)
+            saida.append(s)
+    return saida
