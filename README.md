@@ -37,6 +37,13 @@ Feriado de um mercado nao afeta o outro.
 | `/reserva_br 3000` | - | Define a reserva em R$ (conta como aporte) |
 | `/unidades TICKER N` | Corrige a quantidade | Idem |
 | `/carteira` | Mostra a carteira | Idem |
+| `/pausa 7` | Sem swings nem trocas novas por 7 dias (realizacoes e saidas continuam). `/pausa 0` encerra | Idem |
+
+## Avisos extras
+- **Balanco a frente:** o fechamento lista posicoes e swings com balanco nos proximos 2 pregoes; a mensagem de swing avisa se a acao divulga resultado logo
+- **DARF (B3):** na virada do mes o bot guarda o IR estimado do mes que fechou, avisa o valor e o vencimento, e lembra 5 dias uteis antes. Nao desconta prejuizo de meses anteriores
+- **Patrimonio da semana:** sexta, no fechamento da B3, EUA convertido pelo dolar do dia + B3 em R$
+- **Sem som:** fechamentos, mapas e respostas a comandos chegam silenciosos; so ordens tocam o celular
 
 ## Arquivos
 - `bot.py` e `b3.py` - o bot
