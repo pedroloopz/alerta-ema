@@ -9,6 +9,10 @@
 | 16h15 | Varredura: swings, trocas, revisoes | - |
 | 18h15 | Fechamento: mapa + vencedores/perdedores + carteira | Fechamento B3 |
 
+Alem disso, **9h: previa do dia** (`previa.py`, workflow `previa`) — agenda, mercados
+la fora, quem esta a menos de 5% de um gatilho seu, situacao dos futuros, contador
+da isencao e vagas livres. Nao repete o mapa nem a lista do fechamento.
+
 Feriado de um mercado nao afeta o outro.
 
 ## Regras - EUA
@@ -61,6 +65,6 @@ Posicao nova: edite `perps.json` (tamanho, entrada, margem, liquidacao e alavanc
 | `/fechei EWZ` | Tira o futuro do acompanhamento | - |
 
 ## Arquivos
-- `bot.py`, `b3.py` e `perps.py` - o bot
+- `bot.py`, `b3.py`, `perps.py` e `previa.py` - o bot
 - `carteira.json`, `carteira_b3.json` e `perps.json` - suas posicoes. Podem ser editados a mao
 - `estado_*.json` e `placar_notas*.csv` - o bot cria e atualiza sozinho
