@@ -1,0 +1,36 @@
+name: previa
+
+on:
+  schedule:
+    # 12h UTC = 9h em Brasilia, antes de abrir a B3 (10h) e Nova York
+    - cron: "0 12 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  previa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pandas requests matplotlib yfinance lxml
+
+      - name: Montar a previa do dia
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python previa.py
+
+      - name: Avisar falha no Telegram
+        if: failure()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+            -d chat_id="$TELEGRAM_CHAT_ID" \
+            --data-urlencode text="⚠️ A previa da manha FALHOU. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
