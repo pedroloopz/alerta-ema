@@ -1,0 +1,21 @@
+DONCHIAN EM CRIPTO (regra das acoes, sem reotimizar)
+30 moedas | 20/07/2018 a 27/09/2026 | validacao a partir de 01/01/2022
+custo 0,10%/lado x1,5 | spot 1x | 5 posicoes | so comprado
+
+com filtro BTC + tamanho por vol (a regra escolhida)
+  treino: CAGR +72,7% | pior queda -25,7%
+  validacao: CAGR +10,8% | pior queda -31,5%
+  todo: CAGR +33,6% | pior queda -31,5% | US$ 7.088 -> US$ 76.043
+
+sem filtro, tamanho igual (Donchian puro)
+  treino: CAGR +134,9% | pior queda -49,4%
+  validacao: CAGR +17,1% | pior queda -60,8%
+  todo: CAGR +57,1% | pior queda -60,8% | US$ 7.088 -> US$ 286.887
+
+BTC segurar treino: CAGR +70,5% | pior queda -63,3%
+BTC segurar validacao: CAGR +12,7% | pior queda -66,9%
+BTC segurar todo: CAGR +34,7% | pior queda -76,6%
+
+Trades (sem filtro): 615 | acerto 42% | ganho medio +64,3% | perda media -13,6% | maior ganho +787,3%
+Trades acoes 55/10 (sem filtro): 2133 | acerto 44% | ganho medio +20,7% em 42 pregoes | perda media -8,1% em 16 pregoes
+  os 10% melhores trades somam 145% do lucro liquido total
