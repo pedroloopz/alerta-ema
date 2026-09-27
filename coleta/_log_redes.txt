@@ -1,0 +1,2 @@
+cg_coins_list_plataformas: 200 3863982 bytes
+binance_vision_exchangeinfo: 200 10238 bytes
