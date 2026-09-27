@@ -1,0 +1,181 @@
+VEREDITO: nenhuma variante passou em tudo
+
+MAXIMAS E MINIMAS - EUA, SO COMPRADO, SPOT 1x
+custo estimado +0,20% por lado; testado a x1.5 e x2
+
+===== 120 MINUTOS =====
+81 acoes | 27/10/2023 a 25/09/2026 | validacao a partir de 11/04/2025
+classico, sem stop: REPROVADA
+  ❌ lucro/trade no treino: -0,64%
+  ❌ lucro/trade na validacao: -0,20%
+  ❌ com custo em dobro: -0,60%
+  ❌ t na validacao: -5,0
+  ❌ por candle investido: -0,06% x segurar +0,12%
+  20878 trades | acerto 52% | ganho medio +1,94% | perda media -2,88% | pior -44,07% | dura 3,6 candles
+  em US$ 1.000 por trade (custo x1,5): -83.234
+
+stop tempo 6 candles (2 dias): REPROVADA
+  ❌ lucro/trade no treino: -0,64%
+  ❌ lucro/trade na validacao: -0,24%
+  ❌ com custo em dobro: -0,62%
+  ❌ t na validacao: -6,2
+  ❌ por candle investido: -0,08% x segurar +0,12%
+  22140 trades | acerto 51% | ganho medio +1,95% | perda media -2,92% | pior -45,36% | dura 3,2 candles
+  em US$ 1.000 por trade (custo x1,5): -92.782
+
+stop tempo 15 candles (5 dias): REPROVADA
+  ❌ lucro/trade no treino: -0,64%
+  ❌ lucro/trade na validacao: -0,20%
+  ❌ com custo em dobro: -0,60%
+  ❌ t na validacao: -5,0
+  ❌ por candle investido: -0,06% x segurar +0,12%
+  20904 trades | acerto 52% | ganho medio +1,94% | perda media -2,89% | pior -44,07% | dura 3,6 candles
+  em US$ 1.000 por trade (custo x1,5): -83.504
+
+stop 3%: REPROVADA
+  ❌ lucro/trade no treino: -0,64%
+  ❌ lucro/trade na validacao: -0,52%
+  ❌ com custo em dobro: -0,77%
+  ❌ t na validacao: -17,8
+  ❌ por candle investido: -0,23% x segurar +0,12%
+  26704 trades | acerto 45% | ganho medio +2,09% | perda media -2,78% | pior -34,02% | dura 2,2 candles
+  em US$ 1.000 por trade (custo x1,5): -153.102
+
+stop 1,5 ATR: REPROVADA
+  ❌ lucro/trade no treino: -0,63%
+  ❌ lucro/trade na validacao: -0,43%
+  ❌ com custo em dobro: -0,72%
+  ❌ t na validacao: -12,7
+  ❌ por candle investido: -0,18% x segurar +0,12%
+  25863 trades | acerto 50% | ganho medio +1,98% | perda media -3,01% | pior -39,92% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -134.441
+
+tendencia, sem stop: REPROVADA
+  ❌ lucro/trade no treino: -0,70%
+  ❌ lucro/trade na validacao: -0,13%
+  ❌ com custo em dobro: -0,58%
+  ❌ t na validacao: -2,6
+  ❌ por candle investido: -0,04% x segurar +0,12%
+  13149 trades | acerto 51% | ganho medio +1,98% | perda media -2,79% | pior -42,24% | dura 3,6 candles
+  em US$ 1.000 por trade (custo x1,5): -49.799
+
+tendencia + stop 6 candles: REPROVADA
+  ❌ lucro/trade no treino: -0,70%
+  ❌ lucro/trade na validacao: -0,19%
+  ❌ com custo em dobro: -0,61%
+  ❌ t na validacao: -3,8
+  ❌ por candle investido: -0,06% x segurar +0,12%
+  13452 trades | acerto 50% | ganho medio +1,99% | perda media -2,83% | pior -39,85% | dura 3,3 candles
+  em US$ 1.000 por trade (custo x1,5): -55.277
+
+tendencia + stop 3%: REPROVADA
+  ❌ lucro/trade no treino: -0,71%
+  ❌ lucro/trade na validacao: -0,48%
+  ❌ com custo em dobro: -0,78%
+  ❌ t na validacao: -12,4
+  ❌ por candle investido: -0,21% x segurar +0,12%
+  15113 trades | acerto 44% | ganho medio +2,03% | perda media -2,67% | pior -34,02% | dura 2,3 candles
+  em US$ 1.000 por trade (custo x1,5): -87.869
+
+tendencia + stop 1,5 ATR: REPROVADA
+  ❌ lucro/trade no treino: -0,69%
+  ❌ lucro/trade na validacao: -0,40%
+  ❌ com custo em dobro: -0,73%
+  ❌ t na validacao: -8,8
+  ❌ por candle investido: -0,16% x segurar +0,12%
+  14792 trades | acerto 49% | ganho medio +1,99% | perda media -2,91% | pior -39,92% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -78.108
+
+Sua carteira na variante 'tendencia, sem stop' (custo x1,5, lucro por trade):
+  ABNB: 181 trades, -0,64%
+  BE: 181 trades, +0,69%
+  MVLL: 87 trades, -0,01%
+  UNH: 145 trades, -0,68%
+  NFLX: 170 trades, -0,38%
+  UBER: 177 trades, -0,48%
+  ENPH: 134 trades, -1,26%
+  CRWV: 74 trades, -0,45%
+
+===== DIARIO =====
+79 acoes | 02/01/2015 a 25/09/2026 | validacao a partir de 01/01/2022
+classico, sem stop: REPROVADA
+  ❌ lucro/trade no treino: -0,32%
+  ❌ lucro/trade na validacao: -0,23%
+  ❌ com custo em dobro: -0,48%
+  ❌ t na validacao: -3,8
+  ❌ por candle investido: -0,06% x segurar +0,15%
+  23911 trades | acerto 58% | ganho medio +2,76% | perda media -4,50% | pior -93,86% | dura 3,6 candles
+  em US$ 1.000 por trade (custo x1,5): -65.876
+
+stop tempo 3 dias: REPROVADA
+  ❌ lucro/trade no treino: -0,40%
+  ❌ lucro/trade na validacao: -0,38%
+  ❌ com custo em dobro: -0,59%
+  ❌ t na validacao: -7,4
+  ❌ por candle investido: -0,16% x segurar +0,15%
+  29965 trades | acerto 55% | ganho medio +2,89% | perda media -4,40% | pior -69,54% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -115.893
+
+stop 5%: REPROVADA
+  ❌ lucro/trade no treino: -0,49%
+  ❌ lucro/trade na validacao: -0,50%
+  ❌ com custo em dobro: -0,70%
+  ❌ t na validacao: -11,6
+  ❌ por candle investido: -0,23% x segurar +0,15%
+  30580 trades | acerto 53% | ganho medio +3,09% | perda media -4,48% | pior -35,17% | dura 2,3 candles
+  em US$ 1.000 por trade (custo x1,5): -151.916
+
+stop 1,5 ATR: REPROVADA
+  ❌ lucro/trade no treino: -0,46%
+  ❌ lucro/trade na validacao: -0,41%
+  ❌ com custo em dobro: -0,63%
+  ❌ t na validacao: -7,8
+  ❌ por candle investido: -0,16% x segurar +0,15%
+  29445 trades | acerto 57% | ganho medio +2,93% | perda media -4,92% | pior -79,71% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -128.053
+
+tendencia, sem stop: REPROVADA
+  ❌ lucro/trade no treino: -0,34%
+  ❌ lucro/trade na validacao: -0,14%
+  ❌ com custo em dobro: -0,45%
+  ❌ t na validacao: -1,9
+  ❌ por candle investido: -0,04% x segurar +0,15%
+  15678 trades | acerto 58% | ganho medio +2,49% | perda media -4,07% | pior -93,86% | dura 3,5 candles
+  em US$ 1.000 por trade (custo x1,5): -39.541
+
+tendencia + stop 3 dias: REPROVADA
+  ❌ lucro/trade no treino: -0,47%
+  ❌ lucro/trade na validacao: -0,37%
+  ❌ com custo em dobro: -0,63%
+  ❌ t na validacao: -5,6
+  ❌ por candle investido: -0,16% x segurar +0,15%
+  17892 trades | acerto 55% | ganho medio +2,53% | perda media -3,97% | pior -69,54% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -76.261
+
+tendencia + stop 5%: REPROVADA
+  ❌ lucro/trade no treino: -0,50%
+  ❌ lucro/trade na validacao: -0,45%
+  ❌ com custo em dobro: -0,67%
+  ❌ t na validacao: -7,9
+  ❌ por candle investido: -0,19% x segurar +0,15%
+  17541 trades | acerto 54% | ganho medio +2,63% | perda media -4,08% | pior -30,55% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -83.125
+
+tendencia + stop 1,5 ATR: REPROVADA
+  ❌ lucro/trade no treino: -0,53%
+  ❌ lucro/trade na validacao: -0,42%
+  ❌ com custo em dobro: -0,68%
+  ❌ t na validacao: -6,3
+  ❌ por candle investido: -0,17% x segurar +0,15%
+  17470 trades | acerto 56% | ganho medio +2,56% | perda media -4,44% | pior -66,14% | dura 2,4 candles
+  em US$ 1.000 por trade (custo x1,5): -84.135
+
+Sua carteira na variante 'tendencia, sem stop' (custo x1,5, lucro por trade):
+  ABNB: 109 trades, -1,01%
+  BE: 145 trades, +0,85%
+  MVLL: 34 trades, +2,16%
+  UNH: 288 trades, -0,37%
+  NFLX: 271 trades, -0,23%
+  UBER: 159 trades, +0,10%
+  ENPH: 171 trades, -0,08%
+  CRWV: 25 trades, -2,83%
