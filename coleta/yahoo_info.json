@@ -1,0 +1,3044 @@
+{
+"INSW": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "International Seaways, Inc.",
+"averageVolume": 601920,
+"marketCap": 5232487936,
+"firstTradeDateEpochUtc": null
+},
+"SPGI": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"quoteType": "EQUITY",
+"longName": "S&P Global Inc.",
+"averageVolume": 1974619,
+"marketCap": 118892838912,
+"firstTradeDateEpochUtc": null
+},
+"STX": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Seagate Technology Holdings plc",
+"averageVolume": 4534114,
+"marketCap": 208480731136,
+"firstTradeDateEpochUtc": null
+},
+"ALOY": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"quoteType": "EQUITY",
+"longName": "REalloys Inc.",
+"averageVolume": 2515996,
+"marketCap": 617828416,
+"firstTradeDateEpochUtc": null
+},
+"VRSN": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "VeriSign, Inc.",
+"averageVolume": 760831,
+"marketCap": 25967400960,
+"firstTradeDateEpochUtc": null
+},
+"TSLA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "Tesla, Inc.",
+"averageVolume": 39040411,
+"marketCap": 1469666033664,
+"firstTradeDateEpochUtc": null
+},
+"COHU": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Cohu, Inc.",
+"averageVolume": 1075722,
+"marketCap": 3171674880,
+"firstTradeDateEpochUtc": null
+},
+"ORCL": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Oracle Corporation",
+"averageVolume": 33084561,
+"marketCap": 414554226688,
+"firstTradeDateEpochUtc": null
+},
+"MRK": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Merck & Co., Inc.",
+"averageVolume": 9926153,
+"marketCap": 367065792512,
+"firstTradeDateEpochUtc": null
+},
+"ANET": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Arista Networks, Inc.",
+"averageVolume": 6805885,
+"marketCap": 260505960448,
+"firstTradeDateEpochUtc": null
+},
+"C": {
+"sector": "Financial Services",
+"industry": "Banks - Diversified",
+"quoteType": "EQUITY",
+"longName": "Citigroup Inc.",
+"averageVolume": 10622715,
+"marketCap": 225246216192,
+"firstTradeDateEpochUtc": null
+},
+"PCG": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"quoteType": "EQUITY",
+"longName": "PG&E Corporation",
+"averageVolume": 34170695,
+"marketCap": 37049208832,
+"firstTradeDateEpochUtc": null
+},
+"GOOGL": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Alphabet Inc.",
+"averageVolume": 27352804,
+"marketCap": 4206119354368,
+"firstTradeDateEpochUtc": null
+},
+"ACLS": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Axcelis Technologies, Inc.",
+"averageVolume": 412038,
+"marketCap": 3801819904,
+"firstTradeDateEpochUtc": null
+},
+"AXP": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "American Express Company",
+"averageVolume": 2866396,
+"marketCap": 208596467712,
+"firstTradeDateEpochUtc": null
+},
+"ENPH": {
+"sector": "Technology",
+"industry": "Solar",
+"quoteType": "EQUITY",
+"longName": "Enphase Energy, Inc.",
+"averageVolume": 4691117,
+"marketCap": 4281486848,
+"firstTradeDateEpochUtc": null
+},
+"F": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "Ford Motor Company",
+"averageVolume": 48437007,
+"marketCap": 50682343424,
+"firstTradeDateEpochUtc": null
+},
+"STM": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "STMicroelectronics N.V.",
+"averageVolume": 9771685,
+"marketCap": 46317826048,
+"firstTradeDateEpochUtc": null
+},
+"AEHR": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Aehr Test Systems, Inc.",
+"averageVolume": 2813176,
+"marketCap": 3409329920,
+"firstTradeDateEpochUtc": null
+},
+"CIFR": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Cipher Digital Inc.",
+"averageVolume": 32387838,
+"marketCap": 7358494720,
+"firstTradeDateEpochUtc": null
+},
+"MEI": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Methode Electronics, Inc.",
+"averageVolume": 694112,
+"marketCap": 517209728,
+"firstTradeDateEpochUtc": null
+},
+"PANW": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Palo Alto Networks, Inc.",
+"averageVolume": 6567563,
+"marketCap": 306537299968,
+"firstTradeDateEpochUtc": null
+},
+"SCCO": {
+"sector": "Basic Materials",
+"industry": "Copper",
+"quoteType": "EQUITY",
+"longName": "Southern Copper Corporation",
+"averageVolume": 1137408,
+"marketCap": 172178554880,
+"firstTradeDateEpochUtc": null
+},
+"DASH": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "DoorDash, Inc.",
+"averageVolume": 4101593,
+"marketCap": 83782492160,
+"firstTradeDateEpochUtc": null
+},
+"AMC": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"quoteType": "EQUITY",
+"longName": "AMC Entertainment Holdings, Inc.",
+"averageVolume": 34454834,
+"marketCap": 2624257536,
+"firstTradeDateEpochUtc": null
+},
+"MP": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"quoteType": "EQUITY",
+"longName": "MP Materials Corp.",
+"averageVolume": 5743071,
+"marketCap": 8696700928,
+"firstTradeDateEpochUtc": null
+},
+"T": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"quoteType": "EQUITY",
+"longName": "AT&T Inc.",
+"averageVolume": 56503709,
+"marketCap": 173913538560,
+"firstTradeDateEpochUtc": null
+},
+"WOLF": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Wolfspeed, Inc.",
+"averageVolume": 3689750,
+"marketCap": 1459295744,
+"firstTradeDateEpochUtc": null
+},
+"VSH": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Vishay Intertechnology, Inc.",
+"averageVolume": 4983126,
+"marketCap": 4992492032,
+"firstTradeDateEpochUtc": null
+},
+"MTSI": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "MACOM Technology Solutions Holdings, Inc.",
+"averageVolume": 1473417,
+"marketCap": 21809246208,
+"firstTradeDateEpochUtc": null
+},
+"MU": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Micron Technology, Inc.",
+"averageVolume": 35445296,
+"marketCap": 1222319669248,
+"firstTradeDateEpochUtc": null
+},
+"WCC": {
+"sector": "Industrials",
+"industry": "Industrial Distribution",
+"quoteType": "EQUITY",
+"longName": "WESCO International, Inc.",
+"averageVolume": 620066,
+"marketCap": 17906401280,
+"firstTradeDateEpochUtc": null
+},
+"LUNR": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Intuitive Machines, Inc.",
+"averageVolume": 9156782,
+"marketCap": 2504660480,
+"firstTradeDateEpochUtc": null
+},
+"NEM": {
+"sector": "Basic Materials",
+"industry": "Gold",
+"quoteType": "EQUITY",
+"longName": "Newmont Corporation",
+"averageVolume": 7608955,
+"marketCap": 127949856768,
+"firstTradeDateEpochUtc": null
+},
+"HUT": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Hut 8 Corp.",
+"averageVolume": 4628831,
+"marketCap": 11933981696,
+"firstTradeDateEpochUtc": null
+},
+"NEE": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"quoteType": "EQUITY",
+"longName": "NextEra Energy, Inc.",
+"averageVolume": 11015206,
+"marketCap": 158701223936,
+"firstTradeDateEpochUtc": null
+},
+"NKE": {
+"sector": "Consumer Cyclical",
+"industry": "Footwear & Accessories",
+"quoteType": "EQUITY",
+"longName": "NIKE, Inc.",
+"averageVolume": 27698885,
+"marketCap": 53035081728,
+"firstTradeDateEpochUtc": null
+},
+"QUBT": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Quantum Computing Inc.",
+"averageVolume": 8418387,
+"marketCap": 2028067968,
+"firstTradeDateEpochUtc": null
+},
+"TSEM": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Tower Semiconductor Ltd.",
+"averageVolume": 1879369,
+"marketCap": 26050310144,
+"firstTradeDateEpochUtc": null
+},
+"LITE": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Lumentum Holdings Inc.",
+"averageVolume": 4602863,
+"marketCap": 84466008064,
+"firstTradeDateEpochUtc": null
+},
+"PENG": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Penguin Solutions, Inc.",
+"averageVolume": 2743219,
+"marketCap": 2880864768,
+"firstTradeDateEpochUtc": null
+},
+"STRC": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Strategy Inc",
+"averageVolume": 1588041,
+"marketCap": null,
+"firstTradeDateEpochUtc": null
+},
+"ADBE": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Adobe Inc.",
+"averageVolume": 5303906,
+"marketCap": 93599326208,
+"firstTradeDateEpochUtc": null
+},
+"VRTX": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Vertex Pharmaceuticals Incorporated",
+"averageVolume": 1270390,
+"marketCap": 133368602624,
+"firstTradeDateEpochUtc": null
+},
+"MSFT": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Microsoft Corporation",
+"averageVolume": 29973890,
+"marketCap": 3832843862016,
+"firstTradeDateEpochUtc": null
+},
+"TSM": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Taiwan Semiconductor Manufacturing Company Limited",
+"averageVolume": 12039568,
+"marketCap": 2337076936704,
+"firstTradeDateEpochUtc": null
+},
+"HSAI": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"quoteType": "EQUITY",
+"longName": "Hesai Group",
+"averageVolume": 1650601,
+"marketCap": 20428486656,
+"firstTradeDateEpochUtc": null
+},
+"NOW": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "ServiceNow, Inc.",
+"averageVolume": 19144312,
+"marketCap": 140212355072,
+"firstTradeDateEpochUtc": null
+},
+"TLN": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"quoteType": "EQUITY",
+"longName": "Talen Energy Corporation",
+"averageVolume": 781626,
+"marketCap": 14586059776,
+"firstTradeDateEpochUtc": null
+},
+"JBL": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Jabil Inc.",
+"averageVolume": 1094641,
+"marketCap": 33190260736,
+"firstTradeDateEpochUtc": null
+},
+"PFE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Pfizer Inc.",
+"averageVolume": 38182874,
+"marketCap": 163409641472,
+"firstTradeDateEpochUtc": null
+},
+"STLD": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"quoteType": "EQUITY",
+"longName": "Steel Dynamics, Inc.",
+"averageVolume": 1148012,
+"marketCap": 33490042880,
+"firstTradeDateEpochUtc": null
+},
+"CIEN": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Ciena Corporation",
+"averageVolume": 2283130,
+"marketCap": 50612883456,
+"firstTradeDateEpochUtc": null
+},
+"GNRC": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "Generac Holdings Inc.",
+"averageVolume": 1201911,
+"marketCap": 12293567488,
+"firstTradeDateEpochUtc": null
+},
+"SAP": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "SAP SE",
+"averageVolume": 2632258,
+"marketCap": 243167756288,
+"firstTradeDateEpochUtc": null
+},
+"TASK": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "TaskUs, Inc.",
+"averageVolume": 682687,
+"marketCap": 751833600,
+"firstTradeDateEpochUtc": null
+},
+"UNH": {
+"sector": "Healthcare",
+"industry": "Healthcare Plans",
+"quoteType": "EQUITY",
+"longName": "UnitedHealth Group Incorporated",
+"averageVolume": 4977649,
+"marketCap": 338025218048,
+"firstTradeDateEpochUtc": null
+},
+"VFS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "VinFast Auto Ltd.",
+"averageVolume": 385722,
+"marketCap": 7439725056,
+"firstTradeDateEpochUtc": null
+},
+"VICR": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Vicor Corporation",
+"averageVolume": 868793,
+"marketCap": 13000253440,
+"firstTradeDateEpochUtc": null
+},
+"ASTS": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "AST SpaceMobile, Inc.",
+"averageVolume": 12728684,
+"marketCap": 24054441984,
+"firstTradeDateEpochUtc": null
+},
+"APH": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Amphenol Corporation",
+"averageVolume": 12890780,
+"marketCap": 207363145728,
+"firstTradeDateEpochUtc": null
+},
+"AAON": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"quoteType": "EQUITY",
+"longName": "AAON, Inc.",
+"averageVolume": 1161526,
+"marketCap": 7346619392,
+"firstTradeDateEpochUtc": null
+},
+"APO": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"quoteType": "EQUITY",
+"longName": "Apollo Global Management, Inc.",
+"averageVolume": 3614873,
+"marketCap": 71863197696,
+"firstTradeDateEpochUtc": null
+},
+"BE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Bloom Energy Corporation",
+"averageVolume": 15654893,
+"marketCap": 85030051840,
+"firstTradeDateEpochUtc": null
+},
+"CAMT": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Camtek Ltd.",
+"averageVolume": 471571,
+"marketCap": 6862555648,
+"firstTradeDateEpochUtc": null
+},
+"COHR": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"quoteType": "EQUITY",
+"longName": "Coherent Corp.",
+"averageVolume": 6156739,
+"marketCap": 57933049856,
+"firstTradeDateEpochUtc": null
+},
+"TT": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"quoteType": "EQUITY",
+"longName": "Trane Technologies plc",
+"averageVolume": 1105868,
+"marketCap": 99987333120,
+"firstTradeDateEpochUtc": null
+},
+"WLK": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"quoteType": "EQUITY",
+"longName": "Westlake Corporation",
+"averageVolume": 940607,
+"marketCap": 8653104128,
+"firstTradeDateEpochUtc": null
+},
+"BIDU": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Baidu, Inc.",
+"averageVolume": 2692196,
+"marketCap": 29748408320,
+"firstTradeDateEpochUtc": null
+},
+"MKSI": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"quoteType": "EQUITY",
+"longName": "MKS Inc.",
+"averageVolume": 1417417,
+"marketCap": 17636012032,
+"firstTradeDateEpochUtc": null
+},
+"BZ": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Kanzhun Limited",
+"averageVolume": 5924904,
+"marketCap": 6177418240,
+"firstTradeDateEpochUtc": null
+},
+"DRS": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Leonardo DRS, Inc.",
+"averageVolume": 982922,
+"marketCap": 9917688832,
+"firstTradeDateEpochUtc": null
+},
+"WMB": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "The Williams Companies, Inc.",
+"averageVolume": 7196487,
+"marketCap": 84716584960,
+"firstTradeDateEpochUtc": null
+},
+"LOW": {
+"sector": "Consumer Cyclical",
+"industry": "Home Improvement Retail",
+"quoteType": "EQUITY",
+"longName": "Lowe's Companies, Inc.",
+"averageVolume": 3060979,
+"marketCap": 106196303872,
+"firstTradeDateEpochUtc": null
+},
+"QBTS": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "D-Wave Quantum Inc.",
+"averageVolume": 17339279,
+"marketCap": 6609299456,
+"firstTradeDateEpochUtc": null
+},
+"ABBV": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "AbbVie Inc.",
+"averageVolume": 5147196,
+"marketCap": 467119767552,
+"firstTradeDateEpochUtc": null
+},
+"BBAI": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "BigBear.ai Holdings, Inc.",
+"averageVolume": 20938109,
+"marketCap": 1342584576,
+"firstTradeDateEpochUtc": null
+},
+"NOK": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Nokia Oyj",
+"averageVolume": 84588460,
+"marketCap": 58169921536,
+"firstTradeDateEpochUtc": null
+},
+"PL": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Planet Labs PBC",
+"averageVolume": 8910138,
+"marketCap": 6341870592,
+"firstTradeDateEpochUtc": null
+},
+"PWR": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"quoteType": "EQUITY",
+"longName": "Quanta Services, Inc.",
+"averageVolume": 1045047,
+"marketCap": 97592410112,
+"firstTradeDateEpochUtc": null
+},
+"ABT": {
+"sector": "Healthcare",
+"industry": "Medical Devices",
+"quoteType": "EQUITY",
+"longName": "Abbott Laboratories",
+"averageVolume": 9845707,
+"marketCap": 175270526976,
+"firstTradeDateEpochUtc": null
+},
+"OKLO": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"quoteType": "EQUITY",
+"longName": "Oklo Inc.",
+"averageVolume": 9569512,
+"marketCap": 7076111360,
+"firstTradeDateEpochUtc": null
+},
+"QCOM": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "QUALCOMM Incorporated",
+"averageVolume": 13181911,
+"marketCap": 215716184064,
+"firstTradeDateEpochUtc": null
+},
+"SO": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"quoteType": "EQUITY",
+"longName": "The Southern Company",
+"averageVolume": 5479069,
+"marketCap": 95342084096,
+"firstTradeDateEpochUtc": null
+},
+"OPRA": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Opera Limited",
+"averageVolume": 358425,
+"marketCap": 1569391744,
+"firstTradeDateEpochUtc": null
+},
+"ETN": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "Eaton Corporation plc",
+"averageVolume": 2126890,
+"marketCap": 170888232960,
+"firstTradeDateEpochUtc": null
+},
+"MELI": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "MercadoLibre, Inc.",
+"averageVolume": 480898,
+"marketCap": 88851718144,
+"firstTradeDateEpochUtc": null
+},
+"WEN": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"quoteType": "EQUITY",
+"longName": "The Wendy's Company",
+"averageVolume": 10030009,
+"marketCap": 1248888064,
+"firstTradeDateEpochUtc": null
+},
+"BAC": {
+"sector": "Financial Services",
+"industry": "Banks - Diversified",
+"quoteType": "EQUITY",
+"longName": "Bank of America Corporation",
+"averageVolume": 33073790,
+"marketCap": 396488835072,
+"firstTradeDateEpochUtc": null
+},
+"MBLY": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"quoteType": "EQUITY",
+"longName": "Mobileye Global Inc.",
+"averageVolume": 6115122,
+"marketCap": 6827005952,
+"firstTradeDateEpochUtc": null
+},
+"CPNG": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "Coupang, Inc.",
+"averageVolume": 17188303,
+"marketCap": 24949463040,
+"firstTradeDateEpochUtc": null
+},
+"CRWD": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "CrowdStrike Holdings, Inc.",
+"averageVolume": 10093680,
+"marketCap": 258164703232,
+"firstTradeDateEpochUtc": null
+},
+"LSCC": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Lattice Semiconductor Corporation",
+"averageVolume": 1741119,
+"marketCap": 18186977280,
+"firstTradeDateEpochUtc": null
+},
+"VPG": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"quoteType": "EQUITY",
+"longName": "Vishay Precision Group, Inc.",
+"averageVolume": 530690,
+"marketCap": 952750592,
+"firstTradeDateEpochUtc": null
+},
+"ADI": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Analog Devices, Inc.",
+"averageVolume": 3801850,
+"marketCap": 190724980736,
+"firstTradeDateEpochUtc": null
+},
+"BMNR": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Bitmine Immersion Technologies, Inc.",
+"averageVolume": 39156042,
+"marketCap": 16624918528,
+"firstTradeDateEpochUtc": null
+},
+"EMR": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "Emerson Electric Co.",
+"averageVolume": 2520688,
+"marketCap": 88260689920,
+"firstTradeDateEpochUtc": null
+},
+"SYM": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "Symbotic Inc.",
+"averageVolume": 1708784,
+"marketCap": 26315208704,
+"firstTradeDateEpochUtc": null
+},
+"AMZN": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "Amazon.com, Inc.",
+"averageVolume": 40937987,
+"marketCap": 2693018681344,
+"firstTradeDateEpochUtc": null
+},
+"OSCR": {
+"sector": "Healthcare",
+"industry": "Healthcare Plans",
+"quoteType": "EQUITY",
+"longName": "Oscar Health, Inc.",
+"averageVolume": 5376168,
+"marketCap": 9135891456,
+"firstTradeDateEpochUtc": null
+},
+"ABNB": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"quoteType": "EQUITY",
+"longName": "Airbnb, Inc.",
+"averageVolume": 4660420,
+"marketCap": 94290780160,
+"firstTradeDateEpochUtc": null
+},
+"CVNA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto & Truck Dealerships",
+"quoteType": "EQUITY",
+"longName": "Carvana Co.",
+"averageVolume": 8843692,
+"marketCap": 72116649984,
+"firstTradeDateEpochUtc": null
+},
+"GEV": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "GE Vernova Inc.",
+"averageVolume": 2438507,
+"marketCap": 255049023488,
+"firstTradeDateEpochUtc": null
+},
+"NIO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "NIO Inc.",
+"averageVolume": 29943111,
+"marketCap": 8970288128,
+"firstTradeDateEpochUtc": null
+},
+"VST": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"quoteType": "EQUITY",
+"longName": "Vistra Corp.",
+"averageVolume": 4382587,
+"marketCap": 46472052736,
+"firstTradeDateEpochUtc": null
+},
+"ACHR": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Archer Aviation Inc.",
+"averageVolume": 32527900,
+"marketCap": 4319850496,
+"firstTradeDateEpochUtc": null
+},
+"MSTR": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Strategy Inc",
+"averageVolume": 22875120,
+"marketCap": 63012843520,
+"firstTradeDateEpochUtc": null
+},
+"GFS": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "GLOBALFOUNDRIES Inc.",
+"averageVolume": 4026776,
+"marketCap": 27313512448,
+"firstTradeDateEpochUtc": null
+},
+"HLIT": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Harmonic Inc.",
+"averageVolume": 1605263,
+"marketCap": 1200821632,
+"firstTradeDateEpochUtc": null
+},
+"LI": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "Li Auto Inc.",
+"averageVolume": 3289480,
+"marketCap": 11238657024,
+"firstTradeDateEpochUtc": null
+},
+"NOC": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Northrop Grumman Corporation",
+"averageVolume": 833600,
+"marketCap": 72526012416,
+"firstTradeDateEpochUtc": null
+},
+"ASML": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "ASML Holding N.V.",
+"averageVolume": 1564565,
+"marketCap": 669847322624,
+"firstTradeDateEpochUtc": null
+},
+"BOT": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"quoteType": "EQUITY",
+"longName": "Robostrategy, Inc.",
+"averageVolume": 459215,
+"marketCap": 696932224,
+"firstTradeDateEpochUtc": null
+},
+"MARA": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "MARA Holdings, Inc.",
+"averageVolume": 48148398,
+"marketCap": 4848056320,
+"firstTradeDateEpochUtc": null
+},
+"NVT": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "nVent Electric plc",
+"averageVolume": 2233376,
+"marketCap": 26611064832,
+"firstTradeDateEpochUtc": null
+},
+"POWI": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Power Integrations, Inc.",
+"averageVolume": 748744,
+"marketCap": 2917703680,
+"firstTradeDateEpochUtc": null
+},
+"XYZ": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Block, Inc.",
+"averageVolume": 4587253,
+"marketCap": 45912752128,
+"firstTradeDateEpochUtc": null
+},
+"GE": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "GE Aerospace",
+"averageVolume": 3978352,
+"marketCap": 339376308224,
+"firstTradeDateEpochUtc": null
+},
+"RDW": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Redwire Corporation",
+"averageVolume": 15698831,
+"marketCap": 2904914176,
+"firstTradeDateEpochUtc": null
+},
+"USAR": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"quoteType": "EQUITY",
+"longName": "USA Rare Earth, Inc.",
+"averageVolume": 12136788,
+"marketCap": 5698461696,
+"firstTradeDateEpochUtc": null
+},
+"VRT": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Vertiv Holdings Co",
+"averageVolume": 5456309,
+"marketCap": 97509801984,
+"firstTradeDateEpochUtc": null
+},
+"ARQQ": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Arqit Quantum Inc.",
+"averageVolume": 412700,
+"marketCap": 428099328,
+"firstTradeDateEpochUtc": null
+},
+"PLTR": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Palantir Technologies Inc.",
+"averageVolume": 36945036,
+"marketCap": 455788101632,
+"firstTradeDateEpochUtc": null
+},
+"SKHY": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "SK hynix Inc.",
+"averageVolume": 30723165,
+"marketCap": 1362136137728,
+"firstTradeDateEpochUtc": null
+},
+"SPOT": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Spotify Technology S.A.",
+"averageVolume": 1694268,
+"marketCap": 104850006016,
+"firstTradeDateEpochUtc": null
+},
+"TEN": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "Tsakos Energy Navigation Limited",
+"averageVolume": 316331,
+"marketCap": 1392799104,
+"firstTradeDateEpochUtc": null
+},
+"TMUS": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"quoteType": "EQUITY",
+"longName": "T-Mobile US, Inc.",
+"averageVolume": 4935555,
+"marketCap": 177452056576,
+"firstTradeDateEpochUtc": null
+},
+"CEVA": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "CEVA, Inc.",
+"averageVolume": 764047,
+"marketCap": 1019177408,
+"firstTradeDateEpochUtc": null
+},
+"FUTU": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Futu Holdings Limited",
+"averageVolume": 1298236,
+"marketCap": 15683558400,
+"firstTradeDateEpochUtc": null
+},
+"IBM": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "International Business Machines Corporation",
+"averageVolume": 8341746,
+"marketCap": 212460716032,
+"firstTradeDateEpochUtc": null
+},
+"NAT": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "Nordic American Tankers Limited",
+"averageVolume": 3807993,
+"marketCap": 1634715008,
+"firstTradeDateEpochUtc": null
+},
+"CRM": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Salesforce, Inc.",
+"averageVolume": 13813046,
+"marketCap": 192598458368,
+"firstTradeDateEpochUtc": null
+},
+"CRCL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Circle Internet Group",
+"averageVolume": 14662996,
+"marketCap": 24260876288,
+"firstTradeDateEpochUtc": null
+},
+"LWLG": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"quoteType": "EQUITY",
+"longName": "Lightwave Logic, Inc.",
+"averageVolume": 2997220,
+"marketCap": 818628096,
+"firstTradeDateEpochUtc": null
+},
+"PRIM": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"quoteType": "EQUITY",
+"longName": "Primoris Services Corporation",
+"averageVolume": 1270990,
+"marketCap": 3941621248,
+"firstTradeDateEpochUtc": null
+},
+"RGTI": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Rigetti Computing, Inc.",
+"averageVolume": 19465846,
+"marketCap": 5560587264,
+"firstTradeDateEpochUtc": null
+},
+"RMBS": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Rambus Inc.",
+"averageVolume": 2645288,
+"marketCap": 11405821952,
+"firstTradeDateEpochUtc": null
+},
+"FN": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Fabrinet",
+"averageVolume": 866168,
+"marketCap": 14957114368,
+"firstTradeDateEpochUtc": null
+},
+"UCTT": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Ultra Clean Holdings, Inc.",
+"averageVolume": 1201907,
+"marketCap": 3517572352,
+"firstTradeDateEpochUtc": null
+},
+"APP": {
+"sector": "Communication Services",
+"industry": "Advertising Agencies",
+"quoteType": "EQUITY",
+"longName": "AppLovin Corporation",
+"averageVolume": 5841411,
+"marketCap": 104393203712,
+"firstTradeDateEpochUtc": null
+},
+"EQIX": {
+"sector": "Real Estate",
+"industry": "REIT - Specialty",
+"quoteType": "EQUITY",
+"longName": "Equinix, Inc.",
+"averageVolume": 567357,
+"marketCap": 99468959744,
+"firstTradeDateEpochUtc": null
+},
+"AAPL": {
+"sector": "Technology",
+"industry": "Consumer Electronics",
+"quoteType": "EQUITY",
+"longName": "Apple Inc.",
+"averageVolume": 47789836,
+"marketCap": 4977636933632,
+"firstTradeDateEpochUtc": null
+},
+"SNAP": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Snap Inc.",
+"averageVolume": 37114898,
+"marketCap": 9166291968,
+"firstTradeDateEpochUtc": null
+},
+"ECO": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"quoteType": "EQUITY",
+"longName": "Okeanis Eco Tankers Corp.",
+"averageVolume": 590384,
+"marketCap": 3041578752,
+"firstTradeDateEpochUtc": null
+},
+"FLEX": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Flex Ltd.",
+"averageVolume": 3942373,
+"marketCap": 42363133952,
+"firstTradeDateEpochUtc": null
+},
+"SNDK": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Sandisk Corporation",
+"averageVolume": 13549430,
+"marketCap": 260303716352,
+"firstTradeDateEpochUtc": null
+},
+"UEC": {
+"sector": "Energy",
+"industry": "Uranium",
+"quoteType": "EQUITY",
+"longName": "Uranium Energy Corp.",
+"averageVolume": 8118368,
+"marketCap": 4656748544,
+"firstTradeDateEpochUtc": null
+},
+"BTG": {
+"sector": "Basic Materials",
+"industry": "Gold",
+"quoteType": "EQUITY",
+"longName": "B2Gold Corp.",
+"averageVolume": 24689100,
+"marketCap": 7239467520,
+"firstTradeDateEpochUtc": null
+},
+"SATA": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"quoteType": "EQUITY",
+"longName": "Strive, Inc.",
+"averageVolume": 309744,
+"marketCap": null,
+"firstTradeDateEpochUtc": null
+},
+"SOFI": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "SoFi Technologies, Inc.",
+"averageVolume": 61122384,
+"marketCap": 21414236160,
+"firstTradeDateEpochUtc": null
+},
+"AMKR": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Amkor Technology, Inc.",
+"averageVolume": 4909765,
+"marketCap": 13319537664,
+"firstTradeDateEpochUtc": null
+},
+"GS": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "The Goldman Sachs Group, Inc.",
+"averageVolume": 1994258,
+"marketCap": 272376283136,
+"firstTradeDateEpochUtc": null
+},
+"UAMY": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"quoteType": "EQUITY",
+"longName": "United States Antimony Corporation",
+"averageVolume": 6198849,
+"marketCap": 673512192,
+"firstTradeDateEpochUtc": null
+},
+"ARM": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Arm Holdings plc",
+"averageVolume": 5415339,
+"marketCap": 331421319168,
+"firstTradeDateEpochUtc": null
+},
+"FORM": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "FormFactor, Inc.",
+"averageVolume": 1320958,
+"marketCap": 10131477504,
+"firstTradeDateEpochUtc": null
+},
+"ALB": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"quoteType": "EQUITY",
+"longName": "Albemarle Corporation",
+"averageVolume": 2341330,
+"marketCap": 12948695040,
+"firstTradeDateEpochUtc": null
+},
+"EXOD": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Exodus Movement, Inc.",
+"averageVolume": 82850,
+"marketCap": 239209808,
+"firstTradeDateEpochUtc": null
+},
+"SLB": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"quoteType": "EQUITY",
+"longName": "SLB N.V.",
+"averageVolume": 12379671,
+"marketCap": 76492742656,
+"firstTradeDateEpochUtc": null
+},
+"UMC": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "United Microelectronics Corporation",
+"averageVolume": 13617398,
+"marketCap": 60967256064,
+"firstTradeDateEpochUtc": null
+},
+"CEG": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"quoteType": "EQUITY",
+"longName": "Constellation Energy Corporation",
+"averageVolume": 2920430,
+"marketCap": 93278502912,
+"firstTradeDateEpochUtc": null
+},
+"KO": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Non-Alcoholic",
+"quoteType": "EQUITY",
+"longName": "The Coca-Cola Company",
+"averageVolume": 15932090,
+"marketCap": 377806815232,
+"firstTradeDateEpochUtc": null
+},
+"NUE": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"quoteType": "EQUITY",
+"longName": "Nucor Corporation",
+"averageVolume": 1391977,
+"marketCap": 56095010816,
+"firstTradeDateEpochUtc": null
+},
+"TM": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "Toyota Motor Corporation",
+"averageVolume": 386274,
+"marketCap": 225397473280,
+"firstTradeDateEpochUtc": null
+},
+"SOUN": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "SoundHound AI, Inc.",
+"averageVolume": 28659660,
+"marketCap": 2686878720,
+"firstTradeDateEpochUtc": null
+},
+"TTMI": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "TTM Technologies, Inc.",
+"averageVolume": 2535160,
+"marketCap": 13607912448,
+"firstTradeDateEpochUtc": null
+},
+"HIVE": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "HIVE Digital Technologies Ltd.",
+"averageVolume": 18391766,
+"marketCap": 866716416,
+"firstTradeDateEpochUtc": null
+},
+"HIMX": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Himax Technologies, Inc.",
+"averageVolume": 1410976,
+"marketCap": 2518710272,
+"firstTradeDateEpochUtc": null
+},
+"KLAC": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "KLA Corporation",
+"averageVolume": 11254784,
+"marketCap": 245236809728,
+"firstTradeDateEpochUtc": null
+},
+"BTDR": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Bitdeer Technologies Group",
+"averageVolume": 11835896,
+"marketCap": 3128213760,
+"firstTradeDateEpochUtc": null
+},
+"FIGR": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Figure Technology Solutions, Inc.",
+"averageVolume": 4094903,
+"marketCap": 7157654016,
+"firstTradeDateEpochUtc": null
+},
+"NET": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Cloudflare, Inc.",
+"averageVolume": 3418441,
+"marketCap": 124278939648,
+"firstTradeDateEpochUtc": null
+},
+"PEP": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Non-Alcoholic",
+"quoteType": "EQUITY",
+"longName": "PepsiCo, Inc.",
+"averageVolume": 8384606,
+"marketCap": 175708585984,
+"firstTradeDateEpochUtc": null
+},
+"AAL": {
+"sector": "Industrials",
+"industry": "Airlines",
+"quoteType": "EQUITY",
+"longName": "American Airlines Group Inc.",
+"averageVolume": 86814087,
+"marketCap": 9181522944,
+"firstTradeDateEpochUtc": null
+},
+"AI": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "C3.ai, Inc.",
+"averageVolume": 5015747,
+"marketCap": 1712305408,
+"firstTradeDateEpochUtc": null
+},
+"SWKS": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Skyworks Solutions, Inc.",
+"averageVolume": 6236296,
+"marketCap": 13443237888,
+"firstTradeDateEpochUtc": null
+},
+"TMO": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"quoteType": "EQUITY",
+"longName": "Thermo Fisher Scientific Inc.",
+"averageVolume": 2059149,
+"marketCap": 249579421696,
+"firstTradeDateEpochUtc": null
+},
+"WDC": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Western Digital Corporation",
+"averageVolume": 7388471,
+"marketCap": 164698701824,
+"firstTradeDateEpochUtc": null
+},
+"HAL": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"quoteType": "EQUITY",
+"longName": "Halliburton Company",
+"averageVolume": 11109576,
+"marketCap": 27293349888,
+"firstTradeDateEpochUtc": null
+},
+"JPM": {
+"sector": "Financial Services",
+"industry": "Banks - Diversified",
+"quoteType": "EQUITY",
+"longName": "JPMorgan Chase & Co.",
+"averageVolume": 7751331,
+"marketCap": 911917383680,
+"firstTradeDateEpochUtc": null
+},
+"OPEN": {
+"sector": "Real Estate",
+"industry": "Real Estate Services",
+"quoteType": "EQUITY",
+"longName": "Opendoor Technologies Inc.",
+"averageVolume": 52655457,
+"marketCap": 2495704064,
+"firstTradeDateEpochUtc": null
+},
+"COIN": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"quoteType": "EQUITY",
+"longName": "Coinbase Global, Inc.",
+"averageVolume": 8954106,
+"marketCap": 51477221376,
+"firstTradeDateEpochUtc": null
+},
+"PG": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"quoteType": "EQUITY",
+"longName": "The Procter & Gamble Company",
+"averageVolume": 8671377,
+"marketCap": 339644383232,
+"firstTradeDateEpochUtc": null
+},
+"ON": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "ON Semiconductor Corporation",
+"averageVolume": 10378133,
+"marketCap": 30055397376,
+"firstTradeDateEpochUtc": null
+},
+"LRCX": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Lam Research Corporation",
+"averageVolume": 10224784,
+"marketCap": 394461478912,
+"firstTradeDateEpochUtc": null
+},
+"NNE": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "NANO Nuclear Energy Inc.",
+"averageVolume": 1989058,
+"marketCap": 912331456,
+"firstTradeDateEpochUtc": null
+},
+"NVMI": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Nova Ltd.",
+"averageVolume": 564309,
+"marketCap": 11711982592,
+"firstTradeDateEpochUtc": null
+},
+"RIVN": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"quoteType": "EQUITY",
+"longName": "Rivian Automotive, Inc.",
+"averageVolume": 28376084,
+"marketCap": 22398404608,
+"firstTradeDateEpochUtc": null
+},
+"LASR": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "nLIGHT, Inc.",
+"averageVolume": 1232261,
+"marketCap": 2326645760,
+"firstTradeDateEpochUtc": null
+},
+"SBET": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Sharplink, Inc.",
+"averageVolume": 9002525,
+"marketCap": 2091863296,
+"firstTradeDateEpochUtc": null
+},
+"AMAT": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Applied Materials, Inc.",
+"averageVolume": 7886828,
+"marketCap": 384894763008,
+"firstTradeDateEpochUtc": null
+},
+"CSCO": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Cisco Systems, Inc.",
+"averageVolume": 20413896,
+"marketCap": 420674011136,
+"firstTradeDateEpochUtc": null
+},
+"MRVL": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Marvell Technology, Inc.",
+"averageVolume": 23585692,
+"marketCap": 235402199040,
+"firstTradeDateEpochUtc": null
+},
+"TNK": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "Teekay Tankers Ltd.",
+"averageVolume": 434601,
+"marketCap": 3262358016,
+"firstTradeDateEpochUtc": null
+},
+"BABA": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "Alibaba Group Holding Limited",
+"averageVolume": 11528584,
+"marketCap": 272854040576,
+"firstTradeDateEpochUtc": null
+},
+"ATKR": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Atkore Inc.",
+"averageVolume": 825611,
+"marketCap": 3193918720,
+"firstTradeDateEpochUtc": null
+},
+"TCOM": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"quoteType": "EQUITY",
+"longName": "Trip.com Group Limited",
+"averageVolume": 3248747,
+"marketCap": 24829276160,
+"firstTradeDateEpochUtc": null
+},
+"FIG": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Figma, Inc.",
+"averageVolume": 19329820,
+"marketCap": 11113255936,
+"firstTradeDateEpochUtc": null
+},
+"IONQ": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "IonQ, Inc.",
+"averageVolume": 20609811,
+"marketCap": 18425569280,
+"firstTradeDateEpochUtc": null
+},
+"WULF": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "TeraWulf Inc.",
+"averageVolume": 32730838,
+"marketCap": 7853766656,
+"firstTradeDateEpochUtc": null
+},
+"ALAB": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Astera Labs, Inc.",
+"averageVolume": 4347968,
+"marketCap": 63256137728,
+"firstTradeDateEpochUtc": null
+},
+"AVGO": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Broadcom Inc.",
+"averageVolume": 22773469,
+"marketCap": 1684184367104,
+"firstTradeDateEpochUtc": null
+},
+"HD": {
+"sector": "Consumer Cyclical",
+"industry": "Home Improvement Retail",
+"quoteType": "EQUITY",
+"longName": "The Home Depot, Inc.",
+"averageVolume": 4058522,
+"marketCap": 292522590208,
+"firstTradeDateEpochUtc": null
+},
+"HII": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Huntington Ingalls Industries, Inc.",
+"averageVolume": 471495,
+"marketCap": 10403602432,
+"firstTradeDateEpochUtc": null
+},
+"GRND": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Grindr Inc.",
+"averageVolume": 1571238,
+"marketCap": 2741151232,
+"firstTradeDateEpochUtc": null
+},
+"MYRG": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"quoteType": "EQUITY",
+"longName": "MYR Group Inc.",
+"averageVolume": 290174,
+"marketCap": 4555251200,
+"firstTradeDateEpochUtc": null
+},
+"ACN": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Accenture plc",
+"averageVolume": 6630738,
+"marketCap": 107769118720,
+"firstTradeDateEpochUtc": null
+},
+"HTZ": {
+"sector": "Industrials",
+"industry": "Rental & Leasing Services",
+"quoteType": "EQUITY",
+"longName": "Hertz Global Holdings, Inc.",
+"averageVolume": 30312082,
+"marketCap": 620225408,
+"firstTradeDateEpochUtc": null
+},
+"RTX": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "RTX Corporation",
+"averageVolume": 4491014,
+"marketCap": 255265374208,
+"firstTradeDateEpochUtc": null
+},
+"WMT": {
+"sector": "Consumer Defensive",
+"industry": "Discount Stores",
+"quoteType": "EQUITY",
+"longName": "Walmart Inc.",
+"averageVolume": 24101122,
+"marketCap": 859313405952,
+"firstTradeDateEpochUtc": null
+},
+"DE": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"quoteType": "EQUITY",
+"longName": "Deere & Company",
+"averageVolume": 1224512,
+"marketCap": 186165559296,
+"firstTradeDateEpochUtc": null
+},
+"KEEL": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Keel Infrastructure Corp.",
+"averageVolume": 34648101,
+"marketCap": 2346778112,
+"firstTradeDateEpochUtc": null
+},
+"REGN": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Regeneron Pharmaceuticals, Inc.",
+"averageVolume": 747565,
+"marketCap": 81132650496,
+"firstTradeDateEpochUtc": null
+},
+"ISRG": {
+"sector": "Healthcare",
+"industry": "Medical Instruments & Supplies",
+"quoteType": "EQUITY",
+"longName": "Intuitive Surgical, Inc.",
+"averageVolume": 3007025,
+"marketCap": 145167089664,
+"firstTradeDateEpochUtc": null
+},
+"EXTR": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Extreme Networks, Inc.",
+"averageVolume": 1646944,
+"marketCap": 2844313344,
+"firstTradeDateEpochUtc": null
+},
+"BA": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "The Boeing Company",
+"averageVolume": 5873246,
+"marketCap": 156548595712,
+"firstTradeDateEpochUtc": null
+},
+"CORZ": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Core Scientific, Inc.",
+"averageVolume": 12080211,
+"marketCap": 5572043264,
+"firstTradeDateEpochUtc": null
+},
+"HPE": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Hewlett Packard Enterprise Company",
+"averageVolume": 20238769,
+"marketCap": 83550633984,
+"firstTradeDateEpochUtc": null
+},
+"MA": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "Mastercard Incorporated",
+"averageVolume": 2949055,
+"marketCap": 497267048448,
+"firstTradeDateEpochUtc": null
+},
+"META": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Meta Platforms, Inc.",
+"averageVolume": 19739836,
+"marketCap": 1914858373120,
+"firstTradeDateEpochUtc": null
+},
+"UUUU": {
+"sector": "Energy",
+"industry": "Uranium",
+"quoteType": "EQUITY",
+"longName": "Energy Fuels Inc.",
+"averageVolume": 6945917,
+"marketCap": 3005180160,
+"firstTradeDateEpochUtc": null
+},
+"GME": {
+"sector": "Consumer Cyclical",
+"industry": "Specialty Retail",
+"quoteType": "EQUITY",
+"longName": "GameStop Corp.",
+"averageVolume": 6735906,
+"marketCap": 11800278016,
+"firstTradeDateEpochUtc": null
+},
+"SEDG": {
+"sector": "Technology",
+"industry": "Solar",
+"quoteType": "EQUITY",
+"longName": "SolarEdge Technologies, Inc.",
+"averageVolume": 3120758,
+"marketCap": 2010661504,
+"firstTradeDateEpochUtc": null
+},
+"WYFI": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "WhiteFiber, Inc.",
+"averageVolume": 2457725,
+"marketCap": 762200128,
+"firstTradeDateEpochUtc": null
+},
+"BLK": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"quoteType": "EQUITY",
+"longName": "BlackRock, Inc.",
+"averageVolume": 656415,
+"marketCap": 176499523584,
+"firstTradeDateEpochUtc": null
+},
+"CLF": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"quoteType": "EQUITY",
+"longName": "Cleveland-Cliffs Inc.",
+"averageVolume": 18956088,
+"marketCap": 6949177856,
+"firstTradeDateEpochUtc": null
+},
+"COST": {
+"sector": "Consumer Defensive",
+"industry": "Discount Stores",
+"quoteType": "EQUITY",
+"longName": "Costco Wholesale Corporation",
+"averageVolume": 2147834,
+"marketCap": 409030328320,
+"firstTradeDateEpochUtc": null
+},
+"ICHR": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Ichor Holdings, Ltd.",
+"averageVolume": 892909,
+"marketCap": 2170097920,
+"firstTradeDateEpochUtc": null
+},
+"LECO": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"quoteType": "EQUITY",
+"longName": "Lincoln Electric Holdings, Inc.",
+"averageVolume": 423988,
+"marketCap": 14809214976,
+"firstTradeDateEpochUtc": null
+},
+"WM": {
+"sector": "Industrials",
+"industry": "Waste Management",
+"quoteType": "EQUITY",
+"longName": "Waste Management, Inc.",
+"averageVolume": 2011444,
+"marketCap": 82673098752,
+"firstTradeDateEpochUtc": null
+},
+"NVTS": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Navitas Semiconductor Corporation",
+"averageVolume": 13683346,
+"marketCap": 3203176704,
+"firstTradeDateEpochUtc": null
+},
+"XOM": {
+"sector": "Energy",
+"industry": "Oil & Gas Integrated",
+"quoteType": "EQUITY",
+"longName": "ExxonMobil Holdings Corporation",
+"averageVolume": 14586531,
+"marketCap": 660331954176,
+"firstTradeDateEpochUtc": null
+},
+"COF": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "Capital One Financial Corporation",
+"averageVolume": 3712769,
+"marketCap": 122819665920,
+"firstTradeDateEpochUtc": null
+},
+"DGXX": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"quoteType": "EQUITY",
+"longName": "Digi Power X Inc.",
+"averageVolume": 3268852,
+"marketCap": 465410816,
+"firstTradeDateEpochUtc": null
+},
+"FPS": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Forgent Power Solutions, Inc.",
+"averageVolume": 9127947,
+"marketCap": 12430837760,
+"firstTradeDateEpochUtc": null
+},
+"LPTH": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "LightPath Technologies, Inc.",
+"averageVolume": 3021290,
+"marketCap": 698961792,
+"firstTradeDateEpochUtc": null
+},
+"TEL": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "TE Connectivity plc",
+"averageVolume": 2241660,
+"marketCap": 63284690944,
+"firstTradeDateEpochUtc": null
+},
+"VZ": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"quoteType": "EQUITY",
+"longName": "Verizon Communications Inc.",
+"averageVolume": 25228150,
+"marketCap": 195606822912,
+"firstTradeDateEpochUtc": null
+},
+"BILI": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Bilibili Inc.",
+"averageVolume": 2748053,
+"marketCap": 6135700480,
+"firstTradeDateEpochUtc": null
+},
+"MXL": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "MaxLinear, Inc.",
+"averageVolume": 3229409,
+"marketCap": 8510648832,
+"firstTradeDateEpochUtc": null
+},
+"CRDO": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Credo Technology Group Holding Ltd",
+"averageVolume": 6873388,
+"marketCap": 39652216832,
+"firstTradeDateEpochUtc": null
+},
+"STNG": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "Scorpio Tankers Inc.",
+"averageVolume": 831895,
+"marketCap": 4081129216,
+"firstTradeDateEpochUtc": null
+},
+"FCX": {
+"sector": "Basic Materials",
+"industry": "Copper",
+"quoteType": "EQUITY",
+"longName": "Freeport-McMoRan Inc.",
+"averageVolume": 13728953,
+"marketCap": 103838425088,
+"firstTradeDateEpochUtc": null
+},
+"CLS": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Celestica Inc.",
+"averageVolume": 2471298,
+"marketCap": 46086049792,
+"firstTradeDateEpochUtc": null
+},
+"GRAB": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Grab Holdings Limited",
+"averageVolume": 52068425,
+"marketCap": 12805775360,
+"firstTradeDateEpochUtc": null
+},
+"JNJ": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Johnson & Johnson",
+"averageVolume": 7044396,
+"marketCap": 653612679168,
+"firstTradeDateEpochUtc": null
+},
+"SPCX": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Space Exploration Technologies Corp.",
+"averageVolume": 92714806,
+"marketCap": 1959866925056,
+"firstTradeDateEpochUtc": null
+},
+"AAOI": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Applied Optoelectronics, Inc.",
+"averageVolume": 9417025,
+"marketCap": 8609498112,
+"firstTradeDateEpochUtc": null
+},
+"INTU": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Intuit Inc.",
+"averageVolume": 4058966,
+"marketCap": 73701015552,
+"firstTradeDateEpochUtc": null
+},
+"CAPR": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Capricor Therapeutics, Inc.",
+"averageVolume": 6465860,
+"marketCap": 486041920,
+"firstTradeDateEpochUtc": null
+},
+"CCJ": {
+"sector": "Energy",
+"industry": "Uranium",
+"quoteType": "EQUITY",
+"longName": "Cameco Corporation",
+"averageVolume": 3205285,
+"marketCap": 38357389312,
+"firstTradeDateEpochUtc": null
+},
+"PLUG": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Plug Power Inc.",
+"averageVolume": 53442414,
+"marketCap": 2766446592,
+"firstTradeDateEpochUtc": null
+},
+"RKLB": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Rocket Lab Corporation",
+"averageVolume": 19709415,
+"marketCap": 47284441088,
+"firstTradeDateEpochUtc": null
+},
+"UNP": {
+"sector": "Industrials",
+"industry": "Railroads",
+"quoteType": "EQUITY",
+"longName": "Union Pacific Corporation",
+"averageVolume": 2683296,
+"marketCap": 162651947008,
+"firstTradeDateEpochUtc": null
+},
+"AMD": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Advanced Micro Devices, Inc.",
+"averageVolume": 24468579,
+"marketCap": 1029487722496,
+"firstTradeDateEpochUtc": null
+},
+"LMT": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "Lockheed Martin Corporation",
+"averageVolume": 1135180,
+"marketCap": 119909646336,
+"firstTradeDateEpochUtc": null
+},
+"MRNA": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Moderna, Inc.",
+"averageVolume": 16921984,
+"marketCap": 79400042496,
+"firstTradeDateEpochUtc": null
+},
+"PINS": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Pinterest, Inc.",
+"averageVolume": 12350217,
+"marketCap": 10703315968,
+"firstTradeDateEpochUtc": null
+},
+"WFC": {
+"sector": "Financial Services",
+"industry": "Banks - Diversified",
+"quoteType": "EQUITY",
+"longName": "Wells Fargo & Company",
+"averageVolume": 14158019,
+"marketCap": 250901217280,
+"firstTradeDateEpochUtc": null
+},
+"RDDT": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Reddit, Inc.",
+"averageVolume": 5883415,
+"marketCap": 28828692480,
+"firstTradeDateEpochUtc": null
+},
+"ENB": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"quoteType": "EQUITY",
+"longName": "Enbridge Inc.",
+"averageVolume": 5001009,
+"marketCap": 104176148480,
+"firstTradeDateEpochUtc": null
+},
+"LIN": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"quoteType": "EQUITY",
+"longName": "Linde plc",
+"averageVolume": 2074755,
+"marketCap": 216609980416,
+"firstTradeDateEpochUtc": null
+},
+"OII": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"quoteType": "EQUITY",
+"longName": "Oceaneering International, Inc.",
+"averageVolume": 1002001,
+"marketCap": 4604241408,
+"firstTradeDateEpochUtc": null
+},
+"CVX": {
+"sector": "Energy",
+"industry": "Oil & Gas Integrated",
+"quoteType": "EQUITY",
+"longName": "Chevron Corporation",
+"averageVolume": 8773796,
+"marketCap": 401049780224,
+"firstTradeDateEpochUtc": null
+},
+"MTZ": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"quoteType": "EQUITY",
+"longName": "MasTec, Inc.",
+"averageVolume": 1474576,
+"marketCap": 17092908032,
+"firstTradeDateEpochUtc": null
+},
+"PURR": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Hyperliquid Strategies Inc.",
+"averageVolume": 17667696,
+"marketCap": 2542213120,
+"firstTradeDateEpochUtc": null
+},
+"RXRX": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Recursion Pharmaceuticals, Inc.",
+"averageVolume": 19640182,
+"marketCap": 2005653760,
+"firstTradeDateEpochUtc": null
+},
+"DNN": {
+"sector": "Energy",
+"industry": "Uranium",
+"quoteType": "EQUITY",
+"longName": "Denison Mines Corp.",
+"averageVolume": 24744131,
+"marketCap": 2398932736,
+"firstTradeDateEpochUtc": null
+},
+"FCEL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "FuelCell Energy, Inc.",
+"averageVolume": 9389647,
+"marketCap": 1318444544,
+"firstTradeDateEpochUtc": null
+},
+"FLNC": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"quoteType": "EQUITY",
+"longName": "Fluence Energy, Inc.",
+"averageVolume": 8147366,
+"marketCap": 1459388544,
+"firstTradeDateEpochUtc": null
+},
+"NBIS": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": null,
+"averageVolume": 20592485,
+"marketCap": 64519401472,
+"firstTradeDateEpochUtc": null
+},
+"SMCI": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Super Micro Computer, Inc.",
+"averageVolume": 46673274,
+"marketCap": 28420321280,
+"firstTradeDateEpochUtc": null
+},
+"DELL": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"quoteType": "EQUITY",
+"longName": "Dell Technologies Inc.",
+"averageVolume": 7776023,
+"marketCap": 357892653056,
+"firstTradeDateEpochUtc": null
+},
+"BTGO": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": null,
+"averageVolume": 1611479,
+"marketCap": 879241280,
+"firstTradeDateEpochUtc": null
+},
+"APLD": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Applied Digital Corporation",
+"averageVolume": 17554792,
+"marketCap": 7462974976,
+"firstTradeDateEpochUtc": null
+},
+"CAT": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"quoteType": "EQUITY",
+"longName": "Caterpillar Inc.",
+"averageVolume": 2760868,
+"marketCap": 377659686912,
+"firstTradeDateEpochUtc": null
+},
+"SBUX": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"quoteType": "EQUITY",
+"longName": "Starbucks Corporation",
+"averageVolume": 6920958,
+"marketCap": 108140404736,
+"firstTradeDateEpochUtc": null
+},
+"WS": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"quoteType": "EQUITY",
+"longName": "Worthington Steel, Inc.",
+"averageVolume": 264882,
+"marketCap": 1847324416,
+"firstTradeDateEpochUtc": null
+},
+"CBRS": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Cerebras Systems Inc.",
+"averageVolume": 6522569,
+"marketCap": 49116368896,
+"firstTradeDateEpochUtc": null
+},
+"ROK": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "Rockwell Automation, Inc.",
+"averageVolume": 762722,
+"marketCap": 48309583872,
+"firstTradeDateEpochUtc": null
+},
+"DIS": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"quoteType": "EQUITY",
+"longName": "The Walt Disney Company",
+"averageVolume": 9651146,
+"marketCap": 183287808000,
+"firstTradeDateEpochUtc": null
+},
+"JD": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "JD.com, Inc.",
+"averageVolume": 7513995,
+"marketCap": 35801755648,
+"firstTradeDateEpochUtc": null
+},
+"ONDS": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"quoteType": "EQUITY",
+"longName": "Ondas Inc.",
+"averageVolume": 82401849,
+"marketCap": 4448792576,
+"firstTradeDateEpochUtc": null
+},
+"CMG": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"quoteType": "EQUITY",
+"longName": "Chipotle Mexican Grill, Inc.",
+"averageVolume": 16192993,
+"marketCap": 39645544448,
+"firstTradeDateEpochUtc": null
+},
+"LLY": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Eli Lilly and Company",
+"averageVolume": 2570165,
+"marketCap": 1055340232704,
+"firstTradeDateEpochUtc": null
+},
+"ACMR": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "ACM Research, Inc.",
+"averageVolume": 1114158,
+"marketCap": 5383883264,
+"firstTradeDateEpochUtc": null
+},
+"GD": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"quoteType": "EQUITY",
+"longName": "General Dynamics Corporation",
+"averageVolume": 1093341,
+"marketCap": 91102011392,
+"firstTradeDateEpochUtc": null
+},
+"IRDM": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"quoteType": "EQUITY",
+"longName": "Iridium Communications Inc.",
+"averageVolume": 1596566,
+"marketCap": 5166600704,
+"firstTradeDateEpochUtc": null
+},
+"OXY": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"quoteType": "EQUITY",
+"longName": "Occidental Petroleum Corporation",
+"averageVolume": 8606512,
+"marketCap": 56839380992,
+"firstTradeDateEpochUtc": null
+},
+"V": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "Visa Inc.",
+"averageVolume": 7112547,
+"marketCap": 689702764544,
+"firstTradeDateEpochUtc": null
+},
+"IREN": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "IREN Limited",
+"averageVolume": 43330492,
+"marketCap": 17387837440,
+"firstTradeDateEpochUtc": null
+},
+"MCD": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"quoteType": "EQUITY",
+"longName": "McDonald's Corporation",
+"averageVolume": 4919641,
+"marketCap": 167357218816,
+"firstTradeDateEpochUtc": null
+},
+"OUST": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Ouster, Inc.",
+"averageVolume": 3269488,
+"marketCap": 3152751360,
+"firstTradeDateEpochUtc": null
+},
+"TXN": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Texas Instruments Incorporated",
+"averageVolume": 6929261,
+"marketCap": 253946789888,
+"firstTradeDateEpochUtc": null
+},
+"AUR": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"quoteType": "EQUITY",
+"longName": "Aurora Innovation, Inc.",
+"averageVolume": 28490896,
+"marketCap": 12105097216,
+"firstTradeDateEpochUtc": null
+},
+"TER": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Teradyne, Inc.",
+"averageVolume": 3177165,
+"marketCap": 62283030528,
+"firstTradeDateEpochUtc": null
+},
+"PDD": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"quoteType": "EQUITY",
+"longName": "PDD Holdings Inc.",
+"averageVolume": 6647009,
+"marketCap": 110412865536,
+"firstTradeDateEpochUtc": null
+},
+"AXTI": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "AXT, Inc.",
+"averageVolume": 9924860,
+"marketCap": 5176349696,
+"firstTradeDateEpochUtc": null
+},
+"PYPL": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"quoteType": "EQUITY",
+"longName": "PayPal Holdings, Inc.",
+"averageVolume": 14705131,
+"marketCap": 47084568576,
+"firstTradeDateEpochUtc": null
+},
+"SNOW": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Snowflake Inc.",
+"averageVolume": 4953758,
+"marketCap": 118519635968,
+"firstTradeDateEpochUtc": null
+},
+"INOD": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"quoteType": "EQUITY",
+"longName": "Innodata Inc.",
+"averageVolume": 1333526,
+"marketCap": 2379623424,
+"firstTradeDateEpochUtc": null
+},
+"INTC": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Intel Corporation",
+"averageVolume": 108969353,
+"marketCap": 650190913536,
+"firstTradeDateEpochUtc": null
+},
+"GOOG": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Alphabet Inc.",
+"averageVolume": 18270244,
+"marketCap": 4171386060800,
+"firstTradeDateEpochUtc": null
+},
+"KEYS": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"quoteType": "EQUITY",
+"longName": "Keysight Technologies, Inc.",
+"averageVolume": 1287087,
+"marketCap": 61654134784,
+"firstTradeDateEpochUtc": null
+},
+"NVO": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Novo Nordisk A/S",
+"averageVolume": 12158173,
+"marketCap": 171371249664,
+"firstTradeDateEpochUtc": null
+},
+"SCHW": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "The Charles Schwab Corporation",
+"averageVolume": 8250341,
+"marketCap": 171256102912,
+"firstTradeDateEpochUtc": null
+},
+"AIP": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Arteris, Inc.",
+"averageVolume": 752003,
+"marketCap": 1174243712,
+"firstTradeDateEpochUtc": null
+},
+"GLW": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Corning Incorporated",
+"averageVolume": 11510361,
+"marketCap": 135014014976,
+"firstTradeDateEpochUtc": null
+},
+"HIMS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"quoteType": "EQUITY",
+"longName": "Hims & Hers Health, Inc.",
+"averageVolume": 12825636,
+"marketCap": 6864080384,
+"firstTradeDateEpochUtc": null
+},
+"HUBB": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Hubbell Incorporated",
+"averageVolume": 528366,
+"marketCap": 24652734464,
+"firstTradeDateEpochUtc": null
+},
+"NFLX": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"quoteType": "EQUITY",
+"longName": "Netflix, Inc.",
+"averageVolume": 37685014,
+"marketCap": 296243462144,
+"firstTradeDateEpochUtc": null
+},
+"ENLV": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"quoteType": "EQUITY",
+"longName": "Enlivex Ltd.",
+"averageVolume": 321114,
+"marketCap": 10447564,
+"firstTradeDateEpochUtc": null
+},
+"GLXY": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Galaxy Digital",
+"averageVolume": 6145139,
+"marketCap": 14284567552,
+"firstTradeDateEpochUtc": null
+},
+"RIOT": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Riot Platforms, Inc.",
+"averageVolume": 18794130,
+"marketCap": 8630956032,
+"firstTradeDateEpochUtc": null
+},
+"EQT": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"quoteType": "EQUITY",
+"longName": "EQT Corporation",
+"averageVolume": 7213768,
+"marketCap": 31782469632,
+"firstTradeDateEpochUtc": null
+},
+"HOOD": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Robinhood Markets, Inc.",
+"averageVolume": 21427284,
+"marketCap": 107350425600,
+"firstTradeDateEpochUtc": null
+},
+"NVDA": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "NVIDIA Corporation",
+"averageVolume": 124633855,
+"marketCap": 5434765213696,
+"firstTradeDateEpochUtc": null
+},
+"AOSL": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"quoteType": "EQUITY",
+"longName": "Alpha and Omega Semiconductor Limited",
+"averageVolume": 611180,
+"marketCap": 845141056,
+"firstTradeDateEpochUtc": null
+},
+"KOPN": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"quoteType": "EQUITY",
+"longName": "Kopin Corporation",
+"averageVolume": 4073098,
+"marketCap": 927504256,
+"firstTradeDateEpochUtc": null
+},
+"AME": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "AMETEK, Inc.",
+"averageVolume": 1261663,
+"marketCap": 57484967936,
+"firstTradeDateEpochUtc": null
+},
+"COP": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"quoteType": "EQUITY",
+"longName": "ConocoPhillips",
+"averageVolume": 6731833,
+"marketCap": 152930271232,
+"firstTradeDateEpochUtc": null
+},
+"AG": {
+"sector": "Basic Materials",
+"industry": "Silver",
+"quoteType": "EQUITY",
+"longName": "First Majestic Silver Corp.",
+"averageVolume": 9982907,
+"marketCap": 9370149888,
+"firstTradeDateEpochUtc": null
+},
+"BLSH": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "Bullish",
+"averageVolume": 1568623,
+"marketCap": 5698945536,
+"firstTradeDateEpochUtc": null
+},
+"ENTG": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Entegris, Inc.",
+"averageVolume": 2574209,
+"marketCap": 23208792064,
+"firstTradeDateEpochUtc": null
+},
+"SMR": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"quoteType": "EQUITY",
+"longName": "NuScale Power Corporation",
+"averageVolume": 33000482,
+"marketCap": 3455479808,
+"firstTradeDateEpochUtc": null
+},
+"UBER": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Uber Technologies, Inc.",
+"averageVolume": 18243650,
+"marketCap": 142203043840,
+"firstTradeDateEpochUtc": null
+},
+"ONTO": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"quoteType": "EQUITY",
+"longName": "Onto Innovation Inc.",
+"averageVolume": 1105792,
+"marketCap": 17581545472,
+"firstTradeDateEpochUtc": null
+},
+"CRWV": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"quoteType": "EQUITY",
+"longName": "CoreWeave, Inc.",
+"averageVolume": 28590817,
+"marketCap": 48309088256,
+"firstTradeDateEpochUtc": null
+},
+"NTES": {
+"sector": "Communication Services",
+"industry": "Electronic Gaming & Multimedia",
+"quoteType": "EQUITY",
+"longName": "NetEase, Inc.",
+"averageVolume": 819211,
+"marketCap": 73891274752,
+"firstTradeDateEpochUtc": null
+},
+"PBR": {
+"sector": "Energy",
+"industry": "Oil & Gas Integrated",
+"quoteType": "EQUITY",
+"longName": "Petr\u00f3leo Brasileiro S.A. - Petrobras",
+"averageVolume": 18278019,
+"marketCap": 131271745536,
+"firstTradeDateEpochUtc": null
+},
+"POWL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"quoteType": "EQUITY",
+"longName": "Powell Industries, Inc.",
+"averageVolume": 663882,
+"marketCap": 6905063936,
+"firstTradeDateEpochUtc": null
+},
+"SHOP": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Shopify Inc.",
+"averageVolume": 9521406,
+"marketCap": 184591368192,
+"firstTradeDateEpochUtc": null
+},
+"GEMI": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"quoteType": "EQUITY",
+"longName": "Gemini Space Station, Inc.",
+"averageVolume": 2221706,
+"marketCap": 718273152,
+"firstTradeDateEpochUtc": null
+},
+"AMGN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"quoteType": "EQUITY",
+"longName": "Amgen Inc.",
+"averageVolume": 2658952,
+"marketCap": 224151420928,
+"firstTradeDateEpochUtc": null
+},
+"MVLL": {
+"sector": null,
+"industry": null,
+"quoteType": "ETF",
+"longName": "GraniteShares 2x Long MRVL Daily ETF",
+"averageVolume": 3680407,
+"marketCap": null,
+"firstTradeDateEpochUtc": null
+},
+"BNC": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"quoteType": "EQUITY",
+"longName": "CEA Industries Inc.",
+"averageVolume": 1893420,
+"marketCap": 251572224,
+"firstTradeDateEpochUtc": null
+},
+"DJT": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"quoteType": "EQUITY",
+"longName": "Trump Media & Technology Group Corp.",
+"averageVolume": 4070546,
+"marketCap": 2540383488,
+"firstTradeDateEpochUtc": null
+},
+"GPRO": {
+"sector": "Technology",
+"industry": "Consumer Electronics",
+"quoteType": "EQUITY",
+"longName": "GoPro, Inc.",
+"averageVolume": 33759850,
+"marketCap": 266199712,
+"firstTradeDateEpochUtc": null
+},
+"QNT": {
+"sector": "Technology",
+"industry": "Software - Application",
+"quoteType": "EQUITY",
+"longName": "Quantinuum Inc.",
+"averageVolume": 1843296,
+"marketCap": 13159014400,
+"firstTradeDateEpochUtc": null
+}
+}
