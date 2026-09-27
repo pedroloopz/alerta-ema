@@ -1,0 +1,27 @@
+coleta 2026-09-27 23:44 UTC
+ondo_docs_available_assets: 200 315638 bytes https://docs.ondo.finance/ondo-global-markets/available-assets
+ondo_docs_available_assets_md: 200 1941 bytes https://docs.ondo.finance/ondo-global-markets/available-assets.md
+ondo_docs_llms: 200 17115 bytes https://docs.ondo.finance/llms.txt
+ondo_stocks_site: 200 3824710 bytes https://ondo.finance/ondo-stocks
+ondo_readme_metadata: 200 219248 bytes https://ondo-finance.readme.io/reference/getallassetmetadata
+ondo_api_tentativa_0: 403 23 bytes https://api.gm.ondo.finance/v1/assets
+ondo_api_tentativa_1: 403 23 bytes https://api.gm.ondo.finance/v1/assets/metadata
+ondo_api_tentativa_2: ERRO HTTPSConnectionPool(host='api.ondo.finance', port=443): Max retries exceeded with url: /v1/assets (Caused by NameResolutionError("HTTPSConnection(host='api.ondo.finance', port=443): Failed to resolve 'api.ondo.finance' ([Errno -5] No address associated with hostname)")) https://api.ondo.finance/v1/assets
+ondo_api_tentativa_3: ERRO HTTPSConnectionPool(host='gm-api.ondo.finance', port=443): Max retries exceeded with url: /v1/assets (Caused by NameResolutionError("HTTPSConnection(host='gm-api.ondo.finance', port=443): Failed to resolve 'gm-api.ondo.finance' ([Errno -5] No address associated with hostname)")) https://gm-api.ondo.finance/v1/assets
+binance_alpha_tokens: 200 856065 bytes https://www.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list
+binance_bstocks_landing: 202 0 bytes https://www.binance.com/en/bstocks-landing
+binance_exchangeinfo_aster: 451 224 bytes https://api.binance.com/api/v3/exchangeInfo
+binance_klines_aster_teste: 200 853 bytes https://data-api.binance.vision/api/v3/klines
+cg_categorias: 200 67584 bytes https://api.coingecko.com/api/v3/coins/categories/list
+categorias escolhidas: ['xstocks-ecosystem', 'bstocks-ecosystem', 'four-meme-tokenized-stocks-4stock', 'ondo-intelligent-portfolios', 'ondo-tokenized-assets', 'remona-tokenized-stocks', 'tokenized-stock']
+cg_xstocks-ecosystem_p1: 200 108421 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_bstocks-ecosystem_p1: 200 59263 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_four-meme-tokenized-stocks-4stock_p1: 200 2334 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_ondo-intelligent-portfolios_p1: 200 5570 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_ondo-tokenized-assets_p1: 200 203799 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_ondo-tokenized-assets_p2: 200 162911 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_remona-tokenized-stocks_p1: 429 187 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_tokenized-stock_p1: 429 187 bytes https://api.coingecko.com/api/v3/coins/markets
+cg_coins_list_plataformas: 429 187 bytes https://api.coingecko.com/api/v3/coins/list
+wiki_sp500: 200 569548 bytes https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
+wiki_ndx: 200 209715 bytes https://en.wikipedia.org/wiki/Nasdaq-100
