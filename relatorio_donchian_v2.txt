@@ -1,0 +1,71 @@
+DONCHIAN v2 - SPOT, SO COMPRADO | capital US$ 7.088 | 5 posicoes
+
+ACOES: 532 (S&P 500 + Nasdaq-100 + lista do bot) | 19/10/2015 a 25/09/2026 | validacao desde 01/01/2022
+filtro: SPY acima da MMA 200 | entrada: maxima de 55 dias
+
+SAIDAS (treino -> validacao, CAGR / pior queda):
+  fecha abaixo da MME 10 | tamanho igual: treino +16,7%/-23,3% -> valid +11,4%/-27,7% | acerto 37% | ganho +9,3% perda -4,0% | 10 pregoes
+  chandelier 3 ATR | tamanho igual: treino +10,6%/-21,7% -> valid +17,8%/-31,9% | acerto 42% | ganho +13,8% perda -6,5% | 28 pregoes
+  minima 5 dias | tamanho igual: treino +15,8%/-35,3% -> valid +18,3%/-26,0% | acerto 42% | ganho +10,0% perda -4,7% | 16 pregoes
+  chandelier 2 ATR | tamanho igual: treino +11,2%/-25,9% -> valid +16,4%/-31,8% | acerto 41% | ganho +9,7% perda -4,8% | 14 pregoes
+  minima 10 dias (atual) | tamanho igual: treino +9,6%/-29,0% -> valid +27,8%/-35,0% | acerto 40% | ganho +17,9% perda -7,0% | 27 pregoes
+  fecha abaixo da MME 10 | tamanho vol: treino +12,4%/-21,0% -> valid +1,8%/-24,8% | acerto 38% | ganho +9,5% perda -4,0% | 10 pregoes
+  chandelier 3 ATR | tamanho vol: treino +7,6%/-20,4% -> valid +3,5%/-29,3% | acerto 42% | ganho +14,1% perda -6,5% | 28 pregoes
+  minima 10 dias (atual) | tamanho vol: treino +9,3%/-27,8% -> valid +13,4%/-29,2% | acerto 40% | ganho +17,7% perda -7,1% | 27 pregoes
+  chandelier 2 ATR | tamanho vol: treino +5,4%/-24,9% -> valid +5,4%/-24,1% | acerto 41% | ganho +9,7% perda -4,8% | 14 pregoes
+  minima 5 dias | tamanho vol: treino +4,0%/-28,0% -> valid +4,4%/-20,8% | acerto 42% | ganho +9,9% perda -4,8% | 16 pregoes
+
+Melhor retorno/risco no treino: fecha abaixo da MME 10, tamanho igual -> valid +11,4%/-27,7%
+Maior retorno no treino: fecha abaixo da MME 10, tamanho igual -> valid +11,4%/-27,7%
+
+SETORES - lucro medio por trade (fecha abaixo da MME 10, custo x1,5), treino | validacao:
+  Lista do bot (outros): 1091 trades | treino +2,9% | valid +3,4% | acerto 40%
+  Semicondutores: 1274 trades | treino +0,4% | valid +1,1% | acerto 39%
+  Information Technology: 3447 trades | treino -0,0% | valid +0,8% | acerto 37%
+  Communication Services: 1275 trades | treino +0,1% | valid +0,2% | acerto 36%
+  Industrials: 5170 trades | treino -0,1% | valid +0,1% | acerto 37%
+  Energy: 1218 trades | treino +0,3% | valid -0,0% | acerto 34%
+  Consumer Discretionary: 2867 trades | treino -0,0% | valid -0,1% | acerto 36%
+  Financials: 5238 trades | treino -0,2% | valid -0,4% | acerto 35%
+  Utilities: 2055 trades | treino -0,6% | valid -0,5% | acerto 31%
+  Real Estate: 1938 trades | treino -0,6% | valid -0,8% | acerto 31%
+  Materials: 1497 trades | treino -0,2% | valid -0,9% | acerto 36%
+  Health Care: 3659 trades | treino -0,1% | valid -0,9% | acerto 35%
+  Consumer Staples: 2043 trades | treino -0,5% | valid -1,1% | acerto 32%
+  >> SUAS 7 (ABNB, BE, MVLL, UNH, NFLX, UBER, ENPH): 302 trades | treino +1,9% | valid +1,2% | acerto 40%
+
+CARTEIRA SO COM O GRUPO (validacao CAGR / pior queda):
+  Todas (532): valid +11,4%/-27,7% | todo +14,3%/-32,1%
+  Suas 7 (7): valid +1,4%/-30,5% | todo +6,1%/-30,5%
+  Communication Services (23): valid +3,9%/-29,1% | todo +4,0%/-29,1%
+  Consumer Discretionary (47): valid -3,5%/-27,2% | todo -3,1%/-38,5%
+  Consumer Staples (33): valid -11,1%/-43,7% | todo -9,3%/-65,7%
+  Energy (21): valid +0,4%/-29,9% | todo +0,1%/-41,7%
+  Financials (76): valid -2,5%/-28,1% | todo -3,1%/-40,5%
+  Health Care (60): valid -13,1%/-57,1% | todo -7,5%/-65,2%
+  Industrials (81): valid -10,5%/-41,3% | todo -5,6%/-50,3%
+  Information Technology (54): valid +15,4%/-21,6% | todo +6,3%/-30,8%
+  Lista do bot (outros) (32): valid +39,2%/-34,6% | todo +31,5%/-46,1%
+  Materials (25): valid -11,7%/-45,0% | todo -4,8%/-47,5%
+  Real Estate (30): valid -8,5%/-37,2% | todo -6,8%/-56,2%
+  Semicondutores (19): valid +4,8%/-39,8% | todo +8,2%/-39,8%
+  Utilities (31): valid -3,3%/-35,7% | todo -7,1%/-55,4%
+
+CRIPTO: 34 moedas | 20/07/2018 a 27/09/2026 | sem dados na Binance spot: nenhuma
+  saida minima 10 dias (atual): valid +20,1%/-43,7% | todo +64,1%/-43,7%
+    ONDO (desde 11/04/2025): 5 trades | medio -12,9% | acerto 20% | melhor +12,8% | pior -23,6%
+    ASTER (desde 06/10/2025): 4 trades | medio -12,4% | acerto 25% | melhor +4,0% | pior -24,0%
+    PENDLE (desde 03/07/2023): 10 trades | medio +25,0% | acerto 50% | melhor +252,0% | pior -29,2%
+    GRAM (desde 02/07/2026): nenhum trade
+  saida fecha abaixo da MME 10: valid +22,1%/-42,6% | todo +67,4%/-42,6%
+    ONDO (desde 11/04/2025): 5 trades | medio -2,5% | acerto 20% | melhor +24,2% | pior -17,0%
+    ASTER (desde 06/10/2025): 6 trades | medio -8,0% | acerto 17% | melhor +3,8% | pior -18,9%
+    PENDLE (desde 03/07/2023): 20 trades | medio +6,7% | acerto 35% | melhor +94,2% | pior -14,5%
+    GRAM (desde 02/07/2026): nenhum trade
+  BTC segurar valid: +12,7%/-66,9%
+  BTC segurar todo: +34,7%/-76,6%
+
+COMBINADO desde 03/07/2023 - so acoes: CAGR +45,6% | pior queda -30,5%
+COMBINADO desde 03/07/2023 - acoes + ONDO/ASTER/PENDLE/GRAM: CAGR +43,4% | pior queda -30,6%
+
+Obs.: S&P 500/Nasdaq-100 de hoje = vies de sobrevivencia. Lista real da Ondo: app.ondo.finance.
