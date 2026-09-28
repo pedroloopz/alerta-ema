@@ -1,0 +1,25 @@
+SISTEMA MOLA - ONDOUSDT 4h | parametros {'sq': 0.2, 'sqjan': 18, 'skmin': -0.5, 'rsi_in': 35, 'rsi_out': 60, 'stop': 3.0} | custo 0.15% por lado
+
+10/2025-03/2026 antes (queda): sistema -0.8% (drawdown -19.1%) | 7 trades, acerto 43%, ganho medio +5.0%, perda media -3.8%, fator de lucro 1.00 | buy&hold -73.7% (drawdown -79.9%)
+6 meses (28/03-28/09/2026): sistema +78.2% (drawdown -14.6%) | 8 trades, acerto 62%, ganho medio +16.7%, perda media -4.4%, fator de lucro 6.26 | buy&hold +117.4% (drawdown -33.9%)
+tudo (15/08/2025-28/09/2026): sistema +76.8% (drawdown -19.1%) | 15 trades, acerto 53%, ganho medio +12.3%, perda media -4.1%, fator de lucro 3.47 | buy&hold -43.8% (drawdown -79.9%)
+
+TRADES
+                  entrada                     saida motor  preco_ent  preco_sai  ret                    motivo
+2025-08-19 04:00:00+00:00 2025-08-22 20:00:00+00:00     B     0.9390   1.010300  7.3                  RSI > 60
+2025-08-25 20:00:00+00:00 2025-09-03 00:00:00+00:00     B     0.8977   0.948200  5.3                  RSI > 60
+2025-09-03 04:00:00+00:00 2025-09-04 08:00:00+00:00     A     0.9649   0.920200 -4.9 fechou abaixo da media BB
+2025-09-10 04:00:00+00:00 2025-09-14 04:00:00+00:00     A     1.0370   1.066400  2.5 fechou abaixo da media BB
+2025-09-18 00:00:00+00:00 2025-09-19 12:00:00+00:00     A     1.0665   1.037700 -3.0 fechou abaixo da media BB
+2025-09-22 04:00:00+00:00 2025-09-22 08:00:00+00:00     B     0.9559   0.894052 -6.8                      stop
+2025-09-22 08:00:00+00:00 2025-10-01 12:00:00+00:00     B     0.9212   0.920200 -0.4                  RSI > 60
+2026-05-02 12:00:00+00:00 2026-05-11 12:00:00+00:00     A     0.2750   0.421100 52.7 fechou abaixo da media BB
+2026-05-16 08:00:00+00:00 2026-05-19 00:00:00+00:00     B     0.3467   0.386200 11.1                  RSI > 60
+2026-05-28 00:00:00+00:00 2026-06-02 20:00:00+00:00     B     0.3833   0.385500  0.3                  RSI > 60
+2026-06-02 20:00:00+00:00 2026-06-04 08:00:00+00:00     A     0.3855   0.379300 -1.9 fechou abaixo da media BB
+2026-06-05 16:00:00+00:00 2026-06-15 04:00:00+00:00     B     0.3304   0.378500 14.2                  RSI > 60
+2026-06-15 04:00:00+00:00 2026-06-16 20:00:00+00:00     A     0.3785   0.367200 -3.3 fechou abaixo da media BB
+2026-08-01 20:00:00+00:00 2026-08-07 08:00:00+00:00     B     0.3785   0.348665 -8.2                      stop
+2026-09-18 04:00:00+00:00 2026-09-23 16:00:00+00:00     A     0.3889   0.410800  5.3 fechou abaixo da media BB
+
+AGORA (28/09 00:00 UTC): preco 0.5736 | RSI 66.3 | regime ALTA | BB sup 0.5777 media 0.5462 | largura pct 0.55 | motor A False | motor B False
