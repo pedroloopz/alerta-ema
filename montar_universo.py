@@ -1,7 +1,7 @@
 """
 MONTA universo_ondo.json (~100 acoes + ASTER) a partir da coleta.
 
-Fontes (baixadas pelo workflow coleta, branch dados-backtest):
+Fontes (coletadas em 27/09/2026 via GitHub Actions; brutos nao ficam no repositorio):
   - ondo.finance/ondo-stocks: lista oficial de ativos da Ondo (simbolo, ticker,
     tipo, preco do token)
   - CoinGecko coins/list (include_platform): contrato do token na BNB Chain,
