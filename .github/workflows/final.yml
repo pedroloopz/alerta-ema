@@ -23,7 +23,7 @@ jobs:
       - name: Baixar precos (Yahoo e Binance)
         env:
           SAIDA: dados
-        run: python coleta/coleta_precos.py
+        run: python coleta/precos_backtest.py
 
       - name: Backtest final
         env:
