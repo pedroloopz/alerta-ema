@@ -3,15 +3,19 @@ name: bot
 on:
   schedule:
     # De hora em hora, dias uteis, 13h15 a 22h15 UTC (10h15 a 19h15 em Brasilia).
-    # O proprio bot decide o que fazer em cada horario.
+    # Cobre o pregao de NY com e sem horario de verao (NY sai dele em 01/11/2026):
+    # o proprio bot decide, pelo relogio de NY, se e hora de entrada ou de saida.
     - cron: "15 13-22 * * 1-5"
+    # Todo dia 00h05 UTC (21h05 em Brasilia): candle diario da ASTER fechado.
+    # Esta execucao so cuida da ASTER (B3 e futuros ficam de fora).
+    - cron: "5 0 * * *"
   workflow_dispatch:
     inputs:
       modo:
         description: "O que rodar agora"
         type: choice
-        default: tudo
-        options: [tudo, monitor, varredura, fechamento, auto]
+        default: auto
+        options: [auto, tudo, pregao, fechamento, cripto, diagnostico, demo]
 
 permissions:
   contents: write
@@ -38,6 +42,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           MODO: ${{ inputs.modo || 'auto' }}
+          CRON: ${{ github.event.schedule }}
         run: python bot.py
 
       - name: Salvar carteira e estado

@@ -1,17 +1,26 @@
 """
-BOT DA CARTEIRA DO PEDRO
+BOT DA CARTEIRA DO PEDRO - EUA (Binance Wallet) + B3 + futuros.
 
-  7 ativos de US$ 1.000 + reserva em USDT + ate 2 swings.
+EUA: sistema Donchian 55/10 (ver donchian.py e README_BOT.md)
+  - 7 vagas (no maximo 1 cripto: ASTER), valor por entrada = patrimonio / 7
+  - entrada: preco rompe a maxima de 55 pregoes com SPY > MMA 200
+  - saida: fechamento abaixo da minima dos 10 pregoes anteriores -> vende na abertura
+  - ASTER: candle diario (fecha 21h de Brasilia), filtro BTC > MMA 200
 
-  A cada hora do pregao:   realizacao de +10% e alertas de risco
-  19h UTC (16h Brasilia):  varredura do universo -> swings e trocas
-  21h UTC (18h Brasilia):  fechamento estilo Finviz
+Quando cada coisa acontece (o codigo decide pelo relogio de NY, nao pelo cron):
+  pregao aberto      -> checa rompimentos (de hora em hora)
+  depois do fecho    -> checa saidas + heatmap do dia (uma vez por dia)
+  00h UTC (21h BR)   -> ASTER (todo dia, inclusive fim de semana)
 
-O bot ASSUME que voce executou cada ordem e atualiza a carteira sozinho.
-Se nao executou, responda /nao no Telegram e ele desfaz a ultima mensagem.
-Comandos EUA: /carteira  /nao  /recusar NVDA  /reserva 1200  /unidades CRWV 12.5
-Comandos B3:  /nao_br  /reserva_br 2000  (os demais servem para os dois mercados)
-Futuros:      /perps  /fechei EWZ
+O bot ASSUME que voce executou cada ordem. Preco real: /comprei e /vendi.
+Comandos EUA: /carteira /comprei /vendi /recusar /nao /unidades /reserva /pausa
+Comandos B3:  /nao_br /reserva_br (os demais servem para os dois mercados)
+Futuros:      /perps /fechei
+
+MODO (variavel de ambiente):
+  auto (padrao) | tudo | pregao | fechamento | cripto | diagnostico | demo | teste
+  teste: nao manda nada nem salva - imprime as mensagens no terminal.
+         AGORA=2026-09-28T14:15Z simula o relogio; DADOS_LOCAIS=dados usa CSVs.
 """
 
 import copy
@@ -23,34 +32,90 @@ from zoneinfo import ZoneInfo
 
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import requests
 
-TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
-CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
-MODO = os.environ.get("MODO", "auto")          # auto | tudo | monitor | varredura | fechamento
-ARQ_CARTEIRA, ARQ_ESTADO, ARQ_PLACAR = "carteira.json", "estado_bot.json", "placar_notas.csv"
+import donchian as dc
+import mercado as mk
+
+MODO = os.environ.get("MODO", "auto")
+TESTE = MODO == "teste"
+TOKEN = "" if TESTE else os.environ.get("TELEGRAM_TOKEN", "")
+CHAT_ID = "" if TESTE else os.environ.get("TELEGRAM_CHAT_ID", "")
+ARQ_CARTEIRA, ARQ_ESTADO, ARQ_UNIVERSO = "carteira.json", "estado_bot.json", "universo_ondo.json"
 NY = ZoneInfo("America/New_York")
+DADOS_LOCAIS = os.environ.get("DADOS_LOCAIS", "")
 
-# ================================================================ REGRAS
-REALIZA_ALTA = 0.10          # +10% sobre a base -> excesso vai para a reserva
-MAX_SWINGS = 2
-ESTICADA_MIN = 2.0           # ATR abaixo da EMA 20 para virar candidato
-TAMANHO_SWING = [(8.0, 500.0), (6.0, 250.0)]   # (nota minima, tamanho total)
-PRAZO_SWING = 20             # pregoes
-DESASTRE = 0.20              # swing caiu 20% desde a entrada -> alerta
-TROCA_NOTA_MIN = 7.0
-TROCA_MARGEM = 2.0           # candidato precisa ter nota 2 pontos acima
-TROCA_CARENCIA = 10          # pregoes minimos com o ativo antes de trocar
-TROCAS_POR_SEMANA = 2
-REVISAR_ABAIXO = 0.75        # posicao abaixo de 75% da base + grafico ruim
-HORA_VARREDURA = 19
-HORA_FECHAMENTO = 21
+# ================================================================ REGRAS EUA
+ORDEM_MINIMA = 50.0          # US$ (definido por voce)
+PASSO_ACAO = 0.0001          # casas do token de acao: nao confirmado -> 4 casas, para baixo
+FOLGA_COMPRA = 0.01          # "compre ate": 1% acima do preco de referencia
+PERTO_SAIDA = 0.03           # destaque: a menos de 3% da saida
+DIAS_SILENCIO_RECUSA = 5
+SAIDA_PARCIAL = False        # variante C (50/50) reprovada no backtest -> saida 100%
 TOL_PRECO = 0.15
-TAMANHO_MAPA = 64
+BINANCE = "https://data-api.binance.vision/api/v3/klines"
 
+num = lambda x, c=2: f"{x:,.{c}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
+usd = lambda x, c=2: ("US$ -" if x < 0 else "US$ ") + num(abs(x), c)
+usd_s = lambda x: ("US$ +" if x >= 0 else "US$ -") + num(abs(x))
+
+
+def un_txt(x, passo):
+    return num(x, dc.casas(passo))
+
+
+def un_exato(x):
+    """Quantidade que voce tem, sem arredondar para cima (ate 8 casas, sem zeros sobrando)."""
+    s = f"{x:.8f}".rstrip("0").rstrip(".")
+    inteiro, _, dec = s.partition(".")
+    return num(float(inteiro), 0) + ("," + dec if dec else "")
+
+
+# ============================================================== TELEGRAM
+def tg(metodo, **dados):
+    if not (TOKEN and CHAT_ID):
+        return {}
+    try:
+        return requests.post(f"https://api.telegram.org/bot{TOKEN}/{metodo}",
+                             json=dados, timeout=30).json()
+    except Exception as e:
+        print("telegram falhou:", e)
+        return {}
+
+
+def enviar(texto, botao=None, silencioso=False):
+    """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback).
+    silencioso=True chega sem som (so para o que nao pede acao)."""
+    print("\n>>> TELEGRAM" + (" [sem som]" if silencioso else " [com som]")
+          + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
+    extra = {"disable_notification": True} if silencioso else {}
+    if botao:
+        extra["reply_markup"] = {"inline_keyboard": [[{"text": botao[0], "callback_data": botao[1]}]]}
+    r = tg("sendMessage", chat_id=CHAT_ID, text=texto[:4000], **extra)
+    return r.get("result", {}).get("message_id")
+
+
+def apagar(msg_id):
+    if msg_id:
+        print(f">>> TELEGRAM apagar mensagem {msg_id}")
+        tg("deleteMessage", chat_id=CHAT_ID, message_id=msg_id)
+
+
+def enviar_foto(caminho, legenda, silencioso=False):
+    print(f"\n>>> TELEGRAM FOTO {caminho}" + (" [sem som]" if silencioso else "") + f"\n{legenda}")
+    if TOKEN and CHAT_ID:
+        with open(caminho, "rb") as f:
+            requests.post(f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
+                          data={"chat_id": CHAT_ID, "caption": legenda[:1000],
+                                "disable_notification": str(silencioso).lower()},
+                          files={"photo": f}, timeout=60)
+
+
+
+# ================================================================ NUCLEO (usado tambem por b3.py, perps.py e previa.py)
 SETORES_PT = {
     "Information Technology": "Tecnologia", "Health Care": "Saude",
     "Financials": "Financeiro", "Consumer Discretionary": "Consumo",
@@ -74,41 +139,6 @@ num = lambda x, c=2: f"{x:,.{c}f}".replace(",", "X").replace(".", ",").replace("
 pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
 
 
-# ============================================================== TELEGRAM
-def tg(metodo, **dados):
-    if not (TOKEN and CHAT_ID):
-        return {}
-    try:
-        return requests.post(f"https://api.telegram.org/bot{TOKEN}/{metodo}",
-                             json=dados, timeout=30).json()
-    except Exception as e:
-        print("telegram falhou:", e)
-        return {}
-
-
-def enviar(texto, botao=None):
-    """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback)."""
-    print("\n>>> TELEGRAM" + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
-    extra = {}
-    if botao:
-        extra["reply_markup"] = {"inline_keyboard": [[{"text": botao[0], "callback_data": botao[1]}]]}
-    r = tg("sendMessage", chat_id=CHAT_ID, text=texto[:4000], **extra)
-    return r.get("result", {}).get("message_id")
-
-
-def apagar(msg_id):
-    if msg_id:
-        print(f">>> TELEGRAM apagar mensagem {msg_id}")
-        tg("deleteMessage", chat_id=CHAT_ID, message_id=msg_id)
-
-
-def enviar_foto(caminho, legenda):
-    print(f"\n>>> TELEGRAM FOTO {caminho}\n{legenda}")
-    if TOKEN and CHAT_ID:
-        with open(caminho, "rb") as f:
-            requests.post(f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
-                          data={"chat_id": CHAT_ID, "caption": legenda[:1000]},
-                          files={"photo": f}, timeout=60)
 
 
 def ler_comandos(estado):
@@ -259,41 +289,6 @@ def nota_tendencia(ind, percentil_rs):
     return float(n)
 
 
-def tamanho_por_nota(nota):
-    for minimo, valor in TAMANHO_SWING:
-        if nota >= minimo:
-            return valor
-    return 0.0
-
-
-# ================================================================ ESTADO
-def carregar():
-    with open(ARQ_CARTEIRA, encoding="utf-8") as f:
-        cart = json.load(f)
-    est = {"swings": {}, "offset": 0, "ultima": None, "validado": False,
-           "revisar": {}, "trocas": [], "desastre": {}, "pendentes": {}, "recusados": {}}
-    if os.path.exists(ARQ_ESTADO):
-        with open(ARQ_ESTADO, encoding="utf-8") as f:
-            est.update(json.load(f))
-    return cart, est
-
-
-def salvar(cart, est):
-    with open(ARQ_CARTEIRA, "w", encoding="utf-8") as f:
-        json.dump(cart, f, indent=2, ensure_ascii=False)
-    with open(ARQ_ESTADO, "w", encoding="utf-8") as f:
-        json.dump(est, f, indent=2, ensure_ascii=False, default=str)
-
-
-def hoje_ny():
-    return str(datetime.now(NY).date())
-
-
-def silenciado(est, chave):
-    """Ordem desfeita com /nao nao se repete no mesmo dia."""
-    sil = est.get("silencio", {})
-    return sil.get("data") == hoje_ny() and chave in sil.get("chaves", [])
-
 
 def pregoes_desde(data_str, pregoes):
     """Quantos pregoes aconteceram depois da data (calendario real do SPY)."""
@@ -302,468 +297,789 @@ def pregoes_desde(data_str, pregoes):
     return int((pregoes > pd.Timestamp(data_str)).sum())
 
 
-def valor_total(cart, est, precos):
-    ativos = sum(a["unidades"] * precos.get(t, 0) for t, a in cart["ativos"].items())
-    swings = sum(s["unidades"] * precos.get(t, s["preco_medio"]) for t, s in est["swings"].items())
-    return ativos, swings, cart["reserva_usdt"]
+
+# ======================================================= COMPATIBILIDADE
+# Usados por b3.py / perps.py / previa.py (nota_swing le ESTICADA_MIN).
+ESTICADA_MIN = 2.0
+HORA_VARREDURA = 19
+HORA_FECHAMENTO = 21
 
 
-def registrar_placar(linhas):
-    novo = not os.path.exists(ARQ_PLACAR)
-    pd.DataFrame(linhas).to_csv(ARQ_PLACAR, mode="a", header=novo, index=False)
+# ================================================================ UNIVERSO EUA
+def ler_universo():
+    with open(ARQ_UNIVERSO, encoding="utf-8") as f:
+        u = json.load(f)
+    return {a["ticker"]: a for a in u["ativos"]}
 
 
-# ============================================================ COMANDOS
-DIAS_SILENCIO_RECUSA = 5
+def token_de(t, univ, cart=None):
+    if cart and t in cart["ativos"]:
+        return cart["ativos"][t]["token"]
+    return univ.get(t, {}).get("token", f"{t}on")
 
 
-def recusar(cart, est, chave):
-    """Desfaz UMA entrada sugerida, apaga a mensagem e silencia o ativo."""
+def token_alt(t, univ):
+    return univ.get(t, {}).get("token_alternativo")
+
+
+def passo_de(t, univ):
+    return univ.get(t, {}).get("passo_quantidade") or PASSO_ACAO
+
+
+# ================================================================ RELOGIO
+def agora_utc():
+    a = os.environ.get("AGORA")
+    if a:
+        return pd.Timestamp(a).tz_convert("UTC").to_pydatetime() if pd.Timestamp(a).tzinfo \
+            else pd.Timestamp(a).tz_localize("UTC").to_pydatetime()
+    return datetime.now(timezone.utc)
+
+
+def hoje_ny(agora=None):
+    return str((agora or agora_utc()).astimezone(NY).date())
+
+
+# ================================================================ DADOS EUA
+_cache_local = {}
+
+
+def baixar_eua(tickers, agora):
+    """{ticker: DataFrame diario}. Na simulacao (DADOS_LOCAIS) corta no dia simulado;
+    a barra do dia simulado faz o papel da barra 'em andamento'."""
+    if not DADOS_LOCAIS:
+        return baixar(tickers, periodo="1y")
+    ate = agora.astimezone(NY).date()
+    if not _cache_local:
+        for k in ("open", "high", "low", "close", "volume"):
+            _cache_local[k] = pd.read_csv(f"{DADOS_LOCAIS}/yahoo_{k}.csv.gz", index_col=0, parse_dates=True)
+    out = {}
+    for t in set(tickers):
+        if t not in _cache_local["close"]:
+            continue
+        df = pd.DataFrame({k.capitalize(): _cache_local[k][t] for k in _cache_local}).dropna()
+        df = df[df.index <= pd.Timestamp(ate)]
+        if len(df) >= 60:
+            out[t] = df.iloc[-260:]
+    return out
+
+
+def klines(par, agora, n=400):
+    """Candles diarios da Binance spot. Devolve (completos, preco_atual)."""
+    if DADOS_LOCAIS:
+        df = pd.read_csv(f"{DADOS_LOCAIS}/binance_{par}.csv", index_col=0, parse_dates=True)
+        df = df[df.index.normalize() <= pd.Timestamp(agora.astimezone(timezone.utc).date())]
+    else:
+        r = requests.get(BINANCE, params={"symbol": par, "interval": "1d", "limit": n}, timeout=30)
+        k = r.json()
+        df = pd.DataFrame(k).iloc[:, :6].astype(float)
+        df.columns = ["t", "Open", "High", "Low", "Close", "Volume"]
+        df.index = pd.to_datetime(df["t"], unit="ms")
+        df = df.drop(columns="t")
+    hoje_utc = pd.Timestamp(agora.astimezone(timezone.utc).date())
+    completos = df[df.index.normalize() < hoje_utc]
+    atual = float(df["Close"].iloc[-1])
+    return completos, atual
+
+
+def proximo_resultado(ticker, agora, pregoes=2):
+    """Data do proximo balanco se cair nos proximos `pregoes` pregoes; senao None."""
+    if DADOS_LOCAIS:
+        return None
+    try:
+        import yfinance as yf
+        datas = yf.Ticker(ticker).get_earnings_dates(limit=8)
+        if datas is None or datas.empty:
+            return None
+        idx = datas.index.tz_convert(NY) if datas.index.tz is not None else datas.index.tz_localize(NY)
+        hoje = agora.astimezone(NY).date()
+        fim = mk.proximo_pregao(hoje, pregoes)
+        futuras = sorted(d.date() for d in idx if hoje < d.date() <= fim)
+        return futuras[0] if futuras else None
+    except Exception:
+        return None
+
+
+# ================================================================ ESTADO
+ESTADO_PADRAO = {"offset": 0, "ultima": None, "pendentes": {}, "recusados": {}, "alertados": {},
+                 "historico": [], "pausa_ate": None, "fechamento_em": None, "cripto_em": None,
+                 "patrimonio_fech": None}
+
+
+def carregar():
+    with open(ARQ_CARTEIRA, encoding="utf-8") as f:
+        cart = json.load(f)
+    est = copy.deepcopy(ESTADO_PADRAO)
+    if os.path.exists(ARQ_ESTADO):
+        with open(ARQ_ESTADO, encoding="utf-8") as f:
+            est.update(json.load(f))
+    return cart, est
+
+
+def salvar(cart, est):
+    if TESTE and not os.environ.get("TESTE_GRAVAR"):
+        print("\n(modo teste: carteira e estado NAO foram gravados)")
+        return
+    with open(ARQ_CARTEIRA, "w", encoding="utf-8") as f:
+        json.dump(cart, f, indent=2, ensure_ascii=False)
+    with open(ARQ_ESTADO, "w", encoding="utf-8") as f:
+        json.dump(est, f, indent=2, ensure_ascii=False, default=str)
+
+
+def migrar_carteira(antiga, univ, estado_antigo=None):
+    """Formato antigo (base US$ 1.000 + preco_print) -> formato novo por posicao.
+    As posicoes atuais viram 'legado' e ocupam vaga. Nada e vendido."""
+    if antiga.get("versao") == 2:
+        return antiga
+    ativos = {}
+    for t, a in antiga["ativos"].items():
+        ativos[t] = {"token": a["token"], "tipo": "cripto" if univ.get(t, {}).get("tipo") == "cripto" else "acao",
+                     "unidades": float(a["unidades"]), "preco_entrada": float(a["preco_print"]),
+                     "data_entrada": a.get("desde", antiga.get("inicio")), "origem": "legado"}
+    return {"versao": 2, "inicio": antiga.get("inicio"),
+            "capital_inicial": float(antiga.get("capital_inicial", 0)),
+            "reserva_usdt": float(antiga.get("reserva_usdt", 0)), "aportes": [],
+            "ativos": ativos}
+
+
+def migrar_estado(est_antigo):
+    novo = copy.deepcopy(ESTADO_PADRAO)
+    novo["offset"] = est_antigo.get("offset", 0)
+    return novo
+
+
+# ================================================================ CONTAS
+def preco_atual(t, dados, cripto_px):
+    if t in cripto_px:
+        return cripto_px[t]
+    d = dados.get(t)
+    return float(d["Close"].iloc[-1]) if d is not None and len(d) else None
+
+
+def patrimonio(cart, dados, cripto_px):
+    """(patrimonio total, valor das posicoes). Sem preco novo: ultimo conhecido."""
+    pos = 0.0
+    for t, a in cart["ativos"].items():
+        p = preco_atual(t, dados, cripto_px)
+        if p is None:
+            p = a.get("ultimo_preco") or a["preco_entrada"]
+        pos += a["unidades"] * p
+    return pos + cart["reserva_usdt"], pos
+
+
+def lucro_total(cart, patr):
+    base = cart.get("capital_inicial", 0) + sum(x["valor"] for x in cart.get("aportes", []))
+    return patr - base, (patr / base - 1) if base else 0.0
+
+
+def recusado(est, t, hoje):
+    ate = est.get("recusados", {}).get(t)
+    return bool(ate) and ate >= hoje
+
+
+def em_pausa(est, hoje):
+    return bool(est.get("pausa_ate")) and est["pausa_ate"] >= hoje
+
+
+def fechar_trade(cart, est, t, preco, data, confirmado=False, frac=1.0):
+    a = cart["ativos"][t]
+    un = a["unidades"] * frac
+    valor = un * preco
+    cart["reserva_usdt"] = round(cart["reserva_usdt"] + valor, 2)
+    lucro = un * (preco - a["preco_entrada"])
+    est["historico"].append({"ticker": t, "token": a["token"], "unidades": un,
+                             "preco_entrada": a["preco_entrada"], "data_entrada": a["data_entrada"],
+                             "preco_saida": preco, "data_saida": data, "lucro_usd": round(lucro, 2),
+                             "lucro_pct": preco / a["preco_entrada"] - 1, "origem": a["origem"],
+                             "confirmado": confirmado})
+    if frac >= 1.0 - 1e-9:
+        del cart["ativos"][t]
+    else:
+        a["unidades"] -= un
+    return lucro
+
+
+# ================================================================ COMANDOS
+def numero(s):
+    s = s.strip().replace("US$", "").replace("$", "")
+    if "," in s and "." in s:
+        s = s.replace(".", "")
+    return float(s.replace(",", "."))
+
+
+def recusar(cart, est, chave, hoje):
+    """Desfaz UMA entrada sugerida, apaga a mensagem e silencia o ativo por 5 dias."""
     pend = est.get("pendentes", {}).pop(chave, None)
     if not pend:
         return False
-    tipo, t = pend["tipo"], pend.get("ticker")
-    ate = str((pd.Timestamp(hoje_ny()) + pd.Timedelta(days=DIAS_SILENCIO_RECUSA)).date())
-    if tipo == "swing" and t in est["swings"]:
-        s = est["swings"].pop(t)
-        cart["reserva_usdt"] += s["meia"] * s["metades"]
-        pend_metade = est["pendentes"].pop(f"metade:{t}", None)
-        if pend_metade:
-            apagar(pend_metade.get("msg_id"))
-        est.setdefault("recusados", {})[t] = ate
-    elif tipo == "metade" and t in est["swings"] and est["swings"][t]["metades"] == 2:
-        s = est["swings"][t]
-        s["unidades"] -= pend["un"]
-        s["preco_medio"] = pend["pm_antes"]
-        s["metades"] = 1
-        cart["reserva_usdt"] += pend["meia"]
-        sil = est.setdefault("silencio", {"data": hoje_ny(), "chaves": []})
-        if sil.get("data") != hoje_ny():
-            est["silencio"] = sil = {"data": hoje_ny(), "chaves": []}
-        sil["chaves"].append(chave)
-    elif tipo == "troca":
-        cart["ativos"].pop(pend["novo"], None)
-        cart["ativos"][pend["velho"]] = pend["antigo"]
-        est.setdefault("recusados", {})[pend["novo"]] = ate
+    t = pend["ticker"]
+    a = cart["ativos"].get(t)
+    if a and a.get("origem") == "donchian" and a.get("data_entrada") == pend["data"]:
+        cart["reserva_usdt"] = round(cart["reserva_usdt"] + a["unidades"] * a["preco_entrada"], 2)
+        del cart["ativos"][t]
+    ate = str((pd.Timestamp(hoje) + pd.Timedelta(days=DIAS_SILENCIO_RECUSA)).date())
+    est.setdefault("recusados", {})[t] = ate
     apagar(pend.get("msg_id"))
     return True
 
 
-def recusado(est, ticker):
-    ate = est.get("recusados", {}).get(ticker)
-    return bool(ate) and ate >= hoje_ny()
-
-
-def processar_comandos(cart, est, precos, eventos):
-    """Trata o que e dos EUA e devolve o resto para a B3."""
+def processar_comandos(cart, est, eventos, univ, dados, cripto_px, hoje):
+    """Trata o que e dos EUA e devolve o resto para a B3 e os futuros."""
     respostas, restantes = [], []
-    for evento in eventos:
-        if evento[0] == "botao":
-            if evento[1].startswith("rec|"):
-                recusar(cart, est, evento[1][4:])
+    for ev in eventos:
+        if ev[0] == "botao":
+            if ev[1].startswith("rec|"):
+                recusar(cart, est, ev[1][4:], hoje)
             else:
-                restantes.append(evento)
+                restantes.append(ev)
             continue
-        cmd, msg_id = evento[1], evento[2]
+        cmd, msg_id = ev[1], ev[2]
         nome = cmd[0].lower().split("@")[0]
-        if nome == "/recusar" and len(cmd) == 2:
-            alvo = cmd[1].upper()
-            chaves = [k for k, v in est.get("pendentes", {}).items()
-                      if alvo in (v.get("ticker"), v.get("novo"))]
-            if chaves:
-                for k in chaves:
-                    recusar(cart, est, k)
-                apagar(msg_id)
-            else:
-                restantes.append(evento)
-        elif nome == "/nao" and est.get("ultima"):
-            antes = est["ultima"]
-            cart.clear(); cart.update(antes["carteira"])
-            est["swings"] = antes["swings"]
-            est["silencio"] = {"data": hoje_ny(), "chaves": antes.get("chaves", [])}
-            est["ultima"] = None
-            respostas.append("↩️ EUA: desfeito. Essas ordens nao serao repetidas hoje.")
-        elif nome == "/reserva" and len(cmd) == 2:
-            cart["reserva_usdt"] = float(cmd[1].replace(",", "."))
-            respostas.append(f"✅ Reserva EUA ajustada para US$ {num(cart['reserva_usdt'])}")
-        elif nome == "/unidades" and len(cmd) == 3 and cmd[1].upper() in cart["ativos"]:
-            cart["ativos"][cmd[1].upper()]["unidades"] = float(cmd[2].replace(",", "."))
-            respostas.append(f"✅ {cmd[1].upper()}: {cmd[2]} unidades")
-        elif nome == "/carteira":
-            respostas.append(texto_carteira(cart, est, precos))
-            restantes.append(evento)                      # a B3 responde tambem
+        try:
+            r = comando(nome, cmd[1:], cart, est, univ, dados, cripto_px, hoje, msg_id)
+        except (ValueError, IndexError):
+            r = f"⚠️ Nao entendi: {' '.join(cmd)}"
+        if r is None:
+            restantes.append(ev)
+        elif r == "":
+            pass
         else:
-            restantes.append(evento)
+            respostas.append(r)
+            if nome in ("/carteira", "/pausa"):
+                restantes.append(ev)                   # a B3 responde tambem
     return respostas, restantes
 
 
-def texto_carteira(cart, est, precos):
-    base = cart["base_por_ativo"]
-    L = ["📋 CARTEIRA AGORA"]
-    for t, a in cart["ativos"].items():
-        v = a["unidades"] * precos.get(t, 0)
-        L.append(f"  {t}: US$ {num(v)} ({pct(v / base - 1)} da base)")
-    for t, s in est["swings"].items():
-        v = s["unidades"] * precos.get(t, s["preco_medio"])
-        L.append(f"  swing {t}: US$ {num(v)} ({pct(precos.get(t, s['preco_medio']) / s['preco_medio'] - 1)})")
-    L.append(f"  reserva: US$ {num(cart['reserva_usdt'])}")
-    a, s, r = valor_total(cart, est, precos)
-    L.append(f"  TOTAL: US$ {num(a + s + r)}")
+def comando(nome, args, cart, est, univ, dados, cripto_px, hoje, msg_id):
+    """Devolve texto de resposta, '' (tratado sem resposta) ou None (nao e dos EUA)."""
+    if nome == "/recusar" and len(args) == 1:
+        alvo = args[0].upper()
+        chaves = [k for k, v in est.get("pendentes", {}).items() if v.get("ticker") == alvo]
+        if not chaves:
+            return None
+        for k in chaves:
+            recusar(cart, est, k, hoje)
+        apagar(msg_id)
+        return ""
+    if nome == "/nao":
+        if not est.get("ultima"):
+            return "↩️ EUA: nada para desfazer."
+        antes = est["ultima"]
+        cart.clear()
+        cart.update(antes["carteira"])
+        est["historico"] = est["historico"][:antes["n_historico"]]
+        for k in antes.get("chaves", []):
+            pend = est["pendentes"].pop(k, None)
+            if pend and pend.get("ticker"):
+                est["alertados"][pend["ticker"]] = hoje
+        est["ultima"] = None
+        return "↩️ EUA: ultima ordem desfeita. Ela nao sera repetida hoje."
+    if nome == "/reserva" and len(args) == 1:
+        novo = numero(args[0])
+        dif = round(novo - cart["reserva_usdt"], 2)
+        cart["reserva_usdt"] = novo
+        if dif:
+            cart.setdefault("aportes", []).append({"data": hoje, "valor": dif})
+        return (f"✅ Caixa EUA: {usd(novo)} (diferenca de {usd_s(dif)} conta como aporte/retirada, "
+                "nao como lucro)")
+    if nome == "/unidades" and len(args) == 2 and args[0].upper() in cart["ativos"]:
+        t = args[0].upper()
+        cart["ativos"][t]["unidades"] = numero(args[1])
+        return f"✅ {t}: {args[1]} unidades"
+    if nome == "/pausa" and len(args) == 1 and args[0].isdigit():
+        n = int(args[0])
+        if n == 0:
+            est["pausa_ate"] = None
+            return "▶️ EUA: pausa encerrada. Entradas liberadas."
+        est["pausa_ate"] = str((pd.Timestamp(hoje) + pd.Timedelta(days=n - 1)).date())
+        return (f"⏸️ EUA: sem entradas novas ate {pd.Timestamp(est['pausa_ate']):%d/%m/%Y}. "
+                "Saidas continuam. /pausa 0 encerra.")
+    if nome == "/comprei" and len(args) == 3:
+        t, un, px = args[0].upper(), numero(args[1]), numero(args[2])
+        a = cart["ativos"].get(t)
+        if a:
+            cart["reserva_usdt"] = round(cart["reserva_usdt"] + a["unidades"] * a["preco_entrada"] - un * px, 2)
+            a.update(unidades=un, preco_entrada=px)
+        else:
+            cart["ativos"][t] = {"token": token_de(t, univ), "tipo": univ.get(t, {}).get("tipo", "acao"),
+                                 "unidades": un, "preco_entrada": px, "data_entrada": hoje, "origem": "donchian"}
+            cart["reserva_usdt"] = round(cart["reserva_usdt"] - un * px, 2)
+        for k in [k for k, v in est["pendentes"].items() if v.get("ticker") == t]:
+            est["pendentes"].pop(k)                  # ja executada: o ❌ nao desfaz mais
+        avisos = ""
+        if cart["reserva_usdt"] < 0:
+            avisos += "\n   ⚠️ Caixa negativo: confira com /reserva VALOR."
+        if len(cart["ativos"]) > dc.VAGAS:
+            avisos += f"\n   ⚠️ {len(cart['ativos'])} posicoes para {dc.VAGAS} vagas: nenhuma entrada nova ate liberar."
+        return (f"✅ Compra registrada: {t} {un_exato(un)} a {usd(px)} = {usd(un * px)}\n"
+                f"   Caixa agora: {usd(cart['reserva_usdt'])}" + avisos)
+    if nome == "/vendi" and len(args) == 3:
+        t, un, px = args[0].upper(), numero(args[1]), numero(args[2])
+        a = cart["ativos"].get(t)
+        if a:
+            frac = min(1.0, un / a["unidades"]) if a["unidades"] else 1.0
+            lucro = fechar_trade(cart, est, t, px, hoje, confirmado=True, frac=frac)
+            return (f"✅ Venda registrada: {t} {un_exato(un)} a {usd(px)} | lucro {usd_s(lucro)}\n"
+                    f"   Caixa agora: {usd(cart['reserva_usdt'])}")
+        abertos = [h for h in est["historico"] if h["ticker"] == t and not h.get("confirmado")]
+        if abertos:
+            h = abertos[-1]
+            ajuste = un * px - h["unidades"] * h["preco_saida"]
+            cart["reserva_usdt"] = round(cart["reserva_usdt"] + ajuste, 2)
+            h.update(unidades=un, preco_saida=px, confirmado=True,
+                     lucro_usd=round(un * (px - h["preco_entrada"]), 2),
+                     lucro_pct=px / h["preco_entrada"] - 1)
+            return (f"✅ Venda corrigida: {t} {un_exato(un)} a {usd(px)} | lucro {usd_s(h['lucro_usd'])}\n"
+                    f"   Caixa agora: {usd(cart['reserva_usdt'])}")
+        return f"⚠️ {t} nao esta na carteira EUA."
+    if nome == "/carteira":
+        return texto_carteira(cart, dados, cripto_px, univ)
+    return None
+
+
+def texto_carteira(cart, dados, cripto_px, univ):
+    patr, _ = patrimonio(cart, dados, cripto_px)
+    L = ["📋 CARTEIRA EUA"]
+    for t, a in sorted(cart["ativos"].items()):
+        p = preco_atual(t, dados, cripto_px) or a["preco_entrada"]
+        extra = " | saida na abertura" if a.get("saida") else ""
+        L.append(f"  {t} ({a['token']}): {usd(a['unidades'] * p)} | {pct(p / a['preco_entrada'] - 1)}"
+                 f" | {a['origem']}{extra}")
+    livres, _ = dc.vagas_livres(cart["ativos"].values())
+    lt, lp = lucro_total(cart, patr)
+    L.append(f"  caixa USDT: {usd(cart['reserva_usdt'])} | vagas livres: {livres} de {dc.VAGAS}")
+    L.append(f"  TOTAL: {usd(patr)} | desde o inicio {usd_s(lt)} ({pct(lp)})")
     return "\n".join(L)
 
 
-# ============================================================== MONITOR
-def monitor(cart, est, dados, ordens):
-    """Toda hora: realizacao de +10% e alerta de desastre nos swings."""
-    base = cart["base_por_ativo"]
-    for t, a in cart["ativos"].items():
-        if t not in dados:
-            continue
-        preco = dados[t]["preco"]
-        valor = a["unidades"] * preco
-        if valor >= base * (1 + REALIZA_ALTA) and not silenciado(est, f"realiza:{t}"):
-            excesso = valor - base
-            a["unidades"] -= excesso / preco
-            cart["reserva_usdt"] += excesso
-            ordens.append((f"realiza:{t}", f"💰 {t} bateu {pct(valor / base - 1)}: VENDA US$ {num(excesso)} "
-                          f"de {a['token']} (~{num(excesso / preco, 4)} un.) → reserva"))
-    for t, s in est["swings"].items():
-        if t in dados and dados[t]["preco"] <= s["preco_medio"] * (1 - DESASTRE) \
-                and not est["desastre"].get(t):
-            est["desastre"][t] = True
-            ordens.append((f"desastre:{t}", f"🚨 Swing {t} caiu {pct(dados[t]['preco'] / s['preco_medio'] - 1)} "
-                          f"desde a entrada. Decida: segurar ou vender."))
-
-
-# ============================================================ VARREDURA
-def varredura(cart, est, univ, dados, spy_ok, ordens, pregoes):
-    base = cart["base_por_ativo"]
-
-    # --- swings abertos: saida, prazo, segunda metade
-    for t in list(est["swings"]):
-        s, ind = est["swings"][t], dados.get(t)
-        if not ind:
-            continue
-        preco = ind["preco"]
-        dias = s.get("pregoes", 0) + 1
-        s["pregoes"] = dias
-        motivo = "cruzou a EMA 20 para cima" if preco >= ind["ema20"] else \
-                 f"prazo de {PRAZO_SWING} pregoes" if dias >= PRAZO_SWING else None
-        if motivo and not silenciado(est, f"saida:{t}"):
-            valor = s["unidades"] * preco
-            cart["reserva_usdt"] += valor
-            ordens.append((f"saida:{t}", f"🎯 SWING {t}: {motivo}. VENDA tudo (~US$ {num(valor)}, "
-                          f"{pct(preco / s['preco_medio'] - 1)}) → reserva"))
-            del est["swings"][t]
-            est["desastre"].pop(t, None)
-            continue
-        confirmou = ind["min"] > ind["min_ontem"] or \
-            (ind["max"] > ind["min"] and (preco - ind["min"]) / (ind["max"] - ind["min"]) >= 0.66)
-        if s["metades"] == 1 and confirmou and cart["reserva_usdt"] >= s["meia"] \
-                and not silenciado(est, f"metade:{t}"):
-            pm_antes = s["preco_medio"]
-            s["unidades"] += s["meia"] / preco
-            s["preco_medio"] = (s["meia"] * 2) / s["unidades"]
-            s["metades"] = 2
-            cart["reserva_usdt"] -= s["meia"]
-            ordens.append((f"metade:{t}", f"✅ SWING {t} confirmou: COMPRE a 2ª metade, "
-                                          f"US$ {num(s['meia'])}",
-                           {"tipo": "metade", "ticker": t, "meia": s["meia"],
-                            "un": s["meia"] / preco, "pm_antes": pm_antes}))
-
-    # --- candidatos a swing
-    ocupados = set(cart["ativos"]) | set(est["swings"])
-    if len(est["swings"]) < MAX_SWINGS and cart["reserva_usdt"] >= 125:
-        pre = []
-        for t, ind in dados.items():
-            if t in ocupados or t in ("SPY", "QQQ") or np.isnan(ind["sma200"]) \
-                    or silenciado(est, f"swing:{t}") or recusado(est, t):
-                continue
-            esticada = (ind["ema20"] - ind["preco"]) / ind["atr"] if ind["atr"] else 0
-            if esticada >= ESTICADA_MIN:
-                n, _, _ = nota_swing(ind, spy_ok, None)
-                pre.append((n, t))
-        melhores = []
-        for _, t in sorted(pre, reverse=True)[:8]:
-            n, partes, esticada = nota_swing(dados[t], spy_ok, teve_resultado(t))
-            melhores.append((n, t, partes, esticada))
-        melhores.sort(key=lambda x: -x[0])
-        registrar_placar([{"data": str(dados[t]["data"].date()), "ticker": t, "nota": n,
-                           "preco": dados[t]["preco"], "ret5": "", "ret20": ""}
-                          for n, t, _, _ in melhores])
-        if melhores and melhores[0][0] >= TAMANHO_SWING[-1][0]:
-            n, t, partes, esticada = melhores[0]
-            total = min(tamanho_por_nota(n), cart["reserva_usdt"])
-            meia = total / 2
-            preco = dados[t]["preco"]
-            est["swings"][t] = {"unidades": meia / preco, "preco_medio": preco, "meia": meia,
-                                "metades": 1, "pregoes": 0,
-                                "entrada": str(dados[t]["data"].date())}
-            cart["reserva_usdt"] -= meia
-            outros = ", ".join(f"{x[1]} {num(x[0], 1)}" for x in melhores[1:4])
-            ordens.append((f"swing:{t}",
-                f"🎣 SWING: {t} | nota {num(n, 1)}/10\n"
-                f"   COMPRE 1ª metade: US$ {num(meia)} (~{num(meia / preco, 4)} un. a US$ {num(preco)})\n"
-                f"   2ª metade (US$ {num(meia)}) so quando confirmar\n"
-                f"   Saida: quando cruzar a EMA 20 (hoje em US$ {num(dados[t]['ema20'])})\n"
-                f"   ⚠️ Confirme se existe {t}on ou {t}B no Binance Wallet"
-                + (f"\n   Proximos da fila: {outros}" if outros else ""),
-                {"tipo": "swing", "ticker": t}))
-
-    # --- trocas
-    semana = pd.Timestamp.now(tz=NY).strftime("%G-%V")
-    trocas_semana = sum(1 for x in est["trocas"] if x.get("semana") == semana)
-    rs = pd.Series({t: d["ret63"] for t, d in dados.items() if not np.isnan(d["ret63"])})
-    percentil = rs.rank(pct=True)
-    notas = {t: nota_tendencia(d, percentil.get(t, 0)) for t, d in dados.items()
-             if t not in ("SPY", "QQQ") and not np.isnan(d["sma200"])}
-    if trocas_semana < TROCAS_POR_SEMANA and pregoes is not None:
-        elegiveis = []
-        for t, a in cart["ativos"].items():
-            if t not in dados or t not in notas:
-                continue
-            valor = a["unidades"] * dados[t]["preco"]
-            if valor > base and pregoes_desde(a["desde"], pregoes) >= TROCA_CARENCIA \
-                    and not silenciado(est, f"troca:{t}"):
-                elegiveis.append((notas[t], t, valor))
-        livres = sorted(((n, t) for t, n in notas.items()
-                         if t not in ocupados and not recusado(est, t)), reverse=True)
-        if elegiveis and livres:
-            nota_velho, velho, valor = min(elegiveis)
-            nota_novo, novo = livres[0]
-            if nota_novo >= max(TROCA_NOTA_MIN, nota_velho + TROCA_MARGEM):
-                preco = dados[novo]["preco"]
-                antigo = cart["ativos"].pop(velho)
-                cart["ativos"][novo] = {"token": f"{novo}on/{novo}B", "unidades": valor / preco,
-                                        "preco_print": preco,
-                                        "desde": str(dados[novo]["data"].date())}
-                est["trocas"].append({"semana": semana, "de": velho, "para": novo})
-                ordens.append((f"troca:{velho}",
-                    f"🔄 TROCA: VENDA tudo de {antigo['token']} (US$ {num(valor)}, "
-                    f"grafico {num(nota_velho, 0)}/10)\n"
-                    f"   COMPRE US$ {num(valor)} de {novo} (grafico {num(nota_novo, 0)}/10)\n"
-                    f"   ⚠️ Confirme se existe {novo}on ou {novo}B no Binance Wallet",
-                    {"tipo": "troca", "velho": velho, "antigo": antigo, "novo": novo,
-                     "ticker": novo}))
-
-    # --- revisao
-    hoje = str(pd.Timestamp.now().date())
-    for t, a in cart["ativos"].items():
-        if t in dados and t in notas:
-            valor = a["unidades"] * dados[t]["preco"]
-            ultimo = est["revisar"].get(t)
-            if valor < base * REVISAR_ABAIXO and notas[t] <= 3 and \
-                    (not ultimo or (pd.Timestamp(hoje) - pd.Timestamp(ultimo)).days >= 5):
-                est["revisar"][t] = hoje
-                ordens.append((f"revisar:{t}", f"🔎 REVISAR {t}: US$ {num(valor)} "
-                              f"({pct(valor / base - 1)}) e grafico {num(notas[t], 0)}/10. "
-                              f"O bot nao vende; so pede sua atencao."))
-    return notas
-
-
-# ============================================================ FECHAMENTO
-def fechamento(cart, est, univ, dados, notas, spy_ok, brutos):
-    datas_ok = {t: d for t, d in dados.items() if t not in ("SPY", "QQQ")}
-    var = {t: d["preco"] / d["ontem"] - 1 for t, d in datas_ok.items()}
-    meus = set(cart["ativos"]) | set(est["swings"])
-
-    # ---------- mapa estilo Finviz: variacao do dia
-    topo = sorted(datas_ok, key=lambda t: -datas_ok[t]["liq"])[:TAMANHO_MAPA]
-    lista = list(dict.fromkeys(list(meus & set(datas_ok)) + topo))
-    df = pd.DataFrame({"t": lista, "var": [var[t] for t in lista],
-                       "setor": [univ.get(t, "Outros") for t in lista]})
-    ordem_setor = df.groupby("setor").size().sort_values(ascending=False).index.tolist()
-    df["o"] = df["setor"].map(ordem_setor.index)
-    df = df.sort_values(["o", "var"], ascending=[True, False]).reset_index(drop=True)
-
-    COL = 8
-    linhas_setor, grade, lin = [], [], 0
-    for setor in ordem_setor:
-        bloco = df[df["setor"] == setor]
-        linhas_setor.append((lin, setor))
-        for k, (_, r) in enumerate(bloco.iterrows()):
-            grade.append((lin + k // COL, k % COL, r))
-        lin += int(np.ceil(len(bloco) / COL)) + 0.5
-    fig, ax = plt.subplots(figsize=(COL * 1.3, lin * 0.95 + 1.4))
-    fig.patch.set_facecolor("#0d1117"); ax.set_facecolor("#0d1117")
-    mapa = plt.get_cmap("RdYlGn")
-    for y, x, r in grade:
-        v = np.clip(r["var"] / 0.05, -1, 1)
-        ax.add_patch(plt.Rectangle((x, -y - 1), 0.94, 0.9, facecolor=mapa((v + 1) / 2)))
-        if r["t"] in meus:
-            ax.add_patch(plt.Rectangle((x, -y - 1), 0.94, 0.9, fill=False,
-                                       edgecolor="white", linewidth=3))
-        cor = "#111" if abs(v) < 0.55 else "white"
-        ax.text(x + 0.47, -y - 0.42, r["t"], ha="center", fontsize=8.5, weight="bold", color=cor)
-        ax.text(x + 0.47, -y - 0.75, pct(r["var"]), ha="center", fontsize=7.5, color=cor)
-    for y, setor in linhas_setor:
-        ax.text(0, -y + 0.15, setor.upper(), fontsize=9, weight="bold", color="#8b949e")
-    ax.set_xlim(-0.1, COL); ax.set_ylim(-lin, 1.3); ax.axis("off")
-    dia = max(d["data"] for d in datas_ok.values())
-    ax.text(0, 0.95, f"Mapa do dia  -  {dia:%d/%m/%Y}", fontsize=13, weight="bold", color="white")
-    ax.text(0, 0.6, "borda branca = sua carteira e seus swings", fontsize=8.5, color="#8b949e")
-    plt.tight_layout(); plt.savefig("mapa_dia.png", dpi=110, facecolor=fig.get_facecolor())
-    plt.close()
-
-    # ---------- vencedores e perdedores que valem olhar
-    def destaque(sinal):
-        c = []
-        for t, d in datas_ok.items():
-            forca = abs(var[t]) / d["atr_pct"] if d["atr_pct"] else 0
-            if np.sign(var[t]) == sinal and forca >= 2 and d["vol_rel"] >= 1.5 and d["liq"] >= 5e6:
-                c.append((forca, t))
-        saida = []
-        for forca, t in sorted(c, reverse=True)[:5]:
-            d = datas_ok[t]
-            tags = [f"{num(forca, 1)}x o normal", f"vol {num(d['vol_rel'], 1)}x"]
-            if teve_resultado(t, 2):
-                tags.append("📰 resultado")
-            if d["preco"] >= 0.98 * d["max52"]:
-                tags.append("🔝 max 52 sem")
-            if d["preco"] <= 1.02 * d["min52"]:
-                tags.append("🕳️ min 52 sem")
-            gap = d["abertura"] / d["ontem"] - 1
-            if abs(gap) >= 0.03:
-                tags.append(f"gap {pct(gap)}")
-            if t in notas:
-                tags.append(f"grafico {num(notas[t], 0)}/10")
-            saida.append(f"  {t} {pct(var[t])} | " + " | ".join(tags))
-        return saida or ["  nenhum movimento fora do normal"]
-
-    precos = {t: d["preco"] for t, d in dados.items()}
-    a, s, r = valor_total(cart, est, precos)
-    total = a + s + r
-    inicial = cart.get("capital_inicial", cart["base_por_ativo"] * len(cart["ativos"]) + 1000)
-    L = [f"📊 FECHAMENTO {dia:%d/%m}", "",
-         "🟢 VENCEDORES QUE VALEM OLHAR"] + destaque(1) + \
-        ["", "🔴 PERDEDORES QUE VALEM OLHAR"] + destaque(-1) + ["", "💼 SUA CARTEIRA HOJE"]
-    for t in cart["ativos"]:
-        if t in dados:
-            v = cart["ativos"][t]["unidades"] * dados[t]["preco"]
-            L.append(f"  {t} {pct(var.get(t, 0))} | US$ {num(v, 0)}")
-    for t, sw in est["swings"].items():
-        if t in dados:
-            L.append(f"  swing {t} {pct(dados[t]['preco'] / sw['preco_medio'] - 1)} desde a entrada")
-    L += [f"  reserva US$ {num(r, 0)} | TOTAL US$ {num(total, 0)} ({pct(total / inicial - 1)} desde o inicio)"]
-    if "SPY" in dados:
-        L.append(f"  S&P 500 hoje {pct(dados['SPY']['preco'] / dados['SPY']['ontem'] - 1)} | "
-                 f"tese {'✅ viva' if spy_ok else '⚠️ contrariada (abaixo da media de 200 dias)'}")
-
-    # ---------- placar da nota (sextas)
-    if pd.Timestamp.now(tz=NY).weekday() == 4 and os.path.exists(ARQ_PLACAR):
-        L += ["", placar_da_nota(brutos)]
-
-    enviar_foto("mapa_dia.png", f"Mapa do dia {dia:%d/%m} - cor = variacao do dia")
-    enviar("\n".join(L))
-
-
-def placar_da_nota(brutos):
-    """Retorno exato no 5o e no 20o pregao depois de cada nota registrada."""
-    p = pd.read_csv(ARQ_PLACAR)
-    for col in ("ret5", "ret20"):
-        p[col] = pd.to_numeric(p[col], errors="coerce")
-    for i, linha in p.iterrows():
-        df = brutos.get(linha["ticker"])
-        if df is None:
-            continue
-        depois = df.index[df.index > pd.Timestamp(linha["data"])]
-        for n, col in ((5, "ret5"), (20, "ret20")):
-            if pd.isna(p.at[i, col]) and len(depois) >= n:
-                p.at[i, col] = float(df.loc[depois[n - 1], "Close"] / linha["preco"] - 1)
-    p.to_csv(ARQ_PLACAR, index=False)
-    L = ["🧪 PLACAR DA NOTA (retorno 5 pregoes depois)"]
-    for rot, filtro in (("nota 8+", p["nota"] >= 8),
-                        ("nota 6-7,9", (p["nota"] >= 6) & (p["nota"] < 8)),
-                        ("nota < 6", p["nota"] < 6)):
-        sub = p.loc[filtro, "ret5"].dropna()
-        if len(sub):
-            L.append(f"  {rot}: {pct(sub.mean())} em media | acerto "
-                     f"{(sub > 0).mean()*100:.0f}% | n={len(sub)}")
-    if len(L) == 1:
-        L.append("  ainda sem dados suficientes")
+# ================================================================ ORDENS
+def msg_entrada(t, token, alt, preco, valor, un, passo, saida, cripto=False):
+    L = [f"🟢 COMPRAR {t}",
+         f"Token: {token}" + (f" (ou {alt})" if alt else ""),
+         f"Preco de referencia: {usd(preco, 4 if preco < 5 else 2)}",
+         f"Compre agora ate {usd(preco * (1 + FOLGA_COMPRA), 4 if preco < 5 else 2)}",
+         f"Valor: {usd(valor)} = {un_txt(un, passo)} {token}",
+         f"Saida atual: {usd(saida, 4 if saida < 5 else 2)}"]
     return "\n".join(L)
+
+
+def msg_saida(t, token, un, passo, preco_ref, a, agora_mesmo=False, frac=1.0):
+    lucro = un * (preco_ref - a["preco_entrada"])
+    L = [f"🔴 VENDER {'AGORA' if agora_mesmo else 'NA ABERTURA'}: {t}",
+         f"Token: {token}",
+         f"Vender {int(round(frac * 100))}% = {un_exato(un) if frac >= 1 else un_txt(dc.arredondar_baixo(un, passo), passo)} {token}",
+         f"Lucro estimado do trade: {pct(preco_ref / a['preco_entrada'] - 1)} ({usd_s(lucro)})"]
+    return "\n".join(L)
+
+
+def completos(df, agora):
+    """Barras completas das acoes: tira a de hoje se o pregao ainda nao fechou."""
+    fase = mk.fase_eua(agora)
+    hoje = agora.astimezone(NY).date()
+    return dc.barras_completas(df, hoje, em_andamento=(fase in ("pregao", "antes")))
+
+
+def finalizar_saidas(cart, est, dados, agora, hoje):
+    """Saidas marcadas no fechamento anterior: registra a venda pela abertura de hoje."""
+    for t in [t for t, a in cart["ativos"].items() if a.get("saida") and a["tipo"] == "acao"]:
+        a = cart["ativos"][t]
+        df = dados.get(t)
+        if df is None or not len(df):
+            continue
+        barra = pd.Timestamp(df.index[-1]).normalize()
+        if barra <= pd.Timestamp(a["saida"]["data"]):
+            continue                                   # ainda nao abriu o pregao seguinte
+        fechar_trade(cart, est, t, float(df["Open"].iloc[-1]), hoje, frac=a["saida"].get("frac", 1.0))
+
+
+def checar_entradas(cart, est, univ, dados, agora, hoje, ordens, sinais_dia):
+    spy = dados.get("SPY")
+    if spy is None:
+        return
+    spy_ok = dc.filtro_mercado(completos(spy, agora)["Close"].values)
+    sinais = []
+    for t, info in univ.items():
+        if info["tipo"] != "acao" or t in cart["ativos"] or t not in dados:
+            continue
+        df = dados[t]
+        comp = completos(df, agora)
+        if len(comp) == len(df):
+            continue                                   # sem barra de hoje (sem pregao ou sem dado)
+        nv = dc.nivel_entrada(comp["High"].values)
+        preco = float(df["Close"].iloc[-1])
+        if not dc.rompeu(preco, nv):
+            continue
+        sinais_dia[t] = {"preco": preco, "nivel": nv}
+        if not spy_ok or recusado(est, t, hoje) or est["alertados"].get(t) == hoje or em_pausa(est, hoje):
+            continue
+        sinais.append({"ticker": t, "tipo": "acao", "momentum": dc.momentum(comp["Close"].values),
+                       "preco": preco, "saida": dc.nivel_saida(comp["Low"].values)})
+    escolhidos, sem_vaga = dc.escolher(sinais, cart["ativos"].values())
+    for s in sem_vaga:
+        sinais_dia[s["ticker"]]["obs"] = "sem vaga"
+    patr, _ = patrimonio(cart, dados, {})
+    for s in escolhidos:
+        t = s["ticker"]
+        passo = passo_de(t, univ)
+        tam = dc.tamanho_entrada(patr, cart["reserva_usdt"], s["preco"], passo, ORDEM_MINIMA)
+        if tam is None:
+            sinais_dia[t]["obs"] = "sem caixa"
+            continue
+        valor, un = tam
+        token = token_de(t, univ)
+        cart["reserva_usdt"] = round(cart["reserva_usdt"] - valor, 2)
+        cart["ativos"][t] = {"token": token, "tipo": "acao", "unidades": un, "preco_entrada": s["preco"],
+                             "data_entrada": hoje, "origem": "donchian"}
+        est["alertados"][t] = hoje
+        sinais_dia[t]["obs"] = "ordem enviada"
+        ordens.append((f"entrada:{t}", msg_entrada(t, token, token_alt(t, univ), s["preco"], valor, un,
+                                                   passo, s["saida"]),
+                       {"tipo": "entrada", "ticker": t}))
+
+
+def checar_saidas(cart, est, univ, dados, agora, hoje, ordens):
+    """Depois do fechamento: fechamento abaixo da minima dos 10 pregoes anteriores."""
+    for t, a in cart["ativos"].items():
+        if a["tipo"] != "acao" or a.get("saida") or t not in dados:
+            continue
+        df = dados[t]
+        if pd.Timestamp(df.index[-1]).normalize() != pd.Timestamp(hoje):
+            continue                                   # sem barra de hoje
+        c, l = df["Close"].values, df["Low"].values
+        sair = dc.sinal_saida(c, l, dc.N_SAIDA)
+        frac = 1.0
+        if not sair and SAIDA_PARCIAL and not a.get("parcial"):
+            sair, frac = dc.sinal_saida(c, l, dc.N_SAIDA_RAPIDA), 0.5
+        if not sair:
+            continue
+        preco = float(c[-1])
+        un = a["unidades"] * frac
+        a["saida"] = {"data": hoje, "preco_ref": preco, "frac": frac}
+        ordens.append((f"saida:{t}", msg_saida(t, a["token"], un, passo_de(t, univ), preco, a, frac=frac), None))
+
+
+def checar_cripto(cart, est, univ, agora, ordens, cripto_px):
+    """ASTER: candle diario fechado (21h de Brasilia). Saida e entrada executam na hora."""
+    dia = str(mk.dia_cripto_fechado(agora))
+    hoje = hoje_ny(agora)
+    cripto = [t for t, i in univ.items() if i["tipo"] == "cripto"]
+    if not cripto:
+        return dia
+    btc, _ = klines("BTCUSDT", agora)
+    btc_ok = dc.filtro_mercado(btc["Close"].values)
+    for t in cripto:
+        par = univ[t].get("par", f"{t}USDT")
+        comp, atual = klines(par, agora)
+        cripto_px[t] = atual
+        if not len(comp) or str(comp.index[-1].date()) != dia:
+            continue
+        a = cart["ativos"].get(t)
+        passo = univ[t].get("passo_quantidade", 0.01)
+        if a:
+            if dc.sinal_saida(comp["Close"].values, comp["Low"].values):
+                un = a["unidades"]
+                ordens.append((f"saida:{t}", msg_saida(t, a["token"], un, passo, atual, a, agora_mesmo=True), None))
+                fechar_trade(cart, est, t, atual, hoje)
+            continue
+        nv = dc.nivel_entrada(comp["High"].values[:-1])
+        if not (btc_ok and dc.rompeu(float(comp["Close"].iloc[-1]), nv)):
+            continue
+        if recusado(est, t, hoje) or em_pausa(est, hoje):
+            continue
+        esc, _ = dc.escolher([{"ticker": t, "tipo": "cripto", "momentum": 0.0}], cart["ativos"].values())
+        if not esc:
+            continue
+        patr, _ = patrimonio(cart, {}, cripto_px)
+        minimo = max(ORDEM_MINIMA, univ[t].get("ordem_minima_usd") or 0)
+        tam = dc.tamanho_entrada(patr, cart["reserva_usdt"], atual, passo, minimo)
+        if tam is None:
+            continue
+        valor, un = tam
+        cart["reserva_usdt"] = round(cart["reserva_usdt"] - valor, 2)
+        cart["ativos"][t] = {"token": univ[t]["token"], "tipo": "cripto", "unidades": un,
+                             "preco_entrada": atual, "data_entrada": hoje, "origem": "donchian"}
+        saida = dc.nivel_saida(comp["Low"].values)
+        ordens.append((f"entrada:{t}", msg_entrada(t, univ[t]["token"], None, atual, valor, un, passo, saida),
+                       {"tipo": "entrada", "ticker": t}))
+    return dia
+
+
+def ultimo_preco_posicoes(cart, dados, cripto_px):
+    """Guarda o ultimo preco conhecido (a ASTER roda sem baixar acoes)."""
+    for t, a in cart["ativos"].items():
+        p = preco_atual(t, dados, cripto_px)
+        if p is not None:
+            a["ultimo_preco"] = round(p, 6)
+
+
+# ================================================================ DIAGNOSTICO
+def diagnostico(cart, univ, dados, cripto_px, agora):
+    fase = mk.fase_eua(agora)
+    L = [f"🩺 DIAGNOSTICO DA CARTEIRA EUA ({agora.astimezone(mk.BR):%d/%m/%Y %Hh%M} Brasilia)",
+         "Regra de saida: fechamento abaixo da minima dos 10 pregoes anteriores", ""]
+    for t, a in cart["ativos"].items():
+        df = dados.get(t)
+        if a["tipo"] == "cripto" or df is None:
+            L.append(f"{t}: sem dados")
+            continue
+        comp = completos(df, agora)
+        px = float(df["Close"].iloc[-1])
+        sai = dc.sinal_saida(comp["Close"].values, comp["Low"].values) and fase != "pregao"
+        nivel = dc.nivel_saida(comp["Low"].values)
+        dist = px / nivel - 1
+        dec = "SAIR NA PROXIMA ABERTURA" if (sai or a.get("saida")) else "manter"
+        L.append(f"{t} ({a['token']}) {a['origem']}\n"
+                 f"  preco {usd(px)} | entrada {usd(a['preco_entrada'])} | lucro {pct(px / a['preco_entrada'] - 1)} "
+                 f"({usd_s(a['unidades'] * (px - a['preco_entrada']))})\n"
+                 f"  minima 10 dias {usd(nivel)} | distancia {pct(dist)} | {dec}")
+    patr, _ = patrimonio(cart, dados, cripto_px)
+    livres, _ = dc.vagas_livres(cart["ativos"].values())
+    L += ["", f"Patrimonio {usd(patr)} | caixa {usd(cart['reserva_usdt'])} | vagas livres {livres} de {dc.VAGAS}"]
+    return "\n".join(L)
+
+
+# ================================================================ FECHAMENTO
+def fechamento(cart, est, univ, dados, cripto_px, agora, hoje, sinais_dia):
+    """Heatmap + destaques (sem som), depois do fechamento de NY."""
+    import heatmap_eua as hm
+    itens, destaques = [], []
+    var = {}
+    for t, a in cart["ativos"].items():
+        df = dados.get(t)
+        if a["tipo"] == "cripto":
+            comp, atual = klines(univ.get(t, {}).get("par", f"{t}USDT"), agora)
+            cripto_px[t] = atual
+            v = atual / float(comp["Close"].iloc[-1]) - 1 if len(comp) else 0.0
+            px = atual
+        elif df is not None and len(df) >= 2:
+            px = float(df["Close"].iloc[-1])
+            v = px / float(df["Close"].iloc[-2]) - 1
+            if a["data_entrada"] == hoje:
+                v = px / a["preco_entrada"] - 1
+        else:
+            continue
+        var[t] = v
+        marca = "sai amanha" if a.get("saida") else ""
+        itens.append({"ticker": t, "valor": a["unidades"] * px, "var_dia": v, "marca": marca})
+
+    patr, _ = patrimonio(cart, dados, cripto_px)
+    # lucro do dia: diferenca de patrimonio desde o ultimo fechamento (sem aportes)
+    ant = est.get("patrimonio_fech")
+    if ant and ant.get("data") != hoje:
+        aportes = sum(x["valor"] for x in cart.get("aportes", []) if x["data"] > ant["data"])
+        dia_usd = patr - ant["valor"] - aportes
+        dia_pct = dia_usd / ant["valor"] if ant["valor"] else 0.0
+    else:
+        dia_usd = sum(it["valor"] - it["valor"] / (1 + it["var_dia"]) for it in itens)
+        dia_pct = dia_usd / (patr - dia_usd) if patr - dia_usd else 0.0
+    lt, lp = lucro_total(cart, patr)
+    livres, _ = dc.vagas_livres(cart["ativos"].values())
+
+    # destaques
+    if var:
+        alta = max(var, key=var.get)
+        queda = min(var, key=var.get)
+        destaques.append(f"🔼 maior alta: {alta} {pct(var[alta])} | 🔽 maior queda: {queda} {pct(var[queda])}")
+    novas, perto, saindo = [], [], []
+    for t, a in cart["ativos"].items():
+        df = dados.get(t)
+        if a["tipo"] != "acao" or df is None or len(df) < 30:
+            continue
+        px = float(df["Close"].iloc[-1])
+        if px > dc.nivel_entrada(df["High"].values[:-1]):
+            novas.append(t)
+        prox = dc.nivel_saida(df["Low"].values)
+        if a.get("saida"):
+            saindo.append(t)
+        elif px / prox - 1 < PERTO_SAIDA:
+            perto.append(f"{t} ({pct(px / prox - 1)} ate {usd(prox)})")
+    if novas:
+        destaques.append("🏔️ nova maxima de 55 dias: " + ", ".join(novas))
+    if saindo:
+        destaques.append("🔴 saem na abertura: " + ", ".join(saindo))
+    if perto:
+        destaques.append("⚠️ a menos de 3% da saida: " + ", ".join(perto))
+    if sinais_dia:
+        destaques.append("🟢 sinais de entrada hoje: " + ", ".join(
+            f"{t}" + (f" ({s['obs']})" if s.get("obs") else "") for t, s in sorted(sinais_dia.items())))
+    bal = []
+    for t, a in cart["ativos"].items():
+        if a["tipo"] == "acao":
+            d = proximo_resultado(t, agora)
+            if d:
+                bal.append(f"{t} {d:%d/%m}")
+    if bal:
+        destaques.append("📰 balanco nos proximos 2 pregoes: " + ", ".join(bal))
+    refs = []
+    for t, nome in (("SPY", "SPY"), ("QQQ", "QQQ")):
+        df = dados.get(t)
+        if df is not None and len(df) >= 2:
+            refs.append(f"{nome} {num(float(df['Close'].iloc[-1]))} ({pct(df['Close'].iloc[-1] / df['Close'].iloc[-2] - 1)})")
+    try:
+        btc, btc_px = klines("BTCUSDT", agora)
+        refs.append(f"BTC {num(btc_px, 0)} ({pct(btc_px / float(btc['Close'].iloc[-1]) - 1)})")
+    except Exception:
+        pass
+    if refs:
+        destaques.append("📈 " + " | ".join(refs))
+
+    dia_txt = pd.Timestamp(hoje)
+    legenda = [f"Patrimonio {usd(patr)}   |   caixa USDT {usd(cart['reserva_usdt'])}   |   vagas livres {livres} de {dc.VAGAS}",
+               f"Hoje {usd_s(dia_usd)} ({pct(dia_pct)})   |   desde o inicio {usd_s(lt)} ({pct(lp)})"]
+    caminho = hm.desenhar(itens, f"Carteira EUA - {dia_txt:%d/%m/%Y}", legenda + destaques)
+    texto = "\n".join([f"📊 FECHAMENTO EUA {dia_txt:%d/%m}", legenda[1], legenda[0], ""] + destaques)
+    enviar_foto(caminho, texto[:1000], silencioso=True)
+    if len(texto) > 1000:
+        enviar(texto, silencioso=True)
+    est["patrimonio_fech"] = {"data": hoje, "valor": round(patr, 2)}
+
+
+# ================================================================ EUA
+def enviar_ordens(ordens, est, antes, hoje):
+    if not ordens:
+        return
+    est["ultima"] = {**antes, "chaves": [o[0] for o in ordens]}
+    for chave, txt, x in ordens:
+        if x is not None:
+            mid = enviar(txt, botao=("❌ Recusar", f"rec|{chave}"))
+            est["pendentes"][chave] = {**x, "msg_id": mid, "data": hoje}
+        else:
+            enviar(txt)
+
+
+def rodar_eua(agora, forcar=(), auto=True):
+    """forcar: fases a rodar fora do horario ('pregao', 'depois', 'cripto').
+    auto: decide as fases pelo relogio de NY. Devolve os comandos que nao sao dos EUA."""
+    cart, est = carregar()
+    eventos = ler_comandos(est) if not TESTE else \
+        [("cmd", c.split(), None) for c in os.environ.get("TESTE_COMANDOS", "").split(";") if c.strip()]
+    univ = ler_universo()
+    if cart.get("versao") != 2:
+        raise SystemExit("carteira.json ainda no formato antigo: rode a migracao (MODO=migrar).")
+    hoje = hoje_ny(agora)
+    fase = mk.fase_eua(agora)
+    dia_cripto = str(mk.dia_cripto_fechado(agora))
+
+    fazer_pregao = "pregao" in forcar or (auto and fase == "pregao")
+    fazer_depois = "depois" in forcar or (auto and fase == "depois" and est.get("fechamento_em") != hoje)
+    fazer_cripto = "cripto" in forcar or (auto and est.get("cripto_em") != dia_cripto)
+    precisa_acoes = fazer_pregao or fazer_depois or bool(eventos) or MODO == "diagnostico"
+
+    limite = str((pd.Timestamp(hoje) - pd.Timedelta(days=2)).date())
+    est["pendentes"] = {k: v for k, v in est["pendentes"].items() if v["data"] >= limite}
+    est["alertados"] = {k: v for k, v in est["alertados"].items() if v >= hoje}
+
+    alvo = set(cart["ativos"]) | {"SPY", "QQQ"}
+    if fazer_pregao or fazer_depois:
+        alvo |= {t for t, i in univ.items() if i["tipo"] == "acao"}
+    alvo -= {t for t, i in univ.items() if i["tipo"] == "cripto"}
+    dados = baixar_eua(alvo, agora) if precisa_acoes else {}
+    cripto_px = {}
+
+    respostas, restantes = processar_comandos(cart, est, eventos, univ, dados, cripto_px, hoje)
+    for r in respostas:
+        enviar(r, silencioso=True)
+
+    if MODO == "diagnostico":
+        enviar(diagnostico(cart, univ, dados, cripto_px, agora), silencioso=True)
+
+    antes = {"carteira": copy.deepcopy(cart), "n_historico": len(est["historico"])}
+    ordens, sinais_dia = [], {}
+    if (fazer_pregao or fazer_depois) and mk.eh_pregao(agora.astimezone(NY).date()):
+        finalizar_saidas(cart, est, dados, agora, hoje)
+    if fazer_pregao:
+        checar_entradas(cart, est, univ, dados, agora, hoje, ordens, sinais_dia)
+    if fazer_depois and mk.eh_pregao(agora.astimezone(NY).date()):
+        checar_saidas(cart, est, univ, dados, agora, hoje, ordens)
+        for t, i in univ.items():                        # sinais do dia (para os destaques)
+            df = dados.get(t)
+            if i["tipo"] == "acao" and t not in cart["ativos"] and df is not None and len(df) > 30 \
+                    and pd.Timestamp(df.index[-1]).normalize() == pd.Timestamp(hoje) \
+                    and df["High"].iloc[-1] > dc.nivel_entrada(df["High"].values[:-1]):
+                sinais_dia.setdefault(t, {"obs": "alertado" if est["alertados"].get(t) == hoje else ""})
+    if fazer_cripto:
+        try:
+            est["cripto_em"] = checar_cripto(cart, est, univ, agora, ordens, cripto_px)
+        except Exception as e:
+            print("cripto falhou:", e)
+            enviar(f"⚠️ A checagem da ASTER falhou nesta execucao: {e}", silencioso=True)
+    enviar_ordens(ordens, est, antes, hoje)
+    if fazer_depois and mk.eh_pregao(agora.astimezone(NY).date()):
+        fechamento(cart, est, univ, dados, cripto_px, agora, hoje, sinais_dia)
+        est["fechamento_em"] = hoje
+    ultimo_preco_posicoes(cart, dados, cripto_px)
+    salvar(cart, est)
+    return restantes
+
+
+# ================================================================ DEMO / MIGRAR
+def demo(agora):
+    """Uma mensagem real de teste + heatmap de exemplo. Nao grava nada."""
+    cart, est = carregar()
+    univ = ler_universo()
+    hoje = hoje_ny(agora)
+    dados = baixar_eua(set(cart["ativos"]) | {"SPY", "QQQ", "NVDA"}, agora)
+    df = dados.get("NVDA")
+    px = float(df["Close"].iloc[-1])
+    patr, _ = patrimonio(cart, dados, {})
+    valor, un = dc.tamanho_entrada(patr, max(patr / dc.VAGAS, ORDEM_MINIMA), px, PASSO_ACAO, ORDEM_MINIMA)
+    enviar("🧪 TESTE DO BOT NOVO - exemplo, NAO execute\n\n"
+           + msg_entrada("NVDA", token_de("NVDA", univ), token_alt("NVDA", univ), px, valor, un, PASSO_ACAO,
+                         dc.nivel_saida(df["Low"].values)))
+    fechamento(copy.deepcopy(cart), copy.deepcopy(est), univ, dados, {}, agora, hoje, {})
+
+
+def migrar():
+    """carteira.json antiga -> nova (backup em carteira_antiga.json) + estado limpo."""
+    with open(ARQ_CARTEIRA, encoding="utf-8") as f:
+        antiga = json.load(f)
+    if antiga.get("versao") == 2:
+        print("carteira.json ja esta no formato novo.")
+        return
+    univ = ler_universo()
+    with open("carteira_antiga.json", "w", encoding="utf-8") as f:
+        json.dump(antiga, f, indent=2, ensure_ascii=False)
+    est_antigo = {}
+    if os.path.exists(ARQ_ESTADO):
+        with open(ARQ_ESTADO, encoding="utf-8") as f:
+            est_antigo = json.load(f)
+        with open("estado_bot_antigo.json", "w", encoding="utf-8") as f:
+            json.dump(est_antigo, f, indent=2, ensure_ascii=False)
+    nova = migrar_carteira(antiga, univ)
+    with open(ARQ_CARTEIRA, "w", encoding="utf-8") as f:
+        json.dump(nova, f, indent=2, ensure_ascii=False)
+    with open(ARQ_ESTADO, "w", encoding="utf-8") as f:
+        json.dump(migrar_estado(est_antigo), f, indent=2, ensure_ascii=False)
+    print(json.dumps(nova, indent=2, ensure_ascii=False))
 
 
 # ================================================================== MAIN
+FASES_POR_MODO = {"tudo": ("pregao", "depois", "cripto"), "pregao": ("pregao",),
+                  "fechamento": ("depois",), "cripto": ("cripto",), "diagnostico": ()}
+MODO_B3 = {"auto": "auto", "tudo": "tudo", "fechamento": "fechamento", "pregao": "monitor"}
+
+
 def main():
-    agora = datetime.now(timezone.utc)
-    cart, est = carregar()
-    hoje_str = str(datetime.now(NY).date())
-    # Faz no maximo uma vez por dia, a partir da hora marcada. Se o GitHub
-    # atrasar ou pular uma execucao, a seguinte cobre.
-    fazer_varredura = MODO in ("tudo", "varredura") or (
-        MODO == "auto" and agora.hour >= HORA_VARREDURA and est.get("varredura_em") != hoje_str)
-    fazer_fechamento = MODO in ("tudo", "fechamento") or (
-        MODO == "auto" and agora.hour >= HORA_FECHAMENTO and est.get("fechamento_em") != hoje_str)
-
-    univ = universo() if (fazer_varredura or fazer_fechamento) else {}
-    alvo = set(cart["ativos"]) | set(est["swings"]) | {"SPY", "QQQ"} | set(univ)
-    brutos = baixar(alvo)
-    dados = {t: indicadores(df) for t, df in brutos.items()}
-    pregoes = brutos["SPY"].index if "SPY" in brutos else None
-    precos = {t: d["preco"] for t, d in dados.items()}
-
-    # pregao de hoje aconteceu?
-    data_ny = pd.Timestamp(datetime.now(NY).date())
-    pregao_hoje = "SPY" in dados and pd.Timestamp(dados["SPY"]["data"]).normalize() == data_ny
-    spy_ok = "SPY" in dados and dados["SPY"]["preco"] > dados["SPY"]["sma200"]
-
-    limite = str((pd.Timestamp(hoje_ny()) - pd.Timedelta(days=2)).date())
-    est["pendentes"] = {k: v for k, v in est.get("pendentes", {}).items() if v["data"] >= limite}
-    eventos = ler_comandos(est)
-    respostas, restantes = processar_comandos(cart, est, precos, eventos)
-    for resp in respostas:
-        enviar(resp)
-
-    if not est.get("validado"):
-        avisos = []
-        for t, a in cart["ativos"].items():
-            if t not in dados:
-                avisos.append(f"  {t}: sem dados no Yahoo - confirme o ticker")
-            elif abs(dados[t]["preco"] / a["preco_print"] - 1) > TOL_PRECO:
-                avisos.append(f"  {t}: preco US$ {num(dados[t]['preco'])} x print US$ "
-                              f"{num(a['preco_print'])} - ticker pode estar errado")
-        enviar("🤖 Bot ligado.\n" + ("⚠️ Confira:\n" + "\n".join(avisos) if avisos
-                                    else "✅ Os 7 ativos bateram com o seu print."))
-        est["validado"] = True
-
-    antes = {"carteira": copy.deepcopy(cart), "swings": copy.deepcopy(est["swings"])}
-    ordens = []
-    if pregao_hoje or MODO != "auto":
-        monitor(cart, est, dados, ordens)
-        notas = {}
-        if fazer_varredura:
-            notas = varredura(cart, est, univ, dados, spy_ok, ordens, pregoes)
-            est["varredura_em"] = hoje_str
-        if ordens:
-            ordens = [o if len(o) == 3 else (o[0], o[1], None) for o in ordens]
-            est["ultima"] = {**antes, "chaves": [o[0] for o in ordens]}
-            normais = [txt for _, txt, x in ordens if x is None]
-            if normais:
-                enviar("\n\n".join(normais) + "\n\nNao executou? Responda /nao que eu desfaco.")
-            for chave, txt, x in ordens:
-                if x is not None:
-                    mid = enviar(txt, botao=("❌ Recusar", f"rec|{chave}"))
-                    est.setdefault("pendentes", {})[chave] = {**x, "msg_id": mid,
-                                                              "data": hoje_ny()}
-        if fazer_fechamento:
-            if not notas:
-                rs = pd.Series({t: d["ret63"] for t, d in dados.items() if not np.isnan(d["ret63"])})
-                pc = rs.rank(pct=True)
-                notas = {t: nota_tendencia(d, pc.get(t, 0)) for t, d in dados.items()
-                         if t not in ("SPY", "QQQ") and not np.isnan(d["sma200"])}
-            fechamento(cart, est, univ, dados, notas, spy_ok, brutos)
-            est["fechamento_em"] = hoje_str
+    agora = agora_utc()
+    if MODO == "migrar":
+        return migrar()
+    if MODO == "demo":
+        return demo(agora)
+    if TESTE:
+        fases = tuple(f for f in os.environ.get("FASE", "").split(",") if f)
+        restantes = rodar_eua(agora, forcar=fases, auto=not fases)
     else:
-        print("EUA sem pregao hoje.")
+        restantes = rodar_eua(agora, forcar=FASES_POR_MODO.get(MODO, ()), auto=(MODO == "auto"))
 
-    salvar(cart, est)
+    so_cripto = os.environ.get("CRON", "").strip() == "5 0 * * *"
+    modo_b3 = MODO_B3.get(MODO)
+    if TESTE or so_cripto or modo_b3 is None:
+        return
 
     # ---------------- B3: mesmo esquema, feriados e horarios proprios
     if os.path.exists("carteira_b3.json"):
         try:
             import b3
-            b3.rodar(restantes, MODO, agora)
+            b3.rodar(restantes, modo_b3, agora)
         except Exception as e:
             enviar(f"⚠️ A parte da B3 falhou nesta execucao: {e}")
             raise
@@ -772,7 +1088,7 @@ def main():
     if os.path.exists("perps.json"):
         try:
             import perps
-            perps.rodar(restantes, MODO, agora)
+            perps.rodar(restantes, modo_b3, agora)
         except Exception as e:
             enviar(f"⚠️ A parte dos futuros falhou nesta execucao: {e}")
             raise

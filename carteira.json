@@ -1,50 +1,65 @@
 {
+  "versao": 2,
   "inicio": "2026-09-25",
-  "base_por_ativo": 1000,
-  "reserva_usdt": 0,
   "capital_inicial": 7087.88,
+  "reserva_usdt": 0.0,
+  "aportes": [],
   "ativos": {
     "ABNB": {
       "token": "ABNBon",
+      "tipo": "acao",
       "unidades": 6.92375,
-      "preco_print": 158.31,
-      "desde": "2026-09-25"
+      "preco_entrada": 158.31,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "BE": {
       "token": "BEB",
+      "tipo": "acao",
       "unidades": 3.6663,
-      "preco_print": 289.02,
-      "desde": "2026-09-25"
+      "preco_entrada": 289.02,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "MVLL": {
       "token": "MVLLB",
+      "tipo": "acao",
       "unidades": 29.18549,
-      "preco_print": 35.5,
-      "desde": "2026-09-25"
+      "preco_entrada": 35.5,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "UNH": {
       "token": "UNHon",
+      "tipo": "acao",
       "unidades": 2.63575,
-      "preco_print": 377.07,
-      "desde": "2026-09-25"
+      "preco_entrada": 377.07,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "NFLX": {
       "token": "NFLXB",
+      "tipo": "acao",
       "unidades": 13.93083,
-      "preco_print": 71.27,
-      "desde": "2026-09-25"
+      "preco_entrada": 71.27,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "UBER": {
       "token": "UBERon",
+      "tipo": "acao",
       "unidades": 14.0099274,
-      "preco_print": 69.57,
-      "desde": "2026-09-25"
+      "preco_entrada": 69.57,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     },
     "ENPH": {
       "token": "ENPHon",
+      "tipo": "acao",
       "unidades": 28.76807,
-      "preco_print": 32.49,
-      "desde": "2026-09-25"
+      "preco_entrada": 32.49,
+      "data_entrada": "2026-09-25",
+      "origem": "legado"
     }
   }
 }
