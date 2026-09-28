@@ -1,12 +1,94 @@
 {
   "offset": 50176770,
-  "ultima": null,
+  "ultima": {
+    "carteira": {
+      "versao": 2,
+      "inicio": "2026-09-25",
+      "capital_inicial": 7087.88,
+      "reserva_usdt": 0.0,
+      "aportes": [],
+      "ativos": {
+        "ABNB": {
+          "token": "ABNBon",
+          "tipo": "acao",
+          "unidades": 6.92375,
+          "preco_entrada": 158.31,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 157.470001
+        },
+        "BE": {
+          "token": "BEB",
+          "tipo": "acao",
+          "unidades": 3.6663,
+          "preco_entrada": 289.02,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 288.700012
+        },
+        "MVLL": {
+          "token": "MVLLB",
+          "tipo": "acao",
+          "unidades": 29.18549,
+          "preco_entrada": 35.5,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 35.439999
+        },
+        "UNH": {
+          "token": "UNHon",
+          "tipo": "acao",
+          "unidades": 2.63575,
+          "preco_entrada": 377.07,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 376.589996
+        },
+        "NFLX": {
+          "token": "NFLXB",
+          "tipo": "acao",
+          "unidades": 13.93083,
+          "preco_entrada": 71.27,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 71.150002
+        },
+        "UBER": {
+          "token": "UBERon",
+          "tipo": "acao",
+          "unidades": 14.0099274,
+          "preco_entrada": 69.57,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 69.620003
+        },
+        "ENPH": {
+          "token": "ENPHon",
+          "tipo": "acao",
+          "unidades": 28.76807,
+          "preco_entrada": 32.49,
+          "data_entrada": "2026-09-25",
+          "origem": "legado",
+          "ultimo_preco": 32.400002
+        }
+      }
+    },
+    "n_historico": 0,
+    "chaves": [
+      "saida:NFLX",
+      "saida:UBER",
+      "saida:ENPH"
+    ]
+  },
   "pendentes": {},
   "recusados": {},
   "alertados": {},
   "historico": [],
   "pausa_ate": null,
-  "fechamento_em": null,
-  "cripto_em": null,
-  "patrimonio_fech": null
+  "fechamento_em": "2026-09-28",
+  "cripto_em": "2026-09-27",
+  "patrimonio_fech": {
+    "data": "2026-09-28",
+    "valor": 6802.42
+  }
 }

@@ -5,7 +5,7 @@
       "pm": 27.440000534057617,
       "meia": 500.0,
       "metades": 1,
-      "pregoes": 1,
+      "pregoes": 2,
       "entrada": "2026-09-24"
     }
   },
@@ -111,14 +111,7 @@
   "revisar": {},
   "trocas": [],
   "desastre": {},
-  "pendentes": {
-    "swing:CURY3": {
-      "tipo": "swing",
-      "ticker": "CURY3",
-      "msg_id": 46,
-      "data": "2026-09-24"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "silencio": {},
   "vendas_mes": {
@@ -128,6 +121,6 @@
     "bdr": 0.0,
     "lucro_bdr": 0.0
   },
-  "varredura_em": "2026-09-25",
+  "varredura_em": "2026-09-28",
   "fechamento_em": "2026-09-25"
 }
