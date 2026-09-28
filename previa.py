@@ -20,7 +20,8 @@ import bot as nucleo
 
 SP = ZoneInfo("America/Sao_Paulo")
 PERTO_GATILHO = 5.0        # % que falta para realizar
-PERTO_SAIDA = 3.0          # % que falta para o swing cruzar a EMA
+PERTO_SAIDA = 3.0          # % que falta para o swing cruzar a EMA (B3)
+PERTO_SAIDA_EUA = 3.0      # % acima da minima de 10 dias (saida do Donchian)
 DIAS = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"]
 
 REFERENCIAS = [("ES=F", "Futuros S&P"), ("^N225", "Nikkei"), ("^STOXX50E", "Stoxx 50"),
@@ -55,12 +56,11 @@ def resultado_proximo(ticker):
 def main():
     agora = datetime.now(SP)
     cart = ler("carteira.json")
-    est = ler("estado_bot.json", {"swings": {}})
     cart_b3 = ler("carteira_b3.json")
     est_b3 = ler("estado_b3.json", {"swings": {}, "vendas_mes": {}})
     perps = ler("perps.json", {"posicoes": {}, "eventos": {}})
 
-    tokens = list(cart.get("ativos", {})) + list(est.get("swings", {}))
+    tokens = [t for t, a in cart.get("ativos", {}).items() if a.get("tipo") != "cripto"]
     acoes_b3 = list(cart_b3.get("ativos", {})) + list(est_b3.get("swings", {}))
     futuros = list(perps.get("posicoes", {}))
 
@@ -97,20 +97,24 @@ def main():
 
     # ---------------- perto do gatilho
     gatilhos = []
-    base = cart.get("base_por_ativo", 1000)
+    import donchian as dc
     for t, a in cart.get("ativos", {}).items():
-        if t in ind:
-            valor = a["unidades"] * ind[t]["preco"]
-            falta = (base * 1.10 / valor - 1) * 100
-            if 0 < falta <= PERTO_GATILHO:
-                gatilhos.append(f"  {t} {usd(valor, 0)} — falta {num(falta)}% para realizar")
+        df = brutos.get(t)
+        if a.get("tipo") == "cripto" or df is None or len(df) < 11:
+            continue
+        saida = dc.nivel_saida(df["Low"].values)
+        falta = (ind[t]["preco"] / saida - 1) * 100
+        if a.get("saida"):
+            gatilhos.append(f"  {t} — VENDER NA ABERTURA (sinal de ontem)")
+        elif falta <= PERTO_SAIDA_EUA:
+            gatilhos.append(f"  {t} a {num(falta)}% da saida ({usd(saida)})")
     for t, a in cart_b3.get("ativos", {}).items():
         if t in ind:
             valor = a["qtd"] * ind[t]["preco"]
             falta = (a["base"] * 1.10 / valor - 1) * 100
             if 0 < falta <= PERTO_GATILHO:
                 gatilhos.append(f"  {t} {brl(valor, 0)} — falta {num(falta)}% para realizar")
-    for rotulo, swings in (("", est.get("swings", {})), ("B3 ", est_b3.get("swings", {}))):
+    for rotulo, swings in (("B3 ", est_b3.get("swings", {})),):
         for t, s in swings.items():
             if t in ind:
                 falta = (ind[t]["ema20"] / ind[t]["preco"] - 1) * 100
@@ -141,7 +145,7 @@ def main():
         L.append(f"🧾 B3: vendeu {brl(v.get('acoes', 0), 0)} no mes — "
                  + (f"faltam {brl(falta, 0)} para o limite" if falta > 0
                     else "ja passou da isencao"))
-    L.append(f"🎣 VAGAS: swing EUA {len(est.get('swings', {}))}/2 | "
+    L.append(f"🎣 VAGAS: EUA {len(cart.get('ativos', {}))}/7 (caixa {usd(cart.get('reserva_usdt', 0), 0)}) | "
              f"swing B3 {len(est_b3.get('swings', {}))}/2 | futuros {len(futuros)}/2")
 
     texto = "\n".join(L)
