@@ -1071,9 +1071,10 @@ def main():
     else:
         restantes = rodar_eua(agora, forcar=FASES_POR_MODO.get(MODO, ()), auto=(MODO == "auto"))
 
-    so_cripto = os.environ.get("CRON", "").strip() == "5 0 * * *"
+    # Execucoes extras (ASTER 00h05 e reforco dos :45) so cuidam dos EUA.
+    so_eua = os.environ.get("CRON", "").strip() in ("5 0 * * *", "45 13-22 * * 1-5")
     modo_b3 = MODO_B3.get(MODO)
-    if TESTE or so_cripto or modo_b3 is None:
+    if TESTE or so_eua or modo_b3 is None:
         return
 
     # ---------------- B3: mesmo esquema, feriados e horarios proprios

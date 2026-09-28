@@ -27,11 +27,12 @@ Feriados e pregoes curtos da bolsa americana (13h de NY) estao em `mercado.py`.
 | Quando | EUA | B3 |
 |---|---|---|
 | 9h | Previa do dia (`previa.py`): quem esta a menos de 3% da saida, vagas e caixa | Idem |
-| Pregao de NY aberto (checagem de hora em hora, :15) | 🟢 Compra quando rompe a maxima de 55 dias | 10h15 a 17h15, so com a B3 aberta |
+| Pregao de NY aberto (checagem a cada 30 min, :15 e :45) | 🟢 Compra quando rompe a maxima de 55 dias | 10h15 a 17h15, so com a B3 aberta |
 | Logo depois do fechamento de NY (17h15 ou 18h15) | 🔴 "Vender na abertura" + heatmap do dia (sem som) | Fechamento B3 |
 | 21h05 todo dia (inclusive fim de semana) | ASTER: saida e entrada no candle diario | - |
 
-Obs.: o GitHub pode atrasar execucoes agendadas; o bot recupera a fase perdida na
+Obs.: o GitHub pode atrasar execucoes agendadas. Por isso o EUA roda tambem aos :45 (so EUA;
+B3 e futuros seguem de hora em hora, aos :15). O bot nao repete ordem e recupera a fase perdida na
 execucao seguinte (saida marcada vende pela abertura real do dia).
 
 ## Mensagens EUA
