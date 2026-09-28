@@ -922,7 +922,8 @@ def fechamento(cart, est, univ, dados, cripto_px, agora, hoje, sinais_dia):
     if refs:
         destaques.append("📈 " + " | ".join(refs))
 
-    dia_txt = pd.Timestamp(hoje)
+    spy = dados.get("SPY")
+    dia_txt = pd.Timestamp(spy.index[-1]) if spy is not None and len(spy) else pd.Timestamp(hoje)
     legenda = [f"Patrimonio {usd(patr)}   |   caixa USDT {usd(cart['reserva_usdt'])}   |   vagas livres {livres} de {dc.VAGAS}",
                f"Hoje {usd_s(dia_usd)} ({pct(dia_pct)})   |   desde o inicio {usd_s(lt)} ({pct(lp)})"]
     caminho = hm.desenhar(itens, f"Carteira EUA - {dia_txt:%d/%m/%Y}", legenda + destaques)
