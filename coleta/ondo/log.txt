@@ -1,0 +1,4 @@
+ONDOUSDT 4h: 2905 candles via binance.vision
+ONDOUSDT 1d: 485 candles via binance.vision
+BTCUSDT 4h: 2905 candles via binance.vision
+BTCUSDT 1d: 485 candles via binance.vision
