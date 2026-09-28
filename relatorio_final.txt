@@ -1,0 +1,133 @@
+BACKTEST FINAL - DONCHIAN 55/10 NA CARTEIRA EUA (+ ASTER) x ALTERNATIVOS
+
+Universo: 100 acoes de universo_ondo.json + ASTER | sem 1 ano de historico no Yahoo (fora): nenhuma
+Periodo: 01/01/2015 a 25/09/2026 | treino ate 31/12/2021 | validacao desde 01/01/2022
+ASTER desde 06/10/2025 (Binance spot) - so pesa no fim da validacao
+Custos por lado: acoes 0,20% | ASTER 0,10%. Sem alavancagem. Resultado em % do patrimonio.
+Liquidez da epoca: so entra acao com media de US$ 20 mi/dia nos 60 pregoes anteriores.
+
+==============================================================================
+1. VARIANTES DO DONCHIAN (custo x1,5 = referencia; x1 e x2 abaixo)
+==============================================================================
+A. Donchian 55/10, 7 vagas, com ASTER
+  treino +19,2% a.a. / queda -30,2% (ret/queda 0,63) -> validacao +26,4% / -42,1% (ret/queda 0,63)
+    treino: 344 trades | acerto 43% | ganho medio +15,1% | perda media -6,3% | 49,2 trades/ano | 1,9 ordens/semana | 8,2 ordens/mes
+    validacao: 228 trades | acerto 40% | ganho medio +28,5% | perda media -11,1% | 48,4 trades/ano | 1,9 ordens/semana | 8,3 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -11,5% | bom (90%) +30,9% | chance de prejuizo 45%
+    2 meses (desde 2024): mediana +8,4% | ruim -13,4% | bom +39,7% | chance de prejuizo 35%
+  custo x1: valid +28,1%/-41,3% | custo x2: treino +17,6% valid +24,8%/-42,9%
+
+B. Igual a A, sem ASTER
+  treino +19,2% a.a. / queda -30,2% (ret/queda 0,63) -> validacao +26,4% / -42,1% (ret/queda 0,63)
+    treino: 344 trades | acerto 43% | ganho medio +15,1% | perda media -6,3% | 49,2 trades/ano | 1,9 ordens/semana | 8,2 ordens/mes
+    validacao: 230 trades | acerto 40% | ganho medio +28,8% | perda media -11,3% | 48,8 trades/ano | 1,9 ordens/semana | 8,4 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -11,7% | bom (90%) +30,8% | chance de prejuizo 46%
+    2 meses (desde 2024): mediana +9,2% | ruim -13,5% | bom +40,1% | chance de prejuizo 36%
+  custo x1: valid +28,1%/-41,3% | custo x2: treino +17,6% valid +24,8%/-42,9%
+
+C. Saida 50% minima 5 + 50% minima 10
+  treino +15,4% a.a. / queda -22,6% (ret/queda 0,68) -> validacao +14,5% / -38,1% (ret/queda 0,38)
+    treino: 344 trades | acerto 44% | ganho medio +12,0% | perda media -5,3% | 49,2 trades/ano | 2,6 ordens/semana | 11,1 ordens/mes
+    validacao: 228 trades | acerto 41% | ganho medio +21,7% | perda media -10,0% | 48,4 trades/ano | 2,6 ordens/semana | 11,3 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -11,3% | bom (90%) +23,6% | chance de prejuizo 48%
+    2 meses (desde 2024): mediana +6,9% | ruim -13,0% | bom +27,5% | chance de prejuizo 39%
+  custo x1: valid +16,1%/-37,2% | custo x2: treino +13,7% valid +12,9%/-39,0%
+
+D. Igual a A, 5 vagas
+  treino +18,5% a.a. / queda -35,4% (ret/queda 0,52) -> validacao +38,7% / -40,4% (ret/queda 0,96)
+    treino: 246 trades | acerto 41% | ganho medio +15,9% | perda media -6,3% | 35,2 trades/ano | 1,4 ordens/semana | 5,9 ordens/mes
+    validacao: 164 trades | acerto 41% | ganho medio +31,5% | perda media -10,4% | 34,8 trades/ano | 1,4 ordens/semana | 6,0 ordens/mes
+    2 meses (valid.): mediana +1,6% | ruim (10%) -12,9% | bom (90%) +39,8% | chance de prejuizo 42%
+    2 meses (desde 2024): mediana +10,3% | ruim -14,0% | bom +50,1% | chance de prejuizo 36%
+  custo x1: valid +40,6%/-39,6% | custo x2: treino +16,9% valid +36,8%/-41,2%
+
+Sensibilidade: A pagando 1% acima do nivel de rompimento (alerta de hora em hora):
+  treino +14,6% a.a. / queda -28,9% (ret/queda 0,51) -> validacao +20,0% / -44,0% (ret/queda 0,45)
+
+QQQ segurar: treino +22,3%/-28,6% -> validacao +14,6%/-34,8%
+  2 meses (valid.): mediana +3,5% | ruim -7,9% | bom +13,0% | chance de prejuizo 33%
+
+Melhor retorno/queda no TREINO: C. Saida 50% minima 5 + 50% minima 10
+C (50/50) claramente melhor que A (treino +10% no ret/queda E melhor na validacao)? NAO -> a saida fica 100% na minima de 10 dias
+
+==============================================================================
+2. SISTEMAS ALTERNATIVOS (custo x1,5)
+==============================================================================
+A. Donchian 55/10, 7 vagas, com ASTER
+  treino +19,2% a.a. / queda -30,2% (ret/queda 0,63) -> validacao +26,4% / -42,1% (ret/queda 0,63)
+    treino: 344 trades | acerto 43% | ganho medio +15,1% | perda media -6,3% | 49,2 trades/ano | 1,9 ordens/semana | 8,2 ordens/mes
+    validacao: 228 trades | acerto 40% | ganho medio +28,5% | perda media -11,1% | 48,4 trades/ano | 1,9 ordens/semana | 8,3 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -11,5% | bom (90%) +30,9% | chance de prejuizo 45%
+    2 meses (desde 2024): mediana +8,4% | ruim -13,4% | bom +39,7% | chance de prejuizo 35%
+  custo x2: treino +17,6% valid +24,8%/-42,9%
+
+E. Maxima de 52 semanas (mensal)
+  treino +16,7% a.a. / queda -32,4% (ret/queda 0,52) -> validacao +11,1% / -32,8% (ret/queda 0,34)
+    treino: 366 trades | acerto 55% | ganho medio +9,1% | perda media -6,0% | 52,3 trades/ano | 2,0 ordens/semana | 8,7 ordens/mes
+    validacao: 221 trades | acerto 47% | ganho medio +14,1% | perda media -8,5% | 46,9 trades/ano | 1,9 ordens/semana | 8,1 ordens/mes
+    2 meses (valid.): mediana +1,3% | ruim (10%) -8,8% | bom (90%) +17,0% | chance de prejuizo 38%
+    2 meses (desde 2024): mediana +6,6% | ruim -8,4% | bom +20,2% | chance de prejuizo 29%
+  custo x2: treino +15,0% valid +9,6%/-34,0%
+
+F. Donchian no top 50 de momentum
+  treino +21,2% a.a. / queda -27,7% (ret/queda 0,76) -> validacao +24,7% / -41,9% (ret/queda 0,59)
+    treino: 344 trades | acerto 45% | ganho medio +14,7% | perda media -6,3% | 49,2 trades/ano | 1,9 ordens/semana | 8,2 ordens/mes
+    validacao: 214 trades | acerto 39% | ganho medio +25,9% | perda media -10,1% | 45,4 trades/ano | 1,8 ordens/semana | 7,8 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -10,9% | bom (90%) +28,0% | chance de prejuizo 45%
+    2 meses (desde 2024): mediana +6,5% | ruim -12,4% | bom +34,4% | chance de prejuizo 37%
+  custo x2: treino +19,6% valid +23,2%/-42,6%
+
+G. Momentum mensal top 7 com filtro
+  treino +60,5% a.a. / queda -59,4% (ret/queda 1,02) -> validacao +11,4% / -56,5% (ret/queda 0,20)
+    treino: 174 trades | acerto 58% | ganho medio +45,5% | perda media -10,7% | 24,9 trades/ano | 1,0 ordens/semana | 4,1 ordens/mes
+    validacao: 135 trades | acerto 42% | ganho medio +38,1% | perda media -18,4% | 28,7 trades/ano | 1,2 ordens/semana | 5,0 ordens/mes
+    2 meses (valid.): mediana +0,0% | ruim (10%) -20,5% | bom (90%) +38,1% | chance de prejuizo 43%
+    2 meses (desde 2024): mediana +6,4% | ruim -25,8% | bom +42,6% | chance de prejuizo 40%
+  custo x2: treino +59,5% valid +10,6%/-56,5%
+
+H. QQQ 10 meses
+  treino +13,8% a.a. / queda -28,6% (ret/queda 0,48) -> validacao +13,3% / -15,1% (ret/queda 0,88)
+    treino: 6 trades | acerto 33% | ganho medio +63,8% | perda media -4,0% | 0,9 trades/ano | 0,0 ordens/semana | 0,1 ordens/mes
+    validacao: 2 trades | acerto 100% | ganho medio +36,2% | perda media n/d | 0,4 trades/ano | 0,0 ordens/semana | 0,1 ordens/mes
+    2 meses (valid.): mediana +1,5% | ruim (10%) -4,2% | bom (90%) +10,0% | chance de prejuizo 25%
+    2 meses (desde 2024): mediana +2,3% | ruim -5,3% | bom +9,0% | chance de prejuizo 35%
+  custo x2: treino +13,6% valid +13,2%/-15,1%
+
+I. Metade/metade
+  treino +16,3% a.a. / queda -23,6% (ret/queda 0,69) -> validacao +20,8% / -27,3% (ret/queda 0,76)
+    treino: 350 trades | acerto 43% | ganho medio +15,7% | perda media -6,3% | 50,0 trades/ano | 1,9 ordens/semana | 8,3 ordens/mes
+    validacao: 230 trades | acerto 40% | ganho medio +28,7% | perda media -11,1% | 48,8 trades/ano | 1,9 ordens/semana | 8,4 ordens/mes
+    2 meses (valid.): mediana +1,3% | ruim (10%) -7,5% | bom (90%) +19,0% | chance de prejuizo 42%
+    2 meses (desde 2024): mediana +5,7% | ruim -9,7% | bom +22,0% | chance de prejuizo 34%
+  custo x2: treino +15,4% valid +19,5%/-27,1%
+
+Ranking pelo TREINO (retorno / pior queda):
+  G: treino 1,02 | validacao 0,20 | 2 meses mediana +0,0%, prejuizo 43% | 5,0 ordens/mes
+  F: treino 0,76 | validacao 0,59 | 2 meses mediana +0,0%, prejuizo 45% | 7,8 ordens/mes
+  I: treino 0,69 | validacao 0,76 | 2 meses mediana +1,3%, prejuizo 42% | 8,4 ordens/mes
+  A: treino 0,63 | validacao 0,63 | 2 meses mediana +0,0%, prejuizo 45% | 8,3 ordens/mes
+  E: treino 0,52 | validacao 0,34 | 2 meses mediana +1,3%, prejuizo 38% | 8,1 ordens/mes
+  H: treino 0,48 | validacao 0,88 | 2 meses mediana +1,5%, prejuizo 25% | 0,1 ordens/mes
+Vencedor no treino: G. Momentum mensal top 7 com filtro
+
+==============================================================================
+3. CONCLUSAO
+==============================================================================
+Variante escolhida pelo treino: A. Donchian 55/10, 7 vagas, com ASTER
+  C x A no treino: ret/queda 0,68 x 0,63; validacao 0,38 x 0,63 -> C nao e claramente melhor: saida 100% na minima de 10 dias.
+  D (5 vagas) no treino: 0,52 | B (sem ASTER) = A no treino (a ASTER so existe desde 10/2025); na validacao +26,4% x +26,4%.
+  Contra segurar QQQ: A +26,4% x QQQ +14,6% a.a. na validacao (queda -42,1% x -34,8%).
+Horizonte de 2 meses (janelas de 42 pregoes desde 2022):
+  A: mediana +0,0% | ruim -11,5% | bom +30,9% | prejuizo 45%
+  D: mediana +1,6% | ruim -12,9% | bom +39,8% | prejuizo 42%
+  E: mediana +1,3% | ruim -8,8% | bom +17,0% | prejuizo 38%
+  G: mediana +0,0% | ruim -20,5% | bom +38,1% | prejuizo 43%
+  H: mediana +1,5% | ruim -4,2% | bom +10,0% | prejuizo 25%
+  I: mediana +1,3% | ruim -7,5% | bom +19,0% | prejuizo 42%
+  QQQ segurar: mediana +3,5% | ruim -7,9% | bom +13,0% | prejuizo 33%
+  Obs.: com o SPY abaixo da MMA 200 o Donchian fica em caixa (janela = 0%), por isso a mediana
+  desde 2022 fica perto de zero; desde 2024 (SPY quase sempre acima) a mediana do A e +8,4%.
+Alternativo com melhor treino: G. Momentum mensal top 7 com filtro (1,02 x 0,63 do A). Validacao: 0,20 x 0,63. NAO troco sem o seu ok.
+
+Obs.: o universo e a lista de HOJE (acoes que sobreviveram e subiram): vies de
+sobrevivencia infla todos os sistemas de acoes, mais nos que escolhem por momentum.
