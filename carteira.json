@@ -11,7 +11,8 @@
       "unidades": 6.92375,
       "preco_entrada": 158.31,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 157.470001
     },
     "BE": {
       "token": "BEB",
@@ -19,7 +20,8 @@
       "unidades": 3.6663,
       "preco_entrada": 289.02,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 288.700012
     },
     "MVLL": {
       "token": "MVLLB",
@@ -27,7 +29,8 @@
       "unidades": 29.18549,
       "preco_entrada": 35.5,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 35.439999
     },
     "UNH": {
       "token": "UNHon",
@@ -35,7 +38,8 @@
       "unidades": 2.63575,
       "preco_entrada": 377.07,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 376.589996
     },
     "NFLX": {
       "token": "NFLXB",
@@ -43,7 +47,8 @@
       "unidades": 13.93083,
       "preco_entrada": 71.27,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 71.150002
     },
     "UBER": {
       "token": "UBERon",
@@ -51,7 +56,8 @@
       "unidades": 14.0099274,
       "preco_entrada": 69.57,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 69.620003
     },
     "ENPH": {
       "token": "ENPHon",
@@ -59,7 +65,8 @@
       "unidades": 28.76807,
       "preco_entrada": 32.49,
       "data_entrada": "2026-09-25",
-      "origem": "legado"
+      "origem": "legado",
+      "ultimo_preco": 32.400002
     }
   }
 }
