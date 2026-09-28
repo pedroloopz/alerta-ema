@@ -1,0 +1,385 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.ondo.finance/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Request a Mint or Redeem Attestation
+
+> An attestation is a signed payload that authorizes a user to mint or redeem tokens. Each attestation is only valid for a limited time and is determined by the duration in the request. A user can specify a duration of `short` for a tighter price spread or `long` for an extended validity period.
+
+Note: There are specific user and session limits which can prevent the creation of an attestation. For more information on limits, see the [Get Trading Limits](https://docs.ondo.finance/api-reference/limits/get-trading-limits) endpoint.
+
+See also: [Error Codes](https://docs.ondo.finance/api-reference/error-codes)
+
+
+
+
+## OpenAPI
+
+````yaml /openapi.json post /v1/attestations
+openapi: 3.0.4
+info:
+  title: GM Backend API
+  description: An API spec for the Ondo GM Backend API.
+  version: 1.0.0
+servers:
+  - url: https://api.gm.ondo.finance
+    description: GM Backend API
+security: []
+tags:
+  - name: Attestations
+    description: Get Mint and Redeem Attestations
+  - name: Assets
+    description: Get Asset Price Information
+  - name: Tickers
+    description: Get Ticker Information
+  - name: Chains
+    description: Get On Chain Data
+  - name: Limits
+    description: Get Trading Limits
+  - name: Status
+    description: Get Market and Trading Statuses
+paths:
+  /v1/attestations:
+    post:
+      tags:
+        - Attestations
+      summary: Request a Mint or Redeem Attestation
+      description: >
+        An attestation is a signed payload that authorizes a user to mint or
+        redeem tokens. Each attestation is only valid for a limited time and is
+        determined by the duration in the request. A user can specify a duration
+        of `short` for a tighter price spread or `long` for an extended validity
+        period.
+
+
+        Note: There are specific user and session limits which can prevent the
+        creation of an attestation. For more information on limits, see the [Get
+        Trading
+        Limits](https://docs.ondo.finance/api-reference/limits/get-trading-limits)
+        endpoint.
+
+
+        See also: [Error
+        Codes](https://docs.ondo.finance/api-reference/error-codes)
+      operationId: createAttestation
+      requestBody:
+        description: Request a mint or redeem attestation.
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/AttestationByTokenAmountRequest'
+                - $ref: '#/components/schemas/AttestationByNotionalValueRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attestation'
+        '400':
+          description: >-
+            One of the request parameters is invalid. Please see the returned
+            message and documentation for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_symbol:
+                  summary: Invalid Symbol
+                  value:
+                    code: INVALID_SYMBOL
+                    message: One of the request parameters is invalid.
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#invalid_symbol
+                missing_user_address:
+                  summary: Missing User Address (Solana)
+                  value:
+                    code: MISSING_USER_ADDRESS
+                    message: missing user address
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#missing_user_address
+                invalid_user_address:
+                  summary: Invalid User Address (Solana)
+                  value:
+                    code: INVALID_USER_ADDRESS
+                    message: invalid user address
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#invalid_user_address
+        '401':
+          description: Missing or invalid API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  value:
+                    code: MISSING_API_KEY
+                    message: missing API key
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#missing_api_key
+        '403':
+          description: >-
+            The request was denied due to market state, asset state, or
+            insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                market_closed:
+                  summary: Market Closed
+                  value:
+                    code: MARKET_CLOSED
+                    message: market is closed
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#market_closed
+                asset_paused:
+                  summary: Asset Paused
+                  value:
+                    code: ASSET_PAUSED
+                    message: asset trading is paused
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#asset_paused
+                read_only:
+                  summary: Read-Only API Key
+                  value:
+                    code: READ_ONLY_API_KEY
+                    message: read-only API key cannot perform write operations
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#read_only_api_key
+        '404':
+          description: The provided asset symbol does not exist and cannot be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  value:
+                    code: ASSET_NOT_FOUND
+                    message: asset not found
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#asset_not_found
+        '429':
+          description: >-
+            The account has exceeded its rate limits. Please see the returned
+            message and documentation for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  value:
+                    code: RATE_LIMITED
+                    message: rate limit exceeded
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#rate_limited
+        '500':
+          description: >-
+            An internal server error occurred. Please see the returned message
+            and documentation for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  value:
+                    code: INTERNAL_ERROR
+                    message: >-
+                      An internal server error occurred. Please see the returned
+                      message and documentation for details.
+                    documentation: >-
+                      https://docs.ondo.finance/api-reference/error-codes#internal_error
+      security:
+        - apiKey: []
+components:
+  schemas:
+    AttestationByTokenAmountRequest:
+      type: object
+      description: Request to mint or redeem a quantity of assets.
+      title: AttestationByTokenAmountRequest
+      properties:
+        chainId:
+          $ref: '#/components/schemas/GMChains'
+        symbol:
+          type: string
+          example: AAPLon
+          description: The GM token symbol.
+        side:
+          $ref: '#/components/schemas/SideEnum'
+        tokenAmount:
+          type: string
+          description: >-
+            The number of tokens, represented as a string-encoded decimal with
+            up to 18 digits after the decimal point.
+          example: '5.000000000000000000'
+        duration:
+          $ref: '#/components/schemas/AttestationDurationEnum'
+        userAddress:
+          type: string
+          description: >-
+            The Solana user address associated with the request. This is only
+            required for Solana attestations.
+          example: 7YkSgYQ6x7uBv9E3n2Yh6mF5tQ1rZc8Lp4WsXjKd3Ha2
+      required:
+        - chainId
+        - symbol
+        - side
+        - tokenAmount
+    AttestationByNotionalValueRequest:
+      type: object
+      description: Request to mint or redeem assets equal to the notional value.
+      title: AttestationByNotionalValueRequest
+      properties:
+        chainId:
+          $ref: '#/components/schemas/GMChains'
+        symbol:
+          type: string
+          example: AAPLon
+          description: The GM token symbol.
+        side:
+          $ref: '#/components/schemas/SideEnum'
+        notionalValue:
+          type: string
+          description: >-
+            Total value of assets, represented as a string-encoded decimal with
+            up to 18 digits after the decimal point.
+          example: '500.000000000000000000'
+        duration:
+          $ref: '#/components/schemas/AttestationDurationEnum'
+        userAddress:
+          type: string
+          description: >-
+            The Solana user address associated with the request. This is only
+            required for Solana attestations.
+          example: 7YkSgYQ6x7uBv9E3n2Yh6mF5tQ1rZc8Lp4WsXjKd3Ha2
+      required:
+        - chainId
+        - symbol
+        - side
+        - notionalValue
+    Attestation:
+      type: object
+      properties:
+        attestationId:
+          type: string
+          description: The attestation's unique identifier.
+          example: '229852750420835981756873903928305653446'
+        userId:
+          type: string
+          description: The onchain identifier for an association of wallets.
+          example: '0x474d0000000000009310097834e2c7af00000000000000000000000000000000'
+        chainId:
+          type: string
+          description: The chain's identifier, only including the chain id.
+          example: '1'
+        symbol:
+          type: string
+          example: AAPLon
+          description: The GM token symbol.
+        ticker:
+          type: string
+          description: The stock ticker associated with this attestation.
+          example: AAPL
+        assetAddress:
+          type: string
+          description: The contract address of the symbol.
+          example: '0x14c3abf95cb9c93a8b82c1cdcb76d72cb87b2d4c'
+        side:
+          type: string
+          enum:
+            - '0'
+            - '1'
+          description: The direction of the trade (0 for buy, 1 for sell).
+          example: '0'
+        tokenAmount:
+          type: string
+          description: >-
+            The number of tokens to mint/redeem represented as a string with 18
+            decimal places.
+          example: '5000000000000000000'
+        price:
+          type: string
+          description: >-
+            The price per asset in USDon, represented as a string with up to 18
+            decimal places.
+          example: '225273151158540753535'
+        expiration:
+          type: number
+          description: The epoch timestamp when the attestation will expire.
+          example: 1746655938
+        signature:
+          type: string
+          description: The base64-encoded signature attesting to the quote.
+          example: >-
+            kMecIrsGFdoAdxzRq2bPo07FWP2QyrxWfjrSMAdIZXNq3bXQnWx27aTKyt9fJiXWrzShYemxA/0RengNqNJ6bBs=
+        additionalData:
+          type: string
+          description: Base64-encoded additional data to provide within the attestation.
+          example: ''
+      required:
+        - attestationId
+        - userId
+        - chainId
+        - symbol
+        - ticker
+        - assetAddress
+        - side
+        - tokenAmount
+        - price
+        - expiration
+        - signature
+        - additionalData
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+        documentation:
+          type: string
+          description: A URL to the relevant documentation for this error.
+        code:
+          type: string
+          description: >-
+            A reason code identifying the specific type of error. See the Error
+            Codes reference for a full list of possible values.
+      required:
+        - code
+        - message
+    GMChains:
+      type: string
+      description: The chain's identifier including the chain name and chain id.
+      enum:
+        - ethereum-1
+        - bsc-56
+        - solana-900
+    SideEnum:
+      type: string
+      description: The direction of the trade.
+      enum:
+        - buy
+        - sell
+    AttestationDurationEnum:
+      type: string
+      description: >
+        Specifies the desired validity period for the attestation. Users can
+        specify a duration of 'short' 
+
+        for a tighter price spread or 'long' for an extended validity period.
+      enum:
+        - short
+        - long
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: x-api-key
+      in: header
+
+````

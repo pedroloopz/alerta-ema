@@ -1,0 +1,27 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.ondo.finance/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Fees & Taxes
+
+<div id="geofenced-content">
+  ### What fees does Ondo Stocks charge?
+
+  When [a quote is generated](/ondo-stocks/token-and-quote-pricing#when-i-am-actually-buying-or-selling-an-ondo-tokenized-stock-the-price-seems-to-be-slightly-different-from-the-main-price-listed-why) for an investor to buy (or sell) a token, the price may be slightly more (or less) than the price at which Ondo Stocks buys (or sells) the underlying stock, with any difference and any fees being retained by Ondo Stocks. Investors are responsible for their own gas costs.
+
+  (Note that if Ondo tokenized stocks are acquired in the secondary market, fees may be charged to you by other parties.)
+
+  ### How are Ondo tokenized stocks taxed?
+
+  Dividends or other income paid from underlying assets to Ondo Stocks are subject to withholding taxes.
+
+  Withholding taxes are taxes that are automatically deducted from certain types of income—such as dividends—before that income is paid. For US stocks and bonds, brokers are generally required to withhold a portion of dividends payable to non‑US investors based on the tax rules that apply to the entity receiving the dividend. The Ondo Stocks entity that issues the tokens is based in the British Virgin Islands (BVI), so dividends paid by US securities to the entity are subject to the standard rates for BVI entities:
+
+  * For dividends from US-based companies, this rate is 30% in accordance with US tax regulations.
+  * For distributions from US-based fixed-income ETFs, this rate is also 30%, but certain portions of such distributions may be exempt from withholding tax (for example, income from US Treasury Bonds is considered exempt), so the effective rate may be less than 30%.
+  * For distributions from non-US companies listed as ADRs (e.g. though Spotify trades as SPOT on the NYSE, it is based in Sweden and the shares you buy on the NYSE represent underlying Luxembourg-listed ordinary shares), there is typically no US withholding tax, but Luxembourg will withhold 15% of the dividend before it even gets to the ADR, and then the ADR will pass on 100% of what's left to the ADR holder).
+
+  The consequence of this is that the amount of any dividend reinvested in the underlying asset is net of any withholding tax (e.g. if AAPL paid out \$1 in dividend, we'd only receive and reinvest \$1 \* (1-30%) = \$0.70.)
+
+  No other taxes (e.g., capital gains, income) are withheld for Ondo Stocks, nor does Ondo Stocks withhold any taxes when tokens are redeemed. However, investors may be subject to tax in connection with redeeming, purchasing or holding tokens, depending on the laws of the jurisdictions in which they are subject to tax, as well as their own particular tax circumstances. Each investor is solely responsible for understanding, reporting and fulfilling his, her, or its respective tax obligations. Ondo Stocks strongly suggests that each investor consult his, her, or its own tax advisor to determine their tax obligations associated with redeeming, purchasing or holding Ondo Stocks.
+</div>

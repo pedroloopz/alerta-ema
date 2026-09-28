@@ -1,0 +1,57 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.ondo.finance/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Investing & Redeeming
+
+<div id="geofenced-content">
+  ## Investing
+
+  ### What is the minimum I can invest or redeem?
+
+  The minimum is just \$1.00 USD.
+
+  ### Can I buy fractional tokens / shares?
+
+  Yes, you can buy less than one full token. Please keep in mind, however, that Ondo tokenized stocks are total return tracker tokens, so a single token may, over time, provide exposure to more than one share of the underlying stock. [Learn more](/ondo-stocks/token-and-quote-pricing#how-is-the-price-of-an-ondo-tokenized-stock-determined)
+
+  ### What forms of payment can I use to purchase Ondo tokenized stocks?
+
+  All Ondo tokenized stocks purchased from the Ondo Stocks platform are purchased with [USDon](/ondo-stocks/available-assets#what-is-usdon), our native stablecoin. Thanks to the platform's stablecoin swapper, however, USDC can be atomically converted 1:1 to USDon for mints, and USDon can be converted 1:1 to USDC automatically for redemptions.\*
+
+  This means that if you want to buy a tokenized stock with USDC, you can: in a single transaction, the USDC will be swapped for USDon, and the USDon will be used to purchase the tokenized stock, which is then sent to you.
+
+  \*Note that the ability to instantly swap USDC to/from USDon depends upon the stablecoin swapper having sufficient amounts of the other token available. For example, say you wanted to buy \$100M worth of AAPLon with 100M USDC. If the swapper only had 50M USDon in it, you wouldn't be able to do it. (If you already held 100M USDon in your wallet, however, you *would* be able to.)
+
+  Also note that, even if there weren't enough USDC in the swapper to redeem the entire amount to USDC, you can always redeem the entire amount to USDon and then swap USDon to USDC as the swapper is replenished. For example, say you had \$100M worth of AAPLon that you wanted to redeem to USDC, but the swapper only contained 50M USDC. You could redeem the entire amount to USDon, swap 50M USDon for 50M USDC now, and then swap the remaining 50M USDon to USDC after the swapper is replenished. Because each USDon is backed by a dollar of cash or equivalents at an Ondo Stocks brokerage account—and because 1 USDon is always swappable 1:1 for 1 USDC—once you redeem for USDon you are not exposed to further market risk.
+
+  Note that, by default, users are not whitelisted to swap between USDon and USDC; if you would like this ability, please contact us at [support@ondo.finance](mailto:support@ondo.finance). Please also note that the swapper does not currently have a UI; at this time, using it requires interacting directly with the smart contract.
+
+  ### Can any type of wallet or account hold Ondo tokenized stocks?
+
+  Ondo's tokenized stocks are ERC20 compliant and transferable, so they can be held by any smart contracts or other externally owned accounts or wallets (e.g. Metamask, Bitget Wallet, Trust Wallet, OKX Wallet, etc.) In addition, certain custodians, including BitGo, Fireblocks, Zodia, and Ledger, also provide support. However, note that most centralized exchange custodial accounts (e.g. Binance, Coinbase) do not (yet).
+
+  ### How long will it take for me to receive my Ondo tokenized stocks?
+
+  The minting of new Ondo tokenized stocks is instant.
+
+  ### How long will it take for me to receive my USDon?
+
+  If you wish to hold USDon in your wallet directly (as opposed to just atomically swapping USDC for USDon and then using USDon to purchase your tokenized stocks), you can still use our [stablecoin swapper](/ondo-stocks/investing-and-redeeming#what-forms-of-payment-can-i-use-to-purchase-ondo-tokenized-stocks) to swap USDC for USDon and hold the USDon for later use. As noted [elsewhere](/ondo-stocks/investing-and-redeeming#what-forms-of-payment-can-i-use-to-purchase-ondo-tokenized-stocks), however, the ability to swap USDC for USDon instantly is dependent upon the amount of USDon available in the swapper. If you wish to obtain very large amounts of USDon (say \$10M+) in very short order (i.e. within a day or two), please contact us at [support@ondo.finance](mailto:support@ondo.finance). Please note that the swapper does not currently have a UI; at this time, using it requires interacting directly with the smart contract.
+
+  ### Are there offering documents like a prospectus, PPM, or loan documents I can see?
+
+  To comply with US laws and regulations, we are only able to provide such materials to investors who successfully complete our [onboarding process](/ondo-stocks/onboarding-and-kyc) to prove [eligibility](/ondo-stocks/eligibility). You will have an opportunity to review all materials prior to investing.
+
+  ### I want to invest via bank wire. How do I do that?
+
+  Purchasing Ondo tokenized stocks directly via bank wire is not currently supported. Purchasing USDon via bank wire is only available to those investing \$500,000 or more.
+
+  Should you wish to do this, you will need to provide us with account information for the sending account. Include the account number, ABA/SWIFT Number, name of your bank, and the name on the account. You will also be given a specific code, which you will need to include in the memo/notes section of your wire. Finally, once the wire is sent, you will need to provide us with the unique identifier assigned by your bank to the transaction once the wire has been sent. Depending upon your bank, this might be called a MT103 Message, a UETR, or an IMAD. You will likely have to ask your bank to provide this to you. To begin this process, please contact us at [support@ondo.finance](mailto:support@ondo.finance).
+
+  ## Redeeming
+
+  ### What about redemptions?
+
+  Everything we mention above about investing applies to redemptions as well: you can redeem to USDon or USDC. The redemption to USDon will always be instant; redemptions to USDC will be instant provided there is enough liquidity in the stablecoin swapper.  The minimum redemption amount to USDon or USDC is \$1.00. Redemptions to USD via bank wire are not currently supported.
+</div>
