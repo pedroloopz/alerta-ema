@@ -6,6 +6,9 @@ on:
     # Cobre o pregao de NY com e sem horario de verao (NY sai dele em 01/11/2026):
     # o proprio bot decide, pelo relogio de NY, se e hora de entrada ou de saida.
     - cron: "15 13-22 * * 1-5"
+    # Reforco aos :45 (o GitHub atrasa ou pula execucoes agendadas). So a parte
+    # EUA roda nesta: B3 e futuros continuam de hora em hora.
+    - cron: "45 13-22 * * 1-5"
     # Todo dia 00h05 UTC (21h05 em Brasilia): candle diario da ASTER fechado.
     # Esta execucao so cuida da ASTER (B3 e futuros ficam de fora).
     - cron: "5 0 * * *"
