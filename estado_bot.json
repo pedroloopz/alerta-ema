@@ -15,7 +15,7 @@
           "preco_entrada": 158.31,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 157.470001
+          "ultimo_preco": 156.080002
         },
         "BE": {
           "token": "BEB",
@@ -24,7 +24,7 @@
           "preco_entrada": 289.02,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 288.700012
+          "ultimo_preco": 262.869995
         },
         "MVLL": {
           "token": "MVLLB",
@@ -33,7 +33,7 @@
           "preco_entrada": 35.5,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 35.439999
+          "ultimo_preco": 32.66
         },
         "UNH": {
           "token": "UNHon",
@@ -42,7 +42,7 @@
           "preco_entrada": 377.07,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 376.589996
+          "ultimo_preco": 377.809998
         },
         "NFLX": {
           "token": "NFLXB",
@@ -51,7 +51,12 @@
           "preco_entrada": 71.27,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 71.150002
+          "ultimo_preco": 69.230003,
+          "saida": {
+            "data": "2026-09-28",
+            "preco_ref": 69.2300033569336,
+            "frac": 1.0
+          }
         },
         "UBER": {
           "token": "UBERon",
@@ -60,7 +65,12 @@
           "preco_entrada": 69.57,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 69.620003
+          "ultimo_preco": 68.190002,
+          "saida": {
+            "data": "2026-09-28",
+            "preco_ref": 68.19000244140625,
+            "frac": 1.0
+          }
         },
         "ENPH": {
           "token": "ENPHon",
@@ -69,21 +79,81 @@
           "preco_entrada": 32.49,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 32.400002
+          "ultimo_preco": 30.91,
+          "saida": {
+            "data": "2026-09-28",
+            "preco_ref": 30.90999984741211,
+            "frac": 1.0
+          }
         }
       }
     },
     "n_historico": 0,
     "chaves": [
-      "saida:NFLX",
-      "saida:UBER",
-      "saida:ENPH"
+      "entrada:ATKR",
+      "entrada:TSM"
     ]
   },
-  "pendentes": {},
+  "pendentes": {
+    "entrada:ATKR": {
+      "tipo": "entrada",
+      "ticker": "ATKR",
+      "msg_id": 66,
+      "data": "2026-09-29"
+    },
+    "entrada:TSM": {
+      "tipo": "entrada",
+      "ticker": "TSM",
+      "msg_id": 67,
+      "data": "2026-09-29"
+    }
+  },
   "recusados": {},
-  "alertados": {},
-  "historico": [],
+  "alertados": {
+    "ATKR": "2026-09-29",
+    "TSM": "2026-09-29"
+  },
+  "historico": [
+    {
+      "ticker": "NFLX",
+      "token": "NFLXB",
+      "unidades": 13.93083,
+      "preco_entrada": 71.27,
+      "data_entrada": "2026-09-25",
+      "preco_saida": 70.38999938964844,
+      "data_saida": "2026-09-29",
+      "lucro_usd": -12.26,
+      "lucro_pct": -0.01234741981691534,
+      "origem": "legado",
+      "confirmado": false
+    },
+    {
+      "ticker": "UBER",
+      "token": "UBERon",
+      "unidades": 14.0099274,
+      "preco_entrada": 69.57,
+      "data_entrada": "2026-09-25",
+      "preco_saida": 68.47000122070312,
+      "data_saida": "2026-09-29",
+      "lucro_usd": -15.41,
+      "lucro_pct": -0.015811395418957375,
+      "origem": "legado",
+      "confirmado": false
+    },
+    {
+      "ticker": "ENPH",
+      "token": "ENPHon",
+      "unidades": 28.76807,
+      "preco_entrada": 32.49,
+      "data_entrada": "2026-09-25",
+      "preco_saida": 31.2450008392334,
+      "data_saida": "2026-09-29",
+      "lucro_usd": -35.82,
+      "lucro_pct": -0.038319457087306996,
+      "origem": "legado",
+      "confirmado": false
+    }
+  ],
   "pausa_ate": null,
   "fechamento_em": "2026-09-28",
   "cripto_em": "2026-09-28",

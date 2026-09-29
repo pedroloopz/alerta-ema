@@ -1,6 +1,6 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 139.61998653411865,
+  "reserva_brl": 191.5199842453003,
   "capital_inicial": 29745.11,
   "ativos": {
     "LREN3": {
@@ -74,7 +74,7 @@
       "desde": "2026-09-21"
     },
     "SIMH3": {
-      "qtd": 61,
+      "qtd": 55,
       "pm": 7.76,
       "base": 473.36,
       "preco_print": 8.32,

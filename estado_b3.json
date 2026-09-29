@@ -5,14 +5,14 @@
       "pm": 27.440000534057617,
       "meia": 500.0,
       "metades": 1,
-      "pregoes": 2,
+      "pregoes": 3,
       "entrada": "2026-09-24"
     }
   },
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
-      "reserva_brl": 633.5399961471558,
+      "reserva_brl": 139.61998653411865,
       "capital_inicial": 29745.11,
       "ativos": {
         "LREN3": {
@@ -94,7 +94,16 @@
         }
       }
     },
-    "swings": {},
+    "swings": {
+      "CURY3": {
+        "qtd": 18,
+        "pm": 27.440000534057617,
+        "meia": 500.0,
+        "metades": 1,
+        "pregoes": 2,
+        "entrada": "2026-09-24"
+      }
+    },
     "vendas_mes": {
       "mes": "2026-09",
       "acoes": 533.5399961471558,
@@ -104,7 +113,7 @@
     },
     "adiadas": {},
     "chaves": [
-      "swing:CURY3"
+      "realiza:SIMH3"
     ]
   },
   "validado": true,
@@ -116,11 +125,11 @@
   "silencio": {},
   "vendas_mes": {
     "mes": "2026-09",
-    "acoes": 533.5399961471558,
-    "lucro_acoes": 51.99999614715574,
+    "acoes": 585.4399938583374,
+    "lucro_acoes": 57.33999385833738,
     "bdr": 0.0,
     "lucro_bdr": 0.0
   },
-  "varredura_em": "2026-09-28",
+  "varredura_em": "2026-09-29",
   "fechamento_em": "2026-09-25"
 }
