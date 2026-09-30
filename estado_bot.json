@@ -5,7 +5,7 @@
       "versao": 2,
       "inicio": "2026-09-25",
       "capital_inicial": 7087.88,
-      "reserva_usdt": 0.0,
+      "reserva_usdt": 830.2,
       "aportes": [],
       "ativos": {
         "ABNB": {
@@ -15,7 +15,7 @@
           "preco_entrada": 158.31,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 156.080002
+          "ultimo_preco": 156.960007
         },
         "BE": {
           "token": "BEB",
@@ -24,7 +24,7 @@
           "preco_entrada": 289.02,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 262.869995
+          "ultimo_preco": 291.25
         },
         "MVLL": {
           "token": "MVLLB",
@@ -33,7 +33,7 @@
           "preco_entrada": 35.5,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 32.66
+          "ultimo_preco": 35.52
         },
         "UNH": {
           "token": "UNHon",
@@ -42,56 +42,31 @@
           "preco_entrada": 377.07,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 377.809998
+          "ultimo_preco": 374.940002
         },
-        "NFLX": {
-          "token": "NFLXB",
+        "ATKR": {
+          "token": "ATKRon",
           "tipo": "acao",
-          "unidades": 13.93083,
-          "preco_entrada": 71.27,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 69.230003,
-          "saida": {
-            "data": "2026-09-28",
-            "preco_ref": 69.2300033569336,
-            "frac": 1.0
-          }
+          "unidades": 10.598,
+          "preco_entrada": 94.76000213623047,
+          "data_entrada": "2026-09-29",
+          "origem": "donchian",
+          "ultimo_preco": 94.730003
         },
-        "UBER": {
-          "token": "UBERon",
+        "TSM": {
+          "token": "TSMon",
           "tipo": "acao",
-          "unidades": 14.0099274,
-          "preco_entrada": 69.57,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 68.190002,
-          "saida": {
-            "data": "2026-09-28",
-            "preco_ref": 68.19000244140625,
-            "frac": 1.0
-          }
-        },
-        "ENPH": {
-          "token": "ENPHon",
-          "tipo": "acao",
-          "unidades": 28.76807,
-          "preco_entrada": 32.49,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 30.91,
-          "saida": {
-            "data": "2026-09-28",
-            "preco_ref": 30.90999984741211,
-            "frac": 1.0
-          }
+          "unidades": 2.1885,
+          "preco_entrada": 458.8699951171875,
+          "data_entrada": "2026-09-29",
+          "origem": "donchian",
+          "ultimo_preco": 456.940002
         }
       }
     },
-    "n_historico": 0,
+    "n_historico": 3,
     "chaves": [
-      "entrada:ATKR",
-      "entrada:TSM"
+      "entrada:PANW"
     ]
   },
   "pendentes": {
@@ -106,10 +81,18 @@
       "ticker": "TSM",
       "msg_id": 67,
       "data": "2026-09-29"
+    },
+    "entrada:PANW": {
+      "tipo": "entrada",
+      "ticker": "PANW",
+      "msg_id": 76,
+      "data": "2026-09-30"
     }
   },
   "recusados": {},
-  "alertados": {},
+  "alertados": {
+    "PANW": "2026-09-30"
+  },
   "historico": [
     {
       "ticker": "NFLX",

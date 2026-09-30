@@ -1,18 +1,26 @@
 {
   "swings": {
     "CURY3": {
-      "qtd": 18,
-      "pm": 27.440000534057617,
+      "qtd": 35,
+      "pm": 27.789714486258372,
+      "meia": 500.0,
+      "metades": 2,
+      "pregoes": 4,
+      "entrada": "2026-09-24"
+    },
+    "NATU3": {
+      "qtd": 74,
+      "pm": 6.690000057220459,
       "meia": 500.0,
       "metades": 1,
-      "pregoes": 3,
-      "entrada": "2026-09-24"
+      "pregoes": 0,
+      "entrada": "2026-09-30"
     }
   },
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
-      "reserva_brl": 139.61998653411865,
+      "reserva_brl": 191.5199842453003,
       "capital_inicial": 29745.11,
       "ativos": {
         "LREN3": {
@@ -86,7 +94,7 @@
           "desde": "2026-09-21"
         },
         "SIMH3": {
-          "qtd": 61,
+          "qtd": 55,
           "pm": 7.76,
           "base": 473.36,
           "preco_print": 8.32,
@@ -100,36 +108,57 @@
         "pm": 27.440000534057617,
         "meia": 500.0,
         "metades": 1,
-        "pregoes": 2,
+        "pregoes": 3,
         "entrada": "2026-09-24"
       }
     },
     "vendas_mes": {
       "mes": "2026-09",
-      "acoes": 533.5399961471558,
-      "lucro_acoes": 51.99999614715574,
+      "acoes": 585.4399938583374,
+      "lucro_acoes": 57.33999385833738,
       "bdr": 0.0,
       "lucro_bdr": 0.0
     },
     "adiadas": {},
     "chaves": [
-      "realiza:SIMH3"
+      "realiza:VAMO3",
+      "realiza:LJQQ3",
+      "realiza:MOVI3",
+      "realiza:SIMH3",
+      "metade:CURY3",
+      "swing:NATU3"
     ]
   },
   "validado": true,
   "revisar": {},
   "trocas": [],
   "desastre": {},
-  "pendentes": {},
+  "pendentes": {
+    "metade:CURY3": {
+      "tipo": "metade",
+      "ticker": "CURY3",
+      "qtd": 17,
+      "preco": 28.15999984741211,
+      "pm_antes": 27.440000534057617,
+      "msg_id": 78,
+      "data": "2026-09-30"
+    },
+    "swing:NATU3": {
+      "tipo": "swing",
+      "ticker": "NATU3",
+      "msg_id": 79,
+      "data": "2026-09-30"
+    }
+  },
   "recusados": {},
   "silencio": {},
   "vendas_mes": {
     "mes": "2026-09",
-    "acoes": 585.4399938583374,
-    "lucro_acoes": 57.33999385833738,
+    "acoes": 1633.2600092887878,
+    "lucro_acoes": 238.19800928878777,
     "bdr": 0.0,
     "lucro_bdr": 0.0
   },
-  "varredura_em": "2026-09-29",
+  "varredura_em": "2026-09-30",
   "fechamento_em": "2026-09-29"
 }
