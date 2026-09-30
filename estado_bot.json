@@ -109,10 +109,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "ATKR": "2026-09-29",
-    "TSM": "2026-09-29"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "NFLX",
@@ -156,7 +153,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-09-29",
-  "cripto_em": "2026-09-28",
+  "cripto_em": "2026-09-29",
   "patrimonio_fech": {
     "data": "2026-09-29",
     "valor": 7013.64
