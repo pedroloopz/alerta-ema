@@ -90,9 +90,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "PANW": "2026-09-30"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "NFLX",
