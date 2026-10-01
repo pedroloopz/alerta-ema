@@ -12,7 +12,7 @@
       "preco_entrada": 158.31,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 160.309998
+      "ultimo_preco": 160.470001
     },
     "BE": {
       "token": "BEB",
@@ -21,7 +21,7 @@
       "preco_entrada": 289.02,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 274.48999
+      "ultimo_preco": 277.579987
     },
     "MVLL": {
       "token": "MVLLB",
@@ -30,7 +30,7 @@
       "preco_entrada": 35.5,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 36.763199
+      "ultimo_preco": 36.740002
     },
     "UNH": {
       "token": "UNHon",
@@ -39,7 +39,12 @@
       "preco_entrada": 377.07,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 363.369995
+      "ultimo_preco": 365.200012,
+      "saida": {
+        "data": "2026-10-01",
+        "preco_ref": 365.20001220703125,
+        "frac": 1.0
+      }
     },
     "ATKR": {
       "token": "ATKRon",
@@ -48,7 +53,7 @@
       "preco_entrada": 94.76000213623047,
       "data_entrada": "2026-09-29",
       "origem": "donchian",
-      "ultimo_preco": 94.775002
+      "ultimo_preco": 94.769997
     },
     "TSM": {
       "token": "TSMon",
@@ -57,7 +62,7 @@
       "preco_entrada": 458.8699951171875,
       "data_entrada": "2026-09-29",
       "origem": "donchian",
-      "ultimo_preco": 458.390015
+      "ultimo_preco": 459.200012
     },
     "PANW": {
       "token": "PANWon",
@@ -66,7 +71,7 @@
       "preco_entrada": 400.95001220703125,
       "data_entrada": "2026-09-30",
       "origem": "donchian",
-      "ultimo_preco": 392.25
+      "ultimo_preco": 396.25
     }
   }
 }

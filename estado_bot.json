@@ -5,7 +5,7 @@
       "versao": 2,
       "inicio": "2026-09-25",
       "capital_inicial": 7087.88,
-      "reserva_usdt": 830.2,
+      "reserva_usdt": 0.03,
       "aportes": [],
       "ativos": {
         "ABNB": {
@@ -15,7 +15,7 @@
           "preco_entrada": 158.31,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 156.960007
+          "ultimo_preco": 160.309998
         },
         "BE": {
           "token": "BEB",
@@ -24,7 +24,7 @@
           "preco_entrada": 289.02,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 291.25
+          "ultimo_preco": 274.48999
         },
         "MVLL": {
           "token": "MVLLB",
@@ -33,7 +33,7 @@
           "preco_entrada": 35.5,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 35.52
+          "ultimo_preco": 36.763199
         },
         "UNH": {
           "token": "UNHon",
@@ -42,7 +42,7 @@
           "preco_entrada": 377.07,
           "data_entrada": "2026-09-25",
           "origem": "legado",
-          "ultimo_preco": 374.940002
+          "ultimo_preco": 363.369995
         },
         "ATKR": {
           "token": "ATKRon",
@@ -51,7 +51,7 @@
           "preco_entrada": 94.76000213623047,
           "data_entrada": "2026-09-29",
           "origem": "donchian",
-          "ultimo_preco": 94.730003
+          "ultimo_preco": 94.775002
         },
         "TSM": {
           "token": "TSMon",
@@ -60,13 +60,22 @@
           "preco_entrada": 458.8699951171875,
           "data_entrada": "2026-09-29",
           "origem": "donchian",
-          "ultimo_preco": 456.940002
+          "ultimo_preco": 458.390015
+        },
+        "PANW": {
+          "token": "PANWon",
+          "tipo": "acao",
+          "unidades": 2.0705,
+          "preco_entrada": 400.95001220703125,
+          "data_entrada": "2026-09-30",
+          "origem": "donchian",
+          "ultimo_preco": 392.25
         }
       }
     },
     "n_historico": 3,
     "chaves": [
-      "entrada:PANW"
+      "saida:UNH"
     ]
   },
   "pendentes": {
@@ -133,10 +142,10 @@
     }
   ],
   "pausa_ate": null,
-  "fechamento_em": "2026-09-30",
+  "fechamento_em": "2026-10-01",
   "cripto_em": "2026-09-30",
   "patrimonio_fech": {
-    "data": "2026-09-30",
-    "valor": 6965.06
+    "data": "2026-10-01",
+    "valor": 6993.39
   }
 }
