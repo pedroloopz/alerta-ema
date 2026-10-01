@@ -5,7 +5,7 @@
       "pm": 27.789714486258372,
       "meia": 500.0,
       "metades": 2,
-      "pregoes": 4,
+      "pregoes": 5,
       "entrada": "2026-09-24"
     },
     "NATU3": {
@@ -13,7 +13,7 @@
       "pm": 6.690000057220459,
       "meia": 500.0,
       "metades": 1,
-      "pregoes": 0,
+      "pregoes": 1,
       "entrada": "2026-09-30"
     }
   },
@@ -153,12 +153,12 @@
   "recusados": {},
   "silencio": {},
   "vendas_mes": {
-    "mes": "2026-09",
-    "acoes": 1633.2600092887878,
-    "lucro_acoes": 238.19800928878777,
+    "mes": "2026-10",
+    "acoes": 0.0,
+    "lucro_acoes": 0.0,
     "bdr": 0.0,
     "lucro_bdr": 0.0
   },
-  "varredura_em": "2026-09-30",
+  "varredura_em": "2026-10-01",
   "fechamento_em": "2026-09-30"
 }
