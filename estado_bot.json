@@ -79,18 +79,6 @@
     ]
   },
   "pendentes": {
-    "entrada:ATKR": {
-      "tipo": "entrada",
-      "ticker": "ATKR",
-      "msg_id": 66,
-      "data": "2026-09-29"
-    },
-    "entrada:TSM": {
-      "tipo": "entrada",
-      "ticker": "TSM",
-      "msg_id": 67,
-      "data": "2026-09-29"
-    },
     "entrada:PANW": {
       "tipo": "entrada",
       "ticker": "PANW",
@@ -143,7 +131,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-01",
-  "cripto_em": "2026-09-30",
+  "cripto_em": "2026-10-01",
   "patrimonio_fech": {
     "data": "2026-10-01",
     "valor": 6993.39
