@@ -2,7 +2,7 @@
   "versao": 2,
   "inicio": "2026-09-25",
   "capital_inicial": 7087.88,
-  "reserva_usdt": 0.03,
+  "reserva_usdt": 0.0,
   "aportes": [],
   "ativos": {
     "ABNB": {
@@ -12,7 +12,7 @@
       "preco_entrada": 158.31,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 160.470001
+      "ultimo_preco": 162.539993
     },
     "BE": {
       "token": "BEB",
@@ -21,7 +21,7 @@
       "preco_entrada": 289.02,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 277.579987
+      "ultimo_preco": 291.084991
     },
     "MVLL": {
       "token": "MVLLB",
@@ -30,21 +30,7 @@
       "preco_entrada": 35.5,
       "data_entrada": "2026-09-25",
       "origem": "legado",
-      "ultimo_preco": 36.740002
-    },
-    "UNH": {
-      "token": "UNHon",
-      "tipo": "acao",
-      "unidades": 2.63575,
-      "preco_entrada": 377.07,
-      "data_entrada": "2026-09-25",
-      "origem": "legado",
-      "ultimo_preco": 365.200012,
-      "saida": {
-        "data": "2026-10-01",
-        "preco_ref": 365.20001220703125,
-        "frac": 1.0
-      }
+      "ultimo_preco": 37.919998
     },
     "ATKR": {
       "token": "ATKRon",
@@ -53,7 +39,7 @@
       "preco_entrada": 94.76000213623047,
       "data_entrada": "2026-09-29",
       "origem": "donchian",
-      "ultimo_preco": 94.769997
+      "ultimo_preco": 94.794998
     },
     "TSM": {
       "token": "TSMon",
@@ -62,7 +48,7 @@
       "preco_entrada": 458.8699951171875,
       "data_entrada": "2026-09-29",
       "origem": "donchian",
-      "ultimo_preco": 459.200012
+      "ultimo_preco": 470.994995
     },
     "PANW": {
       "token": "PANWon",
@@ -71,7 +57,16 @@
       "preco_entrada": 400.95001220703125,
       "data_entrada": "2026-09-30",
       "origem": "donchian",
-      "ultimo_preco": 396.25
+      "ultimo_preco": 401.790009
+    },
+    "MXL": {
+      "token": "MXLon",
+      "tipo": "acao",
+      "unidades": 9.164,
+      "preco_entrada": 105.0250015258789,
+      "data_entrada": "2026-10-02",
+      "origem": "donchian",
+      "ultimo_preco": 105.025002
     }
   }
 }

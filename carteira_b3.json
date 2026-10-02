@@ -1,6 +1,6 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 265.5599980354309,
+  "reserva_brl": 696.6399898529053,
   "capital_inicial": 29745.11,
   "ativos": {
     "LREN3": {
@@ -11,14 +11,14 @@
       "desde": "2026-09-21"
     },
     "EZTC3": {
-      "qtd": 300,
+      "qtd": 267,
       "pm": 12.84,
       "base": 3852.0,
       "preco_print": 13.78,
       "desde": "2026-09-21"
     },
     "VAMO3": {
-      "qtd": 811,
+      "qtd": 728,
       "pm": 3.47,
       "base": 3470.0,
       "preco_print": 3.66,
@@ -74,7 +74,7 @@
       "desde": "2026-09-21"
     },
     "SIMH3": {
-      "qtd": 49,
+      "qtd": 44,
       "pm": 7.76,
       "base": 473.36,
       "preco_print": 8.32,
