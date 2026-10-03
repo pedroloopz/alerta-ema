@@ -84,12 +84,6 @@
     ]
   },
   "pendentes": {
-    "entrada:PANW": {
-      "tipo": "entrada",
-      "ticker": "PANW",
-      "msg_id": 76,
-      "data": "2026-09-30"
-    },
     "entrada:MXL": {
       "tipo": "entrada",
       "ticker": "MXL",
@@ -98,9 +92,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "MXL": "2026-10-02"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "NFLX",
