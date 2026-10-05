@@ -83,14 +83,7 @@
       "entrada:MXL"
     ]
   },
-  "pendentes": {
-    "entrada:MXL": {
-      "tipo": "entrada",
-      "ticker": "MXL",
-      "msg_id": 93,
-      "data": "2026-10-02"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "alertados": {},
   "historico": [
@@ -149,7 +142,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-02",
-  "cripto_em": "2026-10-03",
+  "cripto_em": "2026-10-04",
   "patrimonio_fech": {
     "data": "2026-10-02",
     "valor": 7135.44
