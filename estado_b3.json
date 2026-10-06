@@ -139,32 +139,7 @@
   "revisar": {},
   "trocas": [],
   "desastre": {},
-  "pendentes": {
-    "metade:CURY3": {
-      "tipo": "metade",
-      "ticker": "CURY3",
-      "qtd": 17,
-      "preco": 28.15999984741211,
-      "pm_antes": 27.440000534057617,
-      "msg_id": 78,
-      "data": "2026-09-30"
-    },
-    "swing:NATU3": {
-      "tipo": "swing",
-      "ticker": "NATU3",
-      "msg_id": 79,
-      "data": "2026-09-30"
-    },
-    "metade:NATU3": {
-      "tipo": "metade",
-      "ticker": "NATU3",
-      "qtd": 70,
-      "preco": 7.079999923706055,
-      "pm_antes": 6.690000057220459,
-      "msg_id": 95,
-      "data": "2026-10-02"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "silencio": {},
   "vendas_mes": {
