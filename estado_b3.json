@@ -1,26 +1,18 @@
 {
   "swings": {
-    "CURY3": {
-      "qtd": 35,
-      "pm": 27.789714486258372,
+    "SUZB3": {
+      "qtd": 11,
+      "pm": 41.95000076293945,
       "meia": 500.0,
-      "metades": 2,
-      "pregoes": 6,
-      "entrada": "2026-09-24"
-    },
-    "NATU3": {
-      "qtd": 144,
-      "pm": 6.879583325650957,
-      "meia": 500.0,
-      "metades": 2,
-      "pregoes": 2,
-      "entrada": "2026-09-30"
+      "metades": 1,
+      "pregoes": 0,
+      "entrada": "2026-10-06"
     }
   },
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
-      "reserva_brl": 265.5599980354309,
+      "reserva_brl": 696.6399898529053,
       "capital_inicial": 29745.11,
       "ativos": {
         "LREN3": {
@@ -31,14 +23,14 @@
           "desde": "2026-09-21"
         },
         "EZTC3": {
-          "qtd": 300,
+          "qtd": 267,
           "pm": 12.84,
           "base": 3852.0,
           "preco_print": 13.78,
           "desde": "2026-09-21"
         },
         "VAMO3": {
-          "qtd": 811,
+          "qtd": 728,
           "pm": 3.47,
           "base": 3470.0,
           "preco_print": 3.66,
@@ -94,7 +86,7 @@
           "desde": "2026-09-21"
         },
         "SIMH3": {
-          "qtd": 49,
+          "qtd": 44,
           "pm": 7.76,
           "base": 473.36,
           "preco_print": 8.32,
@@ -108,47 +100,87 @@
         "pm": 27.789714486258372,
         "meia": 500.0,
         "metades": 2,
-        "pregoes": 5,
+        "pregoes": 6,
         "entrada": "2026-09-24"
       },
       "NATU3": {
-        "qtd": 74,
-        "pm": 6.690000057220459,
+        "qtd": 144,
+        "pm": 6.879583325650957,
         "meia": 500.0,
-        "metades": 1,
-        "pregoes": 1,
+        "metades": 2,
+        "pregoes": 2,
         "entrada": "2026-09-30"
       }
     },
     "vendas_mes": {
       "mes": "2026-10",
-      "acoes": 0.0,
-      "lucro_acoes": 0.0,
+      "acoes": 926.6799864768982,
+      "lucro_acoes": 176.14998647689816,
       "bdr": 0.0,
       "lucro_bdr": 0.0
     },
     "adiadas": {},
     "chaves": [
+      "realiza:LREN3",
       "realiza:EZTC3",
       "realiza:VAMO3",
+      "realiza:TTEN3",
+      "realiza:ALOS3",
+      "realiza:INBR32",
+      "realiza:LJQQ3",
+      "realiza:MOVI3",
+      "realiza:MRVE3",
       "realiza:SIMH3",
-      "metade:NATU3"
+      "saida:CURY3",
+      "saida:NATU3",
+      "swing:SUZB3",
+      "troca:INBR32"
     ]
   },
   "validado": true,
   "revisar": {},
-  "trocas": [],
+  "trocas": [
+    {
+      "semana": "2026-41",
+      "de": "INBR32",
+      "para": "B3SA3"
+    }
+  ],
   "desastre": {},
-  "pendentes": {},
+  "pendentes": {
+    "swing:SUZB3": {
+      "tipo": "swing",
+      "ticker": "SUZB3",
+      "msg_id": 105,
+      "data": "2026-10-06"
+    },
+    "troca:INBR32": {
+      "tipo": "troca",
+      "velho": "INBR32",
+      "antigo": {
+        "qtd": 80,
+        "pm": 28.08,
+        "base": 2808.0,
+        "preco_print": 28.59,
+        "desde": "2026-09-21"
+      },
+      "novo": "B3SA3",
+      "ticker": "B3SA3",
+      "preco_venda": 35.439998626708984,
+      "reserva_antes": 9004.71012878418,
+      "msg_id": 106,
+      "data": "2026-10-06"
+    }
+  },
   "recusados": {},
   "silencio": {},
   "vendas_mes": {
     "mes": "2026-10",
-    "acoes": 926.6799864768982,
-    "lucro_acoes": 176.14998647689816,
-    "bdr": 0.0,
-    "lucro_bdr": 0.0
+    "acoes": 8987.400161266327,
+    "lucro_acoes": 2228.994655353546,
+    "bdr": 3543.9998626708984,
+    "lucro_bdr": 735.9998626708987
   },
-  "varredura_em": "2026-10-02",
+  "varredura_em": "2026-10-06",
   "fechamento_em": "2026-10-02"
 }
