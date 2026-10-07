@@ -12,7 +12,7 @@
       "preco_entrada": 69.16,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 69.16
+      "ultimo_preco": 68.690002
     },
     "ENPH": {
       "token": "ENPHon",
@@ -21,7 +21,7 @@
       "preco_entrada": 33.85,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 33.85
+      "ultimo_preco": 33.450001
     },
     "AEHR": {
       "token": "AEHRon",
@@ -30,7 +30,7 @@
       "preco_entrada": 92.83,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 92.83
+      "ultimo_preco": 92.139999
     },
     "KEEL": {
       "token": "KEELon",
@@ -39,7 +39,7 @@
       "preco_entrada": 3.46,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 3.46
+      "ultimo_preco": 3.45
     }
   }
 }
