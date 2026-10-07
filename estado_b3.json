@@ -1,6 +1,73 @@
 {
   "swings": {},
-  "ultima": null,
+  "ultima": {
+    "carteira": {
+      "inicio": "2026-09-21",
+      "reserva_brl": 0.0,
+      "capital_inicial": 29745.11,
+      "ativos": {
+        "EZTC3": {
+          "qtd": 500,
+          "pm": 13.4,
+          "base": 6700.0,
+          "preco_print": 17.07,
+          "desde": "2026-10-06"
+        },
+        "MOVI3": {
+          "qtd": 552,
+          "pm": 9.43,
+          "base": 5205.36,
+          "preco_print": 13.96,
+          "desde": "2026-10-06"
+        },
+        "SIMH3": {
+          "qtd": 556,
+          "pm": 10.13,
+          "base": 5632.28,
+          "preco_print": 13.62,
+          "desde": "2026-10-06"
+        },
+        "LJQQ3": {
+          "qtd": 3000,
+          "pm": 1.39,
+          "base": 4170.0,
+          "preco_print": 2.13,
+          "desde": "2026-10-06"
+        },
+        "VAMO3": {
+          "qtd": 910,
+          "pm": 3.48,
+          "base": 3166.8,
+          "preco_print": 5.92,
+          "desde": "2026-10-06"
+        },
+        "TTEN3": {
+          "qtd": 400,
+          "pm": 10.37,
+          "base": 4148.0,
+          "preco_print": 11.63,
+          "desde": "2026-10-06"
+        }
+      }
+    },
+    "swings": {},
+    "vendas_mes": {
+      "mes": "2026-10",
+      "acoes": 8987.400161266327,
+      "lucro_acoes": 2228.994655353546,
+      "bdr": 3543.9998626708984,
+      "lucro_bdr": 735.9998626708987
+    },
+    "adiadas": {},
+    "chaves": [
+      "realiza:EZTC3",
+      "realiza:MOVI3",
+      "realiza:SIMH3",
+      "realiza:LJQQ3",
+      "adiada:VAMO3",
+      "adiada:TTEN3"
+    ]
+  },
   "validado": true,
   "revisar": {},
   "trocas": [
@@ -16,11 +83,15 @@
   "silencio": {},
   "vendas_mes": {
     "mes": "2026-10",
-    "acoes": 8987.400161266327,
-    "lucro_acoes": 2228.994655353546,
+    "acoes": 19993.44024324417,
+    "lucro_acoes": 6093.24473733139,
     "bdr": 3543.9998626708984,
     "lucro_bdr": 735.9998626708987
   },
-  "varredura_em": "2026-10-06",
-  "fechamento_em": "2026-10-06"
+  "varredura_em": "2026-10-07",
+  "fechamento_em": "2026-10-06",
+  "adiadas": {
+    "realizacao:VAMO3": "2026-10",
+    "realizacao:TTEN3": "2026-10"
+  }
 }

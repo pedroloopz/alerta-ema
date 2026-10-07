@@ -1,31 +1,31 @@
 {
   "inicio": "2026-09-21",
-  "reserva_brl": 0.0,
+  "reserva_brl": 11006.040081977844,
   "capital_inicial": 29745.11,
   "ativos": {
     "EZTC3": {
-      "qtd": 500,
+      "qtd": 372,
       "pm": 13.4,
       "base": 6700.0,
       "preco_print": 17.07,
       "desde": "2026-10-06"
     },
     "MOVI3": {
-      "qtd": 552,
+      "qtd": 346,
       "pm": 9.43,
       "base": 5205.36,
       "preco_print": 13.96,
       "desde": "2026-10-06"
     },
     "SIMH3": {
-      "qtd": 556,
+      "qtd": 391,
       "pm": 10.13,
       "base": 5632.28,
       "preco_print": 13.62,
       "desde": "2026-10-06"
     },
     "LJQQ3": {
-      "qtd": 3000,
+      "qtd": 1696,
       "pm": 1.39,
       "base": 4170.0,
       "preco_print": 2.13,

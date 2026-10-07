@@ -12,7 +12,7 @@
       "preco_entrada": 69.16,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 68.690002
+      "ultimo_preco": 69.555
     },
     "ENPH": {
       "token": "ENPHon",
@@ -21,21 +21,7 @@
       "preco_entrada": 33.85,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 33.450001
-    },
-    "AEHR": {
-      "token": "AEHRon",
-      "tipo": "acao",
-      "unidades": 11.3707,
-      "preco_entrada": 92.83,
-      "data_entrada": "2026-10-06",
-      "origem": "legado",
-      "ultimo_preco": 92.139999,
-      "saida": {
-        "data": "2026-10-06",
-        "preco_ref": 92.14,
-        "frac": 1.0
-      }
+      "ultimo_preco": 33.209999
     },
     "KEEL": {
       "token": "KEELon",
@@ -44,7 +30,25 @@
       "preco_entrada": 3.46,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 3.45
+      "ultimo_preco": 3.295
+    },
+    "PENG": {
+      "token": "PENGon",
+      "tipo": "acao",
+      "unidades": 11.9986,
+      "preco_entrada": 72.73999786376953,
+      "data_entrada": "2026-10-07",
+      "origem": "donchian",
+      "ultimo_preco": 72.739998
+    },
+    "HPE": {
+      "token": "HPEon",
+      "tipo": "acao",
+      "unidades": 2.096,
+      "preco_entrada": 72.70880126953125,
+      "data_entrada": "2026-10-07",
+      "origem": "donchian",
+      "ultimo_preco": 72.708801
     }
   }
 }

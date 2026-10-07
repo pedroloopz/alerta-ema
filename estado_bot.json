@@ -1,10 +1,96 @@
 {
   "offset": 50176770,
-  "ultima": null,
-  "pendentes": {},
+  "ultima": {
+    "carteira": {
+      "versao": 2,
+      "inicio": "2026-09-25",
+      "capital_inicial": 7087.88,
+      "reserva_usdt": 0.0,
+      "aportes": [],
+      "ativos": {
+        "NFLX": {
+          "token": "NFLXB",
+          "tipo": "acao",
+          "unidades": 30.19175,
+          "preco_entrada": 69.16,
+          "data_entrada": "2026-10-06",
+          "origem": "legado",
+          "ultimo_preco": 68.690002
+        },
+        "ENPH": {
+          "token": "ENPHon",
+          "tipo": "acao",
+          "unidades": 61.39067,
+          "preco_entrada": 33.85,
+          "data_entrada": "2026-10-06",
+          "origem": "legado",
+          "ultimo_preco": 33.450001
+        },
+        "AEHR": {
+          "token": "AEHRon",
+          "tipo": "acao",
+          "unidades": 11.3707,
+          "preco_entrada": 92.83,
+          "data_entrada": "2026-10-06",
+          "origem": "legado",
+          "ultimo_preco": 92.139999,
+          "saida": {
+            "data": "2026-10-06",
+            "preco_ref": 92.14,
+            "frac": 1.0
+          }
+        },
+        "KEEL": {
+          "token": "KEELon",
+          "tipo": "acao",
+          "unidades": 286.95051,
+          "preco_entrada": 3.46,
+          "data_entrada": "2026-10-06",
+          "origem": "legado",
+          "ultimo_preco": 3.45
+        }
+      }
+    },
+    "n_historico": 0,
+    "chaves": [
+      "entrada:PENG",
+      "entrada:HPE"
+    ]
+  },
+  "pendentes": {
+    "entrada:PENG": {
+      "tipo": "entrada",
+      "ticker": "PENG",
+      "msg_id": 115,
+      "data": "2026-10-07"
+    },
+    "entrada:HPE": {
+      "tipo": "entrada",
+      "ticker": "HPE",
+      "msg_id": 116,
+      "data": "2026-10-07"
+    }
+  },
   "recusados": {},
-  "alertados": {},
-  "historico": [],
+  "alertados": {
+    "PENG": "2026-10-07",
+    "HPE": "2026-10-07"
+  },
+  "historico": [
+    {
+      "ticker": "AEHR",
+      "token": "AEHRon",
+      "unidades": 11.3707,
+      "preco_entrada": 92.83,
+      "data_entrada": "2026-10-06",
+      "preco_saida": 90.16000366210938,
+      "data_saida": "2026-10-07",
+      "lucro_usd": -30.36,
+      "lucro_pct": -0.028762214132183828,
+      "origem": "legado",
+      "confirmado": false
+    }
+  ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-06",
   "cripto_em": "2026-10-06",
