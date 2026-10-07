@@ -1,0 +1,72 @@
+{
+  "versao": 2,
+  "inicio": "2026-09-25",
+  "capital_inicial": 7087.88,
+  "reserva_usdt": 0.0,
+  "aportes": [],
+  "ativos": {
+    "ABNB": {
+      "token": "ABNBon",
+      "tipo": "acao",
+      "unidades": 6.92375,
+      "preco_entrada": 158.31,
+      "data_entrada": "2026-09-25",
+      "origem": "legado",
+      "ultimo_preco": 160.389999
+    },
+    "BE": {
+      "token": "BEB",
+      "tipo": "acao",
+      "unidades": 3.6663,
+      "preco_entrada": 289.02,
+      "data_entrada": "2026-09-25",
+      "origem": "legado",
+      "ultimo_preco": 295.779999
+    },
+    "MVLL": {
+      "token": "MVLLB",
+      "tipo": "acao",
+      "unidades": 29.18549,
+      "preco_entrada": 35.5,
+      "data_entrada": "2026-09-25",
+      "origem": "legado",
+      "ultimo_preco": 42.029999
+    },
+    "ATKR": {
+      "token": "ATKRon",
+      "tipo": "acao",
+      "unidades": 10.598,
+      "preco_entrada": 94.76000213623047,
+      "data_entrada": "2026-09-29",
+      "origem": "donchian",
+      "ultimo_preco": 94.720001
+    },
+    "TSM": {
+      "token": "TSMon",
+      "tipo": "acao",
+      "unidades": 2.1885,
+      "preco_entrada": 458.8699951171875,
+      "data_entrada": "2026-09-29",
+      "origem": "donchian",
+      "ultimo_preco": 482.299988
+    },
+    "PANW": {
+      "token": "PANWon",
+      "tipo": "acao",
+      "unidades": 2.0705,
+      "preco_entrada": 400.95001220703125,
+      "data_entrada": "2026-09-30",
+      "origem": "donchian",
+      "ultimo_preco": 419.910004
+    },
+    "MXL": {
+      "token": "MXLon",
+      "tipo": "acao",
+      "unidades": 9.164,
+      "preco_entrada": 105.0250015258789,
+      "data_entrada": "2026-10-02",
+      "origem": "donchian",
+      "ultimo_preco": 109.300003
+    }
+  }
+}

@@ -1,150 +1,15 @@
 {
   "offset": 50176770,
-  "ultima": {
-    "carteira": {
-      "versao": 2,
-      "inicio": "2026-09-25",
-      "capital_inicial": 7087.88,
-      "reserva_usdt": 0.03,
-      "aportes": [],
-      "ativos": {
-        "ABNB": {
-          "token": "ABNBon",
-          "tipo": "acao",
-          "unidades": 6.92375,
-          "preco_entrada": 158.31,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 160.470001
-        },
-        "BE": {
-          "token": "BEB",
-          "tipo": "acao",
-          "unidades": 3.6663,
-          "preco_entrada": 289.02,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 277.579987
-        },
-        "MVLL": {
-          "token": "MVLLB",
-          "tipo": "acao",
-          "unidades": 29.18549,
-          "preco_entrada": 35.5,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 36.740002
-        },
-        "UNH": {
-          "token": "UNHon",
-          "tipo": "acao",
-          "unidades": 2.63575,
-          "preco_entrada": 377.07,
-          "data_entrada": "2026-09-25",
-          "origem": "legado",
-          "ultimo_preco": 365.200012,
-          "saida": {
-            "data": "2026-10-01",
-            "preco_ref": 365.20001220703125,
-            "frac": 1.0
-          }
-        },
-        "ATKR": {
-          "token": "ATKRon",
-          "tipo": "acao",
-          "unidades": 10.598,
-          "preco_entrada": 94.76000213623047,
-          "data_entrada": "2026-09-29",
-          "origem": "donchian",
-          "ultimo_preco": 94.769997
-        },
-        "TSM": {
-          "token": "TSMon",
-          "tipo": "acao",
-          "unidades": 2.1885,
-          "preco_entrada": 458.8699951171875,
-          "data_entrada": "2026-09-29",
-          "origem": "donchian",
-          "ultimo_preco": 459.200012
-        },
-        "PANW": {
-          "token": "PANWon",
-          "tipo": "acao",
-          "unidades": 2.0705,
-          "preco_entrada": 400.95001220703125,
-          "data_entrada": "2026-09-30",
-          "origem": "donchian",
-          "ultimo_preco": 396.25
-        }
-      }
-    },
-    "n_historico": 3,
-    "chaves": [
-      "entrada:MXL"
-    ]
-  },
+  "ultima": null,
   "pendentes": {},
   "recusados": {},
   "alertados": {},
-  "historico": [
-    {
-      "ticker": "NFLX",
-      "token": "NFLXB",
-      "unidades": 13.93083,
-      "preco_entrada": 71.27,
-      "data_entrada": "2026-09-25",
-      "preco_saida": 70.38999938964844,
-      "data_saida": "2026-09-29",
-      "lucro_usd": -12.26,
-      "lucro_pct": -0.01234741981691534,
-      "origem": "legado",
-      "confirmado": false
-    },
-    {
-      "ticker": "UBER",
-      "token": "UBERon",
-      "unidades": 14.0099274,
-      "preco_entrada": 69.57,
-      "data_entrada": "2026-09-25",
-      "preco_saida": 68.47000122070312,
-      "data_saida": "2026-09-29",
-      "lucro_usd": -15.41,
-      "lucro_pct": -0.015811395418957375,
-      "origem": "legado",
-      "confirmado": false
-    },
-    {
-      "ticker": "ENPH",
-      "token": "ENPHon",
-      "unidades": 28.76807,
-      "preco_entrada": 32.49,
-      "data_entrada": "2026-09-25",
-      "preco_saida": 31.2450008392334,
-      "data_saida": "2026-09-29",
-      "lucro_usd": -35.82,
-      "lucro_pct": -0.038319457087306996,
-      "origem": "legado",
-      "confirmado": false
-    },
-    {
-      "ticker": "UNH",
-      "token": "UNHon",
-      "unidades": 2.63575,
-      "preco_entrada": 377.07,
-      "data_entrada": "2026-09-25",
-      "preco_saida": 365.1400146484375,
-      "data_saida": "2026-10-02",
-      "lucro_usd": -31.44,
-      "lucro_pct": -0.03163864892874668,
-      "origem": "legado",
-      "confirmado": false
-    }
-  ],
+  "historico": [],
   "pausa_ate": null,
   "fechamento_em": "2026-10-06",
   "cripto_em": "2026-10-05",
   "patrimonio_fech": {
     "data": "2026-10-06",
-    "valor": 7351.99
+    "valor": 6214.53
   }
 }
