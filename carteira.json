@@ -30,7 +30,12 @@
       "preco_entrada": 92.83,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 92.139999
+      "ultimo_preco": 92.139999,
+      "saida": {
+        "data": "2026-10-06",
+        "preco_ref": 92.14,
+        "frac": 1.0
+      }
     },
     "KEEL": {
       "token": "KEELon",
