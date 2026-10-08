@@ -2,7 +2,7 @@
   "versao": 2,
   "inicio": "2026-09-25",
   "capital_inicial": 7087.88,
-  "reserva_usdt": 0.0,
+  "reserva_usdt": 0.01,
   "aportes": [],
   "ativos": {
     "NFLX": {
@@ -12,7 +12,7 @@
       "preco_entrada": 69.16,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 69.699997
+      "ultimo_preco": 71.205002
     },
     "ENPH": {
       "token": "ENPHon",
@@ -21,21 +21,7 @@
       "preco_entrada": 33.85,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 33.5
-    },
-    "KEEL": {
-      "token": "KEELon",
-      "tipo": "acao",
-      "unidades": 286.95051,
-      "preco_entrada": 3.46,
-      "data_entrada": "2026-10-06",
-      "origem": "legado",
-      "ultimo_preco": 3.33,
-      "saida": {
-        "data": "2026-10-07",
-        "preco_ref": 3.3299999237060547,
-        "frac": 1.0
-      }
+      "ultimo_preco": 32.610001
     },
     "PENG": {
       "token": "PENGon",
@@ -44,7 +30,7 @@
       "preco_entrada": 72.73999786376953,
       "data_entrada": "2026-10-07",
       "origem": "donchian",
-      "ultimo_preco": 72.610001
+      "ultimo_preco": 71.584999
     },
     "HPE": {
       "token": "HPEon",
@@ -53,7 +39,25 @@
       "preco_entrada": 72.70880126953125,
       "data_entrada": "2026-10-07",
       "origem": "donchian",
-      "ultimo_preco": 72.089996
+      "ultimo_preco": 70.57
+    },
+    "INSW": {
+      "token": "INSWon",
+      "tipo": "acao",
+      "unidades": 7.1757,
+      "preco_entrada": 121.3499984741211,
+      "data_entrada": "2026-10-08",
+      "origem": "donchian",
+      "ultimo_preco": 121.349998
+    },
+    "PLTR": {
+      "token": "PLTRon",
+      "tipo": "acao",
+      "unidades": 0.3348,
+      "preco_entrada": 197.4499969482422,
+      "data_entrada": "2026-10-08",
+      "origem": "donchian",
+      "ultimo_preco": 197.449997
     }
   }
 }

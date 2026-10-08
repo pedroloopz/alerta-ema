@@ -3,32 +3,32 @@
   "ultima": {
     "carteira": {
       "inicio": "2026-09-21",
-      "reserva_brl": 0.0,
+      "reserva_brl": 11006.040081977844,
       "capital_inicial": 29745.11,
       "ativos": {
         "EZTC3": {
-          "qtd": 500,
+          "qtd": 372,
           "pm": 13.4,
           "base": 6700.0,
           "preco_print": 17.07,
           "desde": "2026-10-06"
         },
         "MOVI3": {
-          "qtd": 552,
+          "qtd": 346,
           "pm": 9.43,
           "base": 5205.36,
           "preco_print": 13.96,
           "desde": "2026-10-06"
         },
         "SIMH3": {
-          "qtd": 556,
+          "qtd": 391,
           "pm": 10.13,
           "base": 5632.28,
           "preco_print": 13.62,
           "desde": "2026-10-06"
         },
         "LJQQ3": {
-          "qtd": 3000,
+          "qtd": 1696,
           "pm": 1.39,
           "base": 4170.0,
           "preco_print": 2.13,
@@ -53,19 +53,17 @@
     "swings": {},
     "vendas_mes": {
       "mes": "2026-10",
-      "acoes": 8987.400161266327,
-      "lucro_acoes": 2228.994655353546,
+      "acoes": 19993.44024324417,
+      "lucro_acoes": 6093.24473733139,
       "bdr": 3543.9998626708984,
       "lucro_bdr": 735.9998626708987
     },
-    "adiadas": {},
+    "adiadas": {
+      "realizacao:VAMO3": "2026-10",
+      "realizacao:TTEN3": "2026-10"
+    },
     "chaves": [
-      "realiza:EZTC3",
-      "realiza:MOVI3",
-      "realiza:SIMH3",
-      "realiza:LJQQ3",
-      "adiada:VAMO3",
-      "adiada:TTEN3"
+      "adiada:MOVI3"
     ]
   },
   "validado": true,
@@ -88,10 +86,11 @@
     "bdr": 3543.9998626708984,
     "lucro_bdr": 735.9998626708987
   },
-  "varredura_em": "2026-10-07",
+  "varredura_em": "2026-10-08",
   "fechamento_em": "2026-10-06",
   "adiadas": {
     "realizacao:VAMO3": "2026-10",
-    "realizacao:TTEN3": "2026-10"
+    "realizacao:TTEN3": "2026-10",
+    "realizacao:MOVI3": "2026-10"
   }
 }
