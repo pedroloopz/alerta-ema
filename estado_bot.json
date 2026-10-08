@@ -75,10 +75,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "PENG": "2026-10-07",
-    "HPE": "2026-10-07"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "AEHR",
