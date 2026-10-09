@@ -60,10 +60,13 @@
     },
     "adiadas": {
       "realizacao:VAMO3": "2026-10",
-      "realizacao:TTEN3": "2026-10"
+      "realizacao:TTEN3": "2026-10",
+      "realizacao:MOVI3": "2026-10"
     },
     "chaves": [
-      "adiada:MOVI3"
+      "adiada:EZTC3",
+      "adiada:SIMH3",
+      "adiada:LJQQ3"
     ]
   },
   "validado": true,
@@ -86,11 +89,14 @@
     "bdr": 3543.9998626708984,
     "lucro_bdr": 735.9998626708987
   },
-  "varredura_em": "2026-10-08",
+  "varredura_em": "2026-10-09",
   "fechamento_em": "2026-10-06",
   "adiadas": {
     "realizacao:VAMO3": "2026-10",
     "realizacao:TTEN3": "2026-10",
-    "realizacao:MOVI3": "2026-10"
+    "realizacao:MOVI3": "2026-10",
+    "realizacao:EZTC3": "2026-10",
+    "realizacao:SIMH3": "2026-10",
+    "realizacao:LJQQ3": "2026-10"
   }
 }
