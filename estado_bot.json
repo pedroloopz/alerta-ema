@@ -93,10 +93,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "INSW": "2026-10-08",
-    "PLTR": "2026-10-08"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "AEHR",
