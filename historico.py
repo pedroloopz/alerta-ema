@@ -22,6 +22,10 @@ INICIO = "2013-01-01"
 CAMPOS = ["Open", "High", "Low", "Close", "Volume"]
 REFERENCIAS = ["SPY", "QQQ", "BOVA11.SA", "^BVSP", "BTC-USD", "^TNX", "USDBRL=X"]
 PARES = ["ASTERUSDT", "BTCUSDT"]
+# carteiras de 21/09/2026 (linha de base do backtest da FASE 3), mesmo se sairem do universo
+EXTRAS = ["CRWV", "NFLX", "MVLL", "ENPH", "BE", "UBER", "UNH"] + [
+    f"{t}.SA" for t in ("LREN3", "EZTC3", "VAMO3", "TTEN3", "ALOS3", "INBR32", "HBRE3", "LJQQ3",
+                        "MOVI3", "MRVE3", "SIMH3")]
 
 
 def universo():
@@ -34,7 +38,7 @@ def universo():
             b3 += mod.indice_b3(codigo)
     except Exception as e:
         print(f"lista da B3 indisponivel ({e}); so a carteira")
-    return sorted(set(eua) | {f"{t}.SA" for t in b3} | set(REFERENCIAS))
+    return sorted(set(eua) | {f"{t}.SA" for t in b3} | set(REFERENCIAS) | set(EXTRAS))
 
 
 def ler(prefixo):
