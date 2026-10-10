@@ -1,0 +1,8 @@
+2026-10-31 17:44 UTC, 256 tickers
+yahoo: 257 tickers, 2013-01-01 a 2026-10-31 00:00
+yahoo_1h: 254 tickers, 2023-11-23 a 2026-10-31 14:00
+yahoo_amplo: 494 tickers, 2013-01-02 a 2026-10-30 00:00
+binance ASTERUSDT 1d: 391 candles, ate 2026-10-31 00:00
+binance ASTERUSDT 1h: 9366 candles, ate 2026-10-31 17:00
+binance BTCUSDT 1d: 3363 candles, ate 2026-10-31 00:00
+binance BTCUSDT 1h: 33593 candles, ate 2026-10-31 17:00
