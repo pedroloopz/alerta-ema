@@ -9,12 +9,15 @@ permissions:
 
 jobs:
   testar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -23,12 +26,14 @@ jobs:
       - name: Baixar precos (Yahoo e Binance)
         env:
           SAIDA: dados
-        run: python coleta/precos_backtest.py
+        shell: bash
+        run: python coleta/precos_backtest.py 2>&1 | tee -a run.log
 
       - name: Backtest final
         env:
           DADOS: dados
-        run: python backtest_final.py
+        shell: bash
+        run: python backtest_final.py 2>&1 | tee -a run.log
 
       - name: Salvar relatorio no repositorio
         run: |
@@ -39,12 +44,9 @@ jobs:
           git pull --rebase --autostash || true
           git push || true
 
-      - name: Avisar falha no Telegram
-        if: failure()
+      - name: Avisar falha (topico Avisos)
+        if: always()
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
-            -d chat_id="$TELEGRAM_CHAT_ID" \
-            --data-urlencode text="⚠️ O backtest final FALHOU. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"

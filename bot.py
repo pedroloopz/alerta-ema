@@ -36,6 +36,7 @@ import numpy as np
 import pandas as pd
 import requests
 
+import avisos
 import donchian as dc
 import mercado as mk
 
@@ -43,6 +44,8 @@ MODO = os.environ.get("MODO", "auto")
 TESTE = MODO == "teste"
 TOKEN = "" if TESTE else os.environ.get("TELEGRAM_TOKEN", "")
 CHAT_ID = "" if TESTE else os.environ.get("TELEGRAM_CHAT_ID", "")
+# Topico do grupo (vazio = manda como antes, sem topico)
+THREAD = "" if TESTE else os.environ.get("TELEGRAM_THREAD_ID", "").strip()
 ARQ_CARTEIRA, ARQ_ESTADO, ARQ_UNIVERSO = "carteira.json", "estado_bot.json", "universo_ondo.json"
 NY = ZoneInfo("America/New_York")
 DADOS_LOCAIS = os.environ.get("DADOS_LOCAIS", "")
@@ -78,6 +81,8 @@ def un_exato(x):
 def tg(metodo, **dados):
     if not (TOKEN and CHAT_ID):
         return {}
+    if THREAD and metodo.startswith("send"):
+        dados.setdefault("message_thread_id", int(THREAD))
     try:
         return requests.post(f"https://api.telegram.org/bot{TOKEN}/{metodo}",
                              json=dados, timeout=30).json()
@@ -110,7 +115,8 @@ def enviar_foto(caminho, legenda, silencioso=False):
         with open(caminho, "rb") as f:
             requests.post(f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
                           data={"chat_id": CHAT_ID, "caption": legenda[:1000],
-                                "disable_notification": str(silencioso).lower()},
+                                "disable_notification": str(silencioso).lower(),
+                                **({"message_thread_id": THREAD} if THREAD else {})},
                           files={"photo": f}, timeout=60)
 
 
@@ -141,6 +147,17 @@ pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
 
 
 
+def do_meu_topico(msg):
+    """Privacidade: so o chat configurado e, no grupo, so o topico deste bot (TELEGRAM_THREAD_ID).
+    Sem topico configurado, so a conversa privada. O resto e descartado sem ler nem registrar."""
+    chat = msg.get("chat", {})
+    if str(chat.get("id")) != str(CHAT_ID):
+        return False
+    if THREAD:
+        return str(msg.get("message_thread_id")) == THREAD
+    return chat.get("type") == "private"
+
+
 def ler_comandos(estado):
     """Devolve eventos: ('cmd', partes, msg_id) ou ('botao', dado, msg_id)."""
     if not TOKEN:
@@ -151,18 +168,25 @@ def ler_comandos(estado):
                          timeout=30).json()
     except Exception:
         return []
-    eventos = []
+    eventos, ignoradas = [], 0
     for u in r.get("result", []):
         estado["offset"] = u["update_id"] + 1
         if "callback_query" in u:
             cq = u["callback_query"]
-            if str(cq.get("from", {}).get("id")) == str(CHAT_ID):
+            if do_meu_topico(cq.get("message", {})):
                 tg("answerCallbackQuery", callback_query_id=cq["id"], text="Recusado")
                 eventos.append(("botao", cq.get("data", ""), cq.get("message", {}).get("message_id")))
+            else:
+                ignoradas += 1
             continue
         msg = u.get("message", {})
-        if str(msg.get("chat", {}).get("id")) == str(CHAT_ID) and msg.get("text", "").startswith("/"):
+        if not do_meu_topico(msg):
+            ignoradas += 1  # outro topico/chat: so a contagem, nada do conteudo
+            continue
+        if msg.get("text", "").startswith("/"):
             eventos.append(("cmd", msg["text"].strip().split(), msg.get("message_id")))
+    if ignoradas:
+        print(f"telegram: {ignoradas} mensagem(ns) de fora do topico ignorada(s)")
     return eventos
 
 
@@ -1000,9 +1024,12 @@ def rodar_eua(agora, forcar=(), auto=True):
     if fazer_cripto:
         try:
             est["cripto_em"] = checar_cripto(cart, est, univ, agora, ordens, cripto_px)
+            if not TESTE:
+                avisos.registrar("bot (ASTER)")
         except Exception as e:
             print("cripto falhou:", e)
-            enviar(f"⚠️ A checagem da ASTER falhou nesta execucao: {e}", silencioso=True)
+            if not TESTE:  # topico Avisos, so se a mesma falha se repetir (avisos.py)
+                avisos.registrar("bot (ASTER)", erro=f"{type(e).__name__}: {e}")
     enviar_ordens(ordens, est, antes, hoje)
     if fazer_depois and mk.eh_pregao(agora.astimezone(NY).date()):
         fechamento(cart, est, univ, dados, cripto_px, agora, hoje, sinais_dia)
@@ -1083,7 +1110,7 @@ def main():
             import b3
             b3.rodar(restantes, modo_b3, agora)
         except Exception as e:
-            enviar(f"⚠️ A parte da B3 falhou nesta execucao: {e}")
+            print(f"A parte da B3 falhou nesta execucao: {e}")  # aviso: avisos.py no workflow
             raise
 
     # ---------------- Futuros: vigilancia das posicoes alavancadas
@@ -1092,7 +1119,7 @@ def main():
             import perps
             perps.rodar(restantes, modo_b3, agora)
         except Exception as e:
-            enviar(f"⚠️ A parte dos futuros falhou nesta execucao: {e}")
+            print(f"A parte dos futuros falhou nesta execucao: {e}")  # aviso: avisos.py no workflow
             raise
 
 
