@@ -67,18 +67,6 @@
     ]
   },
   "pendentes": {
-    "entrada:PENG": {
-      "tipo": "entrada",
-      "ticker": "PENG",
-      "msg_id": 115,
-      "data": "2026-10-07"
-    },
-    "entrada:HPE": {
-      "tipo": "entrada",
-      "ticker": "HPE",
-      "msg_id": 116,
-      "data": "2026-10-07"
-    },
     "entrada:INSW": {
       "tipo": "entrada",
       "ticker": "INSW",
@@ -124,7 +112,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-09",
-  "cripto_em": "2026-10-08",
+  "cripto_em": "2026-10-09",
   "patrimonio_fech": {
     "data": "2026-10-09",
     "valor": 6135.73
