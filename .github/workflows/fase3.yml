@@ -1,0 +1,73 @@
+name: fase3
+
+# Roda so quando voce mandar. Backtest da FASE 3 (linha de base x 3 metodos, EUA e B3)
+# com o cache da branch `dados`; salva os relatorios e manda resumo_fase3.txt no topico Trade.
+on:
+  workflow_dispatch:
+    inputs:
+      enviar_resumo:
+        description: "Mandar resumo_fase3.txt no Telegram (topico Trade)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Trazer o cache (branch dados)
+        uses: actions/checkout@v7
+        with:
+          ref: dados
+          path: dados
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install pandas numpy
+
+      - name: Backtest (universo Ondo e universo amplo)
+        shell: bash
+        run: |
+          (DADOS=dados python backtest_fase3.py && UNIVERSO=amplo DADOS=dados python backtest_fase3.py) 2>&1 | tee -a run.log
+
+      - name: Salvar relatorios no repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add relatorio_fase3.txt relatorio_fase3_amplo.txt
+          git diff --staged --quiet || git commit -m "relatorio da FASE 3"
+          git pull --rebase --autostash && git push
+
+      - name: Mandar resumo no topico Trade
+        if: inputs.enviar_resumo
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python3 - <<'PY'
+          import os, urllib.parse, urllib.request
+          d = {"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": open("resumo_fase3.txt", encoding="utf-8").read()[:4000]}
+          if os.environ.get("TELEGRAM_THREAD_ID"):
+              d["message_thread_id"] = os.environ["TELEGRAM_THREAD_ID"]
+          urllib.request.urlopen(urllib.request.Request(
+              f"https://api.telegram.org/bot{os.environ['TELEGRAM_TOKEN']}/sendMessage",
+              data=urllib.parse.urlencode(d).encode()), timeout=30).read()
+          print("resumo enviado")
+          PY
+
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
