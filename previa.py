@@ -25,7 +25,7 @@ PERTO_SAIDA_EUA = 3.0      # % acima da minima de 10 dias (saida do Donchian)
 DIAS = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"]
 
 REFERENCIAS = [("ES=F", "Futuros S&P"), ("^N225", "Nikkei"), ("^STOXX50E", "Stoxx 50"),
-               ("USDBRL=X", "Dolar"), ("^BVSP", "Ibovespa")]
+               ("USDBRL=X", "Dolar"), ("^TNX", "Juros EUA 10 anos"), ("^BVSP", "Ibovespa")]
 
 num, pct = nucleo.num, nucleo.pct
 usd = lambda x, c=2: "US$ " + num(x, c)
@@ -90,6 +90,9 @@ def main():
         if not d:
             continue
         var = d["preco"] / d["ontem"] - 1
+        if t == "^TNX":  # taxa em %: variacao em pontos-base, nao em %
+            linhas.append(f"  {nome}: {num(d['preco'])}% ({(d['preco'] - d['ontem']) * 100:+.0f} pb)")
+            continue
         valor = brl(d["preco"], 4) if t == "USDBRL=X" else num(d["preco"], 0)
         linhas.append(f"  {nome}: {valor} ({pct(var)})")
     if linhas:

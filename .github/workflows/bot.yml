@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install pandas requests matplotlib yfinance lxml
+      - run: pip install pandas requests matplotlib yfinance lxml ccxt
 
       - name: Rodar o bot
         env:

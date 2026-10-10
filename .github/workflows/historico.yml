@@ -1,0 +1,59 @@
+name: historico
+
+# Cache dos historicos de precos (para os backtests nao baixarem tudo de novo).
+# Fica na branch `dados` (nao polui a main). Incremental: so baixa os ultimos dias.
+# A branch guarda sempre 1 commit so (amend + force): ~33 MB, sem crescer a cada semana.
+on:
+  schedule:
+    - cron: "17 13 * * 6"   # sabado 10h17 de Brasilia (semana fechada)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: historico
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Trazer o cache (branch dados)
+        uses: actions/checkout@v7
+        with:
+          ref: dados
+          path: dados
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install pandas requests yfinance ccxt
+
+      - name: Atualizar historicos
+        shell: bash
+        run: python historico.py dados 2>&1 | tee -a run.log
+
+      - name: Salvar na branch dados
+        working-directory: dados
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet && exit 0
+          git commit -q --amend -m "historico $(date -u +%F)"
+          git push --force
+
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
