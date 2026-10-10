@@ -9,11 +9,13 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 |---|---|---|
 | `bot` (`bot.py`, `b3.py`, `perps.py`) | dias úteis :15 e :45, 10h–19h de Brasília; 21h05 todo dia (ASTER) | EUA: Donchian 55/10 (`donchian.py`, calendário em `mercado.py`); B3; vigia dos futuros |
 | `previa` (`previa.py`) | 9h dias úteis | Prévia do dia |
-| `alerta-ema` (`alerta_ema.py`) | a cada 30 min | Toque na EMA 20 (4h) nos perps |
+| `alerta-ema` (`alerta_ema.py`) | a cada 30 min (sem rodar desde 21/09/2026) | Toque na EMA 20 (4h) nos perps |
 | `backtest`, `final`, `donchian*`, `sistemas`, `teses`… | só à mão | Backtests; relatórios `relatorio_*.txt` |
 
 - Posições: `carteira.json`, `carteira_b3.json`, `perps.json` (editáveis à mão). `estado_*.json` e `placar_notas*.csv` são do bot.
 - Universo EUA: `universo_ondo.json` (gerado por `montar_universo.py`).
+- Dados (`fontes.py`): ações por yfinance (reserva: API do Yahoo direto); ASTER/BTC por ccxt na Binance spot via `data-api.binance.vision` (api.binance.com bloqueia o GitHub; reserva: REST direto). Falha de fonte só vai pro log.
+- Cache de históricos: workflow `historico` (`historico.py`, sábado 10h17) grava na branch `dados` (diário desde 2013 + 1h; 1 commit só, regravado). Backtest: traga a branch para `dados/` e use `DADOS=dados`.
 - Telegram: botão ❌ Recusar desfaz a entrada e **apaga a mensagem**; comandos (`/recusar`, `/carteira`, `/pausa`…) no `README_BOT.md`.
 
 ## Segredos e variáveis (só os nomes)

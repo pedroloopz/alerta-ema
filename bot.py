@@ -38,6 +38,7 @@ import requests
 
 import avisos
 import donchian as dc
+import fontes
 import mercado as mk
 
 MODO = os.environ.get("MODO", "auto")
@@ -58,7 +59,6 @@ PERTO_SAIDA = 0.03           # destaque: a menos de 3% da saida
 DIAS_SILENCIO_RECUSA = 5
 SAIDA_PARCIAL = False        # variante C (50/50) reprovada no backtest -> saida 100%
 TOL_PRECO = 0.15
-BINANCE = "https://data-api.binance.vision/api/v3/klines"
 
 num = lambda x, c=2: f"{x:,.{c}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 pct = lambda x: f"{x*100:+.1f}%".replace(".", ",")
@@ -213,7 +213,7 @@ def baixar(tickers, periodo="1y"):
                     saida[t] = df
             except Exception:
                 pass
-    return saida
+    return fontes.completar_acoes(saida, tickers, periodo)  # reserva: Yahoo direto
 
 
 def universo():
@@ -393,12 +393,7 @@ def klines(par, agora, n=400):
         df = pd.read_csv(f"{DADOS_LOCAIS}/binance_{par}.csv", index_col=0, parse_dates=True)
         df = df[df.index.normalize() <= pd.Timestamp(agora.astimezone(timezone.utc).date())]
     else:
-        r = requests.get(BINANCE, params={"symbol": par, "interval": "1d", "limit": n}, timeout=30)
-        k = r.json()
-        df = pd.DataFrame(k).iloc[:, :6].astype(float)
-        df.columns = ["t", "Open", "High", "Low", "Close", "Volume"]
-        df.index = pd.to_datetime(df["t"], unit="ms")
-        df = df.drop(columns="t")
+        df = fontes.cripto(par, "1d", n)  # ccxt; reserva: REST da Binance (fontes.py)
     hoje_utc = pd.Timestamp(agora.astimezone(timezone.utc).date())
     completos = df[df.index.normalize() < hoje_utc]
     atual = float(df["Close"].iloc[-1])
