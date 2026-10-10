@@ -1,0 +1,4 @@
+{
+ "seguidas": 1,
+ "falha": "ValueError: cannot reindex on an axis with duplicate labels"
+}
