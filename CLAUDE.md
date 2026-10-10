@@ -42,3 +42,6 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 - **Simplicidade primeiro:** escreva o menor código que resolve. Nada de opção, camada ou recurso que não foi pedido.
 - **Mudanças cirúrgicas:** toque só nas linhas necessárias. Não reformate, não renomeie, não "melhore" o código vizinho.
 - **Objetivo verificável:** antes de começar, diga como saber que deu certo (teste ou execução de ensaio). Só termine quando passar.
+
+## Pendente para a FASE 1
+- Atualizar o `README.md` (descreve a versão antiga, EMA/+10%); a referência atual é o `README_BOT.md`.
