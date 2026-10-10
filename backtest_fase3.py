@@ -54,14 +54,23 @@ num = lambda x, c=1: "n/d" if x is None or (isinstance(x, float) and math.isnan(
 
 
 # ================================================================ DADOS
+AMPLO = os.environ.get("UNIVERSO") == "amplo"   # EUA no S&P 500 + Nasdaq-100 (sem vies de selecao)
+
+
 def carregar():
     d = {k: pd.read_csv(f"{DADOS}/yahoo_{k}.csv.gz", index_col=0, parse_dates=True)
          for k in ("open", "high", "low", "close", "volume")}
+    if AMPLO:
+        for k in d:
+            a = pd.read_csv(f"{DADOS}/yahoo_amplo_{k}.csv.gz", index_col=0, parse_dates=True)
+            d[k] = pd.concat([d[k], a[[c for c in a.columns if c not in d[k].columns]]], axis=1)
     return d
 
 
 def universo(mercado, d):
-    if mercado == "EUA":
+    if mercado == "EUA" and AMPLO:
+        u = [c for c in pd.read_csv(f"{DADOS}/yahoo_amplo_close.csv.gz", nrows=0, index_col=0).columns if c != "SPY"]
+    elif mercado == "EUA":
         u = [a["ticker"] for a in json.load(open("universo_ondo.json"))["ativos"] if a["tipo"] == "acao"]
     else:
         u = [c for c in d["close"].columns if c.endswith(".SA") and c != "BOVA11.SA"]
@@ -390,8 +399,10 @@ def tabela(mercado, linhas, bh):
     for metodo, v, dentro, fora, est, wf, _ in linhas:
         if not fora:
             continue
+        regra10 = metodo == "BASE10"   # realizacoes de +10% contam como "operacao": acerto nao comparavel
         T.append(f"| {NOMES[metodo]}{' ' + str(v) if v else ''} | {pct(fora['cagr'])} | {pct(fora['dd'])} | "
-                 f"{pct(fora['acerto'], 0)} | {num(fora['gp'], 2)} | {num(fora['ops_mes'], 1)} | {num(fora['dias'], 0)} | "
+                 f"{'-' if regra10 else pct(fora['acerto'], 0)} | {'-' if regra10 else num(fora['gp'], 2)} | "
+                 f"{num(fora['ops_mes'], 1)} | {'-' if regra10 else num(fora['dias'], 0)} | "
                  f"{pct(est['cagr']) if est else 'n/d'} | {pct(wf['cagr']) + ' / ' + pct(wf['dd']) if wf else '-'} | "
                  f"{pct(dentro['cagr']) + ' / ' + pct(dentro['dd']) if dentro else 'n/d'} |")
     T.append(f"| Segurar {INDICE[mercado]} | {pct(bh[1]['cagr'])} | {pct(bh[1]['dd'])} | - | - | - | - | - | - | "
@@ -405,12 +416,12 @@ def main():
          f"Custos por lado: EUA {pct(CUSTO['EUA'], 2)} (estresse {pct(ESTRESSE['EUA'], 2)}) | "
          f"B3 {pct(CUSTO['B3'], 2)} (estresse {pct(ESTRESSE['B3'], 2)}) | {VAGAS} vagas"]
     md = []
-    for mercado in ("EUA", "B3"):
+    for mercado in (("EUA",) if AMPLO else ("EUA", "B3")):
         linhas, bh = rodar(mercado, d, L)
         md += tabela(mercado, linhas, bh)
     texto = "\n".join(L) + "\n\n" + "\n".join(md) + "\n"
     print(texto)
-    open("relatorio_fase3.txt", "w", encoding="utf-8").write(texto)
+    open("relatorio_fase3" + ("_amplo" if AMPLO else "") + ".txt", "w", encoding="utf-8").write(texto)
 
 
 if __name__ == "__main__":

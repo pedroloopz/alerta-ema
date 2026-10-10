@@ -5,6 +5,7 @@ Formato igual ao da coleta antiga (backtest_final.py le direto com DADOS=<pasta>
   yahoo_{open,high,low,close,volume}.csv.gz    diario desde 2013, colunas = tickers
   yahoo_1h_{open,...}.csv.gz                   1 hora (o Yahoo da so ~730 dias; pedimos 720; o cache acumula)
   binance_{PAR}.csv e binance_{PAR}_1h.csv     ASTER e BTC (Binance spot)
+  yahoo_amplo_*.csv.gz                         diario do S&P 500 + Nasdaq-100 (teste de vies)
 Uso: python historico.py <pasta>
 """
 import json
@@ -134,6 +135,12 @@ def main():
     log = [f"{pd.Timestamp.now("UTC"):%Y-%m-%d %H:%M} UTC, {len(tickers)} tickers"]
     log.append(acoes(tickers, "yahoo", "1d"))
     log.append(acoes(tickers, "yahoo_1h", "1h"))
+    try:  # universo amplo e neutro (S&P 500 + Nasdaq-100), so diario: teste de vies do backtest
+        import bot
+        amplo = sorted(set(bot.universo()) | {"SPY"})
+        log.append(acoes(amplo, "yahoo_amplo", "1d"))
+    except Exception as e:
+        log.append(f"yahoo_amplo: ERRO {e}")
     for par in PARES:
         for intervalo in ("1d", "1h"):
             try:
