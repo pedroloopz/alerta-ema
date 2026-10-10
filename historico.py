@@ -76,8 +76,9 @@ def baixar(tickers, **kw):
                 except Exception:
                     continue
             idx = df.index.tz_localize(None) if getattr(df.index, "tz", None) is not None else df.index
+            unico = ~idx.duplicated(keep="last")   # a reserva as vezes repete horario
             for k in CAMPOS:
-                campos[k][t] = pd.Series(df[k].values, index=idx)
+                campos[k][t] = pd.Series(df[k].values[unico], index=idx[unico])
     return {k: pd.DataFrame(v) for k, v in campos.items()}
 
 
