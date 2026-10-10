@@ -17,7 +17,8 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 - Telegram: botão ❌ Recusar desfaz a entrada e **apaga a mensagem**; comandos (`/recusar`, `/carteira`, `/pausa`…) no `README_BOT.md`.
 
 ## Segredos e variáveis (só os nomes)
-- Secrets: `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID`
+- Secrets: `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID` (o grupo "Central")
+- Variables: `TELEGRAM_THREAD_ID` (tópico 📈 Trade), `TELEGRAM_AVISOS_THREAD_ID` (tópico ⚠️ Avisos)
 - Env dos workflows/testes: `MODO`, `CRON`, `BINANCE_KLINES`, `DADOS`, `DADOS_LOCAIS`, `AGORA`
 
 ## Como testar
@@ -34,6 +35,8 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 - Segredos só via `secrets`/`vars` do GitHub. Nunca chave no código nem no log; nunca peça token colado na conversa.
 - Dependeu de decisão do Pedro → pare e pergunte em uma frase, com opções.
 - **Custo:** não adicione chamadas à API do Claude. Use o Gemini gratuito ou nenhuma IA; se algo realmente precisar do Claude, pergunte antes.
+- **Privacidade:** o bot é admin do grupo e recebe tudo. Só processa mensagens do próprio tópico (`do_meu_topico` em `bot.py`); as de outros tópicos (📸 Família, 📝 Rascunhos…) são descartadas sem salvar, logar ou enviar a nenhum serviço.
+- Erros vão para ⚠️ Avisos via `avisos.py` (mesma falha 2x seguidas, 1 aviso/dia, ignora rede/429/5xx).
 - Mensagem de sinal: só a **nota**, sem detalhar critérios. Nada de diário de trade.
 - Não desfaça as posições atuais da carteira ao mudar regras. Backtest não garante resultado futuro.
 
@@ -43,5 +46,3 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 - **Mudanças cirúrgicas:** toque só nas linhas necessárias. Não reformate, não renomeie, não "melhore" o código vizinho.
 - **Objetivo verificável:** antes de começar, diga como saber que deu certo (teste ou execução de ensaio). Só termine quando passar.
 
-## Pendente para a FASE 1
-- Atualizar o `README.md` (descreve a versão antiga, EMA/+10%); a referência atual é o `README_BOT.md`.

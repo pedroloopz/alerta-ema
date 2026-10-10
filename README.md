@@ -1,51 +1,34 @@
-# Bot da carteira - EUA (Binance Wallet) + B3 (BRB)
+# alerta-ema - bot da carteira (EUA + B3)
 
-## Horarios (Brasilia, dias uteis)
+Avisos de trade no Telegram. O bot nao opera: so manda a ordem e voce executa no app.
 
-| Horario | EUA | B3 |
+- **EUA** (tokens de acoes na Binance Wallet + ASTER): sistema Donchian 55/10.
+- **B3** (app do BRB): realizacao de +10% sobre o custo e swings por nota.
+- **Futuros:** so vigia as posicoes que voce abriu.
+
+Regras, horarios, mensagens e comandos: **[README_BOT.md](README_BOT.md)**.
+Contexto para o Claude Code: [CLAUDE.md](CLAUDE.md).
+
+## Telegram (grupo com topicos)
+
+| Onde | Nome | O que e |
 |---|---|---|
-| De hora em hora | 10h15 a 19h15: realizacao de +10% e alerta de 20% nos swings | 10h15 a 17h15, so com a B3 aberta |
-| 15h15 | - | Varredura: swings, trocas, revisoes |
-| 16h15 | Varredura: swings, trocas, revisoes | - |
-| 18h15 | Fechamento: mapa + vencedores/perdedores + carteira | Fechamento B3 |
+| Secret | `TELEGRAM_TOKEN` | Token do bot |
+| Secret | `TELEGRAM_CHAT_ID` | Chat do bot (o grupo, comecando com -100) |
+| Variable | `TELEGRAM_THREAD_ID` | Topico 📈 Trade. Vazio = manda sem topico, como antes |
+| Variable | `TELEGRAM_AVISOS_THREAD_ID` | Topico ⚠️ Avisos (erros). Vazio = vai para o topico do bot |
 
-Feriado de um mercado nao afeta o outro.
+Os numeros saem do workflow manual **descobrir-ids**.
+Erros so viram aviso quando a mesma falha se repete 2 vezes seguidas, no maximo 1 por fluxo
+por dia; erro passageiro (rede, 429, 5xx) nao conta (`avisos.py`, estado em `.avisos/`).
 
-## Regras - EUA
-- **+10% numa posicao:** vende o excesso acima de US$ 1.000 → reserva USDT
-- **Swing:** 2 ATR abaixo da EMA 20, nota 6+. Nota 8+ = ate US$ 500; 6 a 7,9 = ate US$ 250
-- **Troca:** so em posicao acima de US$ 1.000, com 10+ pregoes, para grafico 7+ e 2 pontos melhor
+## Workflows
 
-## Regras - B3
-- **Base de cada posicao = o que voce pagou** (preco medio x quantidade)
-- **+10% sobre o custo:** vende o excesso em acoes inteiras → reserva R$
-- **Swing:** mesma regra, nota 8+ = ate R$ 2.000; 6 a 7,9 = ate R$ 1.000
-- **Lotes:** abaixo de 100 acoes, o bot indica o fracionario (ticker + F)
-- **Trava da isencao:** realizacao ou troca que passaria de R$ 20 mil em vendas de acoes no mes fica adiada para o mes seguinte. Saida de swing nao e travada
-- **BDR (INBR32 e final 31-39):** sem isencao. Cada venda mostra o IR estimado
-- **Universo:** IBrX-100 + Small Caps direto da B3 (~180 a 200 acoes). Se a B3 nao responder, lista de reserva
+| Workflow | Quando |
+|---|---|
+| `bot` | Dias uteis, :15 e :45 das 10h as 19h de Brasilia; 21h05 todo dia (ASTER) |
+| `previa` | 9h, dias uteis |
+| `alerta-ema` | A cada 30 min (toque na EMA 20 de 4h nos perps) |
+| `descobrir-ids`, `checar-simbolos`, backtests | So a mao (Actions → workflow → Run workflow) |
 
-## Comandos no Telegram (respondidos na proxima execucao)
-
-| Comando | EUA | B3 |
-|---|---|---|
-| Botao **❌ Recusar** | Desfaz a entrada, apaga a mensagem, silencia 5 dias | Idem |
-| `/recusar TICKER` | Mesmo efeito do botao | Idem |
-| `/nao` | Desfaz a ultima ordem | - |
-| `/nao_br` | - | Desfaz a ultima ordem |
-| `/reserva 1200` | Corrige a reserva USDT | - |
-| `/reserva_br 3000` | - | Define a reserva em R$ (conta como aporte) |
-| `/unidades TICKER N` | Corrige a quantidade | Idem |
-| `/carteira` | Mostra a carteira | Idem |
-| `/pausa 7` | Sem swings nem trocas novas por 7 dias (realizacoes e saidas continuam). `/pausa 0` encerra | Idem |
-
-## Avisos extras
-- **Balanco a frente:** o fechamento lista posicoes e swings com balanco nos proximos 2 pregoes; a mensagem de swing avisa se a acao divulga resultado logo
-- **DARF (B3):** na virada do mes o bot guarda o IR estimado do mes que fechou, avisa o valor e o vencimento, e lembra 5 dias uteis antes. Nao desconta prejuizo de meses anteriores
-- **Patrimonio da semana:** sexta, no fechamento da B3, EUA convertido pelo dolar do dia + B3 em R$
-- **Sem som:** fechamentos, mapas e respostas a comandos chegam silenciosos; so ordens tocam o celular
-
-## Arquivos
-- `bot.py` e `b3.py` - o bot
-- `carteira.json` e `carteira_b3.json` - suas posicoes. Podem ser editados a mao
-- `estado_*.json` e `placar_notas*.csv` - o bot cria e atualiza sozinho
+Testes: `python -m pytest tests`.

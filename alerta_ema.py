@@ -81,6 +81,7 @@ ARQUIVO_ESTADO = pathlib.Path("estado.json")
 ARQUIVO_CSV = pathlib.Path("sinais.csv")
 TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
 CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+THREAD = os.environ.get("TELEGRAM_THREAD_ID", "").strip()  # topico do grupo (vazio = sem topico)
 
 COLUNAS_CSV = [
     "horario_utc", "simbolo", "setor", "direcao", "nota", "enviado",
@@ -101,7 +102,8 @@ def avisar(texto: str) -> None:
         raise RuntimeError("TELEGRAM_TOKEN ou TELEGRAM_CHAT_ID ausente")
     requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-        json={"chat_id": CHAT_ID, "text": texto},
+        json={"chat_id": CHAT_ID, "text": texto,
+              **({"message_thread_id": int(THREAD)} if THREAD else {})},
         timeout=20,
     ).raise_for_status()
 

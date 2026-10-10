@@ -6,11 +6,11 @@ on:
 
 jobs:
   checar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -24,9 +24,10 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
         run: |
           curl -s -X POST \
             "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
-            -d chat_id="$TELEGRAM_CHAT_ID" \
+            -d chat_id="$TELEGRAM_CHAT_ID" ${TELEGRAM_THREAD_ID:+-d message_thread_id="$TELEGRAM_THREAD_ID"} \
             -d text="Teste do robo: token e chat ID funcionando." \
             | head -c 300

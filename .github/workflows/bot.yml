@@ -29,12 +29,15 @@ concurrency:
 
 jobs:
   rodar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -46,7 +49,8 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           MODO: ${{ inputs.modo || 'auto' }}
           CRON: ${{ github.event.schedule }}
-        run: python bot.py
+        shell: bash
+        run: python bot.py 2>&1 | tee -a run.log
 
       - name: Salvar carteira e estado
         if: always()
@@ -60,12 +64,9 @@ jobs:
           git pull --rebase --autostash || true
           git push || true
 
-      - name: Avisar falha no Telegram
-        if: failure()
+      - name: Avisar falha (topico Avisos)
+        if: always()
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
-            -d chat_id="$TELEGRAM_CHAT_ID" \
-            --data-urlencode text="⚠️ O bot da carteira FALHOU. Enquanto isso, nenhum alerta chega. Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
