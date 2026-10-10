@@ -35,7 +35,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install pandas requests yfinance ccxt
+      - run: pip install -r requirements.txt   # matplotlib: b3.py monta a lista da B3
 
       - name: Atualizar historicos
         shell: bash
