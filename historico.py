@@ -137,7 +137,8 @@ def main():
     log.append(acoes(tickers, "yahoo_1h", "1h"))
     try:  # universo amplo e neutro (S&P 500 + Nasdaq-100), so diario: teste de vies do backtest
         import bot
-        amplo = sorted(set(bot.universo()) | {"SPY"})
+        temas = {t for lista in bot.EXTRAS.values() for t in lista}   # escolhidos a dedo: fora
+        amplo = sorted((set(bot.universo()) - temas) | {"SPY"})
         log.append(acoes(amplo, "yahoo_amplo", "1d"))
     except Exception as e:
         log.append(f"yahoo_amplo: ERRO {e}")
