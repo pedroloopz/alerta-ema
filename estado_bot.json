@@ -1,5 +1,5 @@
 {
-  "offset": 50176770,
+  "offset": 50176870,
   "ultima": {
     "carteira": {
       "versao": 2,
@@ -66,20 +66,7 @@
       "entrada:PLTR"
     ]
   },
-  "pendentes": {
-    "entrada:INSW": {
-      "tipo": "entrada",
-      "ticker": "INSW",
-      "msg_id": 123,
-      "data": "2026-10-08"
-    },
-    "entrada:PLTR": {
-      "tipo": "entrada",
-      "ticker": "PLTR",
-      "msg_id": 124,
-      "data": "2026-10-08"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "alertados": {},
   "historico": [
@@ -112,7 +99,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-09",
-  "cripto_em": "2026-10-09",
+  "cripto_em": "2026-10-10",
   "patrimonio_fech": {
     "data": "2026-10-09",
     "valor": 6135.73
