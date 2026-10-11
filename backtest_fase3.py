@@ -156,7 +156,7 @@ class Carteira:
         n = p["n"] * fracao
         self.caixa += n * preco * (1 - self.custo)
         if fracao >= 0.999:
-            self.trades.append({"ret": preco * (1 - self.custo) / (p["pe"] * (1 + self.custo)) - 1,
+            self.trades.append({"t": t, "ret": preco * (1 - self.custo) / (p["pe"] * (1 + self.custo)) - 1,
                                 "dias": i - p["ie"], "saida": i})
             del self.pos[t]
         else:

@@ -1,0 +1,16 @@
+📊 FASE 3 · backtest de swing em spot
+Fora da amostra (2022 a 10/2026), com custos. Universo Ondo | universo S&P 500 + Nasdaq-100
+
+🇺🇸 EUA (retorno ao ano / queda máxima)
+• Donchian 55/10 (bot hoje): +23% / -42% | +14% / -35%
+• M1 rompimento + tendência: +19% / -44% | +14% / -39%
+• M2 compra no recuo: -1% / -41% | -3% / -28% ❌
+• M3 rotação por força relativa: +38% / -52% | +62% / -42%
+• Segurar SPY: +12% / -25%
+
+🇧🇷 B3: todos os métodos perderam para segurar o BOVA11 (+16% ao ano / -21%).
+
+Recomendação: M3 nos EUA.
+Maior risco: quedas de 40 a 50% quando o mercado muda de líder; e os números estão inflados porque as listas de ações são as de hoje.
+
+Aguardando a escolha do Pedro. Backtest não garante resultado futuro.
