@@ -1,5 +1,21 @@
 # Bot da carteira - EUA (Binance Wallet) + B3 (BRB)
 
+## Rotacao por forca relativa (M3) - EM SIMULACAO desde 11/10/2026
+
+Escolhida pelo Pedro depois do backtest da FASE 3 (`relatorio_fase3.txt`). Por 2 semanas so
+simula, sem mexer na carteira real (o Donchian abaixo continua valendo):
+- A cada 21 pregoes, apos o fechamento de NY: as 7 acoes do universo com maior forca relativa
+  (nota de 0 a 10 na mensagem); caixa se o SPY estiver abaixo da media de 200 dias.
+- Regra dos 10%: posicao 10% acima da entrada realiza o excesso para a reserva.
+- Mensagens marcadas 🧪 SIMULADO, sem som; botao ❌ Recusar apaga a mensagem e tira o ativo ate o
+  proximo rebalanceamento. Resumo semanal na sexta, no topico Trade.
+- Carteira simulada de US$ 7.000 em `estado_rotacao.json` (`rotacao.py`).
+
+## B3 - desligada em 11/10/2026
+
+Nenhum metodo testado bateu segurar o BOVA11 desde 2022 (FASE 3). O bot nao sinaliza mais
+na B3; `b3.py` e `carteira_b3.json` ficam no repositorio (`B3_ATIVA` em `bot.py` religa).
+
 ## EUA - sistema Donchian 55/10
 
 | Regra | Como funciona |
