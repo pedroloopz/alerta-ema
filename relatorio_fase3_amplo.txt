@@ -1,0 +1,61 @@
+BACKTEST FASE 3 - linha de base x 3 metodos (spot, sem alavancagem)
+Custos por lado: EUA +0,25% (estresse +0,50%) | B3 +0,10% (estresse +0,25%) | 7 vagas
+
+==============================================================================
+EUA: 497 acoes | indice SPY | 03/06/2013 a 09/10/2026
+==============================================================================
+
+Linha de base: Donchian 55/10 (bot hoje)
+   DENTRO 2015-21: +13,7% a.a. | queda -22,4% | acerto +41% | ganho/perda 2,18 | 9,5 ordens/mes | 28 pregoes por operacao | 398 operacoes
+   FORA 2022-26: +13,5% a.a. | queda -34,5% | acerto +34% | ganho/perda 2,71 | 9,5 ordens/mes | 26 pregoes por operacao | 272 operacoes
+   FORA custo estresse: +9,4% a.a. | queda -36,2% | acerto +32% | ganho/perda 2,64 | 9,5 ordens/mes | 26 pregoes por operacao | 272 operacoes
+   desde 2024: +17,4% a.a. | queda -34,5% | acerto +33% | ganho/perda 2,94 | 11,0 ordens/mes | 25 pregoes por operacao | 183 operacoes
+
+Linha de base: regra dos 10% + swings (carteira de 21/09)
+   DENTRO 2015-21: +20,3% a.a. | queda -22,3% | acerto +65% | ganho/perda 1,75 | 7,6 ordens/mes | 193 pregoes por operacao | 318 operacoes
+   FORA 2022-26: +9,9% a.a. | queda -37,0% | acerto +58% | ganho/perda 1,75 | 6,9 ordens/mes | 141 pregoes por operacao | 198 operacoes
+   FORA custo estresse: +8,1% a.a. | queda -37,1% | acerto +55% | ganho/perda 1,69 | 6,9 ordens/mes | 141 pregoes por operacao | 198 operacoes
+   desde 2024: +18,2% a.a. | queda -16,6% | acerto +65% | ganho/perda 1,80 | 9,1 ordens/mes | 82 pregoes por operacao | 151 operacoes
+
+M1 Rompimento + filtro de tendencia | variante escolhida no DENTRO: (20, 3.0)
+   dentro (20, 3.0): +19,7% a.a. / queda -25,7% (ret/queda 0,77)
+   dentro (40, 3.0): +19,8% a.a. / queda -25,9% (ret/queda 0,76)
+   dentro (20, 4.0): +20,3% a.a. / queda -29,6% (ret/queda 0,69)
+   DENTRO 2015-21: +19,7% a.a. | queda -25,7% | acerto +43% | ganho/perda 2,33 | 7,4 ordens/mes | 35 pregoes por operacao | 310 operacoes
+   FORA 2022-26: +13,8% a.a. | queda -38,6% | acerto +39% | ganho/perda 2,34 | 7,4 ordens/mes | 34 pregoes por operacao | 211 operacoes
+   FORA custo estresse: +10,5% a.a. | queda -41,8% | acerto +38% | ganho/perda 2,24 | 7,4 ordens/mes | 34 pregoes por operacao | 211 operacoes
+   desde 2024: +15,0% a.a. | queda -38,6% | acerto +37% | ganho/perda 2,36 | 8,9 ordens/mes | 31 pregoes por operacao | 147 operacoes
+   walk-forward 2019-26 (so anos de fora): +31,4% a.a. | queda -33,3% | escolhas 2019:(20, 3.0) 2020:(20, 3.0) 2021:(20, 4.0) 2022:(20, 3.0) 2023:(20, 4.0) 2024:(20, 4.0) 2025:(20, 4.0) 2026:(20, 4.0)
+
+M2 Tendencia com entrada em recuo | variante escolhida no DENTRO: (10, 10, 15)
+   dentro (10, 5, 10): -10,1% a.a. / queda -65,7% (ret/queda -0,15)
+   dentro (5, 5, 10): -9,9% a.a. / queda -63,2% (ret/queda -0,16)
+   dentro (10, 10, 15): +0,5% a.a. / queda -32,5% (ret/queda 0,01)
+   DENTRO 2015-21: +0,5% a.a. | queda -32,5% | acerto +62% | ganho/perda 0,65 | 35,8 ordens/mes | 7 pregoes por operacao | 1504 operacoes
+   FORA 2022-26: -3,1% a.a. | queda -27,5% | acerto +61% | ganho/perda 0,61 | 31,6 ordens/mes | 7 pregoes por operacao | 902 operacoes
+   FORA custo estresse: -15,4% a.a. | queda -58,5% | acerto +56% | ganho/perda 0,55 | 31,6 ordens/mes | 7 pregoes por operacao | 902 operacoes
+   desde 2024: +3,3% a.a. | queda -25,5% | acerto +63% | ganho/perda 0,64 | 37,3 ordens/mes | 7 pregoes por operacao | 620 operacoes
+   walk-forward 2019-26 (so anos de fora): +0,9% a.a. | queda -34,2% | escolhas 2019:(10, 10, 15) 2020:(10, 10, 15) 2021:(10, 10, 15) 2022:(10, 10, 15) 2023:(10, 10, 15) 2024:(10, 10, 15) 2025:(10, 10, 15) 2026:(10, 10, 15)
+
+M3 Rotacao por forca relativa | variante escolhida no DENTRO: (252, 21)
+   dentro (126, 21): +37,7% a.a. / queda -34,2% (ret/queda 1,10)
+   dentro (252, 21): +39,2% a.a. / queda -31,8% (ret/queda 1,23)
+   dentro (63, 0): +19,3% a.a. / queda -35,4% (ret/queda 0,54)
+   DENTRO 2015-21: +39,2% a.a. | queda -31,8% | acerto +49% | ganho/perda 3,77 | 3,9 ordens/mes | 60 pregoes por operacao | 165 operacoes
+   FORA 2022-26: +61,5% a.a. | queda -41,6% | acerto +57% | ganho/perda 4,53 | 3,2 ordens/mes | 66 pregoes por operacao | 91 operacoes
+   FORA custo estresse: +59,6% a.a. | queda -41,6% | acerto +53% | ganho/perda 5,11 | 3,2 ordens/mes | 66 pregoes por operacao | 91 operacoes
+   desde 2024: +99,2% a.a. | queda -41,6% | acerto +68% | ganho/perda 6,56 | 3,0 ordens/mes | 83 pregoes por operacao | 50 operacoes
+   walk-forward 2019-26 (so anos de fora): +49,5% a.a. | queda -41,6% | escolhas 2019:(252, 21) 2020:(126, 21) 2021:(252, 21) 2022:(126, 21) 2023:(252, 21) 2024:(252, 21) 2025:(252, 21) 2026:(252, 21)
+
+Segurar SPY: dentro +14,8% / -33,7% | fora +12,3% / -24,5% | desde 2024 +21,2% / -18,8%
+
+
+### EUA (FORA da amostra: 2022 a hoje; custo base)
+| Metodo | Ret. a.a. | Queda max | Acertos | Ganho/perda | Ordens/mes | Pregoes/op | Ret. a.a. estresse | Walk-forward 2019+ | Dentro 2015-21 |
+|---|---|---|---|---|---|---|---|---|---|
+| Linha de base: Donchian 55/10 (bot hoje) | +13,5% | -34,5% | +34% | 2,71 | 9,5 | 26 | +9,4% | - | +13,7% / -22,4% |
+| Linha de base: regra dos 10% + swings (carteira de 21/09) | +9,9% | -37,0% | - | - | 6,9 | - | +8,1% | - | +20,3% / -22,3% |
+| M1 Rompimento + filtro de tendencia (20, 3.0) | +13,8% | -38,6% | +39% | 2,34 | 7,4 | 34 | +10,5% | +31,4% / -33,3% | +19,7% / -25,7% |
+| M2 Tendencia com entrada em recuo (10, 10, 15) | -3,1% | -27,5% | +61% | 0,61 | 31,6 | 7 | -15,4% | +0,9% / -34,2% | +0,5% / -32,5% |
+| M3 Rotacao por forca relativa (252, 21) | +61,5% | -41,6% | +57% | 4,53 | 3,2 | 66 | +59,6% | +49,5% / -41,6% | +39,2% / -31,8% |
+| Segurar SPY | +12,3% | -24,5% | - | - | - | - | - | - | +14,8% / -33,7% |
