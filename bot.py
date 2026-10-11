@@ -39,6 +39,7 @@ import requests
 import avisos
 import donchian as dc
 import fontes
+import rotacao
 import mercado as mk
 
 MODO = os.environ.get("MODO", "auto")
@@ -50,6 +51,8 @@ THREAD = "" if TESTE else os.environ.get("TELEGRAM_THREAD_ID", "").strip()
 ARQ_CARTEIRA, ARQ_ESTADO, ARQ_UNIVERSO = "carteira.json", "estado_bot.json", "universo_ondo.json"
 NY = ZoneInfo("America/New_York")
 DADOS_LOCAIS = os.environ.get("DADOS_LOCAIS", "")
+# B3 desligada em 11/10/2026 (FASE 3: nenhum metodo bateu segurar o BOVA11 desde 2022)
+B3_ATIVA = False
 
 # ================================================================ REGRAS EUA
 ORDEM_MINIMA = 50.0          # US$ (definido por voce)
@@ -548,6 +551,8 @@ def processar_comandos(cart, est, eventos, univ, dados, cripto_px, hoje):
         if ev[0] == "botao":
             if ev[1].startswith("rec|"):
                 recusar(cart, est, ev[1][4:], hoje)
+            elif ev[1].startswith("rot|"):              # rotacao (M3) em simulacao
+                rotacao.recusar(ev[1][4:], ev[2], apagar)
             else:
                 restantes.append(ev)
             continue
@@ -1029,6 +1034,15 @@ def rodar_eua(agora, forcar=(), auto=True):
     if fazer_depois and mk.eh_pregao(agora.astimezone(NY).date()):
         fechamento(cart, est, univ, dados, cripto_px, agora, hoje, sinais_dia)
         est["fechamento_em"] = hoje
+        try:  # rotacao por forca relativa (M3), em simulacao desde 11/10/2026
+            rotacao.rodar(dados, univ, hoje, lambda t, b, s: enviar(t, botao=b, silencioso=s),
+                          lambda t: token_de(t, univ), gravar=not TESTE)
+            if not TESTE:
+                avisos.registrar("bot (rotacao)")
+        except Exception as e:
+            print("rotacao falhou:", e)
+            if not TESTE:
+                avisos.registrar("bot (rotacao)", erro=f"{type(e).__name__}: {e}")
     ultimo_preco_posicoes(cart, dados, cripto_px)
     salvar(cart, est)
     return restantes
@@ -1100,7 +1114,7 @@ def main():
         return
 
     # ---------------- B3: mesmo esquema, feriados e horarios proprios
-    if os.path.exists("carteira_b3.json"):
+    if B3_ATIVA and os.path.exists("carteira_b3.json"):
         try:
             import b3
             b3.rodar(restantes, modo_b3, agora)
