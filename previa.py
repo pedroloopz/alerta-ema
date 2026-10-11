@@ -56,8 +56,9 @@ def resultado_proximo(ticker):
 def main():
     agora = datetime.now(SP)
     cart = ler("carteira.json")
-    cart_b3 = ler("carteira_b3.json")
-    est_b3 = ler("estado_b3.json", {"swings": {}, "vendas_mes": {}})
+    cart_b3 = ler("carteira_b3.json") if nucleo.B3_ATIVA else {"ativos": {}}   # B3 fora do bot
+    est_b3 = ler("estado_b3.json", {"swings": {}, "vendas_mes": {}}) if nucleo.B3_ATIVA else \
+        {"swings": {}, "vendas_mes": {}}
     perps = ler("perps.json", {"posicoes": {}, "eventos": {}})
 
     tokens = [t for t, a in cart.get("ativos", {}).items() if a.get("tipo") != "cripto"]
@@ -149,7 +150,8 @@ def main():
                  + (f"faltam {brl(falta, 0)} para o limite" if falta > 0
                     else "ja passou da isencao"))
     L.append(f"🎣 VAGAS: EUA {len(cart.get('ativos', {}))}/7 (caixa {usd(cart.get('reserva_usdt', 0), 0)}) | "
-             f"swing B3 {len(est_b3.get('swings', {}))}/2 | futuros {len(futuros)}/2")
+             + (f"swing B3 {len(est_b3.get('swings', {}))}/2 | " if nucleo.B3_ATIVA else "")
+             + f"futuros {len(futuros)}/2")
 
     texto = "\n".join(L)
     print(texto)

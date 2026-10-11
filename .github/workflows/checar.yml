@@ -14,20 +14,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install requests
+      - run: pip install -r requirements.txt
 
-      - name: Conferir simbolos na corretora
-        run: python checar_simbolos.py
-
-      # Confirma que o token e o chat ID guardados nos secrets funcionam.
-      - name: Mandar mensagem de teste no Telegram
+      - name: TEMP bot MODO=teste no fechamento de sexta (rotacao simulada)
         env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
-        run: |
-          curl -s -X POST \
-            "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
-            -d chat_id="$TELEGRAM_CHAT_ID" ${TELEGRAM_THREAD_ID:+-d message_thread_id="$TELEGRAM_THREAD_ID"} \
-            -d text="Teste do robo: token e chat ID funcionando." \
-            | head -c 300
+          MODO: teste
+          FASE: depois
+          AGORA: "2026-10-09T21:15Z"
+        run: python bot.py
+
+      - name: TEMP previa sem B3 e sem Telegram
+        run: python previa.py
+

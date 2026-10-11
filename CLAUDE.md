@@ -7,10 +7,11 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 
 | Workflow | Quando | O que faz |
 |---|---|---|
-| `bot` (`bot.py`, `b3.py`, `perps.py`) | dias úteis :15 e :45, 10h–19h de Brasília; 21h05 todo dia (ASTER) | EUA: Donchian 55/10 (`donchian.py`, calendário em `mercado.py`); B3; vigia dos futuros |
+| `bot` (`bot.py`, `rotacao.py`, `perps.py`) | dias úteis :15 e :45, 10h–19h de Brasília; 21h05 todo dia (ASTER) | EUA: Donchian 55/10 (`donchian.py`, calendário em `mercado.py`); rotação M3 em simulação (`estado_rotacao.json`); vigia dos futuros. B3 desligada (`B3_ATIVA`) |
 | `previa` (`previa.py`) | 9h dias úteis | Prévia do dia |
 | `alerta-ema` (`alerta_ema.py`) | a cada 30 min (sem rodar desde 21/09/2026) | Toque na EMA 20 (4h) nos perps |
 | `backtest`, `final`, `donchian*`, `sistemas`, `teses`… | só à mão | Backtests; relatórios `relatorio_*.txt` |
+| `fase3` (`backtest_fase3.py`) | só à mão | Backtest da FASE 3 (base x M1/M2/M3, EUA e B3) e resumo no tópico Trade |
 
 - Posições: `carteira.json`, `carteira_b3.json`, `perps.json` (editáveis à mão). `estado_*.json` e `placar_notas*.csv` são do bot.
 - Universo EUA: `universo_ondo.json` (gerado por `montar_universo.py`).
