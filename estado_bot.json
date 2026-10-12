@@ -1,5 +1,5 @@
 {
-  "offset": 50176870,
+  "offset": 50177103,
   "ultima": {
     "carteira": {
       "versao": 2,
@@ -98,10 +98,10 @@
     }
   ],
   "pausa_ate": null,
-  "fechamento_em": "2026-10-09",
+  "fechamento_em": "2026-10-12",
   "cripto_em": "2026-10-11",
   "patrimonio_fech": {
-    "data": "2026-10-09",
-    "valor": 6135.73
+    "data": "2026-10-12",
+    "valor": 6123.54
   }
 }

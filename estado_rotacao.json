@@ -1,0 +1,115 @@
+{
+ "modo": "simulado",
+ "inicio": "2026-10-12",
+ "fim_simulacao": "2026-10-26",
+ "caixa": 7000.0,
+ "posicoes": {},
+ "pendentes": [
+  {
+   "t": "MXL",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 394
+  },
+  {
+   "t": "DELL",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 395
+  },
+  {
+   "t": "HPE",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 396
+  },
+  {
+   "t": "SNOW",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 397
+  },
+  {
+   "t": "UMC",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 398
+  },
+  {
+   "t": "FCEL",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 399
+  },
+  {
+   "t": "MU",
+   "tipo": "compra",
+   "valor": 1000.0,
+   "msg": 400
+  }
+ ],
+ "pregoes": 1,
+ "ultimo_dia": "2026-10-12",
+ "recusados": {},
+ "sinais": [
+  {
+   "data": "2026-10-12",
+   "t": "MXL",
+   "tipo": "compra",
+   "preco": 88.98999786376953,
+   "msg": 394
+  },
+  {
+   "data": "2026-10-12",
+   "t": "DELL",
+   "tipo": "compra",
+   "preco": 576.760009765625,
+   "msg": 395
+  },
+  {
+   "data": "2026-10-12",
+   "t": "HPE",
+   "tipo": "compra",
+   "preco": 70.33000183105469,
+   "msg": 396
+  },
+  {
+   "data": "2026-10-12",
+   "t": "SNOW",
+   "tipo": "compra",
+   "preco": 360.3699951171875,
+   "msg": 397
+  },
+  {
+   "data": "2026-10-12",
+   "t": "UMC",
+   "tipo": "compra",
+   "preco": 22.549999237060547,
+   "msg": 398
+  },
+  {
+   "data": "2026-10-12",
+   "t": "FCEL",
+   "tipo": "compra",
+   "preco": 16.3700008392334,
+   "msg": 399
+  },
+  {
+   "data": "2026-10-12",
+   "t": "MU",
+   "tipo": "compra",
+   "preco": 989.0399780273438,
+   "msg": 400
+  }
+ ],
+ "trades": [],
+ "valores": [
+  {
+   "data": "2026-10-12",
+   "valor": 7000.0,
+   "spy": 778.0999755859375
+  }
+ ],
+ "resumo_em": null,
+ "fim_avisado": false
+}
