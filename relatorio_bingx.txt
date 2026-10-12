@@ -70,6 +70,23 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 | Short | 175 trades, acerto 28%, US$ -743 | 176 trades, acerto 22%, US$ -569 | 412 trades, acerto 76%, US$ -2104 | 125 trades, acerto 94%, US$ +1720 |
 | Liquidações | 0 | 0 | 1 | 11 |
 
+## Só comprado (sem shorts) — os 3 pares juntos
+
+| | A Entrada única | B Piramidação | C DCA de futuros | D Martingale |
+|---|---|---|---|---|
+| Lucro total (US$) | -587 | -440 | +1038 | -1000 |
+| Pior queda acumulada (US$) | -634 | -444 | -501 | -1250 |
+| Trades por semana | 2.2 | 2.3 | 6.3 | 2.7 |
+| Semanas no positivo | 17% | 19% | 47% | 2% |
+| Semana típica (mediana, US$) | +0 | +0 | +0 | +0 |
+| Semana ruim (1 em 10, US$) | -61 | -32 | -93 | +0 |
+| Semana boa (1 em 10, US$) | +21 | +7 | +144 | +0 |
+| Pior semana (US$) | -73 | -59 | -239 | -607 |
+| Melhor semana (US$) | +86 | +51 | +247 | +146 |
+| Long | 119 trades, acerto 29%, US$ -587 | 120 trades, acerto 22%, US$ -440 | 332 trades, acerto 83%, US$ +1037 | 143 trades, acerto 92%, US$ -798 |
+| Short | 0 trades | 0 trades | 0 trades | 0 trades |
+| Liquidações | 0 | 0 | 0 | 11 |
+
 ## Resumo em linguagem simples
 
 🏆 O que mais funcionou no período: A Entrada única  
@@ -82,7 +99,19 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
    • 1 em cada 10 semanas: ganha mais que 47 US$  
    • Pior semana do teste: -139 US$ · melhor: +140 US$  
 ⚠️ Nenhuma variante passou sem liquidação e com queda menor que US$ 300.  
-⚠️ Nenhuma variante deu lucro no período: não opere com dinheiro real.
+⚠️ Nenhuma variante deu lucro no período: não opere com dinheiro real.  
+  
+SÓ COMPRADO (sem shorts):  
+🏆 O que mais funcionou no período: C DCA de futuros  
+   Lucro total +1038 US$, pior queda -501 US$, liquidações: 0.  
+📅 Maior chance de fechar UMA semana no positivo: C DCA de futuros (47% das semanas).  
+  
+💵 Numa semana com C DCA de futuros (3 pares juntos, US$ 1.000):  
+   • Semana típica: +0 US$  
+   • 1 em cada 10 semanas: perde mais que 93 US$  
+   • 1 em cada 10 semanas: ganha mais que 144 US$  
+   • Pior semana do teste: -239 US$ · melhor: +247 US$  
+⚠️ Nenhuma variante passou sem liquidação e com queda menor que US$ 300.
 
 Stop e alvo maleáveis: em ATR, mais largos com o mercado agitado; com a tendência do 4h forte, A e B ficam sem alvo e seguem no stop móvel. 
 Premissas: taxa taker 0,05% e maker 0,02%, slippage 0,05% em ordens a mercado, funding estimado 0,01%/8h, liquidação isolada a ~9,5% do preço médio. Resultado passado não garante resultado futuro.
