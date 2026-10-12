@@ -243,7 +243,7 @@ class Pos:
         return self.avg * (1 - self.side * LIQ_MOVE)
 
 
-def run(d, v):
+def run(d, v, lados="ambos"):
     realized, trades, curve = 0.0, [], []
     pos = None
     dead = False
@@ -329,6 +329,8 @@ def run(d, v):
         # entradas (avaliadas no fechamento da vela)
         if pos is None:
             side = 1 if r["long_sig"] else (-1 if r["short_sig"] else 0)
+            if lados == "long" and side < 0:
+                side = 0
             if side:
                 N = P["margin"] * P["lev"]
                 forte = r["forte"] == 1
@@ -501,6 +503,23 @@ def main():
         comb[NAMES[v]], weeks[NAMES[v]] = stats(cv, tr)
     md.append(table("Os 3 pares juntos (carteira de US$ 1.000)", comb))
     summary = verdict(comb, weeks)
+    # mesma coisa, só comprado (sem shorts)
+    combL, weeksL = {}, {}
+    for v in NAMES:
+        cs, ts = [], []
+        for s, d in data.items():
+            cvc, trc = run(d.loc[start:end], v, "long")
+            cs.append(cvc - P["capital"])
+            if len(trc):
+                ts.append(trc)
+        cv = P["capital"] + pd.concat(cs, axis=1).ffill().fillna(0).sum(axis=1)
+        broke = cv[cv <= 0]
+        if len(broke):
+            cv[cv.index >= broke.index[0]] = 0.0
+        tr = pd.concat(ts, ignore_index=True) if ts else pd.DataFrame(columns=["side", "pnl", "reason"])
+        combL[NAMES[v]], weeksL[NAMES[v]] = stats(cv, tr)
+    md.append(table("Só comprado (sem shorts) — os 3 pares juntos", combL))
+    summary += "\n\nSÓ COMPRADO (sem shorts):\n" + verdict(combL, weeksL)
     md += ["## Resumo em linguagem simples", "", summary.replace("\n", "  \n"), "",
            "Stop e alvo maleáveis: em ATR, mais largos com o mercado agitado; com a tendência "
            "do 4h forte, A e B ficam sem alvo e seguem no stop móvel. ",
