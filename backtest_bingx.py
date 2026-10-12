@@ -107,15 +107,20 @@ def fetch_vision(symbol):
 FONTE = {}
 
 
-def fetch_1h(symbol):
-    try:
-        df = fetch_bingx(symbol)
-        FONTE[symbol] = "BingX perpétuo"
-    except Exception as e:
-        print(f"BingX falhou para {symbol} ({e}); usando spot da Binance")
-        df = fetch_vision(symbol)
-        FONTE[symbol] = "Binance spot"
-    return df
+def fetch_1h(symbol, fonte="binance"):
+    """Binance spot tem o histórico completo de 1h; a API da BingX só devolve
+    os últimos ~2 meses. O preço do spot acompanha o do perpétuo de perto."""
+    ordem = [("binance", fetch_vision, "Binance spot"), ("bingx", fetch_bingx, "BingX perpétuo")]
+    if fonte == "bingx":
+        ordem.reverse()
+    for _, fn, nome in ordem:
+        try:
+            df = fn(symbol)
+            FONTE[symbol] = nome
+            return df
+        except Exception as e:
+            print(f"{nome} falhou para {symbol}: {e}")
+    raise RuntimeError(f"Sem dados para {symbol}")
 
 
 def fetch_bingx(symbol):
@@ -459,29 +464,32 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--symbols", default="ONDO-USDT,ASTER-USDT,PENDLE-USDT")
     ap.add_argument("--synthetic", action="store_true")
+    ap.add_argument("--fonte", default="binance", choices=["binance", "bingx"])
     a = ap.parse_args()
     syms = [s.strip() for s in a.symbols.split(",") if s.strip()]
     data = {}
     for i, s in enumerate(syms):
-        df = synthetic(i + 1) if a.synthetic else fetch_1h(s)
+        df = synthetic(i + 1) if a.synthetic else fetch_1h(s, a.fonte)
         data[s] = prepare(df)
     start = max(d.index[0] for d in data.values())
     end = min(d.index[-1] for d in data.values())
     md = ["# Backtest v2 — ONDO, ASTER, PENDLE (1h + 4h, isolada US$ 100 × 10x)", ""]
     if a.synthetic:
         md.append("**DADOS SIMULADOS — só teste de código, resultados sem valor.**\n")
-    md.append(f"Período comum aos {len(syms)} pares: {start:%d/%m/%Y} a {end:%d/%m/%Y}.\n")
+    md.append("Cada par é testado no seu histórico inteiro; a carteira junta usa só o "
+              f"período comum aos {len(syms)} pares: {start:%d/%m/%Y} a {end:%d/%m/%Y}.\n")
     curves = {v: [] for v in NAMES}
     all_tr = {v: [] for v in NAMES}
     for s, d in data.items():
-        d = d.loc[start:end]
         res = {}
         for v in NAMES:
             cv, tr = run(d, v)
-            curves[v].append(cv - P["capital"])
-            all_tr[v].append(tr)
             res[NAMES[v]], _ = stats(cv, tr)
-        md.append(table(f"{s} (dados: {FONTE.get(s, 'simulados')})", res))
+            cvc, trc = run(d.loc[start:end], v)
+            curves[v].append(cvc - P["capital"])
+            all_tr[v].append(trc)
+        md.append(table(f"{s} — {d.index[0]:%d/%m/%Y} a {d.index[-1]:%d/%m/%Y} "
+                        f"(dados: {FONTE.get(s, 'simulados')})", res))
     comb, weeks = {}, {}
     for v in NAMES:
         cv = P["capital"] + pd.concat(curves[v], axis=1).ffill().fillna(0).sum(axis=1)
