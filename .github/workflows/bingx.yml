@@ -1,0 +1,62 @@
+name: bingx-backtest
+
+# Backtest do bot de execucao na BingX (ONDO, ASTER, PENDLE).
+# Roda sozinho quando o script ou este arquivo mudam, ou a mao em Actions.
+on:
+  workflow_dispatch:
+    inputs:
+      pares:
+        description: "Pares separados por virgula"
+        default: "ONDO-USDT,ASTER-USDT,PENDLE-USDT"
+  push:
+    branches: [main]
+    paths:
+      - backtest_bingx.py
+      - .github/workflows/bingx.yml
+
+permissions:
+  contents: write
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install pandas numpy
+
+      - name: Backtest BingX
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PARES: ${{ github.event.inputs.pares || 'ONDO-USDT,ASTER-USDT,PENDLE-USDT' }}
+        shell: bash
+        run: python backtest_bingx.py --symbols "$PARES" 2>&1 | tee -a run.log; exit ${PIPESTATUS[0]}
+
+      - name: Mostrar resultado no resumo da execucao
+        if: always()
+        run: cat relatorio_bingx.txt >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Salvar relatorio no repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add relatorio_bingx.txt || true
+          git diff --staged --quiet || git commit -m "backtest bingx"
+          git pull --rebase --autostash || true
+          git push || true
+
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
