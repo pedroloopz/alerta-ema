@@ -1,6 +1,6 @@
 name: painel-scanner
 
-# Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade, enviadas ao Google Drive
+# Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade e do modelo de fluxo, enviadas ao Google Drive
 # (arquivo painel-trade.json), que o painel no Claude le.
 on:
   schedule:
