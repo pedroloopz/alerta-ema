@@ -1,0 +1,106 @@
+universo: 439 ativos (166 cripto, 273 ações)
+falhou NCSKAPLD2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKLRCX2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKCOST2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+sinais simulados: 75558 em 46s
+saídas escolhidas: {
+ "acao|EXA": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.188,
+  "r": -0.343,
+  "n": 128
+ },
+ "acao|PULL": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.207,
+  "r": -0.556,
+  "n": 1903
+ },
+ "acao|ROMP": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.318,
+  "r": -0.185,
+  "n": 943
+ },
+ "acao|SQZ": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.227,
+  "r": -0.628,
+  "n": 2815
+ },
+ "cripto|EXA": {
+  "sl": 1.5,
+  "tp": 2.0,
+  "p": 0.392,
+  "r": -0.075,
+  "n": 260
+ },
+ "cripto|PULL": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.251,
+  "r": -0.082,
+  "n": 1135
+ },
+ "cripto|ROMP": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.312,
+  "r": -0.04,
+  "n": 3309
+ },
+ "cripto|SQZ": {
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.328,
+  "r": -0.118,
+  "n": 2100
+ }
+}
+validação fora da amostra: {
+ "1": {
+  "n": 2534,
+  "acerto": 0.359,
+  "r_medio": -0.139
+ },
+ "2": {
+  "n": 187,
+  "acerto": 0.439,
+  "r_medio": -0.018
+ },
+ "3": {
+  "n": 60,
+  "acerto": 0.517,
+  "r_medio": 0.236
+ },
+ "4": {
+  "n": 14,
+  "acerto": 0.214,
+  "r_medio": -0.556
+ },
+ "5": {
+  "n": 6,
+  "acerto": 0.0,
+  "r_medio": -0.257
+ },
+ "8+": {
+  "n": 0,
+  "acerto": null,
+  "r_medio": null
+ },
+ "3-": {
+  "n": 2781,
+  "acerto": 0.367,
+  "r_medio": -0.123
+ },
+ "todos": {
+  "n": 2801,
+  "acerto": 0.366,
+  "r_medio": -0.126
+ }
+}
+ok em 46s; stats.json 144 KB
