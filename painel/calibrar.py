@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import dados  # noqa: E402
 import nucleo as nc  # noqa: E402
 
-DIAS = 60
+DIAS = 90
 SAIDA = os.path.join(os.path.dirname(__file__), "stats.json")
 
 
@@ -41,7 +41,7 @@ def sessao_acao():
 
 def processar(ativo):
     try:
-        df = dados.klines(ativo["simbolo"], dias=DIAS)
+        df = dados.historico(ativo, dias=DIAS)
         if df is None or len(df) < 600:
             return None
         if ativo["classe"] == "acao":
@@ -68,19 +68,19 @@ def processar(ativo):
 
 
 def escolher_saidas(t):
-    """Para cada classe+setup, o par SL/TP com melhor R médio (mínimo 100 trades)."""
-    g = t.groupby(["classe", "setup", "sl", "tp"]).agg(n=("r", "size"), r=("r", "mean"), p=("ganhou", "mean")).reset_index()
+    """Para cada classe+setup+lado, o par SL/TP com melhor R médio (mínimo 100 trades)."""
+    g = t.groupby(["classe", "setup", "lado", "sl", "tp"]).agg(n=("r", "size"), r=("r", "mean"), p=("ganhou", "mean")).reset_index()
     g = g[g["n"] >= 100]
     out = {}
-    for (classe, setup), grp in g.groupby(["classe", "setup"]):
+    for (classe, setup, lado), grp in g.groupby(["classe", "setup", "lado"]):
         m = grp.sort_values("r", ascending=False).iloc[0]
-        out[f"{classe}|{setup}"] = {"sl": float(m["sl"]), "tp": float(m["tp"]),
+        out[f"{classe}|{setup}|{lado}"] = {"sl": float(m["sl"]), "tp": float(m["tp"]),
                                     "p": round(float(m["p"]), 3), "r": round(float(m["r"]), 3), "n": int(m["n"])}
     return out
 
 
 def filtrar_saidas(t, saidas):
-    k = t["classe"] + "|" + t["setup"]
+    k = t["classe"] + "|" + t["setup"] + "|" + t["lado"].astype(str)
     sl = k.map(lambda x: saidas.get(x, {}).get("sl"))
     tp = k.map(lambda x: saidas.get(x, {}).get("tp"))
     return t[(t["sl"] == sl) & (t["tp"] == tp)]
@@ -96,7 +96,7 @@ def montar_stats(t):
     classe = {c: {"p": float(x["ganhou"].mean()), "r": float(x["r"].mean()), "n": int(len(x))}
               for c, x in t.groupby("classe")}
     return {
-        "base": agrega(t.groupby(["classe", "setup", "lado", "alinhado"]), None),
+        "base": agrega(t.groupby(["classe", "setup", "lado", "alinhado", "regime"]), None),
         "ativo": agrega(t.groupby(["ativo", "setup", "lado"]), None),
         "hora": agrega(t.groupby(["classe", "hora"]), None),
         "classe": classe,
@@ -107,7 +107,7 @@ def validar(treino, teste):
     st = montar_stats(treino)
     linhas = []
     for row in teste.itertuples():
-        e = nc.estimar(st, row.classe, row.ativo, row.setup, row.lado, row.alinhado, row.hora)
+        e = nc.estimar(st, row.classe, row.ativo, row.setup, row.lado, row.alinhado, row.hora, row.regime)
         if e:
             linhas.append((nc.nota_de(e["p"], e["ev_r"], e["n_base"]), row.ganhou, row.r, row.classe))
     v = pd.DataFrame(linhas, columns=["nota", "ganhou", "r", "classe"])
@@ -137,6 +137,9 @@ def main():
     res = [r for r in dados.em_paralelo(processar, uni, n=6) if r is not None]
     t = pd.concat(res, ignore_index=True).dropna(subset=["r"])
     print(f"sinais simulados: {len(t)} em {time.time() - t0:.0f}s", flush=True)
+    for c, x in t.groupby("classe"):
+        print(f"  {c}: {x['ativo'].nunique()} ativos, de {x['tempo'].min()} a {x['tempo'].max()}", flush=True)
+    print("fontes:", dict(pd.Series(list(dados.FONTE.values())).value_counts()), flush=True)
 
     corte = t["tempo"].min() + (t["tempo"].max() - t["tempo"].min()) * 0.75
     treino_all, teste_all = t[t["tempo"] < corte], t[t["tempo"] >= corte]
