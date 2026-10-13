@@ -227,7 +227,8 @@ def main():
         "setups_melhores": base[:5],
         "setups_piores": base[-5:][::-1],
         "sinais": sinais,
-        "ml": ml[:40],
+        "ml": [x for lado in ("LONG", "SHORT")
+               for x in sorted((y for y in ml if y["lado"] == lado), key=lambda y: -y["pont"])[:10]],
         "ml_info": stats.get("ml") and {k: stats["ml"][k] for k in ("tp", "sl", "horas", "teste", "ativos")},
         "ml_faixas": stats.get("ml", {}).get("faixas"),
         "placar_ml": stats.get("placar_ml"),
