@@ -20,6 +20,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(__file__))
 import dados  # noqa: E402
+import modelo  # noqa: E402
 import nucleo as nc  # noqa: E402
 
 DIAS = 90
@@ -27,6 +28,56 @@ SAIDA = os.path.join(os.path.dirname(__file__), "stats.json")
 
 
 PERFIS = []
+ML_LINHAS, KL, BTC = [], {}, {}
+AQUI = os.path.dirname(__file__)
+LOG_ML = os.path.join(AQUI, "..", "coleta", "ml_log.csv")
+
+
+def linhas_modelo(ativo, df):
+    """Decisões de hora em hora do modelo de fluxo (só cripto com histórico longo)."""
+    try:
+        g = modelo.gate_1h(ativo["nome"])
+        if g is None or len(g) < 500:
+            return
+        d = modelo.juntar(df, g)
+        f = modelo.features(d, BTC["serie"])
+        rot = modelo.rotular(d)
+        for lado in (1, -1):
+            f[f"y_{lado}"], f[f"r_{lado}"] = rot[lado]
+        f = f[f.index.minute == 0].iloc[96:]
+        f["sym"] = ativo["simbolo"]
+        ML_LINHAS.append(f)
+    except Exception as e:
+        print(f"modelo: falhou {ativo['simbolo']}: {e}", flush=True)
+
+
+def placar_vivo():
+    """Resultado REAL dos sinais do modelo registrados pelo scanner (já passadas 12h)."""
+    if not os.path.exists(LOG_ML):
+        return None
+    log = pd.read_csv(LOG_ML, parse_dates=["tempo"]).drop_duplicates(["tempo", "simbolo", "lado"])
+    res = []
+    for row in log.itertuples():
+        k = KL.get(row.simbolo)
+        if k is None:
+            continue
+        fut = k[(k.index > row.tempo) & (k.index <= row.tempo + pd.Timedelta(hours=modelo.H // 4))]
+        if len(fut) < modelo.H:
+            continue
+        g, r = 0, None
+        for hi, lo in zip(fut["high"], fut["low"]):
+            if (row.lado == 1 and lo <= row.sl) or (row.lado == -1 and hi >= row.sl):
+                r = -1.0; break
+            if (row.lado == 1 and hi >= row.tp) or (row.lado == -1 and lo <= row.tp):
+                g, r = 1, modelo.TP / modelo.SL; break
+        if r is None:
+            r = row.lado * (fut["close"].iloc[-1] / row.entrada - 1) / modelo.SL
+        res.append({"tempo": str(row.tempo), "ativo": row.ativo, "lado": int(row.lado), "ganhou": g, "r": round(float(r), 3)})
+    if not res:
+        return {"n": 0}
+    x = pd.DataFrame(res)
+    return {"n": len(x), "acerto": round(float(x["ganhou"].mean()), 3), "r_medio": round(float(x["r"].mean()), 3),
+            "ultimos": res[-15:]}
 
 
 def sessao_acao():
@@ -44,6 +95,9 @@ def processar(ativo):
         df = dados.historico(ativo, dias=DIAS)
         if df is None or len(df) < 600:
             return None
+        if ativo["classe"] == "cripto" and dados.FONTE.get(ativo["simbolo"]) == "binance":
+            KL[ativo["simbolo"]] = df
+            linhas_modelo(ativo, df)
         if ativo["classe"] == "acao":
             v = df["volume"] * df["close"]
             perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
@@ -134,6 +188,7 @@ def main():
         uni = uni[: a.max]
     print(f"universo: {len(uni)} ativos ({sum(x['classe'] == 'cripto' for x in uni)} cripto, "
           f"{sum(x['classe'] == 'acao' for x in uni)} ações)", flush=True)
+    BTC["serie"] = dados.klines_binance("BTCUSDT", DIAS)["close"]
     res = [r for r in dados.em_paralelo(processar, uni, n=6) if r is not None]
     t = pd.concat(res, ignore_index=True).dropna(subset=["r"])
     print(f"sinais simulados: {len(t)} em {time.time() - t0:.0f}s", flush=True)
@@ -159,6 +214,16 @@ def main():
         "universo": [{k: x[k] for k in ("simbolo", "nome", "classe", "rank")} for x in uni],
         "sessao_acao": sessao_acao(),
     })
+    if ML_LINHAS:
+        L = pd.concat(ML_LINHAS)
+        pacote = modelo.treinar(L)
+        modelo.salvar(pacote, os.path.join(AQUI, "modelo.pkl"))
+        st["ml"] = {"tp": modelo.TP, "sl": modelo.SL, "horas": modelo.H // 4, "faixas": pacote["faixas"],
+                    "teste": pacote["teste"], "linhas": int(len(L)), "ativos": int(L["sym"].nunique())}
+        print(f"modelo de fluxo: {len(L)} linhas, {L['sym'].nunique()} ativos", flush=True)
+        for lado in (1, -1):
+            print("  faixas", lado, pacote["faixas"][lado][-3:], flush=True)
+    st["placar_ml"] = placar_vivo()
     with open(SAIDA, "w") as f:
         json.dump(st, f, ensure_ascii=False, separators=(",", ":"))
     print("saídas escolhidas:", json.dumps(saidas, indent=1))
