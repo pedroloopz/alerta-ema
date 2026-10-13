@@ -1,0 +1,4 @@
+{
+ "seguidas": 1,
+ "falha": "FileNotFoundError: [Errno #] No such file or directory: '/home/runner/work/alerta-ema/alerta-ema/painel/stats.json'"
+}
