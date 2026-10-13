@@ -1,4 +1,4 @@
 {
- "seguidas": 1,
- "falha": "ValueError: not enough values to unpack (expected #, got #)"
+ "seguidas": 0,
+ "falha": null
 }
