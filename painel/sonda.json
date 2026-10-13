@@ -1,0 +1,173 @@
+{
+ "bx_contracts": {
+  "ok": true,
+  "ms": 1570,
+  "len": 597474,
+  "amostra": "{\"code\":0,\"msg\":\"\",\"data\":[{\"contractId\":\"100\",\"symbol\":\"BTC-USDT\",\"size\":\"0.0001\",\"quantityPrecision\":4,\"pricePrecision\":1,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":0.0001,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"BTC\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00050000\",\"brokerState\":false,\"launchTime\":1586275200000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"BTC-USDT\"},{\"contractId\":\"101\",\"symbol\":\"ETH-USDT\",\"size\":\"0.01\",\"quantityPrecision\":2,\"pricePrecision\":2,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":0.01,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"ETH\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00050000\",\"brokerState\":false,\"launchTime\":1586275200000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"ETH-USDT\"},{\"contractId\":\"103\",\"symbol\":\"LINK-USDT\",\"size\":\"0.1\",\"quantityPrecision\":1,\"pricePrecision\":3,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":0.2,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"LINK\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00240000\",\"brokerState\":false,\"launchTime\":1604851200000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"LINK-USDT\"},{\"contractId\":\"100002\",\"symbol\":\"BCH-USDT\",\"size\":\"0.01\",\"quantityPrecision\":2,\"pricePrecision\":2,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":0.01,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"BCH\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00100000\",\"brokerState\":false,\"launchTime\":1589299200000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"BCH-USDT\"},{\"contractId\":\"100004\",\"symbol\":\"ADA-USDT\",\"size\":\"1\",\"quantityPrecision\":0,\"pricePrecision\":4,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":9,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"ADA\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00500000\",\"brokerState\":false,\"launchTime\":1622476800000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"ADA-USDT\"},{\"contractId\":\"100005\",\"symbol\":\"XRP-USDT\",\"size\":\"1\",\"quantityPrecision\":0,\"pricePrecision\":4,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":2,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\"asset\":\"XRP\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\",\"ensureTrigger\":true,\"triggerFeeRate\":\"0.00060000\",\"brokerState\":false,\"launchTime\":1622476800000,\"maintainTime\":0,\"offTime\":0,\"displayName\":\"XRP-USDT\"},{\"contractId\":\"100006\",\"symbol\":\"LTC-USDT\",\"size\":\"0.1\",\"quantityPrecision\":1,\"pricePrecision\":2,\"feeRate\":0.0005,\"makerFeeRate\":0.0002,\"takerFeeRate\":0.0005,\"tradeMinLimit\":0,\"tradeMinQuantity\":0.1,\"tradeMinUSDT\":2,\"currency\":\"USDT\",\""
+ },
+ "bx_ticker": {
+  "ok": true,
+  "ms": 442,
+  "len": 368630,
+  "amostra": "{\"code\":0,\"msg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"priceChange\":\"275.1\",\"priceChangePercent\":\"0.33\",\"lastPrice\":\"83369.9\",\"lastQty\":\"0.0005\",\"highPrice\":\"84133.7\",\"lowPrice\":\"81000.1\",\"volume\":\"11308.2900\",\"quoteVolume\":\"938570056.43\",\"openPrice\":\"83094.8\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"83369.9\",\"askQty\":\"41.1517\",\"bidPrice\":\"83369.8\",\"bidQty\":\"55.5133\"},{\"symbol\":\"NCCOGOLD2USD-USDT\",\"priceChange\":\"-9.87\",\"priceChangePercent\":\"-0.24\",\"lastPrice\":\"4167.64\",\"lastQty\":\"0.0014\",\"highPrice\":\"4206.48\",\"lowPrice\":\"4154.29\",\"volume\":\"206916.5300\",\"quoteVolume\":\"865002808.07\",\"openPrice\":\"4177.51\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"4167.65\",\"askQty\":\"23.6297\",\"bidPrice\":\"4167.64\",\"bidQty\":\"263.0785\"},{\"symbol\":\"ETH-USDT\",\"priceChange\":\"-10.25\",\"priceChangePercent\":\"-0.41\",\"lastPrice\":\"2510.77\",\"lastQty\":\"0.05\",\"highPrice\":\"2537.44\",\"lowPrice\":\"2408.07\",\"volume\":\"209447.78\",\"quoteVolume\":\"522822198.19\",\"openPrice\":\"2521.02\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"2510.78\",\"askQty\":\"723.17\",\"bidPrice\":\"2510.77\",\"bidQty\":\"802.66\"},{\"symbol\":\"SOL-USDT\",\"priceChange\":\"-1.576\",\"priceChangePercent\":\"-1.45\",\"lastPrice\":\"107.092\",\"lastQty\":\"4.00\",\"highPrice\":\"109.027\",\"lowPrice\":\"101.649\",\"volume\":\"4171888.45\",\"quoteVolume\":\"443952860.72\",\"openPrice\":\"108.668\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"107.093\",\"askQty\":\"3620.10\",\"bidPrice\":\"107.084\",\"bidQty\":\"1182.30\"},{\"symbol\":\"XRP-USDT\",\"priceChange\":\"0.0001\",\"priceChangePercent\":\"0.01\",\"lastPrice\":\"1.3694\",\"lastQty\":\"6\",\"highPrice\":\"1.3815\",\"lowPrice\":\"1.3106\",\"volume\":\"29144285\",\"quoteVolume\":\"39655257.39\",\"openPrice\":\"1.3693\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"1.3695\",\"askQty\":\"223132\",\"bidPrice\":\"1.3694\",\"bidQty\":\"227914\"},{\"symbol\":\"NCCO1OILWTI2USD-USDT\",\"priceChange\":\"1.29\",\"priceChangePercent\":\"1.39\",\"lastPrice\":\"93.86\",\"lastQty\":\"0.09849\",\"highPrice\":\"94.14\",\"lowPrice\":\"91.07\",\"volume\":\"334602.55000\",\"quoteVolume\":\"30954706.18\",\"openPrice\":\"92.57\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"93.86\",\"askQty\":\"3136.39045\",\"bidPrice\":\"93.85\",\"bidQty\":\"950.54221\"},{\"symbol\":\"NCCOXAG2USD-USDT\",\"priceChange\":\"-1.10\",\"priceChangePercent\":\"-1.82\",\"lastPrice\":\"59.29\",\"lastQty\":\"0.1658\",\"highPrice\":\"60.85\",\"lowPrice\":\"59.00\",\"volume\":\"506175.6500\",\"quoteVolume\":\"30378058.54\",\"openPrice\":\"60.39\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"59.29\",\"askQty\":\"23622.1506\",\"bidPrice\":\"59.28\",\"bidQty\":\"12900.8543\"},{\"symbol\":\"AVAX-USDT\",\"priceChange\":\"-0.264\",\"priceChangePercent\":\"-2.50\",\"lastPrice\":\"10.290\",\"lastQty\":\"9\",\"highPrice\":\"10.603\",\"lowPrice\":\"9.802\",\"volume\":\"2827269\",\"quoteVolume\":\"29122034.74\",\"openPrice\":\"10.554\",\"openTime\":1791838576000,\"closeTime\":1791924976000,\"askPrice\":\"10.291\",\"askQty\":\"4760\",\"bidPrice\":\"10.290\",\"bidQty\":\"12843\"},{\"symbol\":\"NCCO1OILBRENT2USD-USDT\",\"priceChange\":\"0.17\",\"priceChangePercent\":\"0.16\",\"lastPrice\":\"103.62\",\"la"
+ },
+ "bx_premium": {
+  "ok": true,
+  "ms": 1206,
+  "len": 241417,
+  "amostra": "{\"code\":0,\"msg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"markPrice\":\"83371.8\",\"indexPrice\":\"83417.5\",\"lastFundingRate\":\"0.00004000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.003000\",\"maxFundingRate\":\"0.003000\",\"updateTime\":1791907200000},{\"symbol\":\"ETH-USDT\",\"markPrice\":\"2510.80\",\"indexPrice\":\"2511.95\",\"lastFundingRate\":\"0.00007500\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.003000\",\"maxFundingRate\":\"0.003000\",\"updateTime\":1791907200000},{\"symbol\":\"LINK-USDT\",\"markPrice\":\"12.926\",\"indexPrice\":\"12.934\",\"lastFundingRate\":\"0.00008300\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005000\",\"maxFundingRate\":\"0.005000\",\"updateTime\":1791907200000},{\"symbol\":\"BCH-USDT\",\"markPrice\":\"273.41\",\"indexPrice\":\"273.67\",\"lastFundingRate\":\"0.00004600\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005000\",\"maxFundingRate\":\"0.005000\",\"updateTime\":1791907200000},{\"symbol\":\"ADA-USDT\",\"markPrice\":\"0.2368\",\"indexPrice\":\"0.2370\",\"lastFundingRate\":\"0.00007300\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005\",\"maxFundingRate\":\"0.005\",\"updateTime\":1791907200000},{\"symbol\":\"XRP-USDT\",\"markPrice\":\"1.3695\",\"indexPrice\":\"1.3702\",\"lastFundingRate\":\"-0.00001500\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005000\",\"maxFundingRate\":\"0.005000\",\"updateTime\":1791907200000},{\"symbol\":\"LTC-USDT\",\"markPrice\":\"61.76\",\"indexPrice\":\"61.81\",\"lastFundingRate\":\"0.00010000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005000\",\"maxFundingRate\":\"0.005000\",\"updateTime\":1791907200000},{\"symbol\":\"XTZ-USDT\",\"markPrice\":\"0.3235\",\"indexPrice\":\"0.3241\",\"lastFundingRate\":\"-0.00003300\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":4,\"minFundingRate\":\"-0.02\",\"maxFundingRate\":\"0.02\",\"updateTime\":1791921600000},{\"symbol\":\"DOT-USDT\",\"markPrice\":\"1.1859\",\"indexPrice\":\"1.1861\",\"lastFundingRate\":\"0.00010000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005\",\"maxFundingRate\":\"0.005\",\"updateTime\":1791907200000},{\"symbol\":\"AVAX-USDT\",\"markPrice\":\"10.291\",\"indexPrice\":\"10.296\",\"lastFundingRate\":\"0.00010000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.005000\",\"maxFundingRate\":\"0.005000\",\"updateTime\":1791907200000},{\"symbol\":\"THETA-USDT\",\"markPrice\":\"0.2079\",\"indexPrice\":\"0.2083\",\"lastFundingRate\":\"0.00010000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.02\",\"maxFundingRate\":\"0.02\",\"updateTime\":1791907200000},{\"symbol\":\"ALGO-USDT\",\"markPrice\":\"0.12112\",\"indexPrice\":\"0.12118\",\"lastFundingRate\":\"0.00010000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":8,\"minFundingRate\":\"-0.02\",\"maxFundingRate\":\"0.02\",\"updateTime\":1791907200000},{\"symbol\":\"AXS-USDT\",\"markPrice\":\"1.1425\",\"indexPrice\":\"1.1440\",\"lastFundingRate\":\"0.00005000\",\"nextFundingTime\":1791936000000,\"fundingIntervalHours\":4,\"m"
+ },
+ "bx_oi": {
+  "ok": true,
+  "ms": 309,
+  "len": 98,
+  "amostra": {
+   "code": 0,
+   "msg": "",
+   "data": {
+    "openInterest": "802782455.8",
+    "symbol": "BTC-USDT",
+    "time": 1791924979714
+   }
+  }
+ },
+ "bx_kl": {
+  "ok": true,
+  "ms": 315,
+  "len": 358,
+  "amostra": {
+   "code": 0,
+   "msg": "",
+   "data": [
+    {
+     "open": "83325.3",
+     "close": "83369.9",
+     "high": "83381.4",
+     "low": "83299.2",
+     "volume": "24.1479",
+     "time": 1791924300000
+    },
+    {
+     "open": "83174.9",
+     "close": "83325.3",
+     "high": "83334.0",
+     "low": "83136.5",
+     "volume": "29.5182",
+     "time": 1791923400000
+    },
+    {
+     "open": "83225.7",
+     "close": "83174.9",
+     "high": "83229.1",
+     "low": "83154.1",
+     "volume": "27.0969",
+     "time": 1791922500000
+    }
+   ]
+  }
+ },
+ "bx_kl_max": {
+  "ok": true,
+  "ms": 569,
+  "len": 110281,
+  "amostra": "{\"code\":0,\"msg\":\"\",\"data\":[{\"open\":\"83325.3\",\"close\":\"83369.9\",\"high\":\"83381.4\",\"low\":\"83299.2\",\"volume\":\"24.1479\",\"time\":1791924300000},{\"open\":\"83174.9\",\"close\":\"83325.3\",\"high\":\"83334.0\",\"low\":\"83136.5\",\"volume\":\"29.5182\",\"time\":1791923400000},{\"open\":\"83225.7\",\"close\":\"83174.9\",\"high\":\"83229.1\",\"low\":\"83154.1\",\"volume\":\"27.0969\",\"time\":1791922500000},{\"open\":\"83253.9\",\"close\":\"83225.7\",\"high\":\"83306.2\",\"low\":\"83215.5\",\"volume\":\"27.9380\",\"time\":1791921600000},{\"open\":\"83141.1\",\"close\":\"83253.9\",\"high\":\"83275.3\",\"low\":\"83120.1\",\"volume\":\"25.4113\",\"time\":1791920700000},{\"open\":\"83215.4\",\"close\":\"83141.1\",\"high\":\"83256.0\",\"low\":\"83140.3\",\"volume\":\"21.1812\",\"time\":1791919800000},{\"open\":\"83158.1\",\"close\":\"83215.4\",\"high\":\"83254.7\",\"low\":\"83142.5\",\"volume\":\"20.8870\",\"time\":1791918900000},{\"open\":\"83126.3\",\"close\":\"83158.1\",\"high\":\"83255.2\",\"low\":\"83105.9\",\"volume\":\"62.8246\",\"time\":1791918000000},{\"open\":\"83055.8\",\"close\":\"83126.3\",\"high\":\"83164.2\",\"low\":\"83013.9\",\"volume\":\"41.2503\",\"time\":1791917100000},{\"open\":\"83042.1\",\"close\":\"83055.8\",\"high\":\"83092.1\",\"low\":\"82947.0\",\"volume\":\"81.6788\",\"time\":1791916200000},{\"open\":\"83130.3\",\"close\":\"83042.1\",\"high\":\"83180.5\",\"low\":\"83036.3\",\"volume\":\"49.9137\",\"time\":1791915300000},{\"open\":\"83063.3\",\"close\":\"83130.3\",\"high\":\"83331.8\",\"low\":\"83037.3\",\"volume\":\"107.7454\",\"time\":1791914400000},{\"open\":\"83165.6\",\"close\":\"83063.3\",\"high\":\"83191.5\",\"low\":\"82932.5\",\"volume\":\"258.8313\",\"time\":1791913500000},{\"open\":\"83198.1\",\"close\":\"83165.6\",\"high\":\"83270.1\",\"low\":\"83151.8\",\"volume\":\"30.8775\",\"time\":1791912600000},{\"open\":\"83154.2\",\"close\":\"83198.1\",\"high\":\"83259.8\",\"low\":\"83146.1\",\"volume\":\"78.3239\",\"time\":1791911700000},{\"open\":\"83340.3\",\"close\":\"83154.2\",\"high\":\"83390.0\",\"low\":\"83102.3\",\"volume\":\"135.2558\",\"time\":1791910800000},{\"open\":\"83409.9\",\"close\":\"83340.3\",\"high\":\"83459.6\",\"low\":\"83340.3\",\"volume\":\"25.7076\",\"time\":1791909900000},{\"open\":\"83471.6\",\"close\":\"83409.9\",\"high\":\"83521.8\",\"low\":\"83369.5\",\"volume\":\"47.4876\",\"time\":1791909000000},{\"open\":\"83415.3\",\"close\":\"83471.6\",\"high\":\"83575.9\",\"low\":\"83415.2\",\"volume\":\"45.2436\",\"time\":1791908100000},{\"open\":\"83391.5\",\"close\":\"83415.3\",\"high\":\"83547.9\",\"low\":\"83384.7\",\"volume\":\"62.2639\",\"time\":1791907200000},{\"open\":\"83305.1\",\"close\":\"83391.5\",\"high\":\"83400.0\",\"low\":\"83180.0\",\"volume\":\"181.5185\",\"time\":1791906300000},{\"open\":\"83509.6\",\"close\":\"83305.1\",\"high\":\"83580.2\",\"low\":\"83299.7\",\"volume\":\"88.9163\",\"time\":1791905400000},{\"open\":\"83623.7\",\"close\":\"83509.6\",\"high\":\"83696.5\",\"low\":\"83442.1\",\"volume\":\"65.0975\",\"time\":1791904500000},{\"open\":\"83489.6\",\"close\":\"83623.7\",\"high\":\"83658.8\",\"low\":\"83436.0\",\"volume\":\"53.1932\",\"time\":1791903600000},{\"open\":\"83645.5\",\"close\":\"83489.6\",\"high\":\"83754.2\",\"low\":\"83473.8\",\"volume\":\"73.5546\",\"time\":1791902700000},{\"open\":\"83616.8\",\"close\":\"83645.5\",\"high\":\"83702.9\",\"low\":\"83498.7\",\"volume\":\"65.9693\",\"time\":1791901800000},{\"open\":\"83650.8\",\"close\":\"83616.8\",\"high\":\"83800.0\",\"low\":\"83472.5\",\"volume\":\"120.7940\",\"time\":1791900900000",
+  "n": 1000
+ },
+ "bx_rules": {
+  "ok": true,
+  "ms": 321,
+  "len": 93,
+  "amostra": {
+   "code": 109400,
+   "msg": "Invalid parameters, err timestamp: This field is required. ",
+   "data": {}
+  }
+ },
+ "cg_markets": {
+  "ok": true,
+  "ms": 223,
+  "len": 200021,
+  "amostra": "[{\"id\":\"bitcoin\",\"symbol\":\"btc\",\"name\":\"Bitcoin\",\"image\":\"https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400\",\"current_price\":83328,\"market_cap\":1674707519847,\"market_cap_rank\":1,\"fully_diluted_valuation\":1674707519847,\"total_volume\":33069003144,\"high_24h\":84074,\"low_24h\":81018,\"price_change_24h\":276.8,\"price_change_percentage_24h\":0.32754,\"market_cap_change_24h\":5600559643,\"market_cap_change_percentage_24h\":0.33554,\"circulating_supply\":20097768.0,\"total_supply\":20097768.0,\"max_supply\":21000000.0,\"ath\":126080,\"ath_change_percentage\":-33.90837,\"ath_date\":\"2025-10-06T10:57:42.000Z\",\"atl\":67.81,\"atl_change_percentage\":122786.7219,\"atl_date\":\"2013-07-05T16:00:00.000Z\",\"roi\":null,\"last_updated\":\"2026-10-13T20:54:55.000Z\"},{\"id\":\"ethereum\",\"symbol\":\"eth\",\"name\":\"Ethereum\",\"image\":\"https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628\",\"current_price\":2508.89,\"market_cap\":306401614349,\"market_cap_rank\":2,\"fully_diluted_valuation\":306401614349,\"total_volume\":14570075250,\"high_24h\":2535.36,\"low_24h\":2411.24,\"price_change_24h\":-11.30809137234337,\"price_change_percentage_24h\":-0.48873,\"market_cap_change_24h\":-1384415737.6548462,\"market_cap_change_percentage_24h\":-0.4498,\"circulating_supply\":122130709.73792061,\"total_supply\":122130709.73792061,\"max_supply\":null,\"ath\":4946.05,\"ath_change_percentage\":-49.27485,\"ath_date\":\"2025-08-24T11:21:03.000Z\",\"atl\":0.432979,\"atl_change_percentage\":579348.73495,\"atl_date\":\"2015-10-19T16:00:00.000Z\",\"roi\":{\"times\":43.309089628863546,\"currency\":\"btc\",\"percentage\":4330.908962886355},\"last_updated\":\"2026-10-13T20:54:55.000Z\"},{\"id\":\"tether\",\"symbol\":\"usdt\",\"name\":\"Tether\",\"image\":\"https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661\",\"current_price\":0.999299,\"market_cap\":184069555512,\"market_cap_rank\":3,\"fully_diluted_valuation\":189532641576,\"total_volume\":62601436058,\"high_24h\":0.999425,\"low_24h\":0.998987,\"price_change_24h\":0.00013778,\"price_change_percentage_24h\":0.01672,\"market_cap_change_24h\":-26882404.18283081,\"market_cap_change_percentage_24h\":-0.0146,\"circulating_supply\":184199691342.63232,\"total_supply\":189666639768.5562,\"max_supply\":null,\"ath\":1.32,\"ath_change_percentage\":-24.47263,\"ath_date\":\"2018-07-23T16:00:00.000Z\",\"atl\":0.572521,\"atl_change_percentage\":74.54367,\"atl_date\":\"2015-03-01T16:00:00.000Z\",\"roi\":null,\"last_updated\":\"2026-10-13T20:54:55.000Z\"},{\"id\":\"binancecoin\",\"symbol\":\"bnb\",\"name\":\"BNB\",\"image\":\"https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970\",\"current_price\":742.27,\"market_cap\":98838979106,\"market_cap_rank\":4,\"fully_diluted_valuation\":98838977933,\"total_volume\":796282213,\"high_24h\":746.7,\"low_24h\":722.58,\"price_change_24h\":-4.833707746489722,\"price_change_percentage_24h\":-0.65844,\"market_cap_change_24h\":-644438375.3888092,\"market_cap_change_percentage_24h\":-0.64778,\"circulating_supply\":133158605.62,\"total_supply\":133158604.04,\"max_supply\":200000000.0,\"ath\":1369.99,\"ath_change_percentag"
+ },
+ "cmc_web": {
+  "ok": true,
+  "ms": 442,
+  "len": 412213,
+  "amostra": "{\"data\":{\"cryptoCurrencyList\":[{\"id\":1,\"name\":\"Bitcoin\",\"symbol\":\"BTC\",\"slug\":\"bitcoin\",\"tags\":[\"mineable\",\"pow\",\"sha-256\",\"store-of-value\",\"state-channel\",\"coinbase-ventures-portfolio\",\"three-arrows-capital-portfolio\",\"polychain-capital-portfolio\",\"binance-labs-portfolio\",\"blockchain-capital-portfolio\",\"boostvc-portfolio\",\"cms-holdings-portfolio\",\"dcg-portfolio\",\"dragonfly-capital-portfolio\",\"electric-capital-portfolio\",\"fabric-ventures-portfolio\",\"framework-ventures-portfolio\",\"galaxy-digital-portfolio\",\"huobi-capital-portfolio\",\"alameda-research-portfolio\",\"a16z-portfolio\",\"1confirmation-portfolio\",\"winklevoss-capital-portfolio\",\"usv-portfolio\",\"placeholder-ventures-portfolio\",\"pantera-capital-portfolio\",\"multicoin-capital-portfolio\",\"paradigm-portfolio\",\"bitcoin-ecosystem\",\"layer-1\",\"ftx-bankruptcy-estate\",\"2017-2018-alt-season\",\"us-strategic-crypto-reserve\",\"binance-ecosystem\",\"binance-listing\",\"sec-cftc-token-taxonomy\",\"sec-cftc-digital-commodities\"],\"cmcRank\":1,\"marketPairCount\":12763,\"circulatingSupply\":20097768.00000000,\"selfReportedCirculatingSupply\":0,\"totalSupply\":20097768.00000000,\"maxSupply\":21000000.00000000,\"isActive\":1,\"lastUpdated\":\"2026-10-13T20:54:00.000Z\",\"dateAdded\":\"2010-07-13T00:00:00.000Z\",\"quotes\":[{\"name\":\"USD\",\"price\":83309.011587072240000000000000000000,\"volume24h\":32610494726.46952820,\"volumePercentChange\":35.1399,\"marketCap\":1674325187186.28967876032000000000000000000000000000,\"percentChange1h\":0.18238103,\"percentChange24h\":0.32720713,\"percentChange7d\":-2.70222908,\"lastUpdated\":\"2026-10-13T20:54:00.000Z\",\"percentChange30d\":7.74497866,\"percentChange60d\":32.56982881,\"percentChange90d\":28.28439247,\"fullyDilluttedMarketCap\":1749489243328.52,\"marketCapByTotalSupply\":1674325187186.28967876032000000000000000000000000000,\"dominance\":59.7847,\"turnover\":0.01947680,\"ytdPriceChangePercentage\":-6.1116,\"percentChange1y\":-28.00349988}],\"isAudited\":false,\"auditInfoList\":[],\"badges\":[1,5]},{\"id\":1027,\"name\":\"Ethereum\",\"symbol\":\"ETH\",\"slug\":\"ethereum\",\"tags\":[\"pos\",\"smart-contracts\",\"ethereum-ecosystem\",\"coinbase-ventures-portfolio\",\"three-arrows-capital-portfolio\",\"polychain-capital-portfolio\",\"binance-labs-portfolio\",\"blockchain-capital-portfolio\",\"boostvc-portfolio\",\"cms-holdings-portfolio\",\"dcg-portfolio\",\"dragonfly-capital-portfolio\",\"electric-capital-portfolio\",\"fabric-ventures-portfolio\",\"framework-ventures-portfolio\",\"hashkey-capital-portfolio\",\"kenetic-capital-portfolio\",\"huobi-capital-portfolio\",\"alameda-research-portfolio\",\"a16z-portfolio\",\"1confirmation-portfolio\",\"winklevoss-capital-portfolio\",\"usv-portfolio\",\"placeholder-ventures-portfolio\",\"pantera-capital-portfolio\",\"multicoin-capital-portfolio\",\"paradigm-portfolio\",\"ethereum-pow-ecosystem\",\"layer-1\",\"ftx-bankruptcy-estate\",\"sora-ecosystem\",\"rsk-rbtc-ecosystem\",\"world-liberty-financial-portfolio\",\"us-strategic-crypto-reserve\",\"binance-ecosystem\",\"binance-listing\",\"abstract-chain-ecosystem\",\"unichain-ecosystem\",\"soneium-ecosystem\",\"sophon-ecosystem\",\"sec-cftc-token-tax"
+ },
+ "okx_ls": {
+  "ok": true,
+  "ms": 390,
+  "len": 17915,
+  "amostra": "{\"code\":\"0\",\"data\":[[\"1791921600000\",\"1.28\"],[\"1791918000000\",\"1.28\"],[\"1791914400000\",\"1.27\"],[\"1791910800000\",\"1.26\"],[\"1791907200000\",\"1.27\"],[\"1791903600000\",\"1.26\"],[\"1791900000000\",\"1.27\"],[\"1791896400000\",\"1.26\"],[\"1791892800000\",\"1.24\"],[\"1791889200000\",\"1.22\"],[\"1791885600000\",\"1.2\"],[\"1791882000000\",\"1.21\"],[\"1791878400000\",\"1.21\"],[\"1791874800000\",\"1.3\"],[\"1791871200000\",\"1.35\"],[\"1791867600000\",\"1.39\"],[\"1791864000000\",\"1.44\"],[\"1791860400000\",\"1.47\"],[\"1791856800000\",\"1.51\"],[\"1791853200000\",\"1.57\"],[\"1791849600000\",\"1.52\"],[\"1791846000000\",\"1.51\"],[\"1791842400000\",\"1.49\"],[\"1791838800000\",\"1.52\"],[\"1791835200000\",\"1.53\"],[\"1791831600000\",\"1.52\"],[\"1791828000000\",\"1.49\"],[\"1791824400000\",\"1.49\"],[\"1791820800000\",\"1.48\"],[\"1791817200000\",\"1.49\"],[\"1791813600000\",\"1.47\"],[\"1791810000000\",\"1.49\"],[\"1791806400000\",\"1.43\"],[\"1791802800000\",\"1.46\"],[\"1791799200000\",\"1.47\"],[\"1791795600000\",\"1.46\"],[\"1791792000000\",\"1.45\"],[\"1791788400000\",\"1.41\"],[\"1791784800000\",\"1.42\"],[\"1791781200000\",\"1.42\"],[\"1791777600000\",\"1.42\"],[\"1791774000000\",\"1.43\"],[\"1791770400000\",\"1.41\"],[\"1791766800000\",\"1.42\"],[\"1791763200000\",\"1.45\"],[\"1791759600000\",\"1.43\"],[\"1791756000000\",\"1.43\"],[\"1791752400000\",\"1.42\"],[\"1791748800000\",\"1.43\"],[\"1791745200000\",\"1.43\"],[\"1791741600000\",\"1.43\"],[\"1791738000000\",\"1.45\"],[\"1791734400000\",\"1.47\"],[\"1791730800000\",\"1.51\"],[\"1791727200000\",\"1.41\"],[\"1791723600000\",\"1.41\"],[\"1791720000000\",\"1.41\"],[\"1791716400000\",\"1.41\"],[\"1791712800000\",\"1.41\"],[\"1791709200000\",\"1.42\"],[\"1791705600000\",\"1.42\"],[\"1791702000000\",\"1.42\"],[\"1791698400000\",\"1.42\"],[\"1791694800000\",\"1.42\"],[\"1791691200000\",\"1.45\"],[\"1791687600000\",\"1.46\"],[\"1791684000000\",\"1.45\"],[\"1791680400000\",\"1.47\"],[\"1791676800000\",\"1.48\"],[\"1791673200000\",\"1.48\"],[\"1791669600000\",\"1.47\"],[\"1791666000000\",\"1.5\"],[\"1791662400000\",\"1.5\"],[\"1791658800000\",\"1.5\"],[\"1791655200000\",\"1.5\"],[\"1791651600000\",\"1.49\"],[\"1791648000000\",\"1.5\"],[\"1791644400000\",\"1.5\"],[\"1791640800000\",\"1.5\"],[\"1791637200000\",\"1.51\"],[\"1791633600000\",\"1.52\"],[\"1791630000000\",\"1.51\"],[\"1791626400000\",\"1.53\"],[\"1791622800000\",\"1.53\"],[\"1791619200000\",\"1.53\"],[\"1791615600000\",\"1.53\"],[\"1791612000000\",\"1.54\"],[\"1791608400000\",\"1.52\"],[\"1791604800000\",\"1.51\"],[\"1791601200000\",\"1.51\"],[\"1791597600000\",\"1.51\"],[\"1791594000000\",\"1.5\"],[\"1791590400000\",\"1.47\"],[\"1791586800000\",\"1.46\"],[\"1791583200000\",\"1.41\"],[\"1791579600000\",\"1.4\"],[\"1791576000000\",\"1.39\"],[\"1791572400000\",\"1.38\"],[\"1791568800000\",\"1.38\"],[\"1791565200000\",\"1.44\"],[\"1791561600000\",\"1.44\"],[\"1791558000000\",\"1.42\"],[\"1791554400000\",\"1.43\"],[\"1791550800000\",\"1.47\"],[\"1791547200000\",\"1.47\"],[\"1791543600000\",\"1.53\"],[\"1791540000000\",\"1.5\"],[\"1791536400000\",\"1.6\"],[\"1791532800000\",\"1.63\"],[\"1791529200000\",\"1.62\"],[\"1791525600000\",\"1.65\"],[\"1791522000000\",\"1.67\"],[\"1791518400000\",\"1.68\"],[\"1791514800000\",\"1.74\"],[\"1791511200000\",\"1.75\"],[\"1791507600000\",\"1.74\"],[\"1791504000000\",\"1.67\"],[\"1791500400000\",\"1.67\"],[\"1791496800000\",\"1.69\"],[\"1791493200000\",\""
+ },
+ "bybit_ls": {
+  "ok": false,
+  "erro": "HTTP Error 403: Forbidden"
+ },
+ "binf_ls": {
+  "ok": false,
+  "erro": "HTTP Error 451: "
+ },
+ "gate_ls": {
+  "ok": true,
+  "ms": 626,
+  "len": 1256,
+  "amostra": [
+   {
+    "time": 1791918000,
+    "lsr_taker": 0.9604948013334835,
+    "lsr_account": 1.128393297830887,
+    "long_liq_size": 0,
+    "short_liq_size": 326,
+    "open_interest": 517837232,
+    "short_liq_usd": 2714.246986,
+    "mark_price": 83259.11,
+    "top_lsr_size": 1.2062021046566853,
+    "top_long_size": 30976311,
+    "top_short_size": 25680863,
+    "short_liq_amount": 0.0326,
+    "long_liq_amount": 0,
+    "short_liq_usd_new": 2714.246986,
+    "long_liq_usd_new": 0,
+    "open_interest_usd": 4311466706.118352,
+    "top_lsr_account": 0.6351351351351351,
+    "top_long_account": 47,
+    "top_short_account": 74,
+    "long_liq_usd": 0,
+    "long_taker_size": 4033912,
+    "short_taker_size": 4199827,
+    "long_users": 17375,
+    "short_users": 15398,
+    "last_funding_rate": "0.000046"
+   },
+   {
+    "time": 1791921600,
+    "lsr_taker": 1.241863713683831,
+    "lsr_account": 1.1250243174891381,
+    "long_liq_size": 0,
+    "short_liq_size": 0,
+    "open_interest": 517736912,
+    "short_liq_usd": 0,
+    "mark_price": 83257.83,
+    "top_lsr_size": 1.2026065986220518,
+    "top_long_size": 30883190,
+    "top_short_size": 25680210,
+    "short_liq_amount": 0,
+    "long_liq_amount": 0,
+    "short_liq_usd_new": 0,
+    "long_liq_usd_new": 0,
+    "open_interest_usd": 4310565180.402096,
+    "top_lsr_account": 0.6351351351351351,
+    "top_long_account": 47,
+    "top_short_account": 74,
+    "long_liq_usd": 0,
+    "long_taker_size": 220478,
+    "short_taker_size": 177538,
+    "long_users": 17349,
+    "short_users": 15421,
+    "last_funding_rate": "0.000046"
+   }
+  ]
+ }
+}
