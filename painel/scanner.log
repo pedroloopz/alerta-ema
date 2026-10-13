@@ -1,13 +1,19 @@
-10 sinais (0 com nota 8+) em 439 ativos, 40s
-modelo de fluxo: 0 leituras; book: 439 ativos
-  4/10 SHORT SYRUP      SQZ p=0.626 ev=-0.096R alav 14x
-  3/10 LONG  STABLE     SQZ p=0.688 ev=-0.113R alav 25x
-  3/10 LONG  SKR        SQZ p=0.676 ev=-0.13R alav 24x
-  3/10 LONG  SKR        SQZ p=0.676 ev=-0.13R alav 24x
-  3/10 SHORT SAND       SQZ p=0.625 ev=-0.189R alav 25x
-  2/10 LONG  CRO        SQZ p=0.607 ev=-0.236R alav 25x
-  1/10 SHORT LASERTEC   PULL p=0.54 ev=-0.406R alav 25x
-  1/10 LONG  FUJIKURA   SQZ p=0.507 ev=-0.476R alav 25x
-  1/10 LONG  FUJIKURA   SQZ p=0.507 ev=-0.476R alav 25x
-  1/10 LONG  KORU       ROMP p=0.442 ev=-0.415R alav 15x
+10 sinais (0 com nota 8+) em 439 ativos, 77s
+modelo de fluxo: 328 leituras; book: 439 ativos
+  ML LONG  SYRUP      acerto 0.597 R 0.086 nota 7
+  ML LONG  CHIP       acerto 0.597 R 0.086 nota 7
+  ML LONG  KMNO       acerto 0.597 R 0.086 nota 7
+  ML LONG  ATOM       acerto 0.597 R 0.086 nota 7
+  ML LONG  CAP        acerto 0.597 R 0.086 nota 7
+  ML LONG  BR         acerto 0.597 R 0.086 nota 7
+  4/10 SHORT SYRUP      SQZ p=0.622 ev=-0.094R alav 14x
+  3/10 LONG  STABLE     SQZ p=0.683 ev=-0.111R alav 25x
+  3/10 LONG  SKR        SQZ p=0.671 ev=-0.129R alav 24x
+  3/10 LONG  SKR        SQZ p=0.671 ev=-0.129R alav 24x
+  3/10 SHORT SAND       SQZ p=0.621 ev=-0.187R alav 25x
+  2/10 LONG  CRO        SQZ p=0.602 ev=-0.234R alav 25x
+  1/10 SHORT LASERTEC   PULL p=0.532 ev=-0.421R alav 25x
+  1/10 LONG  FUJIKURA   SQZ p=0.495 ev=-0.482R alav 25x
+  1/10 LONG  FUJIKURA   SQZ p=0.495 ev=-0.482R alav 25x
+  1/10 LONG  KORU       ROMP p=0.414 ev=-0.377R alav 15x
 Drive: atualizado
