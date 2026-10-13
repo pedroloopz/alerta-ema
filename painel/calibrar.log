@@ -1,106 +1,164 @@
 universo: 439 ativos (166 cripto, 273 ações)
-falhou NCSKAPLD2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKLRCX2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKCOST2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-sinais simulados: 75558 em 46s
+falhou NCSKSOXL2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+sinais simulados: 838512 em 234s
+  acao: 258 ativos, de 2026-10-03 17:00:00+00:00 a 2026-10-13 17:15:00+00:00
+  cripto: 166 ativos, de 2026-07-16 02:45:00+00:00 a 2026-10-13 17:15:00+00:00
+fontes: {'bingx': np.int64(309), 'binance': np.int64(130)}
 saídas escolhidas: {
- "acao|EXA": {
+ "acao|PULL|-1": {
+  "sl": 2.0,
+  "tp": 1.0,
+  "p": 0.515,
+  "r": -0.302,
+  "n": 999
+ },
+ "acao|PULL|1": {
+  "sl": 2.0,
+  "tp": 1.0,
+  "p": 0.567,
+  "r": -0.284,
+  "n": 826
+ },
+ "acao|ROMP|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.188,
-  "r": -0.343,
-  "n": 128
+  "p": 0.347,
+  "r": 0.02,
+  "n": 567
  },
- "acao|PULL": {
+ "acao|ROMP|1": {
+  "sl": 2.0,
+  "tp": 1.5,
+  "p": 0.492,
+  "r": -0.212,
+  "n": 319
+ },
+ "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.207,
-  "r": -0.556,
-  "n": 1903
+  "p": 0.258,
+  "r": -0.382,
+  "n": 1283
  },
- "acao|ROMP": {
+ "acao|SQZ|1": {
+  "sl": 2.0,
+  "tp": 1.0,
+  "p": 0.519,
+  "r": -0.384,
+  "n": 1538
+ },
+ "cripto|EXA|-1": {
+  "sl": 2.0,
+  "tp": 1.0,
+  "p": 0.565,
+  "r": -0.168,
+  "n": 2719
+ },
+ "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.318,
-  "r": -0.185,
-  "n": 943
+  "p": 0.26,
+  "r": -0.029,
+  "n": 1074
  },
- "acao|SQZ": {
+ "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.227,
-  "r": -0.628,
-  "n": 2815
+  "p": 0.24,
+  "r": -0.097,
+  "n": 4020
  },
- "cripto|EXA": {
-  "sl": 1.5,
+ "cripto|PULL|1": {
+  "sl": 2.0,
   "tp": 2.0,
-  "p": 0.392,
-  "r": -0.075,
-  "n": 260
+  "p": 0.391,
+  "r": -0.05,
+  "n": 3216
  },
- "cripto|PULL": {
+ "cripto|ROMP|-1": {
+  "sl": 2.0,
+  "tp": 1.0,
+  "p": 0.604,
+  "r": -0.129,
+  "n": 26273
+ },
+ "cripto|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.251,
-  "r": -0.082,
-  "n": 1135
+  "p": 0.321,
+  "r": -0.083,
+  "n": 32560
  },
- "cripto|ROMP": {
+ "cripto|SQZ|-1": {
   "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.312,
-  "r": -0.04,
-  "n": 3309
+  "tp": 1.0,
+  "p": 0.604,
+  "r": -0.166,
+  "n": 8810
  },
- "cripto|SQZ": {
+ "cripto|SQZ|1": {
   "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.328,
-  "r": -0.118,
-  "n": 2100
+  "tp": 1.0,
+  "p": 0.63,
+  "r": -0.136,
+  "n": 8840
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 2534,
-  "acerto": 0.359,
-  "r_medio": -0.139
+  "n": 671,
+  "acerto": 0.472,
+  "r_medio": -0.783
  },
  "2": {
-  "n": 187,
-  "acerto": 0.439,
-  "r_medio": -0.018
+  "n": 3750,
+  "acerto": 0.541,
+  "r_medio": -0.122
  },
  "3": {
-  "n": 60,
-  "acerto": 0.517,
-  "r_medio": 0.236
+  "n": 8888,
+  "acerto": 0.512,
+  "r_medio": -0.085
  },
  "4": {
-  "n": 14,
-  "acerto": 0.214,
-  "r_medio": -0.556
+  "n": 4674,
+  "acerto": 0.488,
+  "r_medio": -0.047
  },
  "5": {
-  "n": 6,
-  "acerto": 0.0,
-  "r_medio": -0.257
+  "n": 5359,
+  "acerto": 0.397,
+  "r_medio": -0.036
+ },
+ "6": {
+  "n": 518,
+  "acerto": 0.612,
+  "r_medio": -0.089
+ },
+ "7": {
+  "n": 133,
+  "acerto": 0.632,
+  "r_medio": -0.085
+ },
+ "8": {
+  "n": 8,
+  "acerto": 0.625,
+  "r_medio": -0.165
  },
  "8+": {
-  "n": 0,
-  "acerto": null,
-  "r_medio": null
+  "n": 8,
+  "acerto": 0.625,
+  "r_medio": -0.165
  },
  "3-": {
-  "n": 2781,
-  "acerto": 0.367,
-  "r_medio": -0.123
+  "n": 13309,
+  "acerto": 0.518,
+  "r_medio": -0.13
  },
  "todos": {
-  "n": 2801,
-  "acerto": 0.366,
-  "r_medio": -0.126
+  "n": 24001,
+  "acerto": 0.488,
+  "r_medio": -0.092
  }
 }
-ok em 46s; stats.json 144 KB
+ok em 238s; stats.json 153 KB
