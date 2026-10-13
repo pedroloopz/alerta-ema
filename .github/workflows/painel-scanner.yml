@@ -1,0 +1,54 @@
+name: painel-scanner
+
+# Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade, enviadas ao Google Drive
+# (arquivo painel-trade.json), que o painel no Claude le.
+on:
+  schedule:
+    - cron: "1,16,31,46 * * * *"   # 1 min depois de cada candle de 15 min fechar
+  workflow_dispatch:
+  push:
+    branches: [painel]
+    paths: [painel/scanner.py, .github/workflows/painel-scanner.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: painel-scanner
+  cancel-in-progress: true
+
+jobs:
+  varrer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy google-auth requests
+      - name: Varrer
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+          GDRIVE_FILE_ID: ${{ vars.GDRIVE_FILE_ID }}
+        shell: bash
+        run: python painel/scanner.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Guardar resultado (so no teste)
+        if: github.ref == 'refs/heads/painel'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          cp run.log painel/scanner.log
+          git add painel/painel.json painel/scanner.log
+          git diff --staged --quiet || git commit -m "painel: teste do scanner"
+          git pull --rebase --autostash || true
+          git push || true
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
