@@ -11,7 +11,7 @@ on:
         description: "Limitar a N ativos (0 = todos)"
         default: "0"
   push:
-    branches: [painel]
+    branches: [painel, main]
     paths: [painel/calibrar.py, painel/nucleo.py, painel/dados.py, painel/modelo.py, .github/workflows/painel-calibrar.yml]
 
 permissions:
