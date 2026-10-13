@@ -1,6 +1,6 @@
 name: painel-scanner
 
-# Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade, enviadas ao Google Drive
+# Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade e do modelo de fluxo, enviadas ao Google Drive
 # (arquivo painel-trade.json), que o painel no Claude le.
 on:
   schedule:
@@ -29,13 +29,27 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pandas numpy google-auth requests
+      - run: pip install pandas numpy google-auth requests scikit-learn==1.9.1
+      - name: Trazer o modelo de fluxo
+        uses: actions/cache/restore@v4
+        with:
+          path: painel/modelo.pkl
+          key: modelo-atual
+          restore-keys: modelo-
+      - name: Trazer a coleta
+        run: git clone -q --depth 1 -b painel-coleta "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" coleta || mkdir -p coleta
       - name: Varrer
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
           GDRIVE_FILE_ID: "1ZCiXAx5207lLDqgvIIlMyKEfxydmqiLy"   # painel-trade.json no Drive (nao e segredo)
         shell: bash
         run: python painel/scanner.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Gravar a coleta (book e registro do modelo; 1 commit so)
+        if: always()
+        run: |
+          cd coleta && rm -rf .git && git init -q && git checkout -q -b painel-coleta
+          git add -A && git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -qm "coleta do painel" || exit 0
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" painel-coleta
       - name: Guardar resultado (so no teste)
         if: github.ref == 'refs/heads/painel'
         run: |
