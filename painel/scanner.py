@@ -44,10 +44,10 @@ def avaliar(ativo, stats, fundings):
         out = []
         ultimo = float(df["close"].iloc[-1])
         for s in sig.itertuples():
-            saida = stats["saidas"].get(f"{ativo['classe']}|{s.setup}")
+            saida = stats["saidas"].get(f"{ativo['classe']}|{s.setup}|{s.lado}")
             if not saida:
                 continue
-            e = nc.estimar(stats, ativo["classe"], ativo["simbolo"], s.setup, s.lado, s.alinhado, s.tempo.hour)
+            e = nc.estimar(stats, ativo["classe"], ativo["simbolo"], s.setup, s.lado, s.alinhado, s.tempo.hour, s.regime)
             if not e:
                 continue
             ent, a = float(df["close"].iloc[s.i]), float(df["atr"].iloc[s.i])
@@ -117,10 +117,10 @@ def main():
     sessao = stats.get("sessao_acao", {}).get(f"{agora.weekday()}|{agora.hour}")
     base = []
     for k, v in stats["base"].items():
-        classe, setup, lado, alin = k.split("|")
+        classe, setup, lado, alin, regime = k.split("|")
         if v["n"] >= 50:
             base.append({"classe": classe, "setup": setup, "lado": "LONG" if lado == "1" else "SHORT",
-                         "alinhado": alin == "1", "n": v["n"], "acerto": round(v["g"] / v["n"], 3),
+                         "alinhado": alin == "1", "vol_alta": regime == "1", "n": v["n"], "acerto": round(v["g"] / v["n"], 3),
                          "r_medio": round(v["r"] / v["n"], 3)})
     base.sort(key=lambda x: -x["r_medio"])
     painel = {

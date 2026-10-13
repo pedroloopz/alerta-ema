@@ -9,18 +9,22 @@ Setups no candle de 15 min fechado (long e short espelhados):
   SQZ   compressão: Bollinger na menor largura de 100 candles e rompimento da banda
 "alinhado" = o lado do trade bate com a tendência do 1h (EMA 20 x EMA 50).
 
+"regime" = volatilidade do momento: ATR acima (1) ou abaixo (0) da mediana de 100 candles.
+
 Saída: SL e TP em múltiplos do ATR(14) de 15 min; o trade dura no máximo MAX_BARRAS
-candles (4h). Se SL e TP caem no mesmo candle, conta SL (conservador). Taxas: taker
-0,05% na entrada e na saída + 0,02% de slippage em cada ponta.
+candles (4h). Se SL e TP caem no mesmo candle, conta SL (conservador). Taxas da BingX:
+entrada e TP por ordem limite (maker 0,02%); SL e saída por tempo a mercado (taker 0,05%
++ 0,03% de slippage).
 """
 import numpy as np
 import pandas as pd
 
 SETUPS = ("ROMP", "PULL", "EXA", "SQZ")
 MAX_BARRAS = 16                 # 16 × 15 min = 4h
-CUSTO = 2 * (0.0005 + 0.0002)   # ida e volta, fração do preço
-# pares (SL, TP) em ATR testados na calibração; cada setup fica com o de melhor resultado
-GRADE_SAIDA = ((1.0, 1.0), (1.0, 1.5), (1.5, 1.5), (1.5, 2.0), (2.0, 2.0), (2.0, 3.0))
+MAKER, TAKER_SLIP = 0.0002, 0.0005 + 0.0003
+# pares (SL, TP) em ATR testados na calibração; cada setup+lado fica com o de melhor resultado
+GRADE_SAIDA = ((1.0, 1.0), (1.0, 1.5), (1.5, 1.0), (1.5, 1.5), (1.5, 2.0),
+               (2.0, 1.0), (2.0, 1.5), (2.0, 2.0), (2.0, 3.0))
 K_ATIVO, K_HORA = 30.0, 150.0   # força do "puxão" para a média (encolhimento bayesiano)
 
 
@@ -68,6 +72,7 @@ def preparar(df):
     larg = (4 * sd / m)
     df["aperto"] = (larg <= larg.rolling(100).min() * 1.05).rolling(3).max().shift().fillna(0) > 0
     df["tend"] = tendencia_1h(df)
+    df["regime"] = (df["atr"] > df["atr"].rolling(100).median()).astype(int)
     return df
 
 
@@ -93,9 +98,10 @@ def sinais(df):
         if len(idx):
             partes.append(pd.DataFrame({"i": idx, "setup": setup, "lado": lado}))
     if not partes:
-        return pd.DataFrame(columns=["i", "setup", "lado", "alinhado", "tempo"])
+        return pd.DataFrame(columns=["i", "setup", "lado", "alinhado", "regime", "tempo"])
     s = pd.concat(partes, ignore_index=True)
     s["alinhado"] = (df["tend"].to_numpy()[s["i"]] == s["lado"]).astype(int)
+    s["regime"] = df["regime"].to_numpy()[s["i"]]
     s["tempo"] = df.index[s["i"]]
     return s.sort_values("i").reset_index(drop=True)
 
@@ -115,16 +121,16 @@ def simular(df, sig, sl_atr, tp_atr):
             ganhou.append(0); rr.append(np.nan); ok.append(False); continue
         sl = ent - lado * sl_atr * a
         tp = ent + lado * tp_atr * a
-        sai, g = cl[fim - 1], 0
+        sai, g, custo = cl[fim - 1], 0, MAKER + TAKER_SLIP
         for j in range(i + 1, fim):
             bate_sl = lo[j] <= sl if lado == 1 else hi[j] >= sl
             bate_tp = hi[j] >= tp if lado == 1 else lo[j] <= tp
             if bate_sl:
                 sai = sl; break
             if bate_tp:
-                sai, g = tp, 1; break
+                sai, g, custo = tp, 1, 2 * MAKER; break
         risco = sl_atr * a / ent
-        r = (lado * (sai - ent) / ent - CUSTO) / risco
+        r = (lado * (sai - ent) / ent - custo) / risco
         ganhou.append(g); rr.append(r); ok.append(True)
     out = sig.copy()
     out["ganhou"], out["r"], out["ok"] = ganhou, rr, ok
@@ -132,20 +138,31 @@ def simular(df, sig, sl_atr, tp_atr):
 
 
 # ------------------------------------------------------------------ nota
+# nota: (chance mínima de bater TP antes do SL, resultado médio mínimo em R já com taxas)
+DEGRAUS = ((10, 0.70, 0.25), (9, 0.65, 0.18), (8, 0.60, 0.12), (7, 0.55, 0.06), (6, 0.50, 0.0))
+
+
 def nota_de(p, ev_r, n_base):
-    """Probabilidade de bater TP antes do SL -> nota 1–10.
-    0,50 = 5 · 0,58 = 7 · 0,62 = 8 · 0,66 = 9 · 0,70 = 10. Sem lucro esperado, no máximo 6."""
-    s = 5 + (p - 0.50) / 0.04
-    if ev_r <= 0:
-        s = min(s, 6)
-    if n_base < 50:
-        s = min(s, 7)
-    return int(np.clip(np.floor(s + 1e-9), 1, 10))
+    """Nota 1–10. Da 6 para cima precisa das DUAS coisas: chance de TP antes do SL e
+    lucro médio por trade (em R, já descontadas as taxas). Abaixo de 6 vale só o resultado:
+    5 = empate, 4..1 = cada vez mais negativo. Menos de 50 casos no histórico: no máximo 7."""
+    for nota, p_min, r_min in DEGRAUS:
+        if p >= p_min and ev_r > r_min - 1e-12 and (nota <= 7 or n_base >= 50):
+            return nota
+    if ev_r > -0.05:
+        return 5
+    if ev_r > -0.10:
+        return 4
+    if ev_r > -0.20:
+        return 3
+    if ev_r > -0.35:
+        return 2
+    return 1
 
 
-def estimar(stats, classe, ativo, setup, lado, alinhado, hora):
+def estimar(stats, classe, ativo, setup, lado, alinhado, hora, regime):
     """Probabilidade e R esperado encolhidos: geral do setup -> ativo -> hora do dia."""
-    chave = f"{classe}|{setup}|{lado}|{alinhado}"
+    chave = f"{classe}|{setup}|{lado}|{alinhado}|{regime}"
     base = stats["base"].get(chave)
     if not base:
         return None

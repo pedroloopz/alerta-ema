@@ -131,3 +131,41 @@ def long_short(cripto):
         return {"ls": round(float(u["lsr_account"]), 2), "oi_4h": round(oi, 4) if oi is not None else None}
     except Exception:
         return None
+
+
+VISION = "https://data-api.binance.vision/api/v3/klines"
+FONTE = {}
+
+
+def klines_binance(par, dias):
+    """Candles de 15 min do spot da Binance (histórico longo; acompanha o perpétuo)."""
+    linhas, ini = [], int(time.time() * 1000) - dias * 86_400_000
+    while True:
+        d = _get(VISION, {"symbol": par, "interval": "15m", "startTime": ini, "limit": 1000}, tentativas=2)
+        if not d:
+            break
+        linhas += d
+        ini = d[-1][0] + QUINZE
+        if len(d) < 1000:
+            break
+    if not linhas:
+        return None
+    df = pd.DataFrame([r[:6] for r in linhas], columns=["time", "open", "high", "low", "close", "volume"])
+    df["time"] = pd.to_datetime(df["time"].astype("int64") + QUINZE, unit="ms", utc=True)
+    df = df.astype({k: float for k in ("open", "high", "low", "close", "volume")})
+    df = df.drop_duplicates("time").set_index("time").sort_index()
+    return df[df.index <= pd.Timestamp.now(tz="UTC")]
+
+
+def historico(ativo, dias):
+    """Cripto: Binance spot (90 dias); se não houver par lá, ou ações: BingX (o que ela der)."""
+    if ativo["classe"] == "cripto":
+        try:
+            df = klines_binance(ativo["nome"] + "USDT", dias)
+            if df is not None and len(df) > 2000:
+                FONTE[ativo["simbolo"]] = "binance"
+                return df
+        except Exception:
+            pass
+    FONTE[ativo["simbolo"]] = "bingx"
+    return klines(ativo["simbolo"], dias=dias)
