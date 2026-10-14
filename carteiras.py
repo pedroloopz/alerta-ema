@@ -58,12 +58,13 @@ def escolher_carteiras(rows, n):
     for r in rows:
         mes, tudo = janela(r, "month"), janela(r, "allTime")
         conta = float(r.get("accountValue") or 0)
-        if conta < 100_000 or mes["pnl"] <= 0 or tudo["pnl"] <= 0 or mes["vlm"] < 1_000_000:
+        antes = tudo["pnl"] - mes["pnl"]     # lucro ANTES do último mês: o mês é o teste
+        if conta < 100_000 or antes <= 0 or tudo["vlm"] < 5_000_000:
             continue
         boas.append({"carteira": r["ethAddress"], "nome": r.get("displayName") or "",
                      "conta": conta, "pnl_mes": mes["pnl"], "roi_mes": mes["roi"],
-                     "pnl_total": tudo["pnl"]})
-    boas.sort(key=lambda c: c["pnl_mes"], reverse=True)
+                     "pnl_total": tudo["pnl"], "pnl_antes": antes})
+    boas.sort(key=lambda c: c["pnl_antes"], reverse=True)
     return boas[:n]
 
 
@@ -337,7 +338,7 @@ def main():
     L.append(f"Janela: {DIAS} dias | teste fora da amostra: últimos {OOS_DIAS} dias | taxa da cópia: 0,10% ida e volta")
     L.append(f"Carteiras analisadas: {len(perfis)} | robôs/MM (não copiáveis): {len(perfis) - len(copiaveis)} | trades reconstruídos: {len(trades)}")
     L.append("")
-    L.append("== 1. QUEM SÃO (copiáveis, por PnL do mês) ==")
+    L.append("== 1. QUEM SÃO (copiáveis, escolhidas pelo lucro ANTES do último mês) ==")
     for k in sorted(copiaveis, key=lambda k: -perfis[k]["pnl_mes"])[:25]:
         p = perfis[k]
         cd, cf = p["copia_dentro"], p["copia_fora"]
