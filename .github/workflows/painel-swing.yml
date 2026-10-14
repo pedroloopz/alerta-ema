@@ -1,0 +1,44 @@
+name: painel-swing
+
+# Roda so quando voce mandar (ou quando o script muda). Backtest do EXA long em swing (1 a 3 dias)
+# nas criptos e na carteira combinada acoes + cripto. Salva relatorio_swing_cripto.txt.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [painel/backtest_swing_cripto.py, .github/workflows/painel-swing.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy
+      - name: Trazer o cache de historicos (acoes)
+        run: git clone -q --depth 1 -b dados "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" dados
+      - name: Backtest
+        shell: bash
+        run: DADOS=dados python painel/backtest_swing_cripto.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Salvar relatorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add relatorio_swing_cripto.txt
+          git diff --staged --quiet || git commit -m "relatorio do backtest de swing (cripto e combinada)"
+          git pull --rebase --autostash && git push
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
