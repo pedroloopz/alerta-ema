@@ -1,0 +1,34 @@
+BACKTEST REV (reversão com volume) x setups do painel — BingX perps, 15 min, 90 dias
+Gerado 14/10/2026 09:17 | 420 ativos | treino até 21/09 22:33 UTC, teste depois
+R = resultado por trade em múltiplos do stop, já com taxas. Acerto = TP antes do SL.
+
+== CRIPTO ==
+setup        lado  SL/TP    treino n       R | teste n       R acerto
+EXA          long  2.0/3.0       762  -0,095 |     300  +0,156    35%
+REV_v15_r40  short 2.0/1.0     13673  -0,065 |    4508  +0,011    68%
+REV_v15_r45  short 2.0/1.0     17381  -0,068 |    5755  +0,001    67%
+REV_v12_r40  short 2.0/1.0     18106  -0,073 |    6041  -0,002    67%
+REV_v10_r45  short 2.0/1.0     29725  -0,076 |   10489  -0,012    67%
+REV_v12_r45  short 2.0/1.0     23812  -0,074 |    8085  -0,013    67%
+REV_v12_r45  long  2.0/2.0     16118  -0,035 |    5567  -0,030    39%
+REV_v10_r45  long  2.0/2.0     21176  -0,044 |    8643  -0,047    39%
+REV_v15_r45  long  2.0/1.5     11206  -0,028 |    3769  -0,051    49%
+REV_v15_r40  long  2.0/1.5      8135  -0,013 |    2967  -0,056    48%
+REV_v12_r40  long  2.0/1.5     11253  -0,021 |    4218  -0,056    49%
+PULL         short 2.0/1.0      2694  -0,103 |    1289  -0,089    63%
+ROMP         long  2.0/3.0     23799  -0,080 |    8592  -0,093    31%
+ROMP         short 2.0/1.0     18985  -0,143 |    6938  -0,094    62%
+SQZ          long  2.0/1.0      6292  -0,151 |    2643  -0,112    63%
+PULL         long  2.0/3.0      2288  -0,032 |     928  -0,141    20%
+EXA          short 2.0/1.0      1987  -0,176 |     725  -0,143    58%
+SQZ          short 2.0/1.0      6424  -0,164 |    2384  -0,189    59%
+
+== VEREDITO (teste, longs+shorts juntos) ==
+cripto: setups atuais n=23799 R médio=-0,105
+   REV_v10_r45  n=19132 R médio=-0,028 acerto=54% -> reprovado
+   REV_v12_r45  n=13652 R médio=-0,020 acerto=55% -> reprovado
+   REV_v15_r45  n= 9524 R médio=-0,020 acerto=60% -> reprovado
+   REV_v12_r40  n=10259 R médio=-0,024 acerto=60% -> reprovado
+   REV_v15_r40  n= 7475 R médio=-0,015 acerto=60% -> reprovado
+
+Backtest não garante resultado futuro.
