@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 heatmap_eua.png
 mapa_dia.png
+central_novo/
