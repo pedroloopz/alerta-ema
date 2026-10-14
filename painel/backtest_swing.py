@@ -26,7 +26,8 @@ import pandas as pd
 DADOS = os.environ.get("DADOS", "dados")
 SAIDA = os.path.join(os.path.dirname(__file__), "..", "relatorio_swing.txt")
 MAKER, TAKER_SLIP, FUND_DIA = 0.0002, 0.0008, 3 * 0.0001
-POR_DIA = 7
+POR_DIA = 7           # candles por dia de trade (cripto: 24)
+FATOR_FUND = 1.4      # dias corridos de funding por dia de trade (7 candles de pregão ~ 1,4 dia)
 SEMIS = {"AMD", "NVDA", "AVGO", "MU", "TSM", "ASML", "AMAT", "LRCX", "KLAC", "MRVL", "QCOM", "INTC",
          "ARM", "ON", "TXN", "ADI", "SWKS", "SMCI", "TER", "ONTO", "ENTG", "COHU", "ACMR", "AEHR",
          "MXL", "STM", "TSEM", "UMC", "VSH", "AXTI", "CRDO", "SNDK", "WDC", "STX"}
@@ -96,7 +97,7 @@ def simular(df, atr, i, sl_atr, tp_r, dias, parcial):
         if l[j] <= stop_atual:                        # stop (gap sai na abertura)
             px = min(o[j], stop_atual)
             ganho += pl(px, resto, TAKER_SLIP)
-            return ganho - FUND_DIA * (j - i) / POR_DIA * 1.4, j - i, ganho > 0
+            return ganho - FUND_DIA * (j - i) / POR_DIA * FATOR_FUND, j - i, ganho > 0
         for p in list(pend):                          # parcelas limitadas
             if l[j] <= p:
                 cheias.append((min(o[j], p), MAKER)); pend.remove(p)
@@ -104,20 +105,17 @@ def simular(df, atr, i, sl_atr, tp_r, dias, parcial):
             ganho += pl(medio_plan + risco, 0.5, MAKER); resto, parc_feita = 0.5, True
         if h[j] >= alvo:
             ganho += pl(max(o[j], alvo), resto, MAKER)
-            return ganho - FUND_DIA * (j - i) / POR_DIA * 1.4, j - i, True
+            return ganho - FUND_DIA * (j - i) / POR_DIA * FATOR_FUND, j - i, True
     ganho += pl(c[fim - 1], resto, TAKER_SLIP)
-    # 7 candles de pregão ~ 1,4 dia corrido de funding no perp 24/7
-    return ganho - FUND_DIA * dias * 1.4, fim - 1 - i, ganho > 0
+    return ganho - FUND_DIA * dias * FATOR_FUND, fim - 1 - i, ganho > 0
 
 
-def main():
-    base = carregar()
-    prep = {s: preparar(df) for s, df in base.items()}
-    t0 = min(df.index.min() for df in base.values())
-    t1 = max(df.index.max() for df in base.values())
-    corte = t0 + (t1 - t0) * 0.75
-    grade = [(sl, tp, d, p) for sl in (2.0, 3.0, 4.0) for tp in (1.5, 2.0, 3.0)
-             for d in (1, 2, 3) for p in (False, True)]
+GRADE = [(sl, tp, d, p) for sl in (2.0, 3.0, 4.0) for tp in (1.5, 2.0, 3.0)
+         for d in (1, 2, 3) for p in (False, True)]
+CHAVE = ["sl", "tp", "dias", "parcial"]
+
+
+def trades(base, prep, grade=GRADE):
     linhas = []
     for cfg in grade:
         for s, df in base.items():
@@ -126,71 +124,101 @@ def main():
                 r = simular(df, atr, i, *cfg)
                 if r:
                     linhas.append((*cfg, s, df.index[i], df.index[i + r[1]], r[0], r[2]))
-    t = pd.DataFrame(linhas, columns=["sl", "tp", "dias", "parcial", "ativo", "ent", "sai", "ret", "lucro"])
+    return pd.DataFrame(linhas, columns=CHAVE + ["ativo", "ent", "sai", "ret", "lucro"])
+
+
+def tabela(t, corte):
+    """Resumo por configuração (treino x teste), ordenado pelo treino."""
     t["teste"] = t["ent"] >= corte
-    chave = ["sl", "tp", "dias", "parcial"]
-    g = t.groupby(chave + ["teste"]).agg(n=("ret", "size"), acerto=("lucro", "mean"), ret=("ret", "mean"))
+    g = t.groupby(CHAVE + ["teste"]).agg(n=("ret", "size"), acerto=("lucro", "mean"), ret=("ret", "mean"))
     g = g.unstack("teste")
     g.columns = [f"{a}_{'teste' if b else 'treino'}" for a, b in g.columns]
-    g = g.sort_values("ret_treino", ascending=False)
+    return g.sort_values("ret_treino", ascending=False)
+
+
+def linhas_tabela(g, n=10):
+    L = [f"{'stop ATR':>8} {'alvo R':>6} {'dias':>4} {'parcial':>7} | {'n trei':>6} {'acerto':>6} {'ret%':>6} | {'n teste':>7} {'acerto':>6} {'ret%':>6}"]
+    for k, x in g.head(n).iterrows():
+        L.append(f"{k[0]:8.1f} {k[1]:6.1f} {k[2]:4d} {'sim' if k[3] else 'não':>7} | {x['n_treino']:6.0f} "
+                 f"{x['acerto_treino']*100:5.0f}% {x['ret_treino']*100:+6.2f} | {x['n_teste']:7.0f} "
+                 f"{x['acerto_teste']*100:5.0f}% {x['ret_teste']*100:+6.2f}")
+    return L
+
+
+def da_config(t, cfg):
+    return t[(t[CHAVE] == pd.Series(cfg, index=CHAVE)).all(axis=1)].sort_values("ent")
+
+
+def carteira(m, nome, periodo, expo, noc, banca=BANCA):
+    """Simula a carteira (nocional fixo por trade, sem reinvestir) e devolve as linhas do relatório.
+    Queda medida nos trades fechados: no meio do trade ela pode ser maior."""
+    abertas, fechados = [], []
+    for _, x in m.iterrows():
+        abertas = [a for a in abertas if a > x["ent"]]
+        if (len(abertas) + 1) * noc > expo + 1:
+            continue
+        abertas.append(x["sai"])
+        fechados.append((x["sai"], x["ret"] * noc))
+    if not fechados:
+        return []
+    f = pd.DataFrame(fechados, columns=["t", "pnl"]).sort_values("t").set_index("t")["pnl"]
+    eq = banca + f.cumsum()
+    dd = (eq - eq.cummax()).min()
+    meses = max((f.index.max() - f.index.min()).days / 30.4, 1)
+    mensal = f.resample("ME").sum()
+    return ["", f"Carteira — {nome}, {periodo} (banca US$ {banca:,}".replace(",", ".") + ")",
+            f"  trades {len(f)}, lucro total US$ {f.sum():,.0f} ({f.sum()/banca*100:+.0f}% da banca), "
+            f"média {f.sum()/banca/meses*100:+.1f}% ao mês".replace(",", "."),
+            f"  pior queda (drawdown) US$ {dd:,.0f} ({dd/banca*100:.0f}% da banca)".replace(",", "."),
+            f"  meses no lucro {(mensal > 0).mean()*100:.0f}%, pior mês {mensal.min()/banca*100:+.1f}%, "
+            f"melhor mês {mensal.max()/banca*100:+.1f}%"]
+
+
+def sorteado(base, prep, cfg, corte):
+    """Mesma saída com entrada em hora sorteada: mostra quanto do resultado é só a alta do mercado."""
+    rng, aleat = np.random.default_rng(0), []
+    for s, df in base.items():
+        atr, sig = prep[s]
+        for i in rng.choice(np.arange(30, len(df) - 25), size=min(5 * max(len(sig), 1), len(df) - 55), replace=False):
+            r = simular(df, atr, i, *cfg)
+            if r:
+                aleat.append((df.index[i] >= corte, r[0], r[2]))
+    al = pd.DataFrame(aleat, columns=["teste", "ret", "lucro"])
+    return [f"  entrada sorteada ({'teste' if k else 'treino'}): acerto {x['lucro'].mean()*100:.0f}%, "
+            f"ret médio {x['ret'].mean()*100:+.2f}%  <- quanto do resultado é só a alta do mercado"
+            for k, x in al.groupby("teste")]
+
+
+def main():
+    base = carregar()
+    prep = {s: preparar(df) for s, df in base.items()}
+    t0 = min(df.index.min() for df in base.values())
+    t1 = max(df.index.max() for df in base.values())
+    corte = t0 + (t1 - t0) * 0.75
+    t = trades(base, prep)
+    g = tabela(t, corte)
     melhor = g.index[0]
 
     L = [f"EXA long swing (1h do pregão) — ações dos EUA, {len(base)} ativos, {t0:%d/%m/%Y} a {t1:%d/%m/%Y}",
          f"Escolha da configuração até {corte:%d/%m/%Y}; teste (não visto) depois disso.",
          "Retorno médio por trade sobre o nocional, já com taxas, slippage e funding. Sem alavancagem.", "",
-         "10 melhores configurações no treino:",
-         f"{'stop ATR':>8} {'alvo R':>6} {'dias':>4} {'parcial':>7} | {'n trei':>6} {'acerto':>6} {'ret%':>6} | {'n teste':>7} {'acerto':>6} {'ret%':>6}"]
-    for k, x in g.head(10).iterrows():
-        L.append(f"{k[0]:8.1f} {k[1]:6.1f} {k[2]:4d} {'sim' if k[3] else 'não':>7} | {x['n_treino']:6.0f} "
-                 f"{x['acerto_treino']*100:5.0f}% {x['ret_treino']*100:+6.2f} | {x['n_teste']:7.0f} "
-                 f"{x['acerto_teste']*100:5.0f}% {x['ret_teste']*100:+6.2f}")
+         "10 melhores configurações no treino:"] + linhas_tabela(g)
     L += ["", "Efeito da parcial e do prazo (média de todas as configurações, período de teste):"]
     te = t[t["teste"]]
     for col in ("parcial", "dias"):
         for v, x in te.groupby(col):
             L.append(f"  {col}={v}: acerto {x['lucro'].mean()*100:.0f}%, ret médio {x['ret'].mean()*100:+.2f}%")
 
-    m = t[(t[chave] == pd.Series(melhor, index=chave)).all(axis=1)].sort_values("ent")
+    m = da_config(t, melhor)
     ms = m[m["ativo"].isin(SEMIS)]
     L += ["", f"Configuração escolhida: stop {melhor[0]} ATR, alvo {melhor[1]} R, {melhor[2]} dia(s), parcial {'sim' if melhor[3] else 'não'}",
           f"  semicondutores: {len(ms)} trades, acerto {ms['lucro'].mean()*100:.0f}%, ret médio {ms['ret'].mean()*100:+.2f}%",
           f"  demais ações:   {len(m)-len(ms)} trades, acerto {m[~m['ativo'].isin(SEMIS)]['lucro'].mean()*100:.0f}%, "
           f"ret médio {m[~m['ativo'].isin(SEMIS)]['ret'].mean()*100:+.2f}%"]
-
-    rng, aleat = np.random.default_rng(0), []          # mesma saída com entrada sorteada
-    for s, df in base.items():
-        atr, sig = prep[s]
-        for i in rng.choice(np.arange(30, len(df) - 25), size=5 * max(len(sig), 1), replace=False):
-            r = simular(df, atr, i, *melhor)
-            if r:
-                aleat.append((df.index[i] >= corte, r[0], r[2]))
-    al = pd.DataFrame(aleat, columns=["teste", "ret", "lucro"])
-    for k, x in al.groupby("teste"):
-        L.append(f"  entrada sorteada ({'teste' if k else 'treino'}): acerto {x['lucro'].mean()*100:.0f}%, "
-                 f"ret médio {x['ret'].mean()*100:+.2f}%  <- quanto do resultado é só a alta do mercado")
-
+    L += sorteado(base, prep, melhor, corte)
     for nome, expo, noc in CENARIOS:
         for periodo, mm in (("período todo", m), ("só o teste", m[m["ent"] >= corte])):
-            abertas, fechados = [], []
-            for _, x in mm.iterrows():
-                abertas = [a for a in abertas if a > x["ent"]]
-                if (len(abertas) + 1) * noc > expo + 1:
-                    continue
-                abertas.append(x["sai"])
-                fechados.append((x["sai"], x["ret"] * noc))
-            if not fechados:
-                continue
-            f = pd.DataFrame(fechados, columns=["t", "pnl"]).sort_values("t").set_index("t")["pnl"]
-            eq = BANCA + f.cumsum()
-            dd = (eq - eq.cummax()).min()
-            meses = max((f.index.max() - f.index.min()).days / 30.4, 1)
-            mensal = f.resample("ME").sum()
-            L += ["", f"Carteira — {nome}, {periodo} (banca US$ {BANCA:,}".replace(",", ".") + ")",
-                  f"  trades {len(f)}, lucro total US$ {f.sum():,.0f} ({f.sum()/BANCA*100:+.0f}% da banca), "
-                  f"média {f.sum()/BANCA/meses*100:+.1f}% ao mês".replace(",", "."),
-                  f"  pior queda (drawdown) US$ {dd:,.0f} ({dd/BANCA*100:.0f}% da banca)".replace(",", "."),
-                  f"  meses no lucro {(mensal > 0).mean()*100:.0f}%, pior mês {mensal.min()/BANCA*100:+.1f}%, "
-                  f"melhor mês {mensal.max()/BANCA*100:+.1f}%"]
+            L += carteira(mm, nome, periodo, expo, noc)
     L += ["", "Juros do consignado ~2,25% da banca ao mês: é o mínimo para empatar.",
           "Backtest não garante resultado futuro. Dados do pregão; o perp 24/7 pode ter preço diferente à noite."]
     texto = "\n".join(L)
