@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import dados  # noqa: E402
 import modelo  # noqa: E402
 import nucleo as nc  # noqa: E402
+import swing  # noqa: E402
 
 AQUI = os.path.dirname(__file__)
 COLETA = os.path.join(AQUI, "..", "coleta")
@@ -230,6 +231,7 @@ def main():
             print("modelo: não carregou", e)
     sinais = [x for lst in dados.em_paralelo(lambda at: avaliar(at, stats, fundings), uni, n=8) for x in lst]
     sinais.sort(key=lambda x: (-x["nota"], -x["p_tp"], -x["ev_r"]))
+    swings = swing.varrer(uni, agora)
 
     ml = sorted(ML["saida"], key=lambda x: (-x["p_tp"], -x["ev_r"], -x["pont"]))
     # registro para o placar real: melhor long e melhor short de cada varredura
@@ -273,6 +275,8 @@ def main():
         "ml_faixas": stats.get("ml", {}).get("faixas"),
         "placar_ml": stats.get("placar_ml"),
         "avisar": trades_a_fazer(sinais, ml, agora),
+        "swing": swings,
+        "swing_plano": swing.plano(),
         "segundos": round(time.time() - t0),
     }
     if painel["avisar"]:
@@ -282,6 +286,13 @@ def main():
             sys.path.insert(0, os.path.join(AQUI, ".."))
             import central
             central.publicar_item("trade", "sinal", painel["aviso_texto"])
+    if swings:
+        painel["swing_texto"] = swing.texto(swings)
+        print(painel["swing_texto"])
+        if not a.max:
+            sys.path.insert(0, os.path.join(AQUI, ".."))
+            import central
+            central.publicar_item("trade", "swing", painel["swing_texto"])
     # avisos das últimas 2h (guardados na coleta), para o aviso de hora em hora não perder nenhum
     hist = os.path.join(COLETA, "avisos.jsonl")
     antigos = []
@@ -290,6 +301,8 @@ def main():
             antigos = [json.loads(x) for x in f if x.strip()]
     if painel["avisar"] and not a.max:
         antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["aviso_texto"]})
+    if swings and not a.max:
+        antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["swing_texto"]})
     corte = (agora - datetime.timedelta(hours=2)).isoformat(timespec="seconds")
     painel["avisos_recentes"] = [x for x in antigos if x["t"] >= corte]
     if not a.max:
@@ -300,7 +313,7 @@ def main():
     with open(caminho, "w") as f:
         json.dump(painel, f, ensure_ascii=False, separators=(",", ":"))
     n8 = sum(1 for x in sinais if x["nota"] >= 8)
-    print(f"{len(sinais)} sinais ({n8} com nota 8+) em {len(uni)} ativos, {painel['segundos']}s")
+    print(f"{len(sinais)} sinais ({n8} com nota 8+) em {len(uni)} ativos, {painel['segundos']}s; swing: {len(swings)}")
     print(f"modelo de fluxo: {len(ml)} leituras; book: {len(ML['book'])} ativos")
     for x in ml[:6]:
         print(f"  ML {x['lado']:5} {x['ativo']:10} acerto {x['p_tp']} R {x['ev_r']} nota {x['nota']}")
