@@ -59,9 +59,14 @@ def main():
     shutil.rmtree(TMP, ignore_errors=True)
     TMP.mkdir(parents=True)
     itens, pastas, diag = [], {}, {}
+    # o alerta-ema é privado: usa a credencial que o actions/checkout deixou no repositório
+    cab = subprocess.run(["git", "config", "--get", "http.https://github.com/.extraheader"],
+                         capture_output=True, text=True).stdout.strip()
+    auth = ["-c", f"http.https://github.com/.extraheader={cab}"] if cab else []
     for repo in REPOS:
         destino = TMP / repo.split("/")[1]
-        r = subprocess.run(["git", "clone", "-q", "--depth", "1", "-b", "central",
+        proprio = repo == os.environ.get("GITHUB_REPOSITORY")
+        r = subprocess.run(["git", *(auth if proprio else []), "clone", "-q", "--depth", "1", "-b", "central",
                             f"https://github.com/{repo}", str(destino)], capture_output=True, text=True)
         if r.returncode != 0 or not (destino / "saida.jsonl").exists():
             print(f"{repo}: ainda sem branch central")
