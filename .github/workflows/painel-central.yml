@@ -32,6 +32,7 @@ jobs:
         run: |
           python3 -c "import central; central.publicar_item('avisos', 'teste', 'Central ligada. A partir de agora as mensagens dos bots chegam aqui em vez do Telegram.')"
           python3 central.py publicar
+          sleep 20   # a branch recem-publicada demora alguns segundos para aparecer no clone
       - name: Juntar e enviar ao Drive
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
