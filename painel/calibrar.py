@@ -24,6 +24,7 @@ import modelo  # noqa: E402
 import nucleo as nc  # noqa: E402
 
 DIAS = 90
+MEIA_VIDA = 21          # dias: peso das semanas recentes na nota
 SAIDA = os.path.join(os.path.dirname(__file__), "stats.json")
 
 
@@ -141,13 +142,20 @@ def filtrar_saidas(t, saidas):
 
 
 def montar_stats(t):
+    """Contagens PONDERADAS pela idade: um trade de MEIA_VIDA dias atrás vale metade de um de hoje."""
+    idade = (t["tempo"].max() - t["tempo"]).dt.total_seconds() / 86400
+    t = t.assign(w=0.5 ** (idade / MEIA_VIDA))
+    t = t.assign(wg=t["w"] * t["ganhou"], wr=t["w"] * t["r"])
+
     def agrega(grp, chave):
         d = {}
         for k, x in grp:
             k = k if isinstance(k, tuple) else (k,)
-            d["|".join(str(v) for v in k)] = {"n": int(len(x)), "g": int(x["ganhou"].sum()), "r": round(float(x["r"].sum()), 3)}
+            d["|".join(str(v) for v in k)] = {"n": round(float(x["w"].sum()), 1), "g": round(float(x["wg"].sum()), 2),
+                                              "r": round(float(x["wr"].sum()), 3)}
         return d
-    classe = {c: {"p": float(x["ganhou"].mean()), "r": float(x["r"].mean()), "n": int(len(x))}
+    classe = {c: {"p": float(x["wg"].sum() / x["w"].sum()), "r": float(x["wr"].sum() / x["w"].sum()),
+                  "n": round(float(x["w"].sum()), 1)}
               for c, x in t.groupby("classe")}
     return {
         "base": agrega(t.groupby(["classe", "setup", "lado", "alinhado", "regime"]), None),
