@@ -136,11 +136,15 @@ def avaliar(ativo, stats, fundings):
             sl_pct = saida["sl"] * a / ent
             tp_pct = saida["tp"] * a / ent
             casas = max(2, -int(np.floor(np.log10(ent))) + 4)
+            nota = nc.nota_de(p, e["ev_r"], e["n_base"])
+            v = stats.get("validacao", {}).get(str(nota)) or {}
+            if 6 <= nota <= 7 and (v.get("r_medio") or 0) < 0:
+                nota = 5                            # faixa perde dinheiro fora da amostra: vale como empate
             out.append({
                 "ativo": ativo["nome"], "simbolo": ativo["simbolo"], "classe": ativo["classe"],
                 "rank": ativo.get("rank"), "setup": s.setup, "lado": "LONG" if s.lado == 1 else "SHORT",
                 "alinhado": bool(s.alinhado), "tempo": s.tempo.isoformat(),
-                "nota": nc.nota_de(p, e["ev_r"], e["n_base"]),
+                "nota": nota,
                 "p_tp": round(p, 3), "ev_r": round(e["ev_r"], 3), "n_ativo": e["n_ativo"],
                 "entrada": round(ent, casas), "preco": round(ultimo, casas),
                 "sl": round(ent - s.lado * saida["sl"] * a, casas),
