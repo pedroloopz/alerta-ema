@@ -4,7 +4,7 @@ name: painel-central
 # Google Drive, de onde a pagina Central no Claude le. Substitui o Telegram.
 on:
   schedule:
-    - cron: "8 * * * *"   # de hora em hora ate mudar para um repositorio publico (minutos do GitHub)
+    - cron: "8,23,38,53 * * * *"   # a cada 15 min, logo depois do scanner
   workflow_dispatch:
 
 permissions:
