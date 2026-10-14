@@ -15,6 +15,7 @@ import datetime
 import math
 import os
 import sys
+import time
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -60,11 +61,11 @@ def _barras_pregao(d):
     return out + [fe]
 
 
-def acao_1h(df15):
-    """Junta os candles de 15 min (índice = fechamento, UTC) em candles de 1h só do pregão."""
+def acao_1h(df15, passo_min=15):
+    """Junta candles menores (índice = fechamento, UTC) em candles de 1h só do pregão."""
     if df15 is None or df15.empty:
         return None
-    ab = (df15.index - pd.Timedelta(minutes=15)).tz_convert(NY)
+    ab = (df15.index - pd.Timedelta(minutes=passo_min)).tz_convert(NY)
     chave, manter, cache = [], [], {}
     for t in ab:
         if t.date() not in cache:
@@ -80,18 +81,35 @@ def acao_1h(df15):
     g = d.groupby("k").agg(open=("open", "first"), high=("high", "max"), low=("low", "min"),
                            close=("close", "last"), volume=("volume", "sum"))
     g.index.name = None
-    return g
+    return g[g.index <= pd.Timestamp.now(tz="UTC")]
 
 
-def cripto_1h(simbolo):
-    d = dados.bx("/openApi/swap/v3/quote/klines", symbol=simbolo, interval="1h", limit=300)
+def klines_bx(simbolo, intervalo, minutos, limite):
+    """Candles da BingX (índice = fechamento, UTC), só os já fechados. Tenta de novo se pedir para esperar."""
+    for t in range(3):
+        try:
+            d = dados.bx("/openApi/swap/v3/quote/klines", symbol=simbolo, interval=intervalo, limit=limite)
+            break
+        except RuntimeError as e:
+            if "100410" not in str(e) or t == 2:
+                raise
+            time.sleep(2 * (t + 1))
     if not d:
         return None
     df = pd.DataFrame(d)
-    df["time"] = pd.to_datetime(df["time"].astype("int64") + 3_600_000, unit="ms", utc=True)
+    df["time"] = pd.to_datetime(df["time"].astype("int64") + minutos * 60_000, unit="ms", utc=True)
     df = df.astype({k: float for k in ("open", "high", "low", "close", "volume")})
     df = df.drop_duplicates("time").set_index("time").sort_index()[["open", "high", "low", "close", "volume"]]
     return df[df.index <= pd.Timestamp.now(tz="UTC")]
+
+
+def cripto_1h(simbolo):
+    return klines_bx(simbolo, "1h", 60, 300)
+
+
+def acao_1h_bx(simbolo):
+    """30 min (1 chamada cobre ~20 dias) juntados em 1h do pregão, como no backtest."""
+    return acao_1h(klines_bx(simbolo, "30m", 30, 1000), passo_min=30)
 
 
 def hora_de_checar(classe, agora):
@@ -123,7 +141,7 @@ def avaliar(ativo, agora):
     if not hora_de_checar(classe, agora):
         return None
     try:
-        df = cripto_1h(ativo["simbolo"]) if classe == "cripto" else acao_1h(dados.klines(ativo["simbolo"], dias=21))
+        df = cripto_1h(ativo["simbolo"]) if classe == "cripto" else acao_1h_bx(ativo["simbolo"])
         if df is None or len(df) < 60:
             return None
         ult = df.index[-1]
