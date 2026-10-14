@@ -1,0 +1,978 @@
+{
+ "gerado": 1791950305368,
+ "aprovadas": [
+  "0xe867fbdad3291530e41530301ecb77693850c78e",
+  "0xaeaab54bbf65bfd6efed7d2eb68372298e3c2416",
+  "0x051c2e6d49cf82ebc47f08f9b85800f94fc9693c"
+ ],
+ "perfis": {
+  "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66": {
+   "n": 14,
+   "acerto": 0.5714285714285714,
+   "ganho_med": 0.034980484763534936,
+   "perda_med": -0.02628644287165538,
+   "payoff": 1.535424196294253,
+   "horas_med": 104.83262250000001,
+   "long": 0.35714285714285715,
+   "taker": 0.07812658630163936,
+   "pnl": -18044.4950959999,
+   "carteira": "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+   "nome": "",
+   "conta": 49025976.155788,
+   "pnl_mes": 16403871.817736998,
+   "roi_mes": 0.5021564192,
+   "pnl_total": 59995004.565788,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "ZEC",
+    "SOL",
+    "NEAR",
+    "LIT",
+    "BTC"
+   ],
+   "copia_dentro": [
+    0.009774613834812903,
+    13
+   ],
+   "copia_fora": null
+  },
+  "0x237152b038d88f4156a0cd71090462de7e3f0883": {
+   "n": 4,
+   "acerto": 0.75,
+   "ganho_med": 0.030458299393929522,
+   "perda_med": -0.0008379834804226327,
+   "payoff": 58.865077697137586,
+   "horas_med": 38.09915736111111,
+   "long": 0.75,
+   "taker": 1.0,
+   "pnl": 4445404.993435003,
+   "carteira": "0x237152b038d88f4156a0cd71090462de7e3f0883",
+   "nome": "",
+   "conta": 15052863.465931,
+   "pnl_mes": 5881311.417416,
+   "roi_mes": 0.6412558514,
+   "pnl_total": 11052863.865931,
+   "fills": 56,
+   "tipo": "swing/day",
+   "coins": [
+    "ETH",
+    "BTC"
+   ],
+   "copia_dentro": [
+    0.049340956821227855,
+    2
+   ],
+   "copia_fora": [
+    0.040209581330375,
+    1
+   ]
+  },
+  "0x350e33a777d510616fbdb483d1de3b50d1edfcfb": {
+   "n": 9,
+   "acerto": 0.5555555555555556,
+   "ganho_med": 0.015779361934303404,
+   "perda_med": -0.01435865160214933,
+   "payoff": 1.1338918760159478,
+   "horas_med": 21.18037,
+   "long": 0.2222222222222222,
+   "taker": 0.8085746723518568,
+   "pnl": 1374432.6265439999,
+   "carteira": "0x350e33a777d510616fbdb483d1de3b50d1edfcfb",
+   "nome": "",
+   "conta": 835254.387519,
+   "pnl_mes": 5281910.903263,
+   "roi_mes": 0.9199696168,
+   "pnl_total": 21736814.077519,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC",
+    "HYPE",
+    "ETH",
+    "PONS",
+    "CASHCAT"
+   ],
+   "copia_dentro": [
+    0.015574097239623712,
+    7
+   ],
+   "copia_fora": [
+    0.006876100337547154,
+    1
+   ]
+  },
+  "0x469e9a7f624b04c24f0e64edf8d8a277e6bf58a5": {
+   "n": 9,
+   "acerto": 0.6666666666666666,
+   "ganho_med": 0.04342955212012023,
+   "perda_med": -0.04646980129543277,
+   "payoff": 0.6633756500525259,
+   "horas_med": 22.80187972222222,
+   "long": 0.3333333333333333,
+   "taker": 0.055804991534804185,
+   "pnl": 1419450.5160819993,
+   "carteira": "0x469e9a7f624b04c24f0e64edf8d8a277e6bf58a5",
+   "nome": "",
+   "conta": 14087071.608561,
+   "pnl_mes": 5203417.331559,
+   "roi_mes": 0.2462758139,
+   "pnl_total": 27755222.858561,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "ZEC",
+    "BTC",
+    "PUMP",
+    "XRP",
+    "xyz:SKHX"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    0.047628890038558656,
+    6
+   ]
+  },
+  "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f": {
+   "n": 11,
+   "acerto": 0.18181818181818182,
+   "ganho_med": 2.538797161177886e-05,
+   "perda_med": -0.0013961517274996282,
+   "payoff": 0.022320327092058955,
+   "horas_med": 0.05301694444444444,
+   "long": 0.5454545454545454,
+   "taker": 0.39128148353535813,
+   "pnl": -21.014606399999998,
+   "carteira": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+   "nome": "",
+   "conta": 11375148.48402,
+   "pnl_mes": 5074802.326013,
+   "roi_mes": 0.1070917457,
+   "pnl_total": 12142582.47402,
+   "fills": 10000,
+   "tipo": "rob\u00f4/MM",
+   "coins": [
+    "AERO"
+   ]
+  },
+  "0xc63a0f0db2c9604283172e83bd035902e0f0a3cd": {
+   "n": 5,
+   "acerto": 0.4,
+   "ganho_med": 0.014166232927055322,
+   "perda_med": -0.0020242155751530877,
+   "payoff": 2.706690269106318,
+   "horas_med": 5.426358888888889,
+   "long": 0.6,
+   "taker": 0.17711247748923908,
+   "pnl": -707344.5417010001,
+   "carteira": "0xc63a0f0db2c9604283172e83bd035902e0f0a3cd",
+   "nome": "",
+   "conta": 11686490.264343,
+   "pnl_mes": 5028911.339819,
+   "roi_mes": 0.7553663872,
+   "pnl_total": 4380123.884343,
+   "fills": 3442,
+   "tipo": "swing/day",
+   "coins": [
+    "ETH",
+    "HYPE"
+   ],
+   "copia_dentro": [
+    -0.016545228670334755,
+    4
+   ],
+   "copia_fora": [
+    0.01964406779661021,
+    1
+   ]
+  },
+  "0x051c2e6d49cf82ebc47f08f9b85800f94fc9693c": {
+   "n": 42,
+   "acerto": 0.6190476190476191,
+   "ganho_med": 0.04170599804231934,
+   "perda_med": -0.017991543099404872,
+   "payoff": 1.2668084007792328,
+   "horas_med": 24.488871805555554,
+   "long": 0.6428571428571429,
+   "taker": 0.880729763970129,
+   "pnl": 562892.7092261199,
+   "carteira": "0x051c2e6d49cf82ebc47f08f9b85800f94fc9693c",
+   "nome": "",
+   "conta": 14864120.080384,
+   "pnl_mes": 4939200.795527,
+   "roi_mes": 1.2723722678,
+   "pnl_total": 14069724.010384,
+   "fills": 3345,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC",
+    "PONS",
+    "xyz:SNDK",
+    "xyz:CRWV",
+    "AZTEC"
+   ],
+   "copia_dentro": [
+    0.04229049410880883,
+    17
+   ],
+   "copia_fora": [
+    -0.0006243623323903815,
+    5
+   ]
+  },
+  "0x93ab7dbdeb996806454de19c35c8247f4b2511f8": {
+   "n": 1,
+   "acerto": 1.0,
+   "ganho_med": 0.10651985288016563,
+   "perda_med": 0.0,
+   "payoff": null,
+   "horas_med": 614.1673097222222,
+   "long": 1.0,
+   "taker": 1.0,
+   "pnl": 3317848.563391999,
+   "carteira": "0x93ab7dbdeb996806454de19c35c8247f4b2511f8",
+   "nome": "",
+   "conta": 13899445.997995,
+   "pnl_mes": 4854837.122917,
+   "roi_mes": 0.5367658447,
+   "pnl_total": 9898143.647995,
+   "fills": 229,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC"
+   ],
+   "copia_dentro": [
+    0.09598639096420392,
+    1
+   ],
+   "copia_fora": null
+  },
+  "0xbd1c84113c6deb5044be0c2221f9e9403811ff0e": {
+   "n": 4,
+   "acerto": 1.0,
+   "ganho_med": 0.018391319593880184,
+   "perda_med": 0.0,
+   "payoff": null,
+   "horas_med": 47.54653263888889,
+   "long": 0.75,
+   "taker": 0.7620481927710844,
+   "pnl": 3321023.527701001,
+   "carteira": "0xbd1c84113c6deb5044be0c2221f9e9403811ff0e",
+   "nome": "",
+   "conta": 12219844.222509,
+   "pnl_mes": 4770736.928832,
+   "roi_mes": 0.6404441151,
+   "pnl_total": 8219844.422509,
+   "fills": 116,
+   "tipo": "swing/day",
+   "coins": [
+    "ETH",
+    "BTC"
+   ],
+   "copia_dentro": [
+    0.0507894458538114,
+    2
+   ],
+   "copia_fora": [
+    0.021873751283923215,
+    2
+   ]
+  },
+  "0x08c14b32c8a48894e4b933090ebcc9ce33b21135": {
+   "n": 4,
+   "acerto": 0.5,
+   "ganho_med": 0.05516197443730253,
+   "perda_med": -0.026923729773594085,
+   "payoff": 2.0488236548638814,
+   "horas_med": 20.31161708333333,
+   "long": 0.75,
+   "taker": 0.9385441527446301,
+   "pnl": 7364.562932999991,
+   "carteira": "0x08c14b32c8a48894e4b933090ebcc9ce33b21135",
+   "nome": "",
+   "conta": 2968804.979276,
+   "pnl_mes": 4678165.813721,
+   "roi_mes": 0.8842345258,
+   "pnl_total": 9258965.928153,
+   "fills": 3054,
+   "tipo": "swing/day",
+   "coins": [
+    "PONS",
+    "TAO",
+    "xyz:INTC",
+    "xyz:SKHX"
+   ],
+   "copia_dentro": [
+    -8.178220143354824e-05,
+    3
+   ],
+   "copia_fora": null
+  },
+  "0xc926ddba8b7617dbc65712f20cf8e1b58b8598d3": {
+   "n": 358,
+   "acerto": 0.547486033519553,
+   "ganho_med": 0.0010775000054033534,
+   "perda_med": -0.0006687780184270742,
+   "payoff": 0.9120943193880093,
+   "horas_med": 0.037324444444444445,
+   "long": 0.7374301675977654,
+   "taker": 0.11953429309502062,
+   "pnl": 9339.220143,
+   "carteira": "0xc926ddba8b7617dbc65712f20cf8e1b58b8598d3",
+   "nome": "",
+   "conta": 24447059.705246,
+   "pnl_mes": 4383181.002621,
+   "roi_mes": 0.196869655,
+   "pnl_total": 20497464.305246,
+   "fills": 10000,
+   "tipo": "rob\u00f4/MM",
+   "coins": [
+    "BTC",
+    "NEAR",
+    "PUMP",
+    "SOL",
+    "ZEC"
+   ]
+  },
+  "0xe867fbdad3291530e41530301ecb77693850c78e": {
+   "n": 35,
+   "acerto": 0.6285714285714286,
+   "ganho_med": 0.019820364079240538,
+   "perda_med": -0.006243364947333019,
+   "payoff": 0.6028891048983588,
+   "horas_med": 18.037295277777776,
+   "long": 0.7428571428571429,
+   "taker": 0.3861340110890609,
+   "pnl": 719092.9899183502,
+   "carteira": "0xe867fbdad3291530e41530301ecb77693850c78e",
+   "nome": "",
+   "conta": 89317124.105109,
+   "pnl_mes": 4324581.936078,
+   "roi_mes": 0.0508814373,
+   "pnl_total": 65731716.515109,
+   "fills": 4867,
+   "tipo": "swing/day",
+   "coins": [
+    "HYPE",
+    "XMR",
+    "xyz:MU",
+    "XRP",
+    "ETH"
+   ],
+   "copia_dentro": [
+    0.0006107084424368324,
+    15
+   ],
+   "copia_fora": [
+    0.03178731780264635,
+    9
+   ]
+  },
+  "0x880ac484a1743862989a441d6d867238c7aa311c": {
+   "n": 13,
+   "acerto": 0.5384615384615384,
+   "ganho_med": 0.017110593419708664,
+   "perda_med": -0.045062448094295326,
+   "payoff": 1.2286804041960806,
+   "horas_med": 82.72613277777778,
+   "long": 0.46153846153846156,
+   "taker": 0.0030682694659217038,
+   "pnl": 31830.141958589025,
+   "carteira": "0x880ac484a1743862989a441d6d867238c7aa311c",
+   "nome": "x.com/SilkBtc",
+   "conta": 14236857.860195,
+   "pnl_mes": 4224255.848276,
+   "roi_mes": 0.1420768013,
+   "pnl_total": 120454714.070195,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "HYPE",
+    "ZRO",
+    "xyz:INTC",
+    "VVV",
+    "xyz:CRCL"
+   ],
+   "copia_dentro": [
+    0.03715162717970536,
+    3
+   ],
+   "copia_fora": [
+    0.012184662584410137,
+    7
+   ]
+  },
+  "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50": {
+   "n": 103,
+   "acerto": 0.5145631067961165,
+   "ganho_med": 0.0008009159006980848,
+   "perda_med": -0.0014652458518579214,
+   "payoff": 0.04541086380439665,
+   "horas_med": 0.1513,
+   "long": 0.5048543689320388,
+   "taker": 0.004897327949136524,
+   "pnl": -20919.671682823526,
+   "carteira": "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+   "nome": "",
+   "conta": 77654636.537223,
+   "pnl_mes": 4115159.264344,
+   "roi_mes": 0.0559407749,
+   "pnl_total": 117122616.267223,
+   "fills": 8540,
+   "tipo": "rob\u00f4/MM",
+   "coins": [
+    "io:SNDK",
+    "#8550"
+   ]
+  },
+  "0xbf732ea04197942783e34730ed6e0f6099575d58": {
+   "n": 31,
+   "acerto": 0.3548387096774194,
+   "ganho_med": 0.004865565215551815,
+   "perda_med": -0.01172328027888525,
+   "payoff": 0.9019609285558636,
+   "horas_med": 2.811903611111111,
+   "long": 0.6451612903225806,
+   "taker": 0.6213836503760571,
+   "pnl": -3372370.7144989977,
+   "carteira": "0xbf732ea04197942783e34730ed6e0f6099575d58",
+   "nome": "",
+   "conta": 1943823.637912,
+   "pnl_mes": 4098834.101922,
+   "roi_mes": 1.1746216139,
+   "pnl_total": 21918100.137912,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "ZEC",
+    "ETH",
+    "BTC",
+    "ZRO",
+    "PUMP"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    -0.013613569791093157,
+    21
+   ]
+  },
+  "0xf29c6bc1147a841519b382459a6d7a373c6b9971": {
+   "n": 12,
+   "acerto": 0.5,
+   "ganho_med": 0.038336287612161124,
+   "perda_med": -0.007595434434738646,
+   "payoff": 9.958985929219875,
+   "horas_med": 108.27779569444445,
+   "long": 0.6666666666666666,
+   "taker": 0.5948113867756206,
+   "pnl": 541825.0426819999,
+   "carteira": "0xf29c6bc1147a841519b382459a6d7a373c6b9971",
+   "nome": "",
+   "conta": 7428134.619341,
+   "pnl_mes": 3932661.8627600004,
+   "roi_mes": 0.3991574159,
+   "pnl_total": 7779922.249341,
+   "fills": 4189,
+   "tipo": "swing/day",
+   "coins": [
+    "ETH",
+    "BTC",
+    "xyz:SNDK",
+    "xyz:GOOGL",
+    "xyz:NVDA"
+   ],
+   "copia_dentro": [
+    0.12615173566875043,
+    5
+   ],
+   "copia_fora": [
+    -0.005250980709132702,
+    5
+   ]
+  },
+  "0x13da9d69a9b8a28495ade07d3ff1c61d024808be": {
+   "n": 15,
+   "acerto": 0.8,
+   "ganho_med": 0.01663533177314891,
+   "perda_med": -0.0343510201133197,
+   "payoff": 2.0984922352478192,
+   "horas_med": 13.455429722222222,
+   "long": 0.8,
+   "taker": 0.05449504983210035,
+   "pnl": 5160510.543127003,
+   "carteira": "0x13da9d69a9b8a28495ade07d3ff1c61d024808be",
+   "nome": "",
+   "conta": 2060675.908205,
+   "pnl_mes": 3904389.138208,
+   "roi_mes": 0.4505261875,
+   "pnl_total": 2575673.818205,
+   "fills": 9634,
+   "tipo": "swing/day",
+   "coins": [
+    "SOL",
+    "AVAX",
+    "xyz:BRENTOIL",
+    "BTC"
+   ],
+   "copia_dentro": [
+    0.02092906726253277,
+    8
+   ],
+   "copia_fora": [
+    0.032848124992601146,
+    2
+   ]
+  },
+  "0xfdf891f2b214a4c9374d26595ec6d4080262e381": {
+   "n": 1,
+   "acerto": 0.0,
+   "ganho_med": 0.0,
+   "perda_med": -0.018604937609319583,
+   "payoff": null,
+   "horas_med": 342.5342963888889,
+   "long": 0.0,
+   "taker": 1.0,
+   "pnl": -30921.74024899998,
+   "carteira": "0xfdf891f2b214a4c9374d26595ec6d4080262e381",
+   "nome": "",
+   "conta": 4602919.646532,
+   "pnl_mes": 3801524.464805,
+   "roi_mes": 2.6192207928,
+   "pnl_total": 5234691.276532,
+   "fills": 1444,
+   "tipo": "swing/day",
+   "coins": [
+    "ETH"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    0.0847932182864064,
+    1
+   ]
+  },
+  "0x60468ba27448f88b19f52ed02f1a8c52f7a0b21d": {
+   "n": 1,
+   "acerto": 0.0,
+   "ganho_med": 0.0,
+   "perda_med": -0.018258172249965732,
+   "payoff": null,
+   "horas_med": 19.513746944444446,
+   "long": 0.0,
+   "taker": 0.0797872340425532,
+   "pnl": -841740.3259300034,
+   "carteira": "0x60468ba27448f88b19f52ed02f1a8c52f7a0b21d",
+   "nome": "",
+   "conta": 10242349.562473,
+   "pnl_mes": 3651002.353681,
+   "roi_mes": 0.5539083647,
+   "pnl_total": 245351.562473,
+   "fills": 845,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC"
+   ],
+   "copia_dentro": [
+    -0.040814063687050095,
+    1
+   ],
+   "copia_fora": null
+  },
+  "0xe81309ec9b79309e4d108ae3a92d1aa618cd6d74": {
+   "n": 3,
+   "acerto": 1.0,
+   "ganho_med": 0.14871132692228817,
+   "perda_med": 0.0,
+   "payoff": null,
+   "horas_med": 18.513624444444446,
+   "long": 1.0,
+   "taker": 0.6930455635491607,
+   "pnl": 3491136.0790970013,
+   "carteira": "0xe81309ec9b79309e4d108ae3a92d1aa618cd6d74",
+   "nome": "",
+   "conta": 19762506.907007,
+   "pnl_mes": 3424217.47,
+   "roi_mes": 0.3335060705,
+   "pnl_total": 3424217.47,
+   "fills": 183,
+   "tipo": "swing/day",
+   "coins": [
+    "NEAR",
+    "AVAX"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    0.14606098766999176,
+    2
+   ]
+  },
+  "0xbd334a55db91617545e8d1b09941e036ad8e4200": {
+   "n": 2,
+   "acerto": 1.0,
+   "ganho_med": 0.056712007872654346,
+   "perda_med": 0.0,
+   "payoff": null,
+   "horas_med": 473.8759381944444,
+   "long": 0.0,
+   "taker": 0.005057919207116165,
+   "pnl": 425976.0534810006,
+   "carteira": "0xbd334a55db91617545e8d1b09941e036ad8e4200",
+   "nome": "",
+   "conta": 9080980.800692,
+   "pnl_mes": 3023678.560913,
+   "roi_mes": 0.4991790803,
+   "pnl_total": 5560483.756582,
+   "fills": 2766,
+   "tipo": "swing/day",
+   "coins": [
+    "xyz:CL",
+    "xyz:MU"
+   ],
+   "copia_dentro": [
+    0.0717128419493096,
+    1
+   ],
+   "copia_fora": [
+    0.029261348005502064,
+    1
+   ]
+  },
+  "0xaeaab54bbf65bfd6efed7d2eb68372298e3c2416": {
+   "n": 148,
+   "acerto": 0.4391891891891892,
+   "ganho_med": 0.010299665227654131,
+   "perda_med": -0.006281824378866596,
+   "payoff": 1.7476621373894519,
+   "horas_med": 0.8152595833333334,
+   "long": 0.6554054054054054,
+   "taker": 0.7979388839459977,
+   "pnl": 4024493.9437280037,
+   "carteira": "0xaeaab54bbf65bfd6efed7d2eb68372298e3c2416",
+   "nome": "",
+   "conta": 1984119.852532,
+   "pnl_mes": 2925527.720892,
+   "roi_mes": 0.1632238408,
+   "pnl_total": 7825280.492532,
+   "fills": 2785,
+   "tipo": "scalper",
+   "coins": [
+    "BTC",
+    "xyz:MU",
+    "xyz:SPCX",
+    "xyz:SNDK",
+    "ETH"
+   ],
+   "copia_dentro": [
+    0.011398050571947703,
+    78
+   ],
+   "copia_fora": [
+    -0.014457100872433525,
+    5
+   ]
+  },
+  "0x4cae5bed586f6e73ae54ebd40a4ac4ed2c477c34": {
+   "n": 36,
+   "acerto": 0.2222222222222222,
+   "ganho_med": 0.5020566091787079,
+   "perda_med": -0.02259196431623761,
+   "payoff": 2.4236760748251407,
+   "horas_med": 56.661433055555555,
+   "long": 1.0,
+   "taker": 0.5654401169365941,
+   "pnl": -77723.16365396,
+   "carteira": "0x4cae5bed586f6e73ae54ebd40a4ac4ed2c477c34",
+   "nome": "",
+   "conta": 3975274.873602,
+   "pnl_mes": 2580737.5443329997,
+   "roi_mes": 1.7040213762,
+   "pnl_total": 4276802.413602,
+   "fills": 9580,
+   "tipo": "swing/day",
+   "coins": [
+    "ZEC",
+    "NEAR",
+    "ENA",
+    "LIT",
+    "XPL"
+   ],
+   "copia_dentro": [
+    -0.014489780971850124,
+    17
+   ],
+   "copia_fora": null
+  },
+  "0x0871deb34bfd2052b1c10dc4f6c0912a2a47e927": {
+   "n": 57,
+   "acerto": 0.5789473684210527,
+   "ganho_med": 0.008676251528705325,
+   "perda_med": -0.011725957290379563,
+   "payoff": 0.8638232183817793,
+   "horas_med": 5.0577425,
+   "long": 0.9473684210526315,
+   "taker": 0.296728554869667,
+   "pnl": 59907.46954999924,
+   "carteira": "0x0871deb34bfd2052b1c10dc4f6c0912a2a47e927",
+   "nome": "PURRINA Pro Plan",
+   "conta": 8443809.846412,
+   "pnl_mes": 2519346.786138,
+   "roi_mes": 0.3844853919,
+   "pnl_total": 14970864.866412,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "ENA",
+    "ZEC",
+    "PUMP",
+    "NEAR",
+    "VVV"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    0.0034312342258365825,
+    43
+   ]
+  },
+  "0xaf0fdd39e5d92499b0ed9f68693da99c0ec1e92e": {
+   "n": 5,
+   "acerto": 1.0,
+   "ganho_med": 0.06652973734667156,
+   "perda_med": 0.0,
+   "payoff": null,
+   "horas_med": 129.48271805555555,
+   "long": 0.8,
+   "taker": 0.05045901639344263,
+   "pnl": 231987.779848,
+   "carteira": "0xaf0fdd39e5d92499b0ed9f68693da99c0ec1e92e",
+   "nome": "",
+   "conta": 22201035.873203997,
+   "pnl_mes": 2460590.50418,
+   "roi_mes": 0.1210007518,
+   "pnl_total": 27004432.183204003,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "HYPE",
+    "BTC",
+    "LIT",
+    "ETH"
+   ],
+   "copia_dentro": [
+    0.036993160602595804,
+    4
+   ],
+   "copia_fora": [
+    0.023429687231187546,
+    1
+   ]
+  },
+  "0x58b27998b4ff896949d5f57466b259e50ee211f3": {
+   "n": 40,
+   "acerto": 0.65,
+   "ganho_med": 0.021618896955469258,
+   "perda_med": -0.007871090941583336,
+   "payoff": 1.3488499174078528,
+   "horas_med": 30.0572325,
+   "long": 0.4,
+   "taker": 0.785472343892859,
+   "pnl": 2090978.2148426,
+   "carteira": "0x58b27998b4ff896949d5f57466b259e50ee211f3",
+   "nome": "",
+   "conta": 10887392.569897,
+   "pnl_mes": 2348829.197267,
+   "roi_mes": 1.1826197386,
+   "pnl_total": 1532133.137267,
+   "fills": 5544,
+   "tipo": "swing/day",
+   "coins": [
+    "ZEC",
+    "BTC",
+    "HYPE",
+    "NEAR",
+    "ETH"
+   ],
+   "copia_dentro": null,
+   "copia_fora": [
+    0.021401767320537866,
+    37
+   ]
+  },
+  "0xab961d7c42bbcd454a54b342bd191a8f090219e6": {
+   "n": 12,
+   "acerto": 0.75,
+   "ganho_med": 0.009710718013850705,
+   "perda_med": -0.01237293732532696,
+   "payoff": 2.7572438701353192,
+   "horas_med": 6.146567361111112,
+   "long": 0.5833333333333334,
+   "taker": 0.061090415774234755,
+   "pnl": 3869442.5035799975,
+   "carteira": "0xab961d7c42bbcd454a54b342bd191a8f090219e6",
+   "nome": "",
+   "conta": 2071457.847767,
+   "pnl_mes": 2188983.602618,
+   "roi_mes": 0.4366286389,
+   "pnl_total": 4313191.79,
+   "fills": 9042,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC",
+    "xyz:MU",
+    "ETH"
+   ],
+   "copia_dentro": [
+    0.029570550520500633,
+    7
+   ],
+   "copia_fora": [
+    -0.00016392692494479545,
+    4
+   ]
+  },
+  "0x866d4903b256ce7e7caac46a91e83128bb0fd6e1": {
+   "n": 17,
+   "acerto": 0.4117647058823529,
+   "ganho_med": 0.05076157180457397,
+   "perda_med": -0.021306264576709588,
+   "payoff": 3.6053938249606654,
+   "horas_med": 32.68506138888889,
+   "long": 1.0,
+   "taker": 0.747130085860649,
+   "pnl": 62945.954639999894,
+   "carteira": "0x866d4903b256ce7e7caac46a91e83128bb0fd6e1",
+   "nome": "",
+   "conta": 5044442.833485,
+   "pnl_mes": 2171858.437577,
+   "roi_mes": 0.7560642746,
+   "pnl_total": 4465629.973485,
+   "fills": 1421,
+   "tipo": "swing/day",
+   "coins": [
+    "TAO",
+    "HYPE",
+    "ETH",
+    "RENDER",
+    "LINK"
+   ],
+   "copia_dentro": [
+    0.04454358261258636,
+    9
+   ],
+   "copia_fora": [
+    -0.018026366450809756,
+    3
+   ]
+  },
+  "0x8607a7d180de23645db594d90621d837749408d5": {
+   "n": 19,
+   "acerto": 0.7894736842105263,
+   "ganho_med": 0.041978118002054865,
+   "perda_med": -0.09045359235386757,
+   "payoff": 0.6618967462845842,
+   "horas_med": 25.456172777777777,
+   "long": 0.42105263157894735,
+   "taker": 0.16294575537259998,
+   "pnl": 112933.1952266205,
+   "carteira": "0x8607a7d180de23645db594d90621d837749408d5",
+   "nome": "wanyekest",
+   "conta": 14687362.066096,
+   "pnl_mes": 2133095.995971,
+   "roi_mes": 0.1161875084,
+   "pnl_total": 31428840.086096,
+   "fills": 2505,
+   "tipo": "swing/day",
+   "coins": [
+    "xyz:CL",
+    "io:GPRO",
+    "xyz:SKHY",
+    "xyz:CBRS",
+    "PURR"
+   ],
+   "copia_dentro": [
+    0.04632953832448363,
+    10
+   ],
+   "copia_fora": null
+  },
+  "0x721546769b86db633fcbd5e3a08a0e6343042e3c": {
+   "n": 1,
+   "acerto": 0.0,
+   "ganho_med": 0.0,
+   "perda_med": -0.0002715638684270827,
+   "payoff": null,
+   "horas_med": 0.0068325,
+   "long": 1.0,
+   "taker": 1.0,
+   "pnl": -8.503991,
+   "carteira": "0x721546769b86db633fcbd5e3a08a0e6343042e3c",
+   "nome": "",
+   "conta": 8827097.517716,
+   "pnl_mes": 2118948.116953,
+   "roi_mes": 0.3158767032,
+   "pnl_total": 1568271.577716,
+   "fills": 3241,
+   "tipo": "rob\u00f4/MM",
+   "coins": [
+    "xyz:XYZ100"
+   ]
+  },
+  "0x77ee3604adbdefa66a817b3cf776412a6613a018": {
+   "n": 29,
+   "acerto": 0.6551724137931034,
+   "ganho_med": 0.024325581927155948,
+   "perda_med": -0.046656447746521446,
+   "payoff": 0.42576006811953554,
+   "horas_med": 122.64409527777778,
+   "long": 0.3103448275862069,
+   "taker": 0.062324970266354335,
+   "pnl": -861560.2243570003,
+   "carteira": "0x77ee3604adbdefa66a817b3cf776412a6613a018",
+   "nome": "",
+   "conta": 4704720.783234,
+   "pnl_mes": 2113569.710211,
+   "roi_mes": 0.7726130755,
+   "pnl_total": 340080.063234,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "BTC",
+    "ETH",
+    "ZEC",
+    "xyz:SKHX",
+    "xyz:BRENTOIL"
+   ],
+   "copia_dentro": [
+    -0.08474423856392756,
+    19
+   ],
+   "copia_fora": [
+    0.0005659376398760576,
+    4
+   ]
+  },
+  "0x654016a8c9fcf0c4cb7ed6078aba21f7f399f7b7": {
+   "n": 2,
+   "acerto": 0.5,
+   "ganho_med": 0.0018926105318723963,
+   "perda_med": -0.002565928793115013,
+   "payoff": 0.7375927722354232,
+   "horas_med": 24.380750000000003,
+   "long": 1.0,
+   "taker": 0.975,
+   "pnl": 58.15980200000001,
+   "carteira": "0x654016a8c9fcf0c4cb7ed6078aba21f7f399f7b7",
+   "nome": "",
+   "conta": 6267397.189307,
+   "pnl_mes": 2007713.443141,
+   "roi_mes": 0.4712923164,
+   "pnl_total": 3879693.409307,
+   "fills": 10000,
+   "tipo": "swing/day",
+   "coins": [
+    "UNI",
+    "COMP"
+   ],
+   "copia_dentro": null,
+   "copia_fora": null
+  }
+ }
+}
