@@ -12,7 +12,7 @@
       "preco_entrada": 69.16,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 70.485001
+      "ultimo_preco": 70.459999
     },
     "ENPH": {
       "token": "ENPHon",
@@ -21,7 +21,7 @@
       "preco_entrada": 33.85,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 32.099998
+      "ultimo_preco": 32.029999
     },
     "PENG": {
       "token": "PENGon",
@@ -30,7 +30,7 @@
       "preco_entrada": 72.73999786376953,
       "data_entrada": "2026-10-07",
       "origem": "donchian",
-      "ultimo_preco": 78.120003
+      "ultimo_preco": 78.199997
     },
     "HPE": {
       "token": "HPEon",
@@ -39,7 +39,7 @@
       "preco_entrada": 72.70880126953125,
       "data_entrada": "2026-10-07",
       "origem": "donchian",
-      "ultimo_preco": 68.870003
+      "ultimo_preco": 68.809998
     },
     "INSW": {
       "token": "INSWon",
@@ -57,7 +57,7 @@
       "preco_entrada": 197.4499969482422,
       "data_entrada": "2026-10-08",
       "origem": "donchian",
-      "ultimo_preco": 208.449997
+      "ultimo_preco": 208.669998
     }
   }
 }
