@@ -69,6 +69,7 @@ def avaliar_ml(ativo, df):
                 "ativo": ativo["nome"], "simbolo": ativo["simbolo"], "rank": ativo.get("rank"),
                 "lado": "LONG" if lado == 1 else "SHORT", "tempo": df.index[-1].isoformat(),
                 "pont": round(p, 3), "p_tp": fx["acerto"], "ev_r": fx["r"], "n_faixa": fx["n"],
+                "topo": fx is pk["faixas"][lado][-1],
                 "nota": nc.nota_de(fx["acerto"], fx["r"], fx["n"]),
                 "entrada": round(ent, casas), "tp": round(ent * (1 + lado * pk["tp"]), casas),
                 "sl": round(ent * (1 - lado * pk["sl"]), casas),
@@ -175,6 +176,41 @@ def subir_drive(caminho):
     print("Drive: atualizado")
 
 
+def num_br(x):
+    return str(x).replace(".", ",")
+
+
+def trades_a_fazer(sinais, ml, agora):
+    """O que vale aviso no celular: nota 8+, todo Exaustão long e o modelo de fluxo só na faixa
+    mais alta com R positivo. Só sinais ainda válidos."""
+    lim = agora - datetime.timedelta(minutes=VALIDADE_MIN)
+    out = [dict(x, rotulo="Exaustão" if x["setup"] == "EXA" else x["setup"]) for x in sinais
+           if datetime.datetime.fromisoformat(x["tempo"]) >= lim
+           and (x["nota"] >= 8 or (x["setup"] == "EXA" and x["lado"] == "LONG"))]
+    out += [dict(x, rotulo="Modelo de fluxo") for x in ml
+            if x.get("topo") and x["ev_r"] > 0 and datetime.datetime.fromisoformat(x["tempo"]) >= lim]
+    return out
+
+
+def tamanho(x, margem=50.0, alvo=15.0):
+    """Igual ao painel: alavancagem para o TP render US$ 15 com US$ 50 de margem (5x a 25x)."""
+    liq = x["tp_pct"] / 100 - 0.0004
+    alav = int(min(25, max(5, np.ceil(alvo / liq / margem)))) if liq > 0 else 25
+    pos = margem * alav
+    return alav, pos * liq, pos * (x["sl_pct"] / 100 + 0.001)
+
+
+def texto_aviso(trades, agora):
+    linhas = [f"🎯 Trade agora ({br(agora):%d/%m %H:%M}) — vale até {br(agora + datetime.timedelta(minutes=VALIDADE_MIN)):%H:%M}"]
+    for x in trades:
+        alav, ganha, perde = tamanho(x)
+        linhas.append(f"{'🟢 LONG' if x['lado'] == 'LONG' else '🔴 SHORT'} {x['ativo']} · nota {x['nota']}/10 · {x['rotulo']}\n"
+                      f"Entrada {num_br(x['entrada'])} · SL {num_br(x['sl'])} · TP {num_br(x['tp'])} · {alav}x\n"
+                      f"Margem US$ 50: ganha US$ {ganha:.2f} · perde US$ {perde:.2f}".replace(".", ","))
+    linhas.append("Margem cruzada: coloque SL e TP na entrada.")
+    return "\n".join(linhas)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--max", type=int, default=0)
@@ -236,8 +272,16 @@ def main():
         "ml_info": stats.get("ml") and {k: stats["ml"][k] for k in ("tp", "sl", "horas", "teste", "ativos")},
         "ml_faixas": stats.get("ml", {}).get("faixas"),
         "placar_ml": stats.get("placar_ml"),
+        "avisar": trades_a_fazer(sinais, ml, agora),
         "segundos": round(time.time() - t0),
     }
+    if painel["avisar"]:
+        painel["aviso_texto"] = texto_aviso(painel["avisar"], agora)
+        print(painel["aviso_texto"])
+        if not a.max:
+            sys.path.insert(0, os.path.join(AQUI, ".."))
+            import central
+            central.publicar_item("trade", "sinal", painel["aviso_texto"])
     caminho = os.path.join(AQUI, "painel.json")
     with open(caminho, "w") as f:
         json.dump(painel, f, ensure_ascii=False, separators=(",", ":"))
