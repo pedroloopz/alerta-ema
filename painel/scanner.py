@@ -192,8 +192,8 @@ def main():
     sinais.sort(key=lambda x: (-x["nota"], -x["p_tp"], -x["ev_r"]))
 
     ml = sorted(ML["saida"], key=lambda x: (-x["p_tp"], -x["ev_r"], -x["pont"]))
-    # registro para o placar real: melhor long e melhor short logo após cada hora cheia
-    if ml and agora.minute < 15:
+    # registro para o placar real: melhor long e melhor short de cada varredura
+    if ml:
         reg = []
         for lado in ("LONG", "SHORT"):
             cand = [x for x in ml if x["lado"] == lado]
