@@ -181,12 +181,12 @@ def num_br(x):
 
 
 def trades_a_fazer(sinais, ml, agora):
-    """O que vale aviso no celular: nota 8+, todo Exaustão long e o modelo de fluxo só na faixa
-    mais alta com R positivo. Só sinais ainda válidos."""
+    """O que vale aviso no celular: nota 8+, Exaustão long com R esperado positivo e o modelo de
+    fluxo só na faixa mais alta com R positivo. Só sinais ainda válidos."""
     lim = agora - datetime.timedelta(minutes=VALIDADE_MIN)
     out = [dict(x, rotulo="Exaustão" if x["setup"] == "EXA" else x["setup"]) for x in sinais
            if datetime.datetime.fromisoformat(x["tempo"]) >= lim
-           and (x["nota"] >= 8 or (x["setup"] == "EXA" and x["lado"] == "LONG"))]
+           and (x["nota"] >= 8 or (x["setup"] == "EXA" and x["lado"] == "LONG" and x["ev_r"] > 0))]
     out += [dict(x, rotulo="Modelo de fluxo") for x in ml
             if x.get("topo") and x["ev_r"] > 0 and datetime.datetime.fromisoformat(x["tempo"]) >= lim]
     return out
