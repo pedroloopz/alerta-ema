@@ -1,0 +1,54 @@
+name: carteiras
+
+# Roda so quando voce mandar. Engenharia reversa das carteiras vencedoras da Hyperliquid
+# (dados publicos): perfil, condicoes de entrada e teste de copia. Salva relatorio_carteiras.txt.
+on:
+  workflow_dispatch:
+    inputs:
+      dias:
+        description: "Dias de historico"
+        default: "90"
+      carteiras:
+        description: "Quantas carteiras do topo"
+        default: "50"
+
+permissions:
+  contents: write
+
+jobs:
+  analisar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: Analisar carteiras
+        shell: bash
+        env:
+          DIAS: ${{ inputs.dias }}
+          N_CARTEIRAS: ${{ inputs.carteiras }}
+        run: python carteiras.py 2>&1 | tee -a run.log
+
+      - name: Salvar no repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add relatorio_carteiras.txt carteiras.json carteiras_trades.csv
+          git diff --staged --quiet || git commit -m "relatorio de carteiras"
+          git pull --rebase --autostash && git push
+
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
