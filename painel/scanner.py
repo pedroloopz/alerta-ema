@@ -282,6 +282,20 @@ def main():
             sys.path.insert(0, os.path.join(AQUI, ".."))
             import central
             central.publicar_item("trade", "sinal", painel["aviso_texto"])
+    # avisos das últimas 2h (guardados na coleta), para o aviso de hora em hora não perder nenhum
+    hist = os.path.join(COLETA, "avisos.jsonl")
+    antigos = []
+    if os.path.exists(hist):
+        with open(hist, encoding="utf-8") as f:
+            antigos = [json.loads(x) for x in f if x.strip()]
+    if painel["avisar"] and not a.max:
+        antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["aviso_texto"]})
+    corte = (agora - datetime.timedelta(hours=2)).isoformat(timespec="seconds")
+    painel["avisos_recentes"] = [x for x in antigos if x["t"] >= corte]
+    if not a.max:
+        os.makedirs(COLETA, exist_ok=True)
+        with open(hist, "w", encoding="utf-8") as f:
+            f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in antigos[-500:])
     caminho = os.path.join(AQUI, "painel.json")
     with open(caminho, "w") as f:
         json.dump(painel, f, ensure_ascii=False, separators=(",", ":"))

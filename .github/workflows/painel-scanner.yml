@@ -4,7 +4,7 @@ name: painel-scanner
 # (arquivo painel-trade.json), que o painel no Claude le.
 on:
   schedule:
-    - cron: "1,16,31,46 * * * *"   # a cada 15 min (repositorio publico: minutos gratis)
+    - cron: "1,16,31,46 * * * *"   # a cada 15 min (repositorio publico: minutos gratis; GitHub pode atrasar)
   workflow_dispatch:
   push:
     branches: [painel]
