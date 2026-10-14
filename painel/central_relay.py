@@ -58,14 +58,16 @@ def miniatura(caminho):
 def main():
     shutil.rmtree(TMP, ignore_errors=True)
     TMP.mkdir(parents=True)
-    itens, pastas = [], {}
+    itens, pastas, diag = [], {}, {}
     for repo in REPOS:
         destino = TMP / repo.split("/")[1]
         r = subprocess.run(["git", "clone", "-q", "--depth", "1", "-b", "central",
                             f"https://github.com/{repo}", str(destino)], capture_output=True, text=True)
         if r.returncode != 0 or not (destino / "saida.jsonl").exists():
             print(f"{repo}: ainda sem branch central")
+            diag[repo] = (r.stderr or "sem saida.jsonl").strip()[-200:]
             continue
+        diag[repo] = "ok"
         for linha in (destino / "saida.jsonl").read_text(encoding="utf-8").splitlines():
             if linha.strip():
                 i = json.loads(linha)
@@ -102,7 +104,7 @@ def main():
                 except Exception as e:
                     print(f"imagem {nome} falhou: {e}")
     feed = {"gerado_em": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-            "itens": itens, "slots": slots}
+            "itens": itens, "slots": slots, "diag": diag}
     subir(s, FEED_ID, json.dumps(feed, ensure_ascii=False).encode(), "application/json")
     print(f"feed: {len(itens)} itens, {len(slots)} áudios")
 
