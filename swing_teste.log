@@ -1,29 +1,33 @@
-universo: 440 acoes: 275
-BTC-USDT 299 2026-10-14 18:00:00+00:00 [{'open': 81601.7, 'high': 81975.0, 'low': 81546.1, 'close': 81975.0, 'volume': 433.714}, {'open': 81975.0, 'high': 82057.5, 'low': 81481.3, 'close': 81555.2, 'volume': 385.0551}]
-ETH-USDT 299 2026-10-14 18:00:00+00:00 [{'open': 2428.92, 'high': 2447.79, 'low': 2426.07, 'close': 2447.79, 'volume': 8863.8}, {'open': 2447.79, 'high': 2452.37, 'low': 2427.0, 'close': 2430.88, 'volume': 8031.52}]
-falhou NCSKXBI2USD-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKSITMUSDT-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKFCX2USD-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKSATLUSDT-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKAXONUSDT-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKZCSH2USD-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKNVO2USD-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKVCX2USD-USDT BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-com dados suficientes: {'acao': 0, 'cripto': 163}
-swing: falhou STABLE-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-swing: falhou 0G-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-swing: falhou NCSKNBIS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-swing: falhou NCSKLLY2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-swing: falhou NCSKFORM2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-swing: falhou NCSKNTAP2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-sinais agora: 0
-Traceback (most recent call last):
-  File "/home/runner/work/alerta-ema/alerta-ema/painel/teste_swing_vivo.py", line 35, in <module>
-    df = swing.acao_1h(dados.klines(a["simbolo"], dias=21))
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/alerta-ema/alerta-ema/painel/dados.py", line 83, in klines
-    d = bx("/openApi/swap/v3/quote/klines", symbol=simbolo, interval="15m",
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/alerta-ema/alerta-ema/painel/dados.py", line 37, in bx
-    raise RuntimeError(f"BingX {path}: {js.get('code')} {js.get('msg')}")
-RuntimeError: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+NCSKNVDA2USD-USDT 15m n 1000 2026-10-04 08:45:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKNVDA2USD-USDT 30m n 1000 2026-09-23 23:00:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKNVDA2USD-USDT 1h n 1000 2026-09-03 03:00:00+00:00 -> 2026-10-14 18:00:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+klines dias=21: (998, Timestamp('2026-10-04 09:15:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
+acao_1h: (54, Timestamp('2026-10-05 14:30:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
+NCSKAMD2USD-USDT 15m n 1000 2026-10-04 08:45:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKAMD2USD-USDT 30m n 1000 2026-09-23 23:00:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKAMD2USD-USDT 1h n 1000 2026-09-03 03:00:00+00:00 -> 2026-10-14 18:00:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+klines dias=21: (998, Timestamp('2026-10-04 09:15:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
+acao_1h: (54, Timestamp('2026-10-05 14:30:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
+NCSKMU2USD-USDT 15m n 1000 2026-10-04 08:45:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKMU2USD-USDT 30m n 1000 2026-09-23 23:00:00+00:00 -> 2026-10-14 18:30:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+NCSKMU2USD-USDT 1h n 1000 2026-09-03 03:00:00+00:00 -> 2026-10-14 18:00:00+00:00 vol zero: 0
+   horas NY com candle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+   dias da semana: [0, 1, 2, 3, 4, 5, 6]
+klines dias=21: (998, Timestamp('2026-10-04 09:15:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
+acao_1h: (54, Timestamp('2026-10-05 14:30:00+0000', tz='UTC'), Timestamp('2026-10-14 18:30:00+0000', tz='UTC'))
