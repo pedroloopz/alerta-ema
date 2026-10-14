@@ -49,3 +49,10 @@ def test_texto():
          "stop_pct": 2.51, "alvo_pct": 7.54, "prazo": "2026-10-21T20:00:00+00:00", "tempo": "x", "simbolo": "s"}
     t = swing.texto([x])
     assert "NVDA" in t and "Stop 97" in t and "Alvo 106" in t and "21/10 17:00" in t
+
+
+def test_acao_1h_de_30_min():
+    idx = pd.date_range("2026-10-13 12:30", "2026-10-13 22:00", freq="30min", tz="UTC")
+    df = pd.DataFrame({"open": 1.0, "high": 2.0, "low": 0.5, "close": 1.0, "volume": 1.0}, index=idx)
+    h = swing.acao_1h(df, passo_min=30)
+    assert len(h) == 7 and h["volume"].iloc[0] == 2 and h["volume"].iloc[-1] == 1
