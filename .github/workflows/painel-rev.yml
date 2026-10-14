@@ -8,6 +8,9 @@ on:
       max:
         description: "Limitar a N ativos (0 = todos)"
         default: "0"
+      script:
+        description: "Backtest a rodar (backtest_rev.py ou backtest_exa.py)"
+        default: "backtest_rev.py"
 
 permissions:
   contents: write
@@ -27,13 +30,13 @@ jobs:
       - run: pip install pandas numpy
       - name: Backtest
         shell: bash
-        run: python painel/backtest_rev.py --max "${{ inputs.max }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+        run: python painel/${{ inputs.script }} $([ "${{ inputs.script }}" = backtest_rev.py ] && echo --max "${{ inputs.max }}") 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Salvar relatorio
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add relatorio_rev.txt
-          git diff --staged --quiet || git commit -m "relatorio do backtest REV"
+          git add relatorio_*.txt
+          git diff --staged --quiet || git commit -m "relatorio de backtest do painel"
           git pull --rebase --autostash && git push
       - name: Avisar falha (topico Avisos)
         if: always()
