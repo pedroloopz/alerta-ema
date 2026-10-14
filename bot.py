@@ -36,6 +36,8 @@ import numpy as np
 import pandas as pd
 import requests
 
+import central
+
 import avisos
 import donchian as dc
 import fontes
@@ -82,7 +84,7 @@ def un_exato(x):
 
 # ============================================================== TELEGRAM
 def tg(metodo, **dados):
-    if not (TOKEN and CHAT_ID):
+    if central.ativa() or not (TOKEN and CHAT_ID):
         return {}
     if THREAD and metodo.startswith("send"):
         dados.setdefault("message_thread_id", int(THREAD))
@@ -99,6 +101,9 @@ def enviar(texto, botao=None, silencioso=False):
     silencioso=True chega sem som (so para o que nao pede acao)."""
     print("\n>>> TELEGRAM" + (" [sem som]" if silencioso else " [com som]")
           + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
+    if central.ativa():
+        central.publicar_item("trade", "mensagem", texto, extra={"silencioso": silencioso})
+        return None
     extra = {"disable_notification": True} if silencioso else {}
     if botao:
         extra["reply_markup"] = {"inline_keyboard": [[{"text": botao[0], "callback_data": botao[1]}]]}
@@ -114,6 +119,9 @@ def apagar(msg_id):
 
 def enviar_foto(caminho, legenda, silencioso=False):
     print(f"\n>>> TELEGRAM FOTO {caminho}" + (" [sem som]" if silencioso else "") + f"\n{legenda}")
+    if central.ativa():
+        central.publicar_item("trade", "foto", legenda, arquivos=[(caminho, "")], extra={"silencioso": silencioso})
+        return
     if TOKEN and CHAT_ID:
         with open(caminho, "rb") as f:
             requests.post(f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
@@ -163,7 +171,7 @@ def do_meu_topico(msg):
 
 def ler_comandos(estado):
     """Devolve eventos: ('cmd', partes, msg_id) ou ('botao', dado, msg_id)."""
-    if not TOKEN:
+    if central.ativa() or not TOKEN:
         return []
     try:
         r = requests.get(f"https://api.telegram.org/bot{TOKEN}/getUpdates",

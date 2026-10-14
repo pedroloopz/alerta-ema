@@ -1,0 +1,39 @@
+name: painel-central
+
+# Junta as mensagens dos bots (branch `central` de cada repositorio) e manda para o
+# Google Drive, de onde a pagina Central no Claude le. Substitui o Telegram.
+on:
+  schedule:
+    - cron: "8,23,38,53 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [painel/central_relay.py, .github/workflows/painel-central.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: painel-central
+  cancel-in-progress: false
+
+jobs:
+  juntar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install google-auth requests pillow
+      - name: Mensagem de teste (so quando o codigo muda)
+        if: github.event_name == 'push'
+        run: |
+          python3 -c "import central; central.publicar_item('avisos', 'teste', 'Central ligada. A partir de agora as mensagens dos bots chegam aqui em vez do Telegram.')"
+          python3 central.py publicar
+      - name: Juntar e enviar ao Drive
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+        shell: bash
+        run: python painel/central_relay.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
