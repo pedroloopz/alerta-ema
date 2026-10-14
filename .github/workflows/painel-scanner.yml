@@ -2,9 +2,11 @@ name: painel-scanner
 
 # Varredura de 15 em 15 min: notas 1-10 dos sinais de day trade e do modelo de fluxo, enviadas ao Google Drive
 # (arquivo painel-trade.json), que o painel no Claude le.
+# Rodada longa: cada execucao fica ligada ~5h40 varrendo a cada 15 min (o cron curto do GitHub falha muito).
+# O cron de hora em hora deixa a proxima rodada na fila; quando uma acaba, a outra comeca.
 on:
   schedule:
-    - cron: "1,16,31,46 * * * *"   # a cada 15 min (repositorio publico: minutos gratis; GitHub pode atrasar)
+    - cron: "5 * * * *"   # so garante que sempre ha uma rodada longa ligada ou na fila
   workflow_dispatch:
   push:
     branches: [painel]
@@ -15,12 +17,12 @@ permissions:
 
 concurrency:
   group: painel-scanner
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   varrer:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 355
     env:
       TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
       TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
@@ -38,12 +40,25 @@ jobs:
           restore-keys: modelo-
       - name: Trazer a coleta
         run: git clone -q --depth 1 -b painel-coleta "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" coleta || mkdir -p coleta
-      - name: Varrer
+      - name: Varrer de 15 em 15 min (rodada longa)
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
           GDRIVE_FILE_ID: "1ZCiXAx5207lLDqgvIIlMyKEfxydmqiLy"   # painel-trade.json no Drive (nao e segredo)
+          RODADA_MIN: ${{ github.event_name == 'push' && '0' || '340' }}   # push (teste): 1 varredura so
         shell: bash
-        run: python painel/scanner.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+        run: |
+          inicio=$(date +%s); falhas=0
+          git config --global user.name "github-actions"; git config --global user.email "github-actions@users.noreply.github.com"
+          while :; do
+            if python painel/scanner.py >> run.log 2>&1; then falhas=0; else falhas=$((falhas+1)); fi
+            tail -n 15 run.log
+            ( cd coleta && rm -rf .git && git init -q && git checkout -q -b painel-coleta && git add -A \
+              && git commit -qm "coleta do painel" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" painel-coleta ) || true
+            python3 -c "import central; central.publicar_branch()" && rm -rf central_novo || true
+            [ "$falhas" -ge 3 ] && exit 1
+            agora=$(date +%s); [ $(( (agora - inicio) / 60 )) -ge "$RODADA_MIN" ] && break
+            prox=$(( (agora / 900 + 1) * 900 + 60 )); sleep $(( prox - agora ))
+          done
       - name: Gravar a coleta (book e registro do modelo; 1 commit so)
         if: always()
         run: |
