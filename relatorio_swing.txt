@@ -1,0 +1,52 @@
+EXA long swing (1h do pregão) — ações dos EUA, 97 ativos, 27/11/2023 a 09/10/2026
+Escolha da configuração até 20/01/2026; teste (não visto) depois disso.
+Retorno médio por trade sobre o nocional, já com taxas, slippage e funding. Sem alavancagem.
+
+10 melhores configurações no treino:
+stop ATR alvo R dias parcial | n trei acerto   ret% | n teste acerto   ret%
+     3.0    3.0    3     não |    844    53%  +0.43 |     307    59%  +1.27
+     3.0    2.0    3     não |    844    53%  +0.39 |     307    60%  +1.13
+     4.0    2.0    3     não |    844    55%  +0.33 |     307    64%  +1.47
+     4.0    3.0    3     não |    844    55%  +0.32 |     307    64%  +1.51
+     4.0    1.5    3     não |    844    55%  +0.31 |     307    64%  +1.40
+     3.0    1.5    3     não |    844    55%  +0.25 |     307    60%  +0.95
+     3.0    2.0    2     não |    844    56%  +0.20 |     307    63%  +0.82
+     3.0    3.0    2     não |    844    56%  +0.20 |     307    62%  +0.77
+     2.0    3.0    3     não |    844    45%  +0.18 |     307    51%  +0.73
+     3.0    1.5    2     não |    844    57%  +0.17 |     307    63%  +0.69
+
+Efeito da parcial e do prazo (média de todas as configurações, período de teste):
+  parcial=False: acerto 60%, ret médio +0.70%
+  parcial=True: acerto 66%, ret médio +0.47%
+  dias=1: acerto 60%, ret médio +0.29%
+  dias=2: acerto 65%, ret médio +0.58%
+  dias=3: acerto 63%, ret médio +0.88%
+
+Configuração escolhida: stop 3.0 ATR, alvo 3.0 R, 3 dia(s), parcial não
+  semicondutores: 381 trades, acerto 54%, ret médio +1.11%
+  demais ações:   770 trades, acerto 55%, ret médio +0.43%
+  entrada sorteada (treino): acerto 51%, ret médio +0.11%  <- quanto do resultado é só a alta do mercado
+  entrada sorteada (teste): acerto 50%, ret médio +0.39%  <- quanto do resultado é só a alta do mercado
+
+Carteira — 2x por posição (margem isolada cabe na banca). período todo (banca US$ 14.500)
+  trades 700. lucro total US$ 21.314 (+147% da banca). média +4.3% ao mês
+  pior queda (drawdown) US$ -6.142 (-42% da banca)
+  meses no lucro 63%, pior mês -25.9%, melhor mês +31.0%
+
+Carteira — 2x por posição (margem isolada cabe na banca). só o teste (banca US$ 14.500)
+  trades 188. lucro total US$ 11.389 (+79% da banca). média +9.4% ao mês
+  pior queda (drawdown) US$ -1.793 (-12% da banca)
+  meses no lucro 70%, pior mês -7.1%, melhor mês +31.0%
+
+Carteira — Exposição 45 mil (9 posições de 5 mil). período todo (banca US$ 14.500)
+  trades 870. lucro total US$ 20.794 (+143% da banca). média +4.2% ao mês
+  pior queda (drawdown) US$ -8.797 (-61% da banca)
+  meses no lucro 63%, pior mês -33.4%, melhor mês +35.5%
+
+Carteira — Exposição 45 mil (9 posições de 5 mil). só o teste (banca US$ 14.500)
+  trades 231. lucro total US$ 10.647 (+73% da banca). média +8.7% ao mês
+  pior queda (drawdown) US$ -3.070 (-21% da banca)
+  meses no lucro 70%, pior mês -12.3%, melhor mês +23.6%
+
+Juros do consignado ~2,25% da banca ao mês: é o mínimo para empatar.
+Backtest não garante resultado futuro. Dados do pregão; o perp 24/7 pode ter preço diferente à noite.
