@@ -1,0 +1,23 @@
+name: swing-teste
+# Temporario: confere o swing com dados ao vivo (sem avisar ninguem). Apagar depois.
+on:
+  push:
+    branches: [claude/swing-teste]
+permissions:
+  contents: write
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy
+      - name: Ensaio
+        run: python painel/teste_swing_vivo.py 2>&1 | tee swing_teste.log
+      - name: Guardar log
+        run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add -f swing_teste.log && git commit -qm "log do ensaio do swing" && git push
