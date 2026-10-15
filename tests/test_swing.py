@@ -56,3 +56,14 @@ def test_acao_1h_de_30_min():
     df = pd.DataFrame({"open": 1.0, "high": 2.0, "low": 0.5, "close": 1.0, "volume": 1.0}, index=idx)
     h = swing.acao_1h(df, passo_min=30)
     assert len(h) == 7 and h["volume"].iloc[0] == 2 and h["volume"].iloc[-1] == 1
+
+
+def test_nota_no_texto_e_sem_arquivo(tmp_path, monkeypatch):
+    monkeypatch.setattr(swing, "NOTAS", str(tmp_path / "nao_existe.json"))
+    assert swing.nota("acao") is None
+    (tmp_path / "s.json").write_text('{"acao": {"nota": 7}}')
+    monkeypatch.setattr(swing, "NOTAS", str(tmp_path / "s.json"))
+    assert swing.nota("acao") == 7 and swing.nota("cripto") is None
+    x = {"ativo": "NVDA", "classe": "acao", "nota": 7, "parcelas": [100.0, 99.5, 99.0], "stop": 97.0, "alvo": 106.0,
+         "stop_pct": 2.51, "alvo_pct": 7.54, "prazo": "2026-10-21T20:00:00+00:00", "tempo": "x", "simbolo": "s"}
+    assert "NVDA (ação) · nota 7/10" in swing.texto([x])

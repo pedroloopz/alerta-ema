@@ -12,6 +12,7 @@ Setup de exposição (editar só aqui):
   que deixa CAIXA_MIN da banca livre com todas as vagas ocupadas.
 """
 import datetime
+import json
 import math
 import os
 import sys
@@ -36,6 +37,16 @@ EXPOSICAO = 29_000
 VAGAS = 6
 CAIXA_MIN = 0.30          # fração da banca que fica livre mesmo com todas as vagas ocupadas
 JANELA_MIN = 15           # só avisa o candle de 1h que fechou nos últimos 15 min
+NOTAS = os.path.join(AQUI, "swing_stats.json")   # nota por classe, do backtest (painel-swing)
+
+
+def nota(classe):
+    """Nota 1–10 da classe no teste do backtest de swing; None se o backtest ainda não gravou."""
+    try:
+        with open(NOTAS, encoding="utf-8") as f:
+            return json.load(f)[classe]["nota"]
+    except (OSError, KeyError, ValueError):
+        return None
 
 
 def plano():
@@ -158,7 +169,7 @@ def avaliar(ativo, agora):
         stop = e0 - sl_atr * a
         alvo = medio + tp_r * (medio - stop)
         casas = max(2, -int(math.floor(math.log10(e0))) + 4)
-        return {"ativo": ativo["nome"], "simbolo": ativo["simbolo"], "classe": classe,
+        return {"ativo": ativo["nome"], "simbolo": ativo["simbolo"], "classe": classe, "nota": nota(classe),
                 "tempo": ult.isoformat(), "parcelas": [round(x, casas) for x in niveis],
                 "stop": round(stop, casas), "alvo": round(alvo, casas),
                 "stop_pct": round((medio - stop) / medio * 100, 2), "alvo_pct": round((alvo - medio) / medio * 100, 2),
@@ -187,7 +198,8 @@ def texto(sinais):
     for x in sinais:
         pz = datetime.datetime.fromisoformat(x["prazo"]).astimezone(br)
         par = x["parcelas"]
-        L.append(f"\n🟢 LONG {x['ativo']} ({'ação' if x['classe'] == 'acao' else 'cripto'})\n"
+        nt = f" · nota {x['nota']}/10" if x.get("nota") else ""
+        L.append(f"\n🟢 LONG {x['ativo']} ({'ação' if x['classe'] == 'acao' else 'cripto'}){nt}\n"
                  f"1ª agora ~{_n(par[0], 4).rstrip('0').rstrip(',')} · "
                  f"2ª limite {_n(par[1], 4).rstrip('0').rstrip(',')} · 3ª limite {_n(par[2], 4).rstrip('0').rstrip(',')}\n"
                  f"Stop {_n(x['stop'], 4).rstrip('0').rstrip(',')} (−{_n(x['stop_pct'])}%) · "

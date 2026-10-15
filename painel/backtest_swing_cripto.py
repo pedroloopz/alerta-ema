@@ -10,6 +10,7 @@ as duas têm dados; "teste" = depois do maior dos dois cortes (nenhuma escolha v
 Uso (GitHub Actions, workflow painel-swing): precisa da branch dados em dados/ (ações).
 Grava relatorio_swing_cripto.txt.
 """
+import json
 import os
 import sys
 import time
@@ -20,9 +21,11 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(__file__))
 import backtest_swing as bs  # noqa: E402
 import dados  # noqa: E402
+import nucleo as nc  # noqa: E402
 
 DIAS_HIST = 1000
 SAIDA = os.path.join(os.path.dirname(__file__), "..", "relatorio_swing_cripto.txt")
+NOTAS = os.path.join(os.path.dirname(__file__), "swing_stats.json")   # nota do swing no painel
 CENARIOS = (  # nome, exposição máxima, nocional por trade
     ("Exposição 29 mil (6 posições de ~4.833)", 29_000, 29_000 / 6),
     ("Exposição 45 mil (9 posições de 5 mil)", 45_000, 5_000),
@@ -58,6 +61,20 @@ def baixar(ativo):
     return None
 
 
+def resumo_nota(m, base, prep, sl_atr, corte):
+    """Teste (depois do corte): acerto, R médio (retorno / risco planejado até o stop) e a nota 1–10
+    na mesma régua do painel."""
+    t = m[m["ent"] >= corte]
+    rs = []
+    for _, x in t.iterrows():
+        df, atr = base[x["ativo"]], prep[x["ativo"]][0]
+        i = df.index.get_loc(x["ent"])
+        e0, a = df["close"].iloc[i], atr[i]
+        rs.append(x["ret"] / ((sl_atr - 0.5) * a / (e0 - 0.5 * a)))
+    n, acerto, r = len(t), float(t["lucro"].mean()), float(np.mean(rs))
+    return {"n": n, "acerto": round(acerto, 3), "r_medio": round(r, 3), "nota": nc.nota_de(acerto, r, n)}
+
+
 def main():
     uni = [a for a in dados.universo() if a["classe"] == "cripto" and a["nome"] not in ("USDT", "USDC", "FDUSD", "DAI")]
     base = dict(x for x in dados.em_paralelo(baixar, uni, n=6) if x)
@@ -86,6 +103,7 @@ def main():
               f"{melhor_c[2]} dia(s), parcial {'sim' if melhor_c[3] else 'não'}"]
     L += bs.sorteado(base, prep, melhor_c, corte_c)
     mc = bs.da_config(tc, melhor_c)
+    notas = {"cripto": resumo_nota(mc, base, prep, melhor_c[0], corte_c)}
     for periodo, mm in (("período todo", mc), ("só o teste", mc[mc["ent"] >= corte_c])):
         L += bs.carteira(mm, "só cripto, exposição 29 mil", periodo, 29_000, 29_000 / 6)
 
@@ -97,6 +115,7 @@ def main():
     a1 = max(df.index.max() for df in ba.values())
     corte_a = a0 + (a1 - a0) * 0.75
     ma = bs.da_config(bs.trades(ba, pa, grade=[cfg_acao]), cfg_acao)
+    notas["acao"] = resumo_nota(ma, ba, pa, cfg_acao[0], corte_a)
     for col in ("ent", "sai"):        # cache das ações: horário de Brasília sem fuso
         ma[col] = ma[col].dt.tz_localize("America/Sao_Paulo").dt.tz_convert("UTC")
     corte_a = pd.Timestamp(corte_a).tz_localize("America/Sao_Paulo").tz_convert("UTC")
@@ -112,6 +131,9 @@ def main():
     te = junto[junto["ent"] >= corte]
     for k, x in te.groupby("classe"):
         L.append(f"  sinais no teste, {k}: {len(x)}, acerto {x['lucro'].mean()*100:.0f}%, ret médio {x['ret'].mean()*100:+.2f}%")
+    for k in ("acao", "cripto"):
+        x = notas[k]
+        L.append(f"  nota no painel, {k}: {x['nota']}/10 (teste: {x['n']} sinais, acerto {x['acerto']*100:.0f}%, R médio {x['r_medio']:+.2f})")
     L += ["", "Queda medida nos trades fechados: no meio do trade ela pode ser maior.",
           "Juros do consignado ~2,25% da banca ao mês: é o mínimo para empatar.",
           "Backtest não garante resultado futuro."]
@@ -119,6 +141,10 @@ def main():
     print(texto)
     with open(SAIDA, "w", encoding="utf-8") as fh:
         fh.write(texto + "\n")
+    notas["gerado_em"] = pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds")
+    with open(NOTAS, "w", encoding="utf-8") as fh:
+        json.dump(notas, fh, ensure_ascii=False, indent=1)
+    print(notas)
 
 
 if __name__ == "__main__":
