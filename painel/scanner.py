@@ -302,9 +302,15 @@ def main():
     if painel["avisar"] and not a.max:
         antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["aviso_texto"]})
     if swings and not a.max:
-        antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["swing_texto"]})
+        antigos.append({"t": agora.isoformat(timespec="seconds"), "texto": painel["swing_texto"], "swing": swings})
     corte = (agora - datetime.timedelta(hours=2)).isoformat(timespec="seconds")
-    painel["avisos_recentes"] = [x for x in antigos if x["t"] >= corte]
+    painel["avisos_recentes"] = [{"t": x["t"], "texto": x["texto"]} for x in antigos if x["t"] >= corte]
+    # swing das últimas 2h, o mais novo primeiro, um por ativo: o painel mostra com a nota
+    vistos, painel["swing_recentes"] = set(), []
+    for x in sorted((x for x in antigos if x["t"] >= corte), key=lambda x: x["t"], reverse=True):
+        for s in x.get("swing", []):
+            if s["ativo"] not in vistos:
+                vistos.add(s["ativo"]); painel["swing_recentes"].append(s)
     if not a.max:
         os.makedirs(COLETA, exist_ok=True)
         with open(hist, "w", encoding="utf-8") as f:
