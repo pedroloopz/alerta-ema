@@ -15,7 +15,7 @@
           "preco_entrada": 69.16,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 70.315002
+          "ultimo_preco": 70.57
         },
         "ENPH": {
           "token": "ENPHon",
@@ -24,7 +24,12 @@
           "preco_entrada": 33.85,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 29.01
+          "ultimo_preco": 29.35,
+          "saida": {
+            "data": "2026-10-14",
+            "preco_ref": 29.350000381469727,
+            "frac": 1.0
+          }
         },
         "PENG": {
           "token": "PENGon",
@@ -33,7 +38,7 @@
           "preco_entrada": 72.73999786376953,
           "data_entrada": "2026-10-07",
           "origem": "donchian",
-          "ultimo_preco": 68.730003
+          "ultimo_preco": 67.589996
         },
         "HPE": {
           "token": "HPEon",
@@ -42,7 +47,7 @@
           "preco_entrada": 72.70880126953125,
           "data_entrada": "2026-10-07",
           "origem": "donchian",
-          "ultimo_preco": 63.115002
+          "ultimo_preco": 63.110001
         },
         "INSW": {
           "token": "INSWon",
@@ -51,7 +56,7 @@
           "preco_entrada": 121.3499984741211,
           "data_entrada": "2026-10-08",
           "origem": "donchian",
-          "ultimo_preco": 119.099998
+          "ultimo_preco": 118.739998
         },
         "PLTR": {
           "token": "PLTRon",
@@ -60,18 +65,35 @@
           "preco_entrada": 197.4499969482422,
           "data_entrada": "2026-10-08",
           "origem": "donchian",
-          "ultimo_preco": 201.179993
+          "ultimo_preco": 200.970001
         }
       }
     },
     "n_historico": 2,
     "chaves": [
-      "saida:ENPH"
+      "entrada:ATKR",
+      "entrada:SAP"
     ]
   },
-  "pendentes": {},
+  "pendentes": {
+    "entrada:ATKR": {
+      "tipo": "entrada",
+      "ticker": "ATKR",
+      "msg_id": null,
+      "data": "2026-10-15"
+    },
+    "entrada:SAP": {
+      "tipo": "entrada",
+      "ticker": "SAP",
+      "msg_id": null,
+      "data": "2026-10-15"
+    }
+  },
   "recusados": {},
-  "alertados": {},
+  "alertados": {
+    "ATKR": "2026-10-15",
+    "SAP": "2026-10-15"
+  },
   "historico": [
     {
       "ticker": "AEHR",
@@ -96,6 +118,19 @@
       "data_saida": "2026-10-08",
       "lucro_usd": -55.96,
       "lucro_pct": -0.05635835118376453,
+      "origem": "legado",
+      "confirmado": false
+    },
+    {
+      "ticker": "ENPH",
+      "token": "ENPHon",
+      "unidades": 61.39067,
+      "preco_entrada": 33.85,
+      "data_entrada": "2026-10-06",
+      "preco_saida": 28.584999084472656,
+      "data_saida": "2026-10-15",
+      "lucro_usd": -323.22,
+      "lucro_pct": -0.15553917032577091,
       "origem": "legado",
       "confirmado": false
     }
