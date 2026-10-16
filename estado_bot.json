@@ -5,7 +5,7 @@
       "versao": 2,
       "inicio": "2026-09-25",
       "capital_inicial": 7087.88,
-      "reserva_usdt": 130.79,
+      "reserva_usdt": 251.63,
       "aportes": [],
       "ativos": {
         "NFLX": {
@@ -15,7 +15,7 @@
           "preco_entrada": 69.16,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 72.904999
+          "ultimo_preco": 70.609901
         },
         "PENG": {
           "token": "PENGon",
@@ -24,16 +24,7 @@
           "preco_entrada": 72.73999786376953,
           "data_entrada": "2026-10-07",
           "origem": "donchian",
-          "ultimo_preco": 60.189999
-        },
-        "HPE": {
-          "token": "HPEon",
-          "tipo": "acao",
-          "unidades": 2.096,
-          "preco_entrada": 72.70880126953125,
-          "data_entrada": "2026-10-07",
-          "origem": "donchian",
-          "ultimo_preco": 59.450001
+          "ultimo_preco": 58.5
         },
         "INSW": {
           "token": "INSWon",
@@ -42,7 +33,7 @@
           "preco_entrada": 121.3499984741211,
           "data_entrada": "2026-10-08",
           "origem": "donchian",
-          "ultimo_preco": 114.18
+          "ultimo_preco": 111.660004
         },
         "PLTR": {
           "token": "PLTRon",
@@ -51,7 +42,7 @@
           "preco_entrada": 197.4499969482422,
           "data_entrada": "2026-10-08",
           "origem": "donchian",
-          "ultimo_preco": 200.160004
+          "ultimo_preco": 186.899994
         },
         "ATKR": {
           "token": "ATKRon",
@@ -60,7 +51,7 @@
           "preco_entrada": 94.94999694824219,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 94.945
+          "ultimo_preco": 94.955002
         },
         "SAP": {
           "token": "SAPon",
@@ -69,13 +60,14 @@
           "preco_entrada": 225.1199951171875,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 225.089996
+          "ultimo_preco": 223.449997
         }
       }
     },
-    "n_historico": 3,
+    "n_historico": 4,
     "chaves": [
-      "saida:HPE"
+      "saida:INSW",
+      "saida:PLTR"
     ]
   },
   "pendentes": {
@@ -149,10 +141,10 @@
     }
   ],
   "pausa_ate": null,
-  "fechamento_em": "2026-10-15",
+  "fechamento_em": "2026-10-16",
   "cripto_em": "2026-10-15",
   "patrimonio_fech": {
-    "data": "2026-10-15",
-    "valor": 5690.29
+    "data": "2026-10-16",
+    "valor": 5539.21
   }
 }
