@@ -93,10 +93,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "ATKR": "2026-10-15",
-    "SAP": "2026-10-15"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "AEHR",
