@@ -133,6 +133,19 @@
       "lucro_pct": -0.15553917032577091,
       "origem": "legado",
       "confirmado": false
+    },
+    {
+      "ticker": "HPE",
+      "token": "HPEon",
+      "unidades": 2.096,
+      "preco_entrada": 72.70880126953125,
+      "data_entrada": "2026-10-07",
+      "preco_saida": 57.654998779296875,
+      "data_saida": "2026-10-16",
+      "lucro_usd": -31.55,
+      "lucro_pct": -0.20704236938840437,
+      "origem": "donchian",
+      "confirmado": false
     }
   ],
   "pausa_ate": null,
