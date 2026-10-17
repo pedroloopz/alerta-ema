@@ -1,124 +1,200 @@
-ações na BingX: 283; mercado = QQQ (1561 candles de pregão)
+ações na BingX: 283; mercado = QQQ (3763 candles de pregão)
 sem dados no Yahoo (19): ADVANTEST, ANTHROPIC, BRKB, DISNEY, FASTRETAIL, FUJIKURA, HYUNDAI, KIOXIA, LASERTEC, OPENAIUS, OURA, POLYMARKET, SAMSUNG, SKHYNIX, SKSQUARE, SOFTBANK, SUMIELEC, TAIYOYUDEN, TOKYOEL
-históricos: 264 ações em 20s
-Modelo de ações (preço + volume + QQQ) — 264 ações, 60 dias de pregão em 15 min, decisões de hora em hora no pregão; faixas medidas fora da amostra. Gerado 2026-10-17T17:41:25+00:00.
+históricos: 264 ações em 22s
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+Modelo de ações (preço + volume + QQQ) — 264 ações, 60 dias de pregão em 15 min, decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado 2026-10-17T17:47:11+00:00.
 
-=== Config A: alvo 2.0% / stop 3.0% / prazo 26 candles (~1.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+=== Config A: alvo 2.0% / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-21 a 2026-10-16, 72531 decisões; QQQ no treino +4.5%, no teste -2.6% ===
   LONG (faixas da menor para a maior pontuação):
-    n   3890  acerto 0.129  R -0.017  nota 5
-    n   3229  acerto 0.228  R -0.036  nota 5
-    n   3109  acerto 0.301  R -0.072  nota 4
-    n   3409  acerto 0.343  R -0.118  nota 3
-    n   3655  acerto 0.366  R -0.157  nota 3
-    n   3834  acerto 0.415  R -0.145  nota 3
-    n   3238  acerto 0.451  R -0.151  nota 3
-    n   2706  acerto 0.494  R -0.112  nota 3
-    n   1625  acerto 0.461  R -0.210  nota 2
-    n    891  acerto 0.487  R -0.181  nota 3
-    n    337  acerto 0.685  R +0.153  nota 8
-    n    170  acerto 0.382  R -0.377  nota 1
-    -> faixas nota 8+: 1 (337 casos no teste)
-  SHORT (faixas da menor para a maior pontuação):
-    n   3126  acerto 0.120  R -0.053  nota 4
-    n   2972  acerto 0.230  R -0.034  nota 5
-    n   2670  acerto 0.321  R -0.020  nota 5
-    n   2787  acerto 0.369  R -0.038  nota 5
-    n   3055  acerto 0.433  R +0.003  nota 5
-    n   3101  acerto 0.458  R -0.007  nota 5
-    n   3722  acerto 0.517  R +0.035  nota 6
-    n   3839  acerto 0.576  R +0.089  nota 7
-    n   3120  acerto 0.618  R +0.130  nota 8
-    n   1389  acerto 0.573  R +0.069  nota 7
-    n    247  acerto 0.530  R -0.003  nota 5
-    n     65  acerto 0.615  R +0.183  nota 8
-    -> faixas nota 8+: 2 (3185 casos no teste)
-
-=== Config B: alvo 1.5% / stop 2.0% / prazo 13 candles (~0.5 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
-  LONG (faixas da menor para a maior pontuação):
-    n   3532  acerto 0.033  R -0.019  nota 5
-    n   3481  acerto 0.119  R -0.040  nota 5
-    n   3512  acerto 0.204  R -0.049  nota 5
-    n   3285  acerto 0.275  R -0.065  nota 4
-    n   3248  acerto 0.362  R -0.064  nota 4
-    n   3493  acerto 0.370  R -0.135  nota 3
-    n   3645  acerto 0.386  R -0.191  nota 3
-    n   3071  acerto 0.435  R -0.155  nota 3
-    n   1813  acerto 0.461  R -0.139  nota 3
-    n   1110  acerto 0.433  R -0.208  nota 2
-    n    515  acerto 0.577  R +0.006  nota 6
-    n    180  acerto 0.472  R -0.205  nota 2
+    n   7703  acerto 0.180  R -0.048  nota 5
+    n   8081  acerto 0.275  R -0.084  nota 4
+    n   8109  acerto 0.351  R -0.076  nota 4
+    n   8028  acerto 0.394  R -0.092  nota 4
+    n   7719  acerto 0.420  R -0.121  nota 3
+    n   7446  acerto 0.439  R -0.139  nota 3
+    n   6665  acerto 0.471  R -0.122  nota 3
+    n   6039  acerto 0.493  R -0.117  nota 3
+    n   5392  acerto 0.537  R -0.065  nota 4
+    n   3196  acerto 0.517  R -0.126  nota 3
+    n    761  acerto 0.369  R -0.392  nota 1
+    n    258  acerto 0.368  R -0.402  nota 1
     -> faixas nota 8+: 0 (0 casos no teste)
   SHORT (faixas da menor para a maior pontuação):
-    n   3342  acerto 0.029  R -0.082  nota 4
-    n   3285  acerto 0.125  R -0.047  nota 5
-    n   3445  acerto 0.261  R +0.006  nota 5
-    n   3392  acerto 0.284  R -0.023  nota 5
-    n   3125  acerto 0.335  R -0.052  nota 4
-    n   2936  acerto 0.391  R -0.046  nota 5
-    n   2713  acerto 0.427  R -0.032  nota 5
-    n   2974  acerto 0.486  R -0.003  nota 5
-    n   3136  acerto 0.551  R +0.068  nota 7
-    n   2085  acerto 0.593  R +0.107  nota 7
-    n    344  acerto 0.613  R +0.079  nota 7
-    n    108  acerto 0.509  R -0.112  nota 3
+    n   8734  acerto 0.219  R -0.062  nota 4
+    n   8371  acerto 0.346  R -0.024  nota 5
+    n   8057  acerto 0.392  R -0.001  nota 5
+    n   7473  acerto 0.446  R +0.016  nota 5
+    n   7492  acerto 0.492  R +0.020  nota 5
+    n   7465  acerto 0.538  R +0.045  nota 6
+    n   6928  acerto 0.582  R +0.076  nota 7
+    n   6279  acerto 0.610  R +0.082  nota 7
+    n   5389  acerto 0.640  R +0.109  nota 7
+    n   2539  acerto 0.627  R +0.069  nota 7
+    n    488  acerto 0.639  R +0.094  nota 7
+    n    182  acerto 0.665  R +0.111  nota 7
     -> faixas nota 8+: 0 (0 casos no teste)
 
-=== Config C: alvo 3.0% / stop 3.0% / prazo 52 candles (~2.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+=== Config B: alvo 1.5% / stop 2.0% / prazo 32 candles de 15 min (~8h de mercado) — teste 2026-09-18 a 2026-10-16, 73536 decisões; QQQ no treino +4.3%, no teste -1.9% ===
   LONG (faixas da menor para a maior pontuação):
-    n   4277  acerto 0.134  R -0.005  nota 5
-    n   3406  acerto 0.245  R -0.055  nota 4
-    n   3084  acerto 0.282  R -0.148  nota 3
-    n   3668  acerto 0.306  R -0.180  nota 3
-    n   3682  acerto 0.359  R -0.151  nota 3
-    n   3502  acerto 0.375  R -0.157  nota 3
-    n   2749  acerto 0.381  R -0.173  nota 3
-    n   2136  acerto 0.412  R -0.140  nota 3
-    n   1372  acerto 0.371  R -0.252  nota 2
-    n    588  acerto 0.304  R -0.404  nota 1
-    n     44  acerto 0.182  R -0.666  nota 1
-    n      1  acerto 1.000  R +0.987  nota 7
+    n   8829  acerto 0.186  R -0.071  nota 4
+    n   8711  acerto 0.298  R -0.088  nota 4
+    n   8402  acerto 0.365  R -0.087  nota 4
+    n   8190  acerto 0.408  R -0.093  nota 4
+    n   7647  acerto 0.443  R -0.108  nota 3
+    n   7228  acerto 0.457  R -0.107  nota 3
+    n   6859  acerto 0.468  R -0.122  nota 3
+    n   5888  acerto 0.488  R -0.115  nota 3
+    n   5158  acerto 0.523  R -0.063  nota 4
+    n   3404  acerto 0.505  R -0.122  nota 3
+    n    963  acerto 0.424  R -0.283  nota 2
+    n    301  acerto 0.319  R -0.477  nota 1
     -> faixas nota 8+: 0 (0 casos no teste)
   SHORT (faixas da menor para a maior pontuação):
-    n   3113  acerto 0.115  R -0.027  nota 5
-    n   2817  acerto 0.213  R -0.023  nota 5
-    n   2324  acerto 0.334  R +0.035  nota 5
-    n   2337  acerto 0.378  R +0.034  nota 5
-    n   2556  acerto 0.422  R +0.056  nota 5
-    n   3197  acerto 0.464  R +0.083  nota 5
-    n   3449  acerto 0.478  R +0.081  nota 5
-    n   3462  acerto 0.509  R +0.123  nota 6
-    n   3282  acerto 0.547  R +0.176  nota 6
-    n   1587  acerto 0.591  R +0.256  nota 7
-    n    279  acerto 0.652  R +0.333  nota 9
-    n    106  acerto 0.642  R +0.388  nota 8
-    -> faixas nota 8+: 2 (385 casos no teste)
+    n   8798  acerto 0.246  R -0.052  nota 4
+    n   8476  acerto 0.345  R -0.035  nota 5
+    n   7797  acerto 0.393  R -0.019  nota 5
+    n   7490  acerto 0.424  R -0.034  nota 5
+    n   7381  acerto 0.465  R -0.026  nota 5
+    n   7684  acerto 0.506  R -0.001  nota 5
+    n   7388  acerto 0.543  R +0.030  nota 6
+    n   6919  acerto 0.554  R +0.021  nota 6
+    n   5715  acerto 0.575  R +0.037  nota 6
+    n   3033  acerto 0.584  R +0.030  nota 6
+    n    619  acerto 0.630  R +0.097  nota 7
+    n    280  acerto 0.650  R +0.122  nota 8
+    -> faixas nota 8+: 1 (280 casos no teste)
+       pregão: n 14 R -0.121 | pré/pós: n 266 R 0.135
+       em 20 dias distintos, 107 ações; por semana: 2026-09-14 n 3 R +0.73 (QQQ +2.6%); 2026-09-21 n 161 R -0.00 (QQQ +2.5%); 2026-09-28 n 38 R +0.40 (QQQ +1.5%); 2026-10-05 n 43 R +0.20 (QQQ +0.2%); 2026-10-12 n 35 R +0.24 (QQQ -5.9%)
 
-=== Config D: alvo 1.5% + 2.5% + 3.5% (1/3 cada, stop → entrada) / stop 3.0% / prazo 26 candles (~1.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+=== Config C: alvo 3.0% / stop 3.0% / prazo 96 candles de 15 min (~24h de mercado) — teste 2026-09-21 a 2026-10-16, 72531 decisões; QQQ no treino +4.5%, no teste -2.6% ===
   LONG (faixas da menor para a maior pontuação):
-    n   4543  acerto 0.241  R -0.017  nota 5
-    n   3505  acerto 0.364  R -0.029  nota 5
-    n   3297  acerto 0.415  R -0.071  nota 4
-    n   3455  acerto 0.450  R -0.116  nota 3
-    n   3391  acerto 0.496  R -0.108  nota 3
-    n   3465  acerto 0.504  R -0.139  nota 3
-    n   3074  acerto 0.559  R -0.107  nota 3
-    n   2400  acerto 0.580  R -0.100  nota 3
-    n   1567  acerto 0.533  R -0.207  nota 2
-    n    861  acerto 0.619  R -0.071  nota 4
-    n    375  acerto 0.669  R +0.024  nota 6
-    n    160  acerto 0.531  R -0.219  nota 2
+    n   7381  acerto 0.201  R -0.068  nota 4
+    n   8510  acerto 0.265  R -0.117  nota 3
+    n   8528  acerto 0.326  R -0.109  nota 3
+    n   7837  acerto 0.353  R -0.119  nota 3
+    n   6939  acerto 0.363  R -0.160  nota 3
+    n   6546  acerto 0.373  R -0.177  nota 3
+    n   6249  acerto 0.388  R -0.170  nota 3
+    n   5637  acerto 0.427  R -0.112  nota 3
+    n   4960  acerto 0.469  R -0.044  nota 5
+    n   2948  acerto 0.416  R -0.168  nota 3
+    n    519  acerto 0.353  R -0.316  nota 2
+    n     71  acerto 0.225  R -0.578  nota 1
     -> faixas nota 8+: 0 (0 casos no teste)
   SHORT (faixas da menor para a maior pontuação):
-    n   2488  acerto 0.170  R -0.077  nota 4
-    n   2597  acerto 0.324  R -0.015  nota 5
-    n   2816  acerto 0.397  R -0.014  nota 5
-    n   3026  acerto 0.454  R -0.021  nota 5
-    n   3225  acerto 0.516  R +0.003  nota 6
-    n   3240  acerto 0.563  R +0.025  nota 6
-    n   3894  acerto 0.619  R +0.079  nota 7
-    n   3777  acerto 0.658  R +0.103  nota 7
-    n   3301  acerto 0.681  R +0.141  nota 8
-    n   1441  acerto 0.687  R +0.133  nota 8
-    n    207  acerto 0.628  R +0.035  nota 6
-    n     81  acerto 0.753  R +0.181  nota 9
-    -> faixas nota 8+: 3 (4823 casos no teste)
+    n  10167  acerto 0.286  R -0.013  nota 5
+    n   7839  acerto 0.348  R +0.007  nota 5
+    n   7324  acerto 0.378  R +0.011  nota 5
+    n   6891  acerto 0.417  R +0.035  nota 5
+    n   6594  acerto 0.440  R +0.038  nota 5
+    n   6547  acerto 0.472  R +0.060  nota 5
+    n   6257  acerto 0.494  R +0.078  nota 5
+    n   5821  acerto 0.535  R +0.118  nota 6
+    n   5196  acerto 0.582  R +0.194  nota 7
+    n   2856  acerto 0.578  R +0.175  nota 7
+    n    487  acerto 0.579  R +0.168  nota 7
+    n    146  acerto 0.589  R +0.187  nota 7
+    -> faixas nota 8+: 0 (0 casos no teste)
+
+=== Config D: alvo 1.5% + 2.5% + 3.5% (1/3 cada, stop → entrada) / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-21 a 2026-10-16, 72531 decisões; QQQ no treino +4.5%, no teste -2.6% ===
+  LONG (faixas da menor para a maior pontuação):
+    n   8123  acerto 0.278  R -0.037  nota 5
+    n   8159  acerto 0.418  R -0.042  nota 5
+    n   8303  acerto 0.459  R -0.090  nota 4
+    n   8221  acerto 0.520  R -0.080  nota 4
+    n   7593  acerto 0.528  R -0.115  nota 3
+    n   6986  acerto 0.553  R -0.108  nota 3
+    n   6712  acerto 0.572  R -0.117  nota 3
+    n   5840  acerto 0.597  R -0.088  nota 4
+    n   5105  acerto 0.635  R -0.043  nota 5
+    n   3063  acerto 0.613  R -0.085  nota 4
+    n    775  acerto 0.485  R -0.277  nota 2
+    n    517  acerto 0.404  R -0.402  nota 1
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   8655  acerto 0.344  R -0.020  nota 5
+    n   8157  acerto 0.461  R +0.001  nota 5
+    n   7784  acerto 0.511  R +0.020  nota 6
+    n   7622  acerto 0.553  R +0.016  nota 6
+    n   7656  acerto 0.592  R +0.029  nota 6
+    n   7521  acerto 0.632  R +0.058  nota 6
+    n   7200  acerto 0.670  R +0.088  nota 7
+    n   6327  acerto 0.686  R +0.087  nota 7
+    n   5034  acerto 0.714  R +0.102  nota 7
+    n   2571  acerto 0.719  R +0.093  nota 7
+    n    586  acerto 0.712  R +0.075  nota 7
+    n    284  acerto 0.754  R +0.162  nota 8
+    -> faixas nota 8+: 1 (284 casos no teste)
+       pregão: n 28 R -0.126 | pré/pós: n 256 R 0.193
+       em 19 dias distintos, 115 ações; por semana: 2026-09-21 n 104 R +0.05 (QQQ +2.5%); 2026-09-28 n 58 R +0.35 (QQQ +1.5%); 2026-10-05 n 59 R +0.24 (QQQ +0.2%); 2026-10-12 n 63 R +0.10 (QQQ -5.9%)
+
+=== Config E: alvo 0.50 + 0.83 + 1.17 × vol. diária (1/3 cada, stop → entrada) / stop 1.0× vol. / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-21 a 2026-10-16, 72531 decisões; QQQ no treino +4.5%, no teste -2.6% ===
+  LONG (faixas da menor para a maior pontuação):
+    n   8244  acerto 0.372  R -0.083  nota 4
+    n   8713  acerto 0.403  R -0.129  nota 3
+    n   8380  acerto 0.432  R -0.122  nota 3
+    n   8283  acerto 0.449  R -0.123  nota 3
+    n   7613  acerto 0.472  R -0.113  nota 3
+    n   6838  acerto 0.496  R -0.099  nota 4
+    n   6493  acerto 0.517  R -0.077  nota 4
+    n   5830  acerto 0.538  R -0.048  nota 5
+    n   4540  acerto 0.572  R -0.019  nota 5
+    n   2996  acerto 0.630  R +0.021  nota 6
+    n   1047  acerto 0.508  R -0.179  nota 3
+    n    420  acerto 0.290  R -0.537  nota 1
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   6705  acerto 0.421  R +0.020  nota 5
+    n   8494  acerto 0.494  R +0.036  nota 5
+    n   9395  acerto 0.532  R +0.042  nota 6
+    n   9107  acerto 0.555  R +0.047  nota 6
+    n   8577  acerto 0.582  R +0.071  nota 7
+    n   7364  acerto 0.581  R +0.061  nota 7
+    n   6478  acerto 0.592  R +0.054  nota 6
+    n   5875  acerto 0.609  R +0.058  nota 6
+    n   4952  acerto 0.622  R +0.045  nota 6
+    n   2163  acerto 0.638  R +0.069  nota 7
+    n    276  acerto 0.717  R +0.149  nota 8
+    n     11  acerto 0.364  R -0.337  nota 2
+    -> faixas nota 8+: 1 (276 casos no teste)
+       pregão: n 75 R 0.182 | pré/pós: n 201 R 0.137
+       em 20 dias distintos, 84 ações; por semana: 2026-09-21 n 110 R +0.12 (QQQ +2.5%); 2026-09-28 n 52 R +0.13 (QQQ +1.5%); 2026-10-05 n 38 R +0.17 (QQQ +0.2%); 2026-10-12 n 76 R +0.19 (QQQ -5.9%)
