@@ -1,0 +1,53 @@
+name: painel-longo
+
+# Teste longo do modelo (cripto + ações num modelo só), mês a mês, com a saída real do robô.
+# Só relatório: relatorio_longo.txt. Não muda o painel nem o robô.
+on:
+  workflow_dispatch:
+    inputs:
+      meses:
+        description: "Meses de histórico"
+        default: "24"
+  push:
+    branches: [main]
+    paths: [painel/teste_longo.py, .github/workflows/painel-longo.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: painel-longo
+  cancel-in-progress: true
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy requests scikit-learn==1.9.1
+      - name: Teste mês a mês
+        shell: bash
+        run: python painel/teste_longo.py --meses "${{ github.event.inputs.meses || '24' }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Salvar relatório
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          cp run.log painel/teste_longo.log 2>/dev/null || true
+          for f in relatorio_longo.txt painel/teste_longo.log; do [ -f "$f" ] && git add "$f"; done
+          git diff --staged --quiet || git commit -m "painel: teste longo do modelo"
+          git pull --rebase --autostash || true
+          git push || true
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
