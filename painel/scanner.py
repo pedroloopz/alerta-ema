@@ -97,6 +97,10 @@ def anexar_csv(caminho, linhas):
 VALIDADE_MIN = 45          # sinal vale até 45 min depois do candle
 DESLIZE_MAX = 0.5          # preço andou mais de 0,5 ATR desde o sinal -> perdeu a entrada
 NOTA_MIN = 8               # painel e avisos só mostram nota 8+, long ou short
+MAX_POR_ATIVO = 3          # no máximo 3 sinais 8+ do mesmo ativo por dia (horário de Brasília)
+MEMES = {"DOGE", "SHIB", "PEPE", "FLOKI", "WIF", "BONK", "FARTCOIN", "SPX", "USELESS", "PENGU",
+         "CHEEMS", "LUNC", "PUMP"}   # memecoins: fora do painel (só classe cripto)
+LOG8 = os.path.join(COLETA, "sinais8.jsonl")   # sinais 8+ já contados/lembrados
 
 
 def br(dt):
@@ -104,6 +108,8 @@ def br(dt):
 
 
 def avaliar(ativo, stats, fundings):
+    if ativo["classe"] == "cripto" and ativo["nome"] in MEMES:
+        return []
     try:
         df = dados.klines(ativo["simbolo"], limite=400)
         ler_book(ativo)
@@ -192,21 +198,82 @@ def trades_a_fazer(sinais, ml, agora):
     return out
 
 
-def tamanho(x, margem=50.0, alvo=15.0):
-    """Igual ao painel: alavancagem para o TP render US$ 15 com US$ 50 de margem (5x a 25x)."""
+def tamanho(x, alvo=100.0, m_min=250.0, m_max=400.0, perda_max=300.0):
+    """Plano de 16/10: TP rende ~US$ 100 (já com taxas), margem US$ 250–400, 7x a 16x;
+    se o SL perderia mais que US$ 300 (stop de catástrofe), a margem diminui."""
     liq = x["tp_pct"] / 100 - 0.0004
-    alav = int(min(25, max(5, np.ceil(alvo / liq / margem)))) if liq > 0 else 25
+    custo = x["sl_pct"] / 100 + 0.001
+    pos = alvo / liq if liq > 0 else m_max * 16
+    alav = int(min(16, max(7, np.ceil(pos / m_max))))
+    margem = min(m_max, max(m_min, pos / alav))
+    if margem * alav * custo > perda_max:
+        margem = perda_max / (alav * custo)
     pos = margem * alav
-    return alav, pos * liq, pos * (x["sl_pct"] / 100 + 0.001)
+    return alav, margem, pos * liq, pos * custo
+
+
+def com_tamanho(x):
+    alav, margem, ganha, perde = tamanho(x)
+    return dict(x, alav_plano=alav, margem=round(margem, 2), ganha=round(ganha, 2), perde=round(perde, 2))
+
+
+def chave(x):
+    return f"{x['ativo']}|{x['lado']}|{x['tempo']}"
+
+
+def limitar_e_lembrar(avisar, agora, gravar):
+    """Conta os sinais 8+ do dia por ativo (máx. MAX_POR_ATIVO) e manda lembrete dos novos.
+    Devolve (chaves liberadas, ativos que estouraram o limite hoje)."""
+    hoje = br(agora).date()
+    log = []
+    if os.path.exists(LOG8):
+        with open(LOG8, encoding="utf-8") as f:
+            log = [json.loads(x) for x in f if x.strip()]
+    log = [x for x in log if x["dia"] >= (hoje - datetime.timedelta(days=2)).isoformat()]
+    vistos = {x["k"] for x in log}
+    conta = {}
+    for x in log:
+        if x["dia"] == hoje.isoformat():
+            conta[x["ativo"]] = conta.get(x["ativo"], 0) + 1
+    novos = []
+    for x in avisar:
+        k = chave(x)
+        if k in vistos or conta.get(x["ativo"], 0) >= MAX_POR_ATIVO:
+            continue
+        conta[x["ativo"]] = conta.get(x["ativo"], 0) + 1
+        vistos.add(k); novos.append(x)
+        log.append({"k": k, "ativo": x["ativo"], "dia": hoje.isoformat()})
+    if gravar:
+        os.makedirs(COLETA, exist_ok=True)
+        with open(LOG8, "w", encoding="utf-8") as f:
+            f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in log)
+        lembrar(novos)
+    return vistos, {a for a, n in conta.items() if n >= MAX_POR_ATIVO}
+
+
+def lembrar(novos):
+    """Lembrete no celular pelo ntfy (segredo NTFY_TOPIC). Sem o segredo, não envia."""
+    topico = os.environ.get("NTFY_TOPIC")
+    if not topico or not novos:
+        return
+    import requests
+    corpo = "\n".join(f"{'🟢 LONG' if x['lado'] == 'LONG' else '🔴 SHORT'} {x['ativo']} · nota {x['nota']}/10"
+                      for x in novos) + "\nAbra o Painel BingX."
+    try:
+        requests.post(f"https://ntfy.sh/{topico}", data=corpo.encode("utf-8"), timeout=15,
+                      headers={"Title": "Sinal 8+ no Painel BingX", "Priority": "high"}).raise_for_status()
+        print(f"lembrete enviado: {len(novos)} sinal(is)")
+    except Exception as e:
+        print("lembrete: falhou", e)
 
 
 def texto_aviso(trades, agora):
     linhas = [f"🎯 Trade agora ({br(agora):%d/%m %H:%M}) — vale até {br(agora + datetime.timedelta(minutes=VALIDADE_MIN)):%H:%M}"]
     for x in trades:
-        alav, ganha, perde = tamanho(x)
+        alav, margem, ganha, perde = tamanho(x)
         linhas.append(f"{'🟢 LONG' if x['lado'] == 'LONG' else '🔴 SHORT'} {x['ativo']} · nota {x['nota']}/10 · {x['rotulo']}\n"
                       f"Entrada {num_br(x['entrada'])} · SL {num_br(x['sl'])} · TP {num_br(x['tp'])} · {alav}x\n"
-                      f"Margem US$ 50: ganha US$ {ganha:.2f} · perde US$ {perde:.2f}".replace(".", ","))
+                      f"Margem US$ {margem:.0f}: ganha US$ {ganha:.2f} · perde US$ {perde:.2f}".replace(".", ","))
     linhas.append("Margem cruzada: coloque SL e TP na entrada.")
     return "\n".join(linhas)
 
@@ -255,6 +322,12 @@ def main():
                          "alinhado": alin == "1", "vol_alta": regime == "1", "n": v["n"], "acerto": round(v["g"] / v["n"], 3),
                          "r_medio": round(v["r"] / v["n"], 3)})
     base.sort(key=lambda x: -x["r_medio"])
+    avisar = trades_a_fazer(sinais, ml, agora)
+    liberados, cheios = limitar_e_lembrar(avisar, agora, gravar=not a.max)
+
+    def mostra(x):
+        return x["nota"] >= NOTA_MIN and (x["ativo"] not in cheios or chave(x) in liberados)
+
     painel = {
         "gerado_em": agora.isoformat(timespec="seconds"),
         "gerado_em_brt": br(agora).strftime("%d/%m %H:%M"),
@@ -267,13 +340,13 @@ def main():
         "saidas": stats["saidas"],
         "setups_melhores": base[:5],
         "setups_piores": base[-5:][::-1],
-        "sinais": [x for x in sinais if x["nota"] >= NOTA_MIN],
-        "ml": [x for lado in ("LONG", "SHORT")
-               for x in sorted((y for y in ml if y["lado"] == lado and y["nota"] >= NOTA_MIN), key=lambda y: -y["pont"])[:10]],
+        "sinais": [com_tamanho(x) for x in sinais if mostra(x)],
+        "ml": [com_tamanho(x) for lado in ("LONG", "SHORT")
+               for x in sorted((y for y in ml if y["lado"] == lado and mostra(y)), key=lambda y: -y["pont"])[:10]],
         "ml_info": stats.get("ml") and {k: stats["ml"][k] for k in ("tp", "sl", "horas", "teste", "ativos")},
         "ml_faixas": stats.get("ml", {}).get("faixas"),
         "placar_ml": stats.get("placar_ml"),
-        "avisar": trades_a_fazer(sinais, ml, agora),
+        "avisar": [com_tamanho(x) for x in avisar if chave(x) in liberados],
         "swing": swings,
         "swing_plano": swing.plano(),
         "segundos": round(time.time() - t0),

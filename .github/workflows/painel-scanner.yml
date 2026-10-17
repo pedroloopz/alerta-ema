@@ -43,6 +43,7 @@ jobs:
       - name: Varrer de 15 em 15 min (rodada longa)
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}   # lembrete no celular (app ntfy); sem ele, não envia
           GDRIVE_FILE_ID: "1ZCiXAx5207lLDqgvIIlMyKEfxydmqiLy"   # painel-trade.json no Drive (nao e segredo)
           RODADA_MIN: ${{ github.event_name == 'push' && '0' || '340' }}   # push (teste): 1 varredura so
         shell: bash
