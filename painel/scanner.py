@@ -97,7 +97,7 @@ def anexar_csv(caminho, linhas):
 VALIDADE_MIN = 45          # sinal vale até 45 min depois do candle
 DESLIZE_MAX = 0.5          # preço andou mais de 0,5 ATR desde o sinal -> perdeu a entrada
 NOTA_MIN = 8               # painel e avisos só mostram nota 8+, long ou short
-MAX_POR_ATIVO = 3          # no máximo 3 sinais 8+ do mesmo ativo por dia (horário de Brasília)
+MAX_POR_ATIVO = 7          # no máximo 7 sinais 8+ do mesmo ativo por dia (horário de Brasília)
 MEMES = {"DOGE", "SHIB", "PEPE", "FLOKI", "WIF", "BONK", "FARTCOIN", "SPX", "USELESS", "PENGU",
          "CHEEMS", "LUNC", "PUMP"}   # memecoins: fora do painel (só classe cripto)
 LOG8 = os.path.join(COLETA, "sinais8.jsonl")   # sinais 8+ já contados/lembrados
