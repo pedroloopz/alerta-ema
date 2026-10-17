@@ -50,7 +50,9 @@ def nota_de(p, r, n):
 # ------------------------------------------------------------------ dados
 SESSAO = None
 DONS = []                                   # (classe, trades do Donchian) por ativo
-DESDE = pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=365)
+RSI2 = []                                   # (classe, trades do swing RSI(2)) por ativo
+DIAS_TESTE = 730                            # 2 anos de teste
+DESDE = pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=DIAS_TESTE)
 
 
 def baixar(url):
@@ -148,6 +150,22 @@ def yahoo_1h(ticker):
     df = pd.DataFrame({k: q[k] for k in ("open", "high", "low", "close", "volume")},
                       index=pd.to_datetime(res["timestamp"], unit="s", utc=True))
     return df.dropna().astype("float32")
+
+
+def yahoo_1d(nome):
+    import requests
+    for t in dict.fromkeys([nome, nome[:-2] if nome.endswith("US") else nome]):
+        try:
+            r = requests.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{t}", params={"range": "5y", "interval": "1d"},
+                             headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+            r.raise_for_status()
+            res = r.json()["chart"]["result"][0]
+            q = res["indicators"]["quote"][0]
+            return pd.DataFrame({k: q[k] for k in ("open", "high", "low", "close", "volume")},
+                                index=pd.to_datetime(res["timestamp"], unit="s", utc=True)).dropna()
+        except Exception:
+            pass
+    return None
 
 
 def baixar_acao(nome):
@@ -291,8 +309,46 @@ def donchian(df, desde, entra=55, sai=10):
     return out
 
 
+def rsi2(df, desde, max_dias=10):
+    """Swing curto (Connors): long se acima da média de 200 dias e RSI(2) < 10; sai ao fechar acima da média
+    de 5 dias (ou em 10 dias). Short espelhado: abaixo da média de 200 e RSI(2) > 90; sai abaixo da de 5.
+    Sem stop no original; aqui o R usa 2x a volatilidade diária (ATR 14) como stop de referência."""
+    d = df.resample("1D").agg({"high": "max", "low": "min", "close": "last"}).dropna()
+    c = d["close"]
+    dif = c.diff()
+    alta, baixa = dif.clip(lower=0).ewm(alpha=1 / 2).mean(), (-dif.clip(upper=0)).ewm(alpha=1 / 2).mean()
+    rsi = 100 - 100 / (1 + alta / baixa.replace(0, np.nan))
+    ma200, ma5 = c.rolling(200).mean(), c.rolling(5).mean()
+    atr = (d["high"] - d["low"]).rolling(14).mean() / c
+    out = []
+    for lado in (1, -1):
+        dentro, ent, t0, risco = False, 0.0, None, 0.0
+        for t, ci, ri, m200, m5, a in zip(d.index, c, rsi, ma200, ma5, atr):
+            if np.isnan(m200) or np.isnan(ri):
+                continue
+            if not dentro and t >= desde and ((lado == 1 and ci > m200 and ri < 10) or (lado == -1 and ci < m200 and ri > 90)):
+                dentro, ent, t0, risco = True, ci, t, max(2 * a, 0.005)
+            elif dentro and ((lado == 1 and ci > m5) or (lado == -1 and ci < m5) or (t - t0).days >= max_dias):
+                ret = lado * (ci / ent - 1) - CUSTO
+                out.append({"lado": lado, "r": ret / risco, "ret": ret, "dias": (t - t0).days})
+                dentro = False
+    return out
+
+
+def relatorio_swing(nome, dons):
+    L = [f"== {nome} ==", f"{'mercado':<14} {'trades':>7} {'acerto':>7} {'R médio':>8} {'ret médio':>10} {'dias':>5} {'soma ret':>9}"]
+    for classe, nome_c in ((0, "cripto"), (1, "ações")):
+        for lado, nome_l in ((1, "long"), (-1, "short")):
+            v = [x for c, xs in dons if c == classe for x in xs if x["lado"] == lado]
+            if v:
+                L.append(f"{nome_c + ' ' + nome_l:<14} {len(v):>7} {np.mean([x['r'] > 0 for x in v]):>7.0%} "
+                         f"{np.mean([x['r'] for x in v]):>+8.2f} {np.mean([x['ret'] for x in v]):>+10.1%} "
+                         f"{np.mean([x['dias'] for x in v]):>5.0f} {np.sum([x['ret'] for x in v]):>+9.0%}")
+    return L + [""]
+
+
 def relatorio_donchian(dons):
-    L = ["== DONCHIAN 55/10 (swing no diário, últimos 365 dias) ==",
+    L = ["== DONCHIAN 55/10 (swing no diário, últimos 2 anos) ==",
          "Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.",
          f"{'mercado':<14} {'trades':>7} {'acerto':>7} {'R médio':>8} {'ret médio':>10} {'dias':>5}"]
     for classe, nome_c in ((0, "cripto"), (1, "ações")):
@@ -361,7 +417,7 @@ def walk_forward(T, cols, inicio_teste):
 def relatorio(res, info):
     L = [f"TESTE LONGO DO MODELO — {datetime.datetime.now(datetime.timezone.utc):%d/%m/%Y %H:%M} UTC", "",
          *info, "",
-         "Como ler: últimos 365 dias, mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.",
+         "Como ler: últimos 2 anos (ações no 1h: o Yahoo só tem 730 dias, então menos meses), mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.",
          "'trades' = sem sobreposição (1 por ativo até sair + 1h), como o robô faria.",
          "R do robô = 3 alvos + stop móvel; R ref = alvo +2% / stop −3%. Já com 0,1% de custo.",
          "Nota pela mesma régua do painel, usando acerto e R do robô.", ""]
@@ -397,7 +453,7 @@ def relatorio(res, info):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--meses", type=int, default=24)
+    ap.add_argument("--meses", type=int, default=30)
     ap.add_argument("--cripto", type=int, default=40)
     ap.add_argument("--acoes", type=int, default=80)
     a = ap.parse_args()
@@ -427,6 +483,7 @@ def main():
         t = atributos(k, btc["close"], fx, classe=0).join(rotular(k))
         t["sym"] = par
         DONS.append((0, donchian(k, DESDE)))
+        RSI2.append((0, rsi2(k, DESDE)))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -444,7 +501,10 @@ def main():
             return None
         t = atributos(df, qqq["close"], None, classe=1).join(rotular(df))
         t["sym"] = at["nome"]
-        DONS.append((1, donchian(df, DESDE)))
+        dia = yahoo_1d(at["nome"]) if at["nome"] else None          # swing usa o diário longo do Yahoo
+        dia = dia if dia is not None and len(dia) > 300 else df
+        DONS.append((1, donchian(dia, DESDE)))
+        RSI2.append((1, rsi2(dia, DESDE)))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -456,14 +516,15 @@ def main():
     T = T[T["vol24"].notna() & T["ma168"].notna()]
     cols = [c for c in T.columns if not c.startswith(("r_", "fim_", "ref_")) and c != "sym"]
     inicio = max(T.index.min() + pd.Timedelta(days=180),            # 6 meses mínimos de treino
-                 pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=365))   # testa os últimos 365 dias
+                 DESDE)                                             # testa os últimos 2 anos
     print(f"tabela: {len(T)} linhas, {len(cols)} colunas; teste a partir de {inicio:%m/%Y}", flush=True)
     res = walk_forward(T, cols, inicio)
     info = [f"Cripto: {n_cripto} ativos (Binance, 1h, desde {T[T.classe == 0].index.min():%d/%m/%Y})",
             f"Ações: {n_acoes} ativos (Yahoo, 1h com pré/pós, desde {T[T.classe == 1].index.min():%d/%m/%Y}; "
             "12 velas = ~12h de negociação, não de relógio)",
             f"Linhas: {len(T)}; tempo: {(time.time() - t0) / 60:.0f} min"]
-    txt = relatorio(res, info) + "\n" + "\n".join(relatorio_donchian(DONS))
+    txt = (relatorio(res, info) + "\n" + "\n".join(relatorio_donchian(DONS)) + "\n\n"
+           + "\n".join(relatorio_swing("SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos)", RSI2)))
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(txt + "\n")
     print(txt)

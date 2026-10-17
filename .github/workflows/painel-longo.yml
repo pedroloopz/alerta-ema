@@ -7,7 +7,7 @@ on:
     inputs:
       meses:
         description: "Meses de histórico"
-        default: "24"
+        default: "30"
   push:
     branches: [main]
     paths: [painel/teste_longo.py, .github/workflows/painel-longo.yml]
@@ -34,7 +34,7 @@ jobs:
       - run: pip install pandas numpy requests scikit-learn==1.9.1
       - name: Teste mês a mês
         shell: bash
-        run: python painel/teste_longo.py --meses "${{ github.event.inputs.meses || '24' }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+        run: python painel/teste_longo.py --meses "${{ github.event.inputs.meses || '30' }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Salvar relatório
         if: always()
         run: |
