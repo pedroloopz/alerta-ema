@@ -1,4 +1,5 @@
 {
- "seguidas": 1,
- "falha": "falhou antes do script (sem log)"
+ "seguidas": 2,
+ "falha": "falhou antes do script (sem log)",
+ "avisado_em": "2026-10-17"
 }
