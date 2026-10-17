@@ -30,7 +30,9 @@ AQUI = os.path.dirname(__file__)
 SAIDA = os.path.join(AQUI, "..", "relatorio_ml_acoes.txt")
 SAIDA_JSON = os.path.join(AQUI, "ml_acoes.json")
 DIAS = 60
-CONFIGS = {"A": (0.02, 0.03, 48), "B": (0.015, 0.02, 32), "C": (0.03, 0.03, 96)}   # alvo, stop, candles de 15 min
+CONFIGS = {"A": (0.02, 0.03, 48), "B": (0.015, 0.02, 32), "C": (0.03, 0.03, 96),   # alvo, stop, candles de 15 min
+           "D": ((0.015, 0.025, 0.035), 0.03, 48)}   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
+
 MAKER, TAKER_SLIP = modelo.MAKER, modelo.TAKER_SLIP
 HORAS_PREGAO = range(14, 20)        # decisões só com a bolsa americana aberta (UTC)
 
@@ -81,6 +83,47 @@ def rotular(df, tp, sl, h):
         r = np.where(g, tp - 2 * MAKER, np.where(stop, -sl - MAKER - TAKER_SLIP, rt - MAKER - TAKER_SLIP)) / sl
         y = np.full(n, np.nan); y[: n - h] = g
         rr = np.full(n, np.nan); rr[: n - h] = r
+        out[lado] = (y, rr)
+    return out
+
+
+def rotular3(df, tps, sl, h):
+    """Saída do robô: 1/3 em cada alvo; stop inteiro até o 1º alvo, depois stop na entrada;
+    o que sobrar fecha no fim do prazo. y = 1º alvo antes do stop; r = resultado em R (com taxas)."""
+    hi, lo, cl = df["high"].to_numpy(), df["low"].to_numpy(), df["close"].to_numpy()
+    n = len(df)
+    if n <= h + 1:
+        return None
+    out = {}
+    for lado in (1, -1):
+        y = np.full(n, np.nan); rr = np.full(n, np.nan)
+        for i in range(n - h):
+            e = cl[i]
+            H_, L_ = hi[i + 1:i + 1 + h], lo[i + 1:i + 1 + h]
+            fav = (H_ / e - 1) if lado == 1 else (1 - L_ / e)      # melhor movimento a favor no candle
+            con = (1 - L_ / e) if lado == 1 else (H_ / e - 1)      # pior movimento contra no candle
+            ist = np.argmax(con >= sl) if (con >= sl).any() else h
+            ia = [np.argmax(fav >= t) if (fav >= t).any() else h for t in tps]
+            if ist < ia[0] or (ia[0] == h and ist < h):            # stop cheio antes do 1º alvo
+                y[i], rr[i] = 0, (-sl - MAKER - TAKER_SLIP) / sl
+                continue
+            if ia[0] == h:                                          # nada bateu: fecha no fim
+                r = lado * (cl[i + h] / e - 1)
+                y[i], rr[i] = 0, (r - MAKER - TAKER_SLIP) / sl
+                continue
+            pnl, resto = 0.0, 1.0
+            be = np.argmax(con[ia[0] + 1:] >= 0) + ia[0] + 1 if (con[ia[0] + 1:] >= 0).any() else h
+            for k, t in enumerate(tps):
+                if ia[k] < h and (k == 0 or ia[k] < be):
+                    pnl += t / 3 - MAKER / 3; resto -= 1 / 3
+                else:
+                    break
+            if resto > 1e-9:
+                if be < h:
+                    pnl += resto * (0 - TAKER_SLIP)                 # saiu no zero
+                else:
+                    pnl += resto * (lado * (cl[i + h] / e - 1) - TAKER_SLIP)
+            y[i], rr[i] = 1, (pnl - MAKER) / sl
         out[lado] = (y, rr)
     return out
 
@@ -139,7 +182,7 @@ def main():
     for nome, (tp, sl, h) in CONFIGS.items():
         linhas = []
         for sym, df in hist.items():
-            rot = rotular(df, tp, sl, h)
+            rot = rotular3(df, tp, sl, h) if isinstance(tp, tuple) else rotular(df, tp, sl, h)
             if rot is None:
                 continue
             f = features(df, mkt)
@@ -151,7 +194,8 @@ def main():
         L = pd.concat(linhas).sort_index()
         res = treinar(L, h)
         saida["configs"][nome] = {"tp": tp, "sl": sl, "horas": h / 4, **res}
-        relatorio.append(f"\n=== Config {nome}: alvo {tp:.1%} / stop {sl:.1%} / prazo {h / 4:.0f}h — "
+        alvo = " + ".join(f"{x:.1%}" for x in tp) + " (1/3 cada, stop → entrada)" if isinstance(tp, tuple) else f"{tp:.1%}"
+        relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl:.1%} / prazo {h / 4:.0f}h — "
                          f"teste {res['teste'][0][:10]} a {res['teste'][1][:10]}, {res['linhas_teste']} decisões ===")
         for lado in (1, -1):
             relatorio.append(f"  {'LONG' if lado == 1 else 'SHORT'} (faixas da menor para a maior pontuação):")
