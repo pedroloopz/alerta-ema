@@ -1,0 +1,121 @@
+Modelo de ações (preço + volume + QQQ) — 264 ações, 60 dias de pregão em 15 min, decisões de hora em hora no pregão; faixas medidas fora da amostra. Gerado 2026-10-17T17:41:25+00:00.
+
+=== Config A: alvo 2.0% / stop 3.0% / prazo 26 candles (~1.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+  LONG (faixas da menor para a maior pontuação):
+    n   3890  acerto 0.129  R -0.017  nota 5
+    n   3229  acerto 0.228  R -0.036  nota 5
+    n   3109  acerto 0.301  R -0.072  nota 4
+    n   3409  acerto 0.343  R -0.118  nota 3
+    n   3655  acerto 0.366  R -0.157  nota 3
+    n   3834  acerto 0.415  R -0.145  nota 3
+    n   3238  acerto 0.451  R -0.151  nota 3
+    n   2706  acerto 0.494  R -0.112  nota 3
+    n   1625  acerto 0.461  R -0.210  nota 2
+    n    891  acerto 0.487  R -0.181  nota 3
+    n    337  acerto 0.685  R +0.153  nota 8
+    n    170  acerto 0.382  R -0.377  nota 1
+    -> faixas nota 8+: 1 (337 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   3126  acerto 0.120  R -0.053  nota 4
+    n   2972  acerto 0.230  R -0.034  nota 5
+    n   2670  acerto 0.321  R -0.020  nota 5
+    n   2787  acerto 0.369  R -0.038  nota 5
+    n   3055  acerto 0.433  R +0.003  nota 5
+    n   3101  acerto 0.458  R -0.007  nota 5
+    n   3722  acerto 0.517  R +0.035  nota 6
+    n   3839  acerto 0.576  R +0.089  nota 7
+    n   3120  acerto 0.618  R +0.130  nota 8
+    n   1389  acerto 0.573  R +0.069  nota 7
+    n    247  acerto 0.530  R -0.003  nota 5
+    n     65  acerto 0.615  R +0.183  nota 8
+    -> faixas nota 8+: 2 (3185 casos no teste)
+
+=== Config B: alvo 1.5% / stop 2.0% / prazo 13 candles (~0.5 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+  LONG (faixas da menor para a maior pontuação):
+    n   3532  acerto 0.033  R -0.019  nota 5
+    n   3481  acerto 0.119  R -0.040  nota 5
+    n   3512  acerto 0.204  R -0.049  nota 5
+    n   3285  acerto 0.275  R -0.065  nota 4
+    n   3248  acerto 0.362  R -0.064  nota 4
+    n   3493  acerto 0.370  R -0.135  nota 3
+    n   3645  acerto 0.386  R -0.191  nota 3
+    n   3071  acerto 0.435  R -0.155  nota 3
+    n   1813  acerto 0.461  R -0.139  nota 3
+    n   1110  acerto 0.433  R -0.208  nota 2
+    n    515  acerto 0.577  R +0.006  nota 6
+    n    180  acerto 0.472  R -0.205  nota 2
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   3342  acerto 0.029  R -0.082  nota 4
+    n   3285  acerto 0.125  R -0.047  nota 5
+    n   3445  acerto 0.261  R +0.006  nota 5
+    n   3392  acerto 0.284  R -0.023  nota 5
+    n   3125  acerto 0.335  R -0.052  nota 4
+    n   2936  acerto 0.391  R -0.046  nota 5
+    n   2713  acerto 0.427  R -0.032  nota 5
+    n   2974  acerto 0.486  R -0.003  nota 5
+    n   3136  acerto 0.551  R +0.068  nota 7
+    n   2085  acerto 0.593  R +0.107  nota 7
+    n    344  acerto 0.613  R +0.079  nota 7
+    n    108  acerto 0.509  R -0.112  nota 3
+    -> faixas nota 8+: 0 (0 casos no teste)
+
+=== Config C: alvo 3.0% / stop 3.0% / prazo 52 candles (~2.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+  LONG (faixas da menor para a maior pontuação):
+    n   4277  acerto 0.134  R -0.005  nota 5
+    n   3406  acerto 0.245  R -0.055  nota 4
+    n   3084  acerto 0.282  R -0.148  nota 3
+    n   3668  acerto 0.306  R -0.180  nota 3
+    n   3682  acerto 0.359  R -0.151  nota 3
+    n   3502  acerto 0.375  R -0.157  nota 3
+    n   2749  acerto 0.381  R -0.173  nota 3
+    n   2136  acerto 0.412  R -0.140  nota 3
+    n   1372  acerto 0.371  R -0.252  nota 2
+    n    588  acerto 0.304  R -0.404  nota 1
+    n     44  acerto 0.182  R -0.666  nota 1
+    n      1  acerto 1.000  R +0.987  nota 7
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   3113  acerto 0.115  R -0.027  nota 5
+    n   2817  acerto 0.213  R -0.023  nota 5
+    n   2324  acerto 0.334  R +0.035  nota 5
+    n   2337  acerto 0.378  R +0.034  nota 5
+    n   2556  acerto 0.422  R +0.056  nota 5
+    n   3197  acerto 0.464  R +0.083  nota 5
+    n   3449  acerto 0.478  R +0.081  nota 5
+    n   3462  acerto 0.509  R +0.123  nota 6
+    n   3282  acerto 0.547  R +0.176  nota 6
+    n   1587  acerto 0.591  R +0.256  nota 7
+    n    279  acerto 0.652  R +0.333  nota 9
+    n    106  acerto 0.642  R +0.388  nota 8
+    -> faixas nota 8+: 2 (385 casos no teste)
+
+=== Config D: alvo 1.5% + 2.5% + 3.5% (1/3 cada, stop → entrada) / stop 3.0% / prazo 26 candles (~1.0 pregão) — teste 2026-09-21 a 2026-10-16, 31677 decisões ===
+  LONG (faixas da menor para a maior pontuação):
+    n   4543  acerto 0.241  R -0.017  nota 5
+    n   3505  acerto 0.364  R -0.029  nota 5
+    n   3297  acerto 0.415  R -0.071  nota 4
+    n   3455  acerto 0.450  R -0.116  nota 3
+    n   3391  acerto 0.496  R -0.108  nota 3
+    n   3465  acerto 0.504  R -0.139  nota 3
+    n   3074  acerto 0.559  R -0.107  nota 3
+    n   2400  acerto 0.580  R -0.100  nota 3
+    n   1567  acerto 0.533  R -0.207  nota 2
+    n    861  acerto 0.619  R -0.071  nota 4
+    n    375  acerto 0.669  R +0.024  nota 6
+    n    160  acerto 0.531  R -0.219  nota 2
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   2488  acerto 0.170  R -0.077  nota 4
+    n   2597  acerto 0.324  R -0.015  nota 5
+    n   2816  acerto 0.397  R -0.014  nota 5
+    n   3026  acerto 0.454  R -0.021  nota 5
+    n   3225  acerto 0.516  R +0.003  nota 6
+    n   3240  acerto 0.563  R +0.025  nota 6
+    n   3894  acerto 0.619  R +0.079  nota 7
+    n   3777  acerto 0.658  R +0.103  nota 7
+    n   3301  acerto 0.681  R +0.141  nota 8
+    n   1441  acerto 0.687  R +0.133  nota 8
+    n    207  acerto 0.628  R +0.035  nota 6
+    n     81  acerto 0.753  R +0.181  nota 9
+    -> faixas nota 8+: 3 (4823 casos no teste)
