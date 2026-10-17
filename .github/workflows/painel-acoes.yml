@@ -34,13 +34,14 @@ jobs:
       - run: pip install pandas numpy scikit-learn==1.9.1
       - name: Treinar e medir fora da amostra
         shell: bash
-        run: python painel/modelo_acoes.py --max "${{ github.event.inputs.max || '0' }}" 2>&1 | tee painel/modelo_acoes.log; exit ${PIPESTATUS[0]}
+        run: python painel/modelo_acoes.py --max "${{ github.event.inputs.max || '0' }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Salvar relatório
         if: always()
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add relatorio_ml_acoes.txt painel/ml_acoes.json painel/modelo_acoes.log 2>/dev/null || true
+          cp run.log painel/modelo_acoes.log 2>/dev/null || true
+          for f in relatorio_ml_acoes.txt painel/ml_acoes.json painel/modelo_acoes.log; do [ -f "$f" ] && git add "$f"; done
           git diff --staged --quiet || git commit -m "painel: teste do modelo de ações"
           git pull --rebase --autostash || true
           git push || true
