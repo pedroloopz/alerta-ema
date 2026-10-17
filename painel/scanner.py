@@ -96,6 +96,7 @@ def anexar_csv(caminho, linhas):
         w.writerows(linhas)
 VALIDADE_MIN = 45          # sinal vale até 45 min depois do candle
 DESLIZE_MAX = 0.5          # preço andou mais de 0,5 ATR desde o sinal -> perdeu a entrada
+NOTA_MIN = 8               # painel e avisos só mostram nota 8+, long ou short
 
 
 def br(dt):
@@ -182,14 +183,12 @@ def num_br(x):
 
 
 def trades_a_fazer(sinais, ml, agora):
-    """O que vale aviso no celular: nota 8+, Exaustão long com R esperado positivo e o modelo de
-    fluxo só na faixa mais alta com R positivo. Só sinais ainda válidos."""
+    """O que vale aviso: só nota 8+, long ou short (mesma régua para os dois lados). Só sinais ainda válidos."""
     lim = agora - datetime.timedelta(minutes=VALIDADE_MIN)
     out = [dict(x, rotulo="Exaustão" if x["setup"] == "EXA" else x["setup"]) for x in sinais
-           if datetime.datetime.fromisoformat(x["tempo"]) >= lim
-           and (x["nota"] >= 8 or (x["setup"] == "EXA" and x["lado"] == "LONG" and x["ev_r"] > 0))]
+           if datetime.datetime.fromisoformat(x["tempo"]) >= lim and x["nota"] >= NOTA_MIN]
     out += [dict(x, rotulo="Modelo de fluxo") for x in ml
-            if x.get("topo") and x["ev_r"] > 0 and datetime.datetime.fromisoformat(x["tempo"]) >= lim]
+            if x["nota"] >= NOTA_MIN and x["ev_r"] > 0 and datetime.datetime.fromisoformat(x["tempo"]) >= lim]
     return out
 
 
@@ -231,7 +230,7 @@ def main():
             print("modelo: não carregou", e)
     sinais = [x for lst in dados.em_paralelo(lambda at: avaliar(at, stats, fundings), uni, n=8) for x in lst]
     sinais.sort(key=lambda x: (-x["nota"], -x["p_tp"], -x["ev_r"]))
-    swings = swing.varrer(uni, agora)
+    swings = [x for x in swing.varrer(uni, agora) if (x.get("nota") or 0) >= NOTA_MIN]
 
     ml = sorted(ML["saida"], key=lambda x: (-x["p_tp"], -x["ev_r"], -x["pont"]))
     # registro para o placar real: melhor long e melhor short de cada varredura
@@ -268,9 +267,9 @@ def main():
         "saidas": stats["saidas"],
         "setups_melhores": base[:5],
         "setups_piores": base[-5:][::-1],
-        "sinais": sinais,
+        "sinais": [x for x in sinais if x["nota"] >= NOTA_MIN],
         "ml": [x for lado in ("LONG", "SHORT")
-               for x in sorted((y for y in ml if y["lado"] == lado), key=lambda y: -y["pont"])[:10]],
+               for x in sorted((y for y in ml if y["lado"] == lado and y["nota"] >= NOTA_MIN), key=lambda y: -y["pont"])[:10]],
         "ml_info": stats.get("ml") and {k: stats["ml"][k] for k in ("tp", "sl", "horas", "teste", "ativos")},
         "ml_faixas": stats.get("ml", {}).get("faixas"),
         "placar_ml": stats.get("placar_ml"),
