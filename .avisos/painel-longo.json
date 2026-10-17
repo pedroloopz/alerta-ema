@@ -1,4 +1,4 @@
 {
- "seguidas": 1,
- "falha": "ValueError: window shape cannot be larger than input array shape"
+ "seguidas": 0,
+ "falha": null
 }
