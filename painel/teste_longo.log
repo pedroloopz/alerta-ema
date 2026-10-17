@@ -13,23 +13,14 @@ BTC: 21912 candles de 1h desde 01/04/2024
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto BTCUSDT: ok (62s)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto INJUSDT: ok (79s)
-  cripto AVAXUSDT: ok (80s)
-  cripto NEARUSDT: ok (80s)
-  cripto AAVEUSDT: ok (80s)
-  cripto ETHUSDT: ok (81s)
-  cripto ZECUSDT: ok (81s)
-  cripto SOLUSDT: ok (81s)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto TIAUSDT: ok (122s)
+  cripto BTCUSDT: ok (82s)
+  cripto AVAXUSDT: ok (100s)
+  cripto AAVEUSDT: ok (101s)
+  cripto ZECUSDT: ok (101s)
+  cripto NEARUSDT: ok (103s)
+  cripto INJUSDT: ok (103s)
+  cripto SOLUSDT: ok (103s)
+  cripto ETHUSDT: ok (104s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
@@ -38,22 +29,7 @@ BTC: 21912 candles de 1h desde 01/04/2024
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto LDOUSDT: ok (141s)
-  cripto PENDLEUSDT: ok (144s)
-  cripto APTUSDT: ok (145s)
-  cripto XRPUSDT: ok (145s)
-  cripto ADAUSDT: ok (145s)
-  cripto BNBUSDT: ok (145s)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto IMXUSDT: ok (147s)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto TAOUSDT: ok (184s)
+  cripto TIAUSDT: ok (141s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
@@ -62,20 +38,20 @@ BTC: 21912 candles de 1h desde 01/04/2024
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto WLDUSDT: ok (202s)
-  cripto LTCUSDT: ok (204s)
-  cripto ATHUSDT: ok (204s)
-  cripto KASUSDT: ok (204s)
-  cripto JUPUSDT: ok (204s)
-  cripto STRKUSDT: ok (204s)
+  cripto IMXUSDT: ok (160s)
+  cripto APTUSDT: ok (160s)
+  cripto XRPUSDT: ok (161s)
+  cripto BNBUSDT: ok (162s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto JASMYUSDT: ok (207s)
+  cripto PENDLEUSDT: ok (167s)
+  cripto ADAUSDT: ok (167s)
+  cripto LDOUSDT: ok (168s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto UNIUSDT: ok (239s)
+  cripto TAOUSDT: ok (189s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
@@ -86,57 +62,79 @@ BTC: 21912 candles de 1h desde 01/04/2024
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto HYPEUSDT: ok (258s)
-  cripto BCHUSDT: ok (261s)
-  cripto ONDOUSDT: ok (263s)
-  cripto LINKUSDT: ok (263s)
+  cripto ATHUSDT: ok (220s)
+  cripto KASUSDT: ok (224s)
+  cripto WLDUSDT: ok (224s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto RUNEUSDT: ok (266s)
-  cripto SUIUSDT: ok (268s)
-  cripto ETCUSDT: ok (269s)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto DOTUSDT: ok (298s)
+  cripto LTCUSDT: ok (227s)
+  cripto JASMYUSDT: ok (230s)
+  cripto JUPUSDT: ok (233s)
+  cripto BCHUSDT: ok (234s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto UNIUSDT: ok (260s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto STXUSDT: ok (318s)
-  cripto ARBUSDT: ok (321s)
-  cripto ETHFIUSDT: ok (322s)
-  cripto QUSDT: ok (325s)
-  cripto COMPUSDT: ok (328s)
-  cripto DYDXUSDT: ok (330s)
-  cripto ZROUSDT: ok (331s)
-cripto: 40 ativos em 331s (sem dados: —)
-ações: 72 em 351s (sem dados: 8)
-tabela: 1617387 linhas, 23 colunas; teste a partir de 10/2024
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto HYPEUSDT: ok (278s)
+  cripto STRKUSDT: ok (278s)
+  cripto SUIUSDT: ok (279s)
+  cripto LINKUSDT: ok (280s)
+  cripto RUNEUSDT: ok (281s)
+  cripto ONDOUSDT: ok (282s)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto ETCUSDT: ok (283s)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto DOTUSDT: ok (320s)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:402: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto ZROUSDT: ok (337s)
+  cripto STXUSDT: ok (338s)
+  cripto QUSDT: ok (338s)
+  cripto ETHFIUSDT: ok (338s)
+  cripto ARBUSDT: ok (339s)
+  cripto COMPUSDT: ok (339s)
+  cripto DYDXUSDT: ok (340s)
+cripto: 40 ativos em 340s (sem dados: —)
+ações: 71 em 356s (sem dados: 9)
+tabela: 1605493 linhas, 23 colunas; teste a partir de 10/2024
 swing, indicadores e padrões gravados
-  2024-10 (+1 mês): treino 363437 linhas, teste 98195
-  2024-12 (+1 mês): treino 462511 linhas, teste 96584
-  2025-02 (+1 mês): treino 558197 linhas, teste 94182
-  2025-04 (+1 mês): treino 652361 linhas, teste 101220
-  2025-06 (+1 mês): treino 754484 linhas, teste 103177
-  2025-08 (+1 mês): treino 856718 linhas, teste 104682
-  2025-10 (+1 mês): treino 961372 linhas, teste 105142
-  2025-12 (+1 mês): treino 1067459 linhas, teste 103690
-  2026-02 (+1 mês): treino 1171149 linhas, teste 102874
-  2026-04 (+1 mês): treino 1273029 linhas, teste 108409
-  2026-06 (+1 mês): treino 1382432 linhas, teste 111039
-  2026-08 (+1 mês): treino 1492463 linhas, teste 109748
-  2026-10 (+1 mês): treino 1602212 linhas, teste 13648
-TESTE LONGO DO MODELO — 17/10/2026 22:33 UTC
+  2024-10 (+1 mês): treino 360023 linhas, teste 97487
+  2024-12 (+1 mês): treino 458375 linhas, teste 95932
+  2025-02 (+1 mês): treino 553423 linhas, teste 93529
+  2025-04 (+1 mês): treino 646934 linhas, teste 100506
+  2025-06 (+1 mês): treino 748329 linhas, teste 102468
+  2025-08 (+1 mês): treino 849868 linhas, teste 103978
+  2025-10 (+1 mês): treino 953818 linhas, teste 104452
+  2025-12 (+1 mês): treino 1059201 linhas, teste 103045
+  2026-02 (+1 mês): treino 1162246 linhas, teste 102211
+  2026-04 (+1 mês): treino 1263477 linhas, teste 107713
+  2026-06 (+1 mês): treino 1372170 linhas, teste 110309
+  2026-08 (+1 mês): treino 1481485 linhas, teste 109034
+  2026-10 (+1 mês): treino 1590520 linhas, teste 13460
+TESTE LONGO DO MODELO — 17/10/2026 23:43 UTC
 
 Cripto: 40 ativos (Binance, 1h, desde 07/04/2024)
-Ações: 72 ativos (Yahoo, 1h com pré/pós, desde 04/12/2023; 12 velas = ~12h de negociação, não de relógio)
-Linhas: 1617387; tempo: 9 min
+Ações: 71 ativos (Yahoo, 1h com pré/pós, desde 04/12/2023; 12 velas = ~12h de negociação, não de relógio)
+Linhas: 1605493; tempo: 9 min
 
 Como ler: últimos 2 anos (ações no 1h: o Yahoo só tem 730 dias, então menos meses), mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.
 'trades' = sem sobreposição (1 por ativo até sair + 1h), como o robô faria.
@@ -145,118 +143,118 @@ Nota pela mesma régua do painel, usando acerto e R do robô.
 
 == CRIPTO · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%       782      1.4     68%  +0.028  +0.004     6    9/18      -1.00
-97–99%      2974      4.1     64%  -0.037  -0.042     5   14/24      -0.25
-90–97%     15000     20.8     63%  -0.047  -0.051     5    7/24      -0.14
-  top 1% mês a mês (trades, R médio): 24-10 1 +0.17 · 24-11 61 +0.04 · 24-12 61 -0.26 · 25-01 88 -0.09 · 25-02 88 +0.22 · 25-03 57 -0.40 · 25-04 69 +0.36 · 25-07 10 +0.43 · 25-10 47 -0.02 · 25-11 130 -0.03 · 25-12 5 +0.28 · 26-01 27 +0.28 · 26-02 94 +0.29 · 26-03 18 -0.51 · 26-04 3 +0.09 · 26-06 15 -0.02 · 26-08 1 -1.00 · 26-09 7 -0.30
+top 1%       758      1.3     70%  +0.050  +0.016     6    9/19      -1.00
+97–99%      3010      4.2     63%  -0.053  -0.062     4   13/24      -0.34
+90–97%     15691     21.8     64%  -0.040  -0.043     5   10/24      -0.18
+  top 1% mês a mês (trades, R médio): 24-10 1 +0.17 · 24-11 23 -0.06 · 24-12 94 -0.24 · 25-01 50 +0.30 · 25-02 67 +0.66 · 25-03 42 -0.37 · 25-04 63 +0.34 · 25-05 1 -1.00 · 25-07 7 +0.48 · 25-10 62 +0.04 · 25-11 124 -0.07 · 25-12 27 +0.38 · 26-01 2 +0.36 · 26-02 105 +0.06 · 26-03 16 -0.33 · 26-04 1 -1.00 · 26-06 36 -0.16 · 26-08 23 -0.11 · 26-09 14 -0.08
 
 == CRIPTO · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      1419      2.0     67%  +0.028  +0.045     6   10/24      -1.00
-97–99%      5922      8.2     66%  +0.014  +0.013     6   16/24      -0.30
-90–97%     23799     33.1     65%  -0.009  -0.004     5    8/24      -0.16
-  top 1% mês a mês (trades, R médio): 24-10 16 +0.33 · 24-11 101 +0.14 · 24-12 118 +0.05 · 25-01 70 -0.14 · 25-02 157 +0.20 · 25-03 244 +0.20 · 25-04 20 +0.20 · 25-05 54 -0.05 · 25-06 129 +0.39 · 25-07 25 -0.56 · 25-08 38 -0.83 · 25-09 1 -1.00 · 25-10 24 +0.03 · 25-11 17 +0.07 · 25-12 16 -0.05 · 26-01 10 -0.07 · 26-02 52 +0.10 · 26-03 47 -0.23 · 26-04 35 -0.15 · 26-05 36 -0.24 · 26-06 77 -0.02 · 26-07 9 -0.79 · 26-08 63 -0.47 · 26-09 60 -0.05
+top 1%      1480      2.1     69%  +0.043  +0.058     6   14/23      -0.65
+97–99%      5626      7.8     66%  +0.005  +0.008     6   14/24      -0.36
+90–97%     23283     32.3     66%  +0.002  +0.005     6   11/24      -0.11
+  top 1% mês a mês (trades, R médio): 24-10 36 +0.02 · 24-11 105 +0.15 · 24-12 166 +0.04 · 25-01 132 -0.18 · 25-02 156 +0.23 · 25-03 214 +0.16 · 25-04 40 +0.48 · 25-05 64 -0.04 · 25-06 89 +0.38 · 25-07 7 -0.65 · 25-08 44 -0.49 · 25-10 26 +0.04 · 25-11 15 +0.50 · 25-12 30 +0.03 · 26-01 3 +0.27 · 26-02 46 +0.45 · 26-03 22 -0.00 · 26-04 31 -0.03 · 26-05 20 +0.06 · 26-06 73 +0.03 · 26-07 5 -0.39 · 26-08 107 -0.47 · 26-09 49 -0.22
 
 == AÇÕES · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      7045      9.4     75%  +0.131  +0.115     8   24/25      -0.42
-97–99%     12580     16.8     71%  +0.075  +0.059     7   21/25      -0.34
-90–97%     27165     36.2     67%  +0.017  +0.000     6   18/25      -0.26
-  top 1% mês a mês (trades, R médio): 24-10 142 +0.44 · 24-11 172 +0.34 · 24-12 204 +0.15 · 25-01 178 +0.13 · 25-02 313 +0.09 · 25-03 462 +0.15 · 25-04 334 +0.16 · 25-05 210 +0.27 · 25-06 164 +0.28 · 25-07 132 +0.27 · 25-08 155 +0.30 · 25-09 126 +0.18 · 25-10 217 +0.20 · 25-11 365 +0.04 · 25-12 203 +0.08 · 26-01 248 +0.20 · 26-02 322 +0.08 · 26-03 534 +0.31 · 26-04 292 +0.10 · 26-05 309 +0.04 · 26-06 521 +0.12 · 26-07 730 +0.02 · 26-08 203 +0.09 · 26-09 255 +0.19 · 26-10 254 -0.42
+top 1%      7128      9.5     75%  +0.138  +0.121     8   23/25      -0.46
+97–99%     12241     16.3     71%  +0.071  +0.056     7   21/25      -0.40
+90–97%     26565     35.4     67%  +0.009  -0.006     6   17/25      -0.29
+  top 1% mês a mês (trades, R médio): 24-10 132 +0.37 · 24-11 168 +0.36 · 24-12 209 +0.18 · 25-01 199 +0.10 · 25-02 311 +0.11 · 25-03 459 +0.13 · 25-04 354 +0.26 · 25-05 225 +0.24 · 25-06 168 +0.32 · 25-07 127 +0.24 · 25-08 154 +0.26 · 25-09 127 +0.18 · 25-10 250 +0.25 · 25-11 336 -0.05 · 25-12 222 +0.14 · 26-01 257 +0.21 · 26-02 357 +0.16 · 26-03 474 +0.33 · 26-04 307 +0.10 · 26-05 350 +0.07 · 26-06 483 +0.13 · 26-07 648 +0.05 · 26-08 264 +0.02 · 26-09 273 +0.21 · 26-10 274 -0.46
 
 == AÇÕES · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      5219      7.0     78%  +0.154  +0.151     8   25/25      +0.04
-97–99%      6775      9.0     74%  +0.111  +0.090     7   25/25      +0.01
-90–97%     11564     15.4     69%  +0.046  +0.035     6   19/25      -0.03
-  top 1% mês a mês (trades, R médio): 24-10 131 +0.21 · 24-11 162 +0.11 · 24-12 156 +0.32 · 25-01 192 +0.15 · 25-02 120 +0.18 · 25-03 142 +0.24 · 25-04 268 +0.21 · 25-05 226 +0.19 · 25-06 179 +0.10 · 25-07 130 +0.27 · 25-08 111 +0.29 · 25-09 165 +0.12 · 25-10 287 +0.08 · 25-11 181 +0.26 · 25-12 194 +0.20 · 26-01 262 +0.08 · 26-02 204 +0.14 · 26-03 265 +0.21 · 26-04 345 +0.07 · 26-05 336 +0.15 · 26-06 337 +0.14 · 26-07 276 +0.05 · 26-08 280 +0.15 · 26-09 200 +0.04 · 26-10 70 +0.28
+top 1%      4872      6.5     78%  +0.152  +0.148     8   24/25      -0.02
+97–99%      7009      9.3     74%  +0.115  +0.095     7   23/25      -0.01
+90–97%     11287     15.0     70%  +0.056  +0.040     6   21/25      -0.05
+  top 1% mês a mês (trades, R médio): 24-10 114 +0.22 · 24-11 141 +0.07 · 24-12 149 +0.31 · 25-01 179 +0.14 · 25-02 118 +0.14 · 25-03 154 +0.27 · 25-04 245 +0.18 · 25-05 209 +0.24 · 25-06 189 +0.10 · 25-07 133 +0.28 · 25-08 87 +0.28 · 25-09 141 +0.11 · 25-10 298 +0.13 · 25-11 190 +0.29 · 25-12 184 +0.19 · 26-01 269 +0.10 · 26-02 222 +0.15 · 26-03 302 +0.17 · 26-04 311 +0.09 · 26-05 326 +0.15 · 26-06 290 +0.11 · 26-07 219 +0.01 · 26-08 220 +0.14 · 26-09 146 -0.02 · 26-10 36 +0.19
 
 == DONCHIAN 55/10 (swing no diário, últimos 2 anos) ==
 Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.
 mercado         trades  acerto  R médio  ret médio  dias
 cripto long        171     36%    +0.23      +3.3%    27
 cripto short       231     46%    +0.06      +1.6%    29
-ações long         393     47%    +0.60     +11.7%    41
-ações short        254     25%    -0.30      -6.6%    29
+ações long         388     47%    +0.61     +11.9%    41
+ações short        249     25%    -0.30      -6.7%    29
 
 == SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos) ==
 mercado         trades  acerto  R médio  ret médio  dias  soma ret
 cripto long        337     65%    +0.10      +1.8%     4     +597%
 cripto short       790     61%    -0.17      -1.4%     4    -1089%
-ações long        1014     70%    +0.17      +1.8%     5    +1795%
-ações short        438     59%    -0.15      -1.3%     6     -581%
+ações long        1006     70%    +0.17      +1.8%     5    +1797%
+ações short        424     59%    -0.15      -1.4%     6     -579%
 
 == INDICADORES CLÁSSICOS (últimos 2 anos; 'barras' = dias no diário, semanas no semanal) ==
 R usa o stop do sistema (Fibonacci: 78,6%) ou, sem stop, 2x a volatilidade média (ATR 14).
 sistema                              gráfico  mercado       trades  acerto  R méd  ret méd barras  soma ret
 RSI 14 (30/70)                       diário   cripto long      190     34%  +0.01    -2.2%     29     -415%
 RSI 14 (30/70)                       diário   cripto short     203     47%  -0.55    -6.8%     29    -1389%
-RSI 14 (30/70)                       diário   ações long       150     63%  +0.67    +5.8%     28     +870%
-RSI 14 (30/70)                       diário   ações short      368     35%  -1.47   -13.6%     29    -5001%
+RSI 14 (30/70)                       diário   ações long       146     62%  +0.66    +5.8%     28     +843%
+RSI 14 (30/70)                       diário   ações short      366     35%  -1.47   -13.6%     29    -4994%
 RSI 14 (30/70)                       semanal  cripto long       21     43%  +0.12    +1.9%     15      +40%
 RSI 14 (30/70)                       semanal  cripto short      26     88%  +0.91   +31.5%     15     +819%
-RSI 14 (30/70)                       semanal  ações long        23     91%  +1.57   +44.4%     14    +1021%
-RSI 14 (30/70)                       semanal  ações short      137     39%  -0.99   -21.2%     15    -2910%
+RSI 14 (30/70)                       semanal  ações long        22     91%  +1.60   +45.8%     14    +1008%
+RSI 14 (30/70)                       semanal  ações short      136     38%  -1.00   -21.5%     15    -2929%
 
 Ichimoku (nuvem + tenkan/kijun)      diário   cripto long      421     31%  +0.27    +2.6%     10    +1075%
 Ichimoku (nuvem + tenkan/kijun)      diário   cripto short     624     36%  +0.01    -0.1%     14      -94%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações long       607     40%  +0.59    +5.5%     14    +3334%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações short      529     28%  -0.26    -2.6%     13    -1356%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações long       598     40%  +0.60    +5.6%     14    +3324%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações short      521     28%  -0.26    -2.6%     13    -1365%
 Ichimoku (nuvem + tenkan/kijun)      semanal  cripto long       41     32%  +0.41    +9.6%      8     +393%
 Ichimoku (nuvem + tenkan/kijun)      semanal  cripto short      79     59%  +0.06    +5.1%     11     +403%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       151     49%  +0.92   +17.3%      9    +2609%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       90     17%  -0.57   -14.9%      8    -1345%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       148     50%  +0.95   +17.7%     10    +2627%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       86     16%  -0.56   -15.0%      8    -1288%
 
 Bollinger 20/2 (volta à média)       diário   cripto long      510     66%  +0.05    +0.8%     13     +394%
 Bollinger 20/2 (volta à média)       diário   cripto short     497     72%  -0.05    -0.8%     11     -419%
-Bollinger 20/2 (volta à média)       diário   ações long       499     71%  +0.24    +2.8%     11    +1378%
-Bollinger 20/2 (volta à média)       diário   ações short      740     63%  -0.50    -4.6%     13    -3438%
+Bollinger 20/2 (volta à média)       diário   ações long       488     71%  +0.24    +2.8%     11    +1354%
+Bollinger 20/2 (volta à média)       diário   ações short      732     63%  -0.48    -4.6%     13    -3360%
 Bollinger 20/2 (volta à média)       semanal  cripto long       59     54%  -0.03    -4.9%     11     -290%
 Bollinger 20/2 (volta à média)       semanal  cripto short      70     90%  +0.44   +16.6%      7    +1165%
-Bollinger 20/2 (volta à média)       semanal  ações long        75     91%  +0.60   +15.3%      7    +1151%
-Bollinger 20/2 (volta à média)       semanal  ações short      200     57%  -0.98   -20.4%     10    -4080%
+Bollinger 20/2 (volta à média)       semanal  ações long        73     90%  +0.60   +15.6%      7    +1136%
+Bollinger 20/2 (volta à média)       semanal  ações short      198     57%  -1.00   -20.7%     10    -4101%
 
 Fibonacci 61,8% (alvo no topo/fundo) diário   cripto long      320     36%  +0.11    +0.3%     12     +107%
 Fibonacci 61,8% (alvo no topo/fundo) diário   cripto short     221     38%  +0.04    +0.9%     13     +204%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       331     31%  -0.08    -2.2%     12     -726%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      232     24%  -0.33    -2.0%     10     -456%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       323     31%  -0.07    -2.2%     12     -703%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      230     24%  -0.32    -1.9%     10     -447%
 Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto long       45     27%  -0.29    -7.7%      9     -348%
 Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto short      14     57%  +0.75   +20.5%      8     +287%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long       103     42%  +0.29    +5.2%      8     +536%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       38     29%  -0.31    -5.6%      7     -212%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long        99     41%  +0.31    +5.5%      9     +542%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       36     31%  -0.27    -5.4%      7     -194%
 
 == PADRÕES SEMANAIS PARECIDOS (desenho das últimas 8 semanas, similaridade >= 70%) ==
 Teste: a cada semana dos últimos 2 anos, procura no passado desenhos >= 70% parecidos (correlação)
 e aposta na direção que eles tiveram na semana seguinte (mín. 20 parecidos).
 mercado   apostas  acerto  ret méd  só long: n  acerto  ret méd
-cripto       3957     44%   -0.57%        3326     42%   -0.24%
-ações        7067     51%   +0.57%        5918     53%   +1.00%
+cripto       3957     44%   -0.58%        3332     42%   -0.24%
+ações        6963     51%   +0.58%        5832     53%   +1.01%
 
 Esta semana (desenho até o último fechamento): parecidos >= 70% no histórico e o que veio depois
 ativo        parecidos  subiu na sem. seguinte  ret médio  mais parecido
-AMZN              1033                     44%     -0.35%            98%
-Q                  227                     44%     -0.91%            91%
-ARQQ              1292                     56%     +1.26%            98%
-DRAM              1321                     55%     +1.12%            99%
-STXUS             1898                     55%     +1.00%           100%
-NOKUS             1035                     55%     +1.06%            98%
-FLYUS             1233                     55%     +1.08%            98%
-PURRUS            1643                     55%     +1.42%            99%
-NBIS              1049                     54%     +0.92%           100%
-SNXX              1515                     54%     +1.16%            96%
-JASMY             1747                     54%     +1.58%            98%
-INFQ              2313                     54%     +0.97%            99%
-KORU              2215                     54%     +0.99%            99%
-RDW               2206                     54%     +0.85%            98%
-WMT               2595                     54%     +1.56%            98%
-KOPN              1151                     54%     +0.52%            98%
-SNDK              1225                     54%     +1.02%            97%
+AMZN              1024                     44%     -0.36%            98%
+Q                  226                     44%     -0.93%            91%
+ARQQ              1282                     55%     +1.26%            98%
+DRAM              1302                     55%     +1.12%            99%
+NOKUS             1020                     55%     +1.07%            98%
+STXUS             1877                     55%     +1.01%           100%
+FLYUS             1223                     55%     +1.07%            98%
+PURRUS            1628                     54%     +1.42%            99%
+JASMY             1732                     54%     +1.56%            98%
+SNXX              1493                     54%     +1.16%            96%
+INFQ              2287                     54%     +0.97%            99%
+RDW               2184                     54%     +0.86%            98%
+WMT               2577                     54%     +1.56%            98%
+NBIS              1034                     54%     +0.90%           100%
+KORU              2191                     54%     +0.98%            99%
+KOPN              1136                     54%     +0.51%            98%
 SPY                205                     46%     +0.48%            96%
-IREN              2127                     54%     +1.11%            98%
-LUNR              2326                     53%     +0.78%            99%
-AKAM               996                     53%     +0.43%            98%
-XOM               3802                     53%     +1.32%            99%
-CRCL              2149                     47%     +0.32%            98%
-HOOD              1085                     53%     +1.10%            97%
-APLD              2540                     53%     +1.12%            99%
+SNDK              1208                     54%     +1.01%            97%
+CRCL              2126                     46%     +0.30%            98%
+IREN              2100                     53%     +1.11%            98%
+XOM               3771                     53%     +1.32%            99%
+LUNR              2301                     53%     +0.77%            99%
+NVDA               241                     47%     -0.40%            96%
+AKAM               984                     53%     +0.41%            98%
+APLD              2510                     53%     +1.12%            99%
 
