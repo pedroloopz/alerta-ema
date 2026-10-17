@@ -198,14 +198,17 @@ def trades_a_fazer(sinais, ml, agora):
     return out
 
 
-def tamanho(x, alvo=100.0, m_min=250.0, m_max=400.0, perda_max=300.0):
-    """Plano de 16/10: TP rende ~US$ 100 (já com taxas), margem US$ 250–400, 7x a 16x;
-    se o SL perderia mais que US$ 300 (stop de catástrofe), a margem diminui."""
+MARGEM_NOTA = {8: (50.0, 40.0), 9: (100.0, 60.0), 10: (150.0, 80.0)}   # nota: (margem, perda máx. no stop) em US$
+
+
+def tamanho(x):
+    """Plano de 17/10 (banca de US$ 4.000): margem pela nota (8 = US$ 50, 9 = US$ 100, 10 = US$ 150),
+    alavancagem de 7x a 16x escolhida para a perda no stop ficar até o teto da nota (US$ 40/60/80);
+    se nem 7x cabe no teto, a margem diminui. Ganho e perda já com taxas."""
+    margem, perda_max = MARGEM_NOTA.get(min(10, max(8, x.get("nota") or 8)))
     liq = x["tp_pct"] / 100 - 0.0004
     custo = x["sl_pct"] / 100 + 0.001
-    pos = alvo / liq if liq > 0 else m_max * 16
-    alav = int(min(16, max(7, np.ceil(pos / m_max))))
-    margem = min(m_max, max(m_min, pos / alav))
+    alav = int(min(16, max(7, perda_max // (margem * custo))))
     if margem * alav * custo > perda_max:
         margem = perda_max / (alav * custo)
     pos = margem * alav
