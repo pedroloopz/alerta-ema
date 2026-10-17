@@ -32,6 +32,13 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pandas numpy requests scikit-learn==1.9.1
+      - name: Checagem (entrada na abertura seguinte, ações só no pregão, custo 0,3%)
+        timeout-minutes: 120
+        shell: bash
+        env:
+          CHECAGEM: "1"
+          CUSTO: "0.003"
+        run: python painel/teste_longo.py --meses "${{ github.event.inputs.meses || '30' }}" 2>&1 | tail -5
       - name: Teste mês a mês
         timeout-minutes: 320
         shell: bash
@@ -42,7 +49,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           cp run.log painel/teste_longo.log 2>/dev/null || true
-          for f in relatorio_longo.txt painel/teste_longo.log; do [ -f "$f" ] && git add "$f"; done
+          for f in relatorio_longo.txt relatorio_longo_checagem.txt painel/teste_longo.log; do [ -f "$f" ] && git add "$f"; done
           git diff --staged --quiet || git commit -m "painel: teste longo do modelo"
           git pull --rebase --autostash || true
           git push || true
