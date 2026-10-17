@@ -29,12 +29,14 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(__file__))
 
 AQUI = os.path.dirname(__file__)
-SAIDA = os.path.join(AQUI, "..", "relatorio_longo.txt")
+SAIDA = os.path.join(AQUI, "..", "relatorio_longo_checagem.txt" if os.environ.get("CHECAGEM") == "1"
+                     else "relatorio_longo.txt")
 BV = "https://data.binance.vision/data/futures/um"
 MEMES = {"DOGE", "SHIB", "PEPE", "FLOKI", "WIF", "BONK", "FARTCOIN", "SPX", "USELESS", "PENGU",
          "CHEEMS", "LUNC", "PUMP"}
 SL, ALVOS, MOVEL, H = 0.03, (0.015, 0.025, 0.035), 0.015, 12
-CUSTO = 0.001                      # taxas + deslize por trade (ida e volta)
+CUSTO = float(os.environ.get("CUSTO", "0.001"))   # taxas + deslize por trade (ida e volta)
+CHECAGEM = os.environ.get("CHECAGEM") == "1"       # entra na abertura do candle seguinte; ações só no pregão
 RISCO = SL + CUSTO                 # o robô calcula o tamanho com stop + custo = 1R
 FAIXAS = (("top 1%", 0.99, None), ("97–99%", 0.97, 0.99), ("90–97%", 0.90, 0.97))
 DEGRAUS = ((10, 0.70, 0.25), (9, 0.65, 0.18), (8, 0.60, 0.12), (7, 0.55, 0.06), (6, 0.50, 0.0))
@@ -225,6 +227,8 @@ def atributos(df, mkt, fluxo=None, classe=0):
 def janelas(df):
     """Excursões das próximas H velas em relação ao fechamento atual (entrada)."""
     e = df["close"].to_numpy("float64")
+    if CHECAGEM:                                       # entra na abertura do candle seguinte (sem ver o fechamento)
+        e = np.r_[df["open"].to_numpy("float64")[1:], np.nan]
     n = len(e)
     hi = np.full((n, H), np.nan)
     lo = np.full((n, H), np.nan)
@@ -694,6 +698,8 @@ def main():
         if df is None:
             sem_a.append(at["nome"])
             return None
+        if CHECAGEM:                                   # só pregão regular (14h–19h UTC vale no verão e no inverno)
+            df = df[(df.index.hour >= 14) & (df.index.hour <= 19) & (df.index.dayofweek < 5)]
         t = atributos(df, qqq["close"], None, classe=1).join(rotular(df))
         t["sym"] = at["nome"]
         dia = yahoo_1d(at["nome"]) if at["nome"] else None          # swing usa o diário longo do Yahoo
