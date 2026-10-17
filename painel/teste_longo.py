@@ -51,7 +51,10 @@ def nota_de(p, r, n):
 SESSAO = None
 DONS = []                                   # (classe, trades do Donchian) por ativo
 RSI2 = []                                   # (classe, trades do swing RSI(2)) por ativo
+CLASS = []                                  # (classe, resultados dos indicadores clássicos) por ativo
+SEMANAS = []                                # (classe, nome, fechamentos semanais) para os padrões parecidos
 DIAS_TESTE = 730                            # 2 anos de teste
+MESES_DIARIO = []
 DESDE = pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=DIAS_TESTE)
 
 
@@ -95,10 +98,10 @@ def meses_ate(fim, n):
     return out[::-1]
 
 
-def klines_binance(par, meses):
+def klines_binance(par, meses, intervalo="1h"):
     partes = []
     for mes in meses:
-        c = baixar(f"{BV}/monthly/klines/{par}/1h/{par}-1h-{mes}.zip")
+        c = baixar(f"{BV}/monthly/klines/{par}/{intervalo}/{par}-{intervalo}-{mes}.zip")
         if not c:
             continue
         d = ler_zip(c)
@@ -347,6 +350,185 @@ def relatorio_swing(nome, dons):
     return L + [""]
 
 
+# ------------------------------------------------------------------ indicadores clássicos (diário e semanal)
+def _rsi(c, n):
+    dif = c.diff()
+    a, b = dif.clip(lower=0).ewm(alpha=1 / n).mean(), (-dif.clip(upper=0)).ewm(alpha=1 / n).mean()
+    return 100 - 100 / (1 + a / b.replace(0, np.nan))
+
+
+def sistemas(d):
+    """Sinais por sistema e lado: (entra, sai, stop, alvo). Entrada no fechamento do candle do sinal."""
+    c, h, l = d["close"], d["high"], d["low"]
+    S = {}
+    r = _rsi(c, 14)
+    S["RSI 14 (30/70)"] = {1: ((r > 30) & (r.shift() <= 30), r > 70, None, None),
+                           -1: ((r < 70) & (r.shift() >= 70), r < 30, None, None)}
+    tenkan = (h.rolling(9).max() + l.rolling(9).min()) / 2
+    kijun = (h.rolling(26).max() + l.rolling(26).min()) / 2
+    span_a = ((tenkan + kijun) / 2).shift(26)
+    span_b = ((h.rolling(52).max() + l.rolling(52).min()) / 2).shift(26)
+    topo, fundo = np.maximum(span_a, span_b), np.minimum(span_a, span_b)
+    compra = (c > topo) & (tenkan > kijun)
+    venda = (c < fundo) & (tenkan < kijun)
+    S["Ichimoku (nuvem + tenkan/kijun)"] = {1: (compra & ~compra.shift(fill_value=False), c < kijun, None, None),
+                                           -1: (venda & ~venda.shift(fill_value=False), c > kijun, None, None)}
+    mid, dp = c.rolling(20).mean(), c.rolling(20).std()
+    sup, inf = mid + 2 * dp, mid - 2 * dp
+    S["Bollinger 20/2 (volta à média)"] = {1: ((c.shift() < inf.shift()) & (c > inf), c >= mid, None, None),
+                                           -1: ((c.shift() > sup.shift()) & (c < sup), c <= mid, None, None)}
+    H, L = h.rolling(55).max().shift(), l.rolling(55).min().shift()
+    pos_h = h.rolling(55).apply(np.argmax, raw=True).shift()
+    pos_l = l.rolling(55).apply(np.argmin, raw=True).shift()
+    sobe, desce = pos_h > pos_l, pos_l > pos_h
+    f618_up, f786_up = H - 0.618 * (H - L), H - 0.786 * (H - L)
+    f618_dn, f786_dn = L + 0.618 * (H - L), L + 0.786 * (H - L)
+    nada = pd.Series(False, index=c.index)
+    S["Fibonacci 61,8% (alvo no topo/fundo)"] = {
+        1: (sobe & (l <= f618_up) & (c > f618_up), nada, f786_up, H),
+        -1: (desce & (h >= f618_dn) & (c < f618_dn), nada, f786_dn, L)}
+    return S
+
+
+def simular(d, desde, max_barras):
+    """Roda todos os sistemas num gráfico (diário ou semanal). Stop/alvo no candle: stop primeiro."""
+    c, h, l = d["close"].to_numpy(), d["high"].to_numpy(), d["low"].to_numpy()
+    atr = ((d["high"] - d["low"]).rolling(14).mean() / d["close"]).to_numpy()
+    t = d.index
+    out = {}
+    for nome, lados in sistemas(d).items():
+        res = []
+        for lado, (ent, sai, stop, alvo) in lados.items():
+            ent, sai = ent.to_numpy(bool), sai.to_numpy(bool)
+            st = stop.to_numpy() if stop is not None else None
+            av = alvo.to_numpy() if alvo is not None else None
+            i = 0
+            while i < len(c):
+                if not ent[i] or t[i] < desde or np.isnan(atr[i]):
+                    i += 1
+                    continue
+                e, s0, a0 = c[i], st[i] if st is not None else np.nan, av[i] if av is not None else np.nan
+                risco = abs(e - s0) / e if not np.isnan(s0) else 2 * atr[i]
+                risco = max(risco, 0.005)
+                saida, j = None, i + 1
+                while j < len(c) and saida is None:
+                    if not np.isnan(s0) and ((lado == 1 and l[j] <= s0) or (lado == -1 and h[j] >= s0)):
+                        saida = s0
+                    elif not np.isnan(a0) and ((lado == 1 and h[j] >= a0) or (lado == -1 and l[j] <= a0)):
+                        saida = a0
+                    elif sai[j] or j - i >= max_barras:
+                        saida = c[j]
+                    else:
+                        j += 1
+                if saida is None:
+                    break                                   # ainda aberto no fim dos dados
+                ret = lado * (saida / e - 1) - CUSTO
+                res.append({"lado": lado, "r": ret / risco, "ret": ret, "dias": j - i})
+                i = j + 1
+        out[nome] = res
+    return out
+
+
+def classicos(d_diario, desde):
+    d = d_diario.resample("1D").agg({"high": "max", "low": "min", "close": "last"}).dropna()
+    w = d.resample("W-SUN").agg({"high": "max", "low": "min", "close": "last"}).dropna()
+    return {"diário": simular(d, desde, 30), "semanal": simular(w, desde, 15)}
+
+
+def relatorio_classicos(lista):
+    L = ["== INDICADORES CLÁSSICOS (últimos 2 anos; 'barras' = dias no diário, semanas no semanal) ==",
+         "R usa o stop do sistema (Fibonacci: 78,6%) ou, sem stop, 2x a volatilidade média (ATR 14).",
+         f"{'sistema':<36} {'gráfico':<8} {'mercado':<13} {'trades':>6} {'acerto':>7} {'R méd':>6} "
+         f"{'ret méd':>8} {'barras':>6} {'soma ret':>9}"]
+    nomes = list(lista[0][1]["diário"]) if lista else []
+    for nome in nomes:
+        for graf in ("diário", "semanal"):
+            for classe, nome_c in ((0, "cripto"), (1, "ações")):
+                for lado, nome_l in ((1, "long"), (-1, "short")):
+                    v = [x for c, r in lista if c == classe for x in r[graf][nome] if x["lado"] == lado]
+                    if len(v) < 5:
+                        continue
+                    L.append(f"{nome:<36} {graf:<8} {nome_c + ' ' + nome_l:<13} {len(v):>6} "
+                             f"{np.mean([x['r'] > 0 for x in v]):>7.0%} {np.mean([x['r'] for x in v]):>+6.2f} "
+                             f"{np.mean([x['ret'] for x in v]):>+8.1%} {np.mean([x['dias'] for x in v]):>6.0f} "
+                             f"{np.sum([x['ret'] for x in v]):>+9.0%}")
+        L.append("")
+    return L
+
+
+# ------------------------------------------------------------------ padrões semanais parecidos (análogos)
+JANELA_SEM, SIMILAR = 8, 0.70           # desenho das últimas 8 semanas; parecido = correlação >= 0,70
+
+
+def _vetores(close):
+    """Janelas de 8 fechamentos semanais normalizadas (média 0, desvio 1) e o retorno da semana seguinte."""
+    v = np.log(close.to_numpy("float64"))
+    if len(v) < JANELA_SEM + 2:
+        return None
+    W = np.lib.stride_tricks.sliding_window_view(v, JANELA_SEM)
+    Z = (W - W.mean(1, keepdims=True)) / (W.std(1, keepdims=True) + 1e-12)
+    prox = np.full(len(W), np.nan)
+    prox[:-1] = np.exp(v[JANELA_SEM:] - v[JANELA_SEM - 1:-1]) - 1
+    return Z, prox, close.index[JANELA_SEM - 1:]
+
+
+def analogos(semanas, desde):
+    """semanas: lista (classe, nome, fechamentos semanais). Teste semana a semana + leitura desta semana."""
+    lib = []
+    for classe, nome, close in semanas:
+        r = _vetores(close)
+        if r is not None:
+            lib.append((classe, nome) + r)
+    if not lib:
+        return ["== PADRÕES SEMANAIS PARECIDOS ==", "sem dados", ""]
+    Z = np.vstack([x[2] for x in lib])
+    P = np.concatenate([x[3] for x in lib])
+    T_ = np.concatenate([x[4].tz_convert(None).to_numpy("datetime64[ns]") for x in lib])
+    A = np.concatenate([[i] * len(x[2]) for i, x in enumerate(lib)])
+    semanas_teste = np.unique(T_[T_ >= desde.tz_convert(None).to_datetime64()])
+    res = {0: [], 1: []}
+    for t in semanas_teste[:-1]:
+        q = np.where(T_ == t)[0]
+        base = np.where((T_ < t - np.timedelta64(7, "D")) & ~np.isnan(P))[0]   # só o passado já conhecido
+        if not len(q) or len(base) < 200:
+            continue
+        sim = Z[q] @ Z[base].T / JANELA_SEM
+        for k, i in enumerate(q):
+            m = sim[k] >= SIMILAR
+            if m.sum() < 20 or np.isnan(P[i]):
+                continue
+            lado = 1 if np.mean(P[base][m]) > 0 else -1
+            res[lib[A[i]][0]].append((lado, lado * P[i] - CUSTO, P[i]))
+    L = ["== PADRÕES SEMANAIS PARECIDOS (desenho das últimas 8 semanas, similaridade >= 70%) ==",
+         "Teste: a cada semana dos últimos 2 anos, procura no passado desenhos >= 70% parecidos (correlação)",
+         "e aposta na direção que eles tiveram na semana seguinte (mín. 20 parecidos).",
+         f"{'mercado':<8} {'apostas':>8} {'acerto':>7} {'ret méd':>8} {'só long: n':>11} {'acerto':>7} {'ret méd':>8}"]
+    for classe, nome_c in ((0, "cripto"), (1, "ações")):
+        v = res[classe]
+        if not v:
+            continue
+        lg = [x for x in v if x[0] == 1]
+        L.append(f"{nome_c:<8} {len(v):>8} {np.mean([x[1] > 0 for x in v]):>7.0%} {np.mean([x[1] for x in v]):>+8.2%} "
+                 f"{len(lg):>11} {np.mean([x[1] > 0 for x in lg]) if lg else 0:>7.0%} "
+                 f"{np.mean([x[1] for x in lg]) if lg else 0:>+8.2%}")
+    L += ["", "Esta semana (desenho até o último fechamento): parecidos >= 70% no histórico e o que veio depois",
+          f"{'ativo':<12} {'parecidos':>9} {'subiu na sem. seguinte':>23} {'ret médio':>10} {'mais parecido':>14}"]
+    base = np.where(~np.isnan(P))[0]
+    linhas = []
+    for i_lib, x in enumerate(lib):
+        q = len(x[2]) - 1
+        zq = x[2][q]
+        ok = base[(A[base] != i_lib) | (np.arange(len(P))[base] < np.where(A == i_lib)[0][0] + q - JANELA_SEM)]
+        sim = Z[ok] @ zq / JANELA_SEM
+        m = sim >= SIMILAR
+        if m.sum() >= 20:
+            linhas.append((x[1], int(m.sum()), float(np.mean(P[ok][m] > 0)), float(np.mean(P[ok][m])), float(sim.max())))
+    linhas.sort(key=lambda y: -abs(y[2] - 0.5))
+    for nome, n, sub, ret, mx in linhas[:25]:
+        L.append(f"{nome:<12} {n:>9} {sub:>23.0%} {ret:>+10.2%} {mx:>14.0%}")
+    return L + [""]
+
+
 def relatorio_donchian(dons):
     L = ["== DONCHIAN 55/10 (swing no diário, últimos 2 anos) ==",
          "Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.",
@@ -465,6 +647,8 @@ def main():
     acoes = sorted([x for x in uni if x["classe"] == "acao"], key=lambda x: -(x.get("vol24h") or 0))[: a.acoes]
     hoje = datetime.date.today()
     meses = meses_ate(hoje.replace(day=1), a.meses)
+    global MESES_DIARIO
+    MESES_DIARIO = meses_ate(hoje.replace(day=1), 60)              # 5 anos de diário (aquecimento do semanal)
     dias = [(hoje - datetime.timedelta(days=i)).isoformat() for i in range(a.meses * 31, 0, -1)]
 
     btc = klines_binance("BTCUSDT", meses)
@@ -482,8 +666,12 @@ def main():
         fx = metrics_binance(par, dias)
         t = atributos(k, btc["close"], fx, classe=0).join(rotular(k))
         t["sym"] = par
-        DONS.append((0, donchian(k, DESDE)))
-        RSI2.append((0, rsi2(k, DESDE)))
+        kd = klines_binance(par, MESES_DIARIO, "1d")                  # diário longo para o swing
+        kd = kd if kd is not None and len(kd) > 400 else k
+        DONS.append((0, donchian(kd, DESDE)))
+        RSI2.append((0, rsi2(kd, DESDE)))
+        CLASS.append((0, classicos(kd, DESDE)))
+        SEMANAS.append((0, at["nome"], kd["close"].resample("W-SUN").last().dropna()))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -505,6 +693,8 @@ def main():
         dia = dia if dia is not None and len(dia) > 300 else df
         DONS.append((1, donchian(dia, DESDE)))
         RSI2.append((1, rsi2(dia, DESDE)))
+        CLASS.append((1, classicos(dia, DESDE)))
+        SEMANAS.append((1, at["nome"], dia["close"].resample("W-SUN").last().dropna()))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -524,7 +714,8 @@ def main():
             "12 velas = ~12h de negociação, não de relógio)",
             f"Linhas: {len(T)}; tempo: {(time.time() - t0) / 60:.0f} min"]
     txt = (relatorio(res, info) + "\n" + "\n".join(relatorio_donchian(DONS)) + "\n\n"
-           + "\n".join(relatorio_swing("SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos)", RSI2)))
+           + "\n".join(relatorio_swing("SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos)", RSI2))
+           + "\n" + "\n".join(relatorio_classicos(CLASS)) + "\n" + "\n".join(analogos(SEMANAS, DESDE)))
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(txt + "\n")
     print(txt)
