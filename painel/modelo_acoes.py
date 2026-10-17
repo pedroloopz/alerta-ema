@@ -4,7 +4,7 @@ O modelo de fluxo das criptos usa dados da Gate (liquidações, OI, taker) que n
 ações. Aqui o mesmo método (gradient boosting, decisões de hora em hora, faixas medidas FORA da
 amostra) é treinado só com o que existe para ações: preço e volume de 15 min da ação na bolsa
 (Yahoo, 60 dias de pregão; o perp da BingX só tem ~10 dias de histórico) e o QQQ como mercado.
-Testa 4 saídas e grava relatorio_ml_acoes.txt. Prazos em candles de PREGÃO (26 = 1 pregão).
+Inclui pré e pós-mercado (Yahoo, ~16h por dia útil). Testa 4 saídas e grava relatorio_ml_acoes.txt.
 
 Não muda nada no painel nem no robô: é só o teste. Se alguma faixa der nota 8+ com amostra
 grande, aí sim entra no scanner.
@@ -31,17 +31,17 @@ AQUI = os.path.dirname(__file__)
 SAIDA = os.path.join(AQUI, "..", "relatorio_ml_acoes.txt")
 SAIDA_JSON = os.path.join(AQUI, "ml_acoes.json")
 DIAS = 60
-CONFIGS = {"A": (0.02, 0.03, 26), "B": (0.015, 0.02, 13), "C": (0.03, 0.03, 52),   # alvo, stop, candles de pregão
-           "D": ((0.015, 0.025, 0.035), 0.03, 26)}   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
+CONFIGS = {"A": (0.02, 0.03, 48), "B": (0.015, 0.02, 32), "C": (0.03, 0.03, 96),   # alvo, stop, candles de 15 min
+           "D": ((0.015, 0.025, 0.035), 0.03, 48)}   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
 
 MAKER, TAKER_SLIP = modelo.MAKER, modelo.TAKER_SLIP
-HORAS_PREGAO = range(14, 20)        # decisões só com a bolsa americana aberta (UTC)
+HORAS_PREGAO = range(8, 24)         # pré-mercado + pregão + pós-mercado (UTC), dias úteis
 
 
 def yahoo_15m(ticker):
     import requests
     r = requests.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}",
-                     params={"range": "60d", "interval": "15m"}, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+                     params={"range": "60d", "interval": "15m", "includePrePost": "true"}, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
     r.raise_for_status()
     res = r.json()["chart"]["result"][0]
     q = res["indicators"]["quote"][0]
@@ -54,7 +54,7 @@ def baixar_acao(nome):
     for t in dict.fromkeys([nome, nome[:-2] if nome.endswith("US") else nome]):
         try:
             df = yahoo_15m(t)
-            if len(df) > 600:
+            if len(df) > 1500:
                 return t, df
         except Exception:
             pass
@@ -219,7 +219,7 @@ def main():
         res = treinar(L, h)
         saida["configs"][nome] = {"tp": tp, "sl": sl, "candles": h, **res}
         alvo = " + ".join(f"{x:.1%}" for x in tp) + " (1/3 cada, stop → entrada)" if isinstance(tp, tuple) else f"{tp:.1%}"
-        relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl:.1%} / prazo {h} candles (~{h / 26:.1f} pregão) — "
+        relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl:.1%} / prazo {h} candles de 15 min (~{h / 4:.0f}h de mercado) — "
                          f"teste {res['teste'][0][:10]} a {res['teste'][1][:10]}, {res['linhas_teste']} decisões ===")
         for lado in (1, -1):
             relatorio.append(f"  {'LONG' if lado == 1 else 'SHORT'} (faixas da menor para a maior pontuação):")
@@ -228,7 +228,7 @@ def main():
             melhores = [x for x in res["faixas"][lado] if x["nota"] >= 8]
             relatorio.append(f"    -> faixas nota 8+: {len(melhores)} ({sum(x['n'] for x in melhores)} casos no teste)")
     cab = (f"Modelo de ações (preço + volume + QQQ) — {len(hist)} ações, 60 dias de pregão em 15 min, "
-           f"decisões de hora em hora no pregão; faixas medidas fora da amostra. Gerado {saida['gerado_em']}.")
+           f"decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado {saida['gerado_em']}.")
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(cab + "\n" + "\n".join(relatorio) + "\n")
     with open(SAIDA_JSON, "w", encoding="utf-8") as f:
