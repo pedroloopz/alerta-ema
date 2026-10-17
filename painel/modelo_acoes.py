@@ -30,6 +30,7 @@ import nucleo as nc  # noqa: E402
 AQUI = os.path.dirname(__file__)
 SAIDA = os.path.join(AQUI, "..", "relatorio_ml_acoes.txt")
 SAIDA_JSON = os.path.join(AQUI, "ml_acoes.json")
+HISTORICO = os.path.join(AQUI, "ml_acoes_historico.csv")   # uma linha por saída/lado a cada recalibração
 DIAS = 60
 CONFIGS = {"A": (0.02, 0.03, 48), "B": (0.015, 0.02, 32), "C": (0.03, 0.03, 96),   # alvo, stop, candles de 15 min
            "D": ((0.015, 0.025, 0.035), 0.03, 48),   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
@@ -296,6 +297,24 @@ def main():
            f"decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado {saida['gerado_em']}.")
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(cab + "\n" + "\n".join(relatorio) + "\n")
+    # histórico das recalibrações: é ele que mostra se a faixa 8+ se mantém em períodos novos
+    import csv
+    novo = not os.path.exists(HISTORICO)
+    with open(HISTORICO, "a", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        if novo:
+            w.writerow(["data", "config", "lado", "teste_de", "teste_ate", "qqq_teste", "n_8mais", "acerto_8mais", "r_8mais",
+                        "dias", "r_pregao", "r_pre_pos"])
+        for nome, c in saida["configs"].items():
+            for lado in (1, -1):
+                fx = [x for x in c["faixas"].get(lado, []) if x["nota"] >= 8]
+                n = sum(x["n"] for x in fx)
+                dg = c.get("diag", {}).get(lado, {})
+                w.writerow([saida["gerado_em"][:10], nome, "LONG" if lado == 1 else "SHORT", c["teste"][0][:10], c["teste"][1][:10],
+                            c.get("qqq_teste"), n,
+                            round(sum(x["n"] * x["acerto"] for x in fx) / n, 3) if n else "",
+                            round(sum(x["n"] * x["r"] for x in fx) / n, 3) if n else "",
+                            dg.get("dias", ""), (dg.get("pregao") or {}).get("r", ""), (dg.get("fora") or {}).get("r", "")])
     with open(SAIDA_JSON, "w", encoding="utf-8") as f:
         json.dump(saida, f, ensure_ascii=False, indent=1)
     print(cab + "\n" + "\n".join(relatorio), flush=True)

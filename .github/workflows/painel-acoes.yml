@@ -1,8 +1,11 @@
 name: painel-acoes
 
 # Pesquisa: modelo de chance para ações em perp da BingX (preço + volume + QQQ).
-# Só gera o relatório relatorio_ml_acoes.txt; não muda o painel nem o robô.
+# Recalibração automática de seg a sex: relatório relatorio_ml_acoes.txt e histórico
+# painel/ml_acoes_historico.csv (uma linha por saída/lado). Ainda não muda o painel nem o robô.
 on:
+  schedule:
+    - cron: "41 1 * * 2-6"   # 22h41 de Brasília, de seg a sex, depois do pós-mercado americano
   workflow_dispatch:
     inputs:
       max:
@@ -41,7 +44,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           cp run.log painel/modelo_acoes.log 2>/dev/null || true
-          for f in relatorio_ml_acoes.txt painel/ml_acoes.json painel/modelo_acoes.log; do [ -f "$f" ] && git add "$f"; done
+          for f in relatorio_ml_acoes.txt painel/ml_acoes.json painel/ml_acoes_historico.csv painel/modelo_acoes.log; do [ -f "$f" ] && git add "$f"; done
           git diff --staged --quiet || git commit -m "painel: teste do modelo de ações"
           git pull --rebase --autostash || true
           git push || true
