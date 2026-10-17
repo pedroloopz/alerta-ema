@@ -198,21 +198,22 @@ def trades_a_fazer(sinais, ml, agora):
     return out
 
 
-MARGEM_NOTA = {8: (50.0, 40.0), 9: (100.0, 60.0), 10: (150.0, 80.0)}   # nota: (margem, perda máx. no stop) em US$
+BANCA = 7000.0     # banca dos perps (o robô usa o saldo real; o painel usa esta referência)
+RISCO = 0.02       # 2% da banca por trade (juros compostos no robô)
+ALAV = 6           # isolada a 6x: 8 posições usam ~86% da banca
 
 
 def tamanho(x):
-    """Plano de 17/10 (banca de US$ 4.000): margem pela nota (8 = US$ 50, 9 = US$ 100, 10 = US$ 150),
-    alavancagem de 7x a 16x escolhida para a perda no stop ficar até o teto da nota (US$ 40/60/80);
-    se nem 7x cabe no teto, a margem diminui. Ganho e perda já com taxas."""
-    margem, perda_max = MARGEM_NOTA.get(min(10, max(8, x.get("nota") or 8)))
+    """Plano de 17/10: risco de 2% da banca no stop, 6x isolada. Ganho e perda já com taxas."""
     liq = x["tp_pct"] / 100 - 0.0004
     custo = x["sl_pct"] / 100 + 0.001
-    alav = int(min(16, max(7, perda_max // (margem * custo))))
-    if margem * alav * custo > perda_max:
-        margem = perda_max / (alav * custo)
-    pos = margem * alav
-    return alav, margem, pos * liq, pos * custo
+    pos = BANCA * RISCO / custo
+    teto = BANCA * 0.86 / 8                      # margem máxima por posição (8 posições)
+    alav = ALAV
+    while pos / alav > teto and alav < 10:       # stop curto = posição grande: sobe até 10x
+        alav += 1
+    pos = min(pos, teto * alav)                  # ainda não cabe: posição menor (risco abaixo de 2%)
+    return alav, pos / alav, pos * liq, pos * custo
 
 
 def com_tamanho(x):
