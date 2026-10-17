@@ -166,11 +166,24 @@ def treinar(L, h_candles):
             res["faixas"][lado] = []
             continue
         m = modelo._novo().fit(a[cols], a[y])
-        fx = modelo.faixas(m.predict_proba(a[cols])[:, 1], m.predict_proba(b[cols])[:, 1],
-                           b[y].to_numpy(), b[r].to_numpy())
+        pte = m.predict_proba(b[cols])[:, 1]
+        fx = modelo.faixas(m.predict_proba(a[cols])[:, 1], pte, b[y].to_numpy(), b[r].to_numpy())
         for x in fx:
             x["nota"] = nc.nota_de(x["acerto"], x["r"], x["n"])
         res["faixas"][lado] = fx
+        # diagnóstico das faixas 8+: resultado semana a semana e dias distintos (sinais de ações são muito correlacionados)
+        sel = np.zeros(len(b), bool)
+        for x in fx:
+            if x["nota"] >= 8:
+                lo_ = -np.inf if x["de"] is None else x["de"]
+                hi_ = np.inf if x["ate"] is None else x["ate"]
+                sel |= (pte >= lo_) & (pte < hi_)
+        if sel.any():
+            bb = b[sel]
+            sem = bb.groupby(bb.index.tz_localize(None).to_period("W"))[r].agg(["count", "mean"])
+            res.setdefault("diag", {})[lado] = {
+                "dias": int(bb.index.normalize().nunique()), "ativos": int(bb["sym"].nunique()),
+                "semanas": [{"semana": str(k), "n": int(v["count"]), "r": round(float(v["mean"]), 3)} for k, v in sem.iterrows()]}
     return res
 
 
@@ -217,16 +230,26 @@ def main():
             linhas.append(f)
         L = pd.concat(linhas).sort_index()
         res = treinar(L, h)
+        t0_, t1_ = pd.Timestamp(res["teste"][0]), pd.Timestamp(res["teste"][1])
+        q = mkt[(mkt.index >= t0_) & (mkt.index <= t1_)]
+        qt = mkt[mkt.index < t0_]
+        res["qqq_teste"] = round(float(q.iloc[-1] / q.iloc[0] - 1), 4) if len(q) else None
+        res["qqq_treino"] = round(float(qt.iloc[-1] / qt.iloc[0] - 1), 4) if len(qt) else None
         saida["configs"][nome] = {"tp": tp, "sl": sl, "candles": h, **res}
         alvo = " + ".join(f"{x:.1%}" for x in tp) + " (1/3 cada, stop → entrada)" if isinstance(tp, tuple) else f"{tp:.1%}"
         relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl:.1%} / prazo {h} candles de 15 min (~{h / 4:.0f}h de mercado) — "
-                         f"teste {res['teste'][0][:10]} a {res['teste'][1][:10]}, {res['linhas_teste']} decisões ===")
+                         f"teste {res['teste'][0][:10]} a {res['teste'][1][:10]}, {res['linhas_teste']} decisões; "
+                         f"QQQ no treino {res['qqq_treino']:+.1%}, no teste {res['qqq_teste']:+.1%} ===")
         for lado in (1, -1):
             relatorio.append(f"  {'LONG' if lado == 1 else 'SHORT'} (faixas da menor para a maior pontuação):")
             for x in res["faixas"][lado]:
                 relatorio.append(f"    n {x['n']:6d}  acerto {x['acerto']:.3f}  R {x['r']:+.3f}  nota {x['nota']}")
             melhores = [x for x in res["faixas"][lado] if x["nota"] >= 8]
             relatorio.append(f"    -> faixas nota 8+: {len(melhores)} ({sum(x['n'] for x in melhores)} casos no teste)")
+            dg = res.get("diag", {}).get(lado)
+            if dg:
+                relatorio.append(f"       em {dg['dias']} dias distintos, {dg['ativos']} ações; por semana: " +
+                                 "; ".join(f"{w['semana'][:10]} n {w['n']} R {w['r']:+.2f}" for w in dg["semanas"]))
     cab = (f"Modelo de ações (preço + volume + QQQ) — {len(hist)} ações, 60 dias de pregão em 15 min, "
            f"decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado {saida['gerado_em']}.")
     with open(SAIDA, "w", encoding="utf-8") as f:
