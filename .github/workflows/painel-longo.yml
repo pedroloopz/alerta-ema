@@ -22,7 +22,7 @@ concurrency:
 jobs:
   testar:
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 350
     env:
       TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
       TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
@@ -33,6 +33,7 @@ jobs:
           python-version: "3.12"
       - run: pip install pandas numpy requests scikit-learn==1.9.1
       - name: Teste mês a mês
+        timeout-minutes: 320
         shell: bash
         run: python painel/teste_longo.py --meses "${{ github.event.inputs.meses || '30' }}" 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Salvar relatório

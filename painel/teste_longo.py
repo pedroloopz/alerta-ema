@@ -127,7 +127,7 @@ def metrics_binance(par, dias):
         if "create_time" not in d.columns:
             return None
         return d
-    with ThreadPoolExecutor(16) as ex:
+    with ThreadPoolExecutor(32) as ex:
         partes = [p for p in ex.map(um, dias) if p is not None]
     if not partes:
         return None
@@ -563,12 +563,14 @@ def sem_sobrepor(sub, lado):
     return sub.iloc[sorted(pos)]
 
 
-def walk_forward(T, cols, inicio_teste):
-    meses = sorted({(t.year, t.month) for t in T.index if t >= inicio_teste})
+def walk_forward(T, cols, inicio_teste, ao_avancar=None):
+    """Treina a cada 2 meses (só com o passado) e testa nos 2 meses seguintes, mês a mês no relatório."""
+    meses = pd.period_range(inicio_teste.tz_convert(None), T.index.max().tz_convert(None), freq="M")
     res = []
-    for (a, m) in meses:
+    for k in range(0, len(meses), 2):
+        a, m = meses[k].year, meses[k].month
         ini = pd.Timestamp(year=a, month=m, day=1, tz="UTC")
-        fim = ini + pd.offsets.MonthBegin(1)
+        fim = ini + pd.offsets.MonthBegin(2)
         tr = T[T.index < ini - pd.Timedelta(hours=H + 1)]
         te = T[(T.index >= ini) & (T.index < fim)]
         if len(tr) < 50000 or not len(te):
@@ -576,10 +578,11 @@ def walk_forward(T, cols, inicio_teste):
         for lado in (1, -1):
             y = f"r_{lado}"
             a_, b_ = tr.dropna(subset=[y]), te.dropna(subset=[y])
-            amostra = a_.iloc[:: max(1, len(a_) // 600000)]           # limite de memória/tempo
-            mod = _novo().fit(amostra[cols], (amostra[y] > 0).astype(int))
-            p_tr = mod.predict_proba(amostra[cols])[:, 1]
-            p_te = mod.predict_proba(b_[cols])[:, 1]
+            amostra = a_.iloc[:: max(1, len(a_) // 300000)]           # limite de memória/tempo
+            cs = [c for c in cols if amostra[c].nunique() > 1]           # tira colunas vazias ou constantes
+            mod = _novo().fit(amostra[cs], (amostra[y] > 0).astype(int))
+            p_tr = mod.predict_proba(amostra[cs])[:, 1]
+            p_te = mod.predict_proba(b_[cs])[:, 1]
             for nome, q_de, q_ate in FAIXAS:
                 de = np.quantile(p_tr, q_de)
                 ate = np.quantile(p_tr, q_ate) if q_ate else np.inf
@@ -589,10 +592,13 @@ def walk_forward(T, cols, inicio_teste):
                     if not len(s):
                         continue
                     tr_ = sem_sobrepor(s, lado)
-                    res.append({"mes": f"{a}-{m:02d}", "lado": lado, "faixa": nome, "classe": classe,
-                                "linhas": len(s), "trades": len(tr_), "r": tr_[y].tolist(),
-                                "ref": tr_[f"ref_{lado}"].tolist()})
-        print(f"  {a}-{m:02d}: treino {len(tr)} linhas, teste {len(te)}", flush=True)
+                    for mes, g in tr_.groupby(tr_.index.strftime("%Y-%m")):
+                        res.append({"mes": mes, "lado": lado, "faixa": nome, "classe": classe,
+                                    "linhas": len(g), "trades": len(g), "r": g[y].tolist(),
+                                    "ref": g[f"ref_{lado}"].tolist()})
+        print(f"  {a}-{m:02d} (+1 mês): treino {len(tr)} linhas, teste {len(te)}", flush=True)
+        if ao_avancar:
+            ao_avancar(res)
     return res
 
 
@@ -672,9 +678,10 @@ def main():
         RSI2.append((0, rsi2(kd, DESDE)))
         CLASS.append((0, classicos(kd, DESDE)))
         SEMANAS.append((0, at["nome"], kd["close"].resample("W-SUN").last().dropna()))
+        print(f"  cripto {par}: ok ({time.time() - t0:.0f}s)", flush=True)
         return t
 
-    with ThreadPoolExecutor(4) as ex:
+    with ThreadPoolExecutor(8) as ex:
         tabelas += [t for t in ex.map(cripto_um, cripto) if t is not None]
     n_cripto = len(tabelas)
     print(f"cripto: {n_cripto} ativos em {time.time() - t0:.0f}s (sem dados: {', '.join(sem) or '—'})", flush=True)
@@ -708,17 +715,25 @@ def main():
     inicio = max(T.index.min() + pd.Timedelta(days=180),            # 6 meses mínimos de treino
                  DESDE)                                             # testa os últimos 2 anos
     print(f"tabela: {len(T)} linhas, {len(cols)} colunas; teste a partir de {inicio:%m/%Y}", flush=True)
-    res = walk_forward(T, cols, inicio)
-    info = [f"Cripto: {n_cripto} ativos (Binance, 1h, desde {T[T.classe == 0].index.min():%d/%m/%Y})",
-            f"Ações: {n_acoes} ativos (Yahoo, 1h com pré/pós, desde {T[T.classe == 1].index.min():%d/%m/%Y}; "
-            "12 velas = ~12h de negociação, não de relógio)",
-            f"Linhas: {len(T)}; tempo: {(time.time() - t0) / 60:.0f} min"]
-    txt = (relatorio(res, info) + "\n" + "\n".join(relatorio_donchian(DONS)) + "\n\n"
-           + "\n".join(relatorio_swing("SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos)", RSI2))
-           + "\n" + "\n".join(relatorio_classicos(CLASS)) + "\n" + "\n".join(analogos(SEMANAS, DESDE)))
-    with open(SAIDA, "w", encoding="utf-8") as f:
-        f.write(txt + "\n")
-    print(txt)
+    swing = ("\n".join(relatorio_donchian(DONS)) + "\n\n"
+             + "\n".join(relatorio_swing("SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos)", RSI2))
+             + "\n" + "\n".join(relatorio_classicos(CLASS)) + "\n" + "\n".join(analogos(SEMANAS, DESDE)))
+
+    def gravar(res, final=False):
+        info = [f"Cripto: {n_cripto} ativos (Binance, 1h, desde {T[T.classe == 0].index.min():%d/%m/%Y})",
+                f"Ações: {n_acoes} ativos (Yahoo, 1h com pré/pós, desde {T[T.classe == 1].index.min():%d/%m/%Y}; "
+                "12 velas = ~12h de negociação, não de relógio)",
+                f"Linhas: {len(T)}; tempo: {(time.time() - t0) / 60:.0f} min"
+                + ("" if final else " — PARCIAL, o teste do modelo ainda está rodando")]
+        txt = relatorio(res, info) + "\n" + swing
+        with open(SAIDA, "w", encoding="utf-8") as f:
+            f.write(txt + "\n")
+        return txt
+
+    gravar([])                                                     # swing e padrões já ficam salvos
+    print("swing, indicadores e padrões gravados", flush=True)
+    res = walk_forward(T, cols, inicio, ao_avancar=gravar)
+    print(gravar(res, final=True))
 
 
 if __name__ == "__main__":
