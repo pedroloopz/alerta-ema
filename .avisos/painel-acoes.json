@@ -1,5 +1,5 @@
 {
- "seguidas": 2,
- "falha": "falhou antes do script (sem log)",
+ "seguidas": 1,
+ "falha": "ValueError: No objects to concatenate",
  "avisado_em": "2026-10-17"
 }
