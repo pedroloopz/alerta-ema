@@ -49,6 +49,8 @@ def nota_de(p, r, n):
 
 # ------------------------------------------------------------------ dados
 SESSAO = None
+DONS = []                                   # (classe, trades do Donchian) por ativo
+DESDE = pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=365)
 
 
 def baixar(url):
@@ -266,6 +268,43 @@ def rotular(df):
     return L
 
 
+# ------------------------------------------------------------------ Donchian 55/10 (swing, diário)
+def donchian(df, desde, entra=55, sai=10):
+    """Rompimento de 55 dias, saída no rompimento de 10 dias contra. R = retorno / distância ao stop inicial."""
+    d = df.resample("1D").agg({"high": "max", "low": "min", "close": "last"}).dropna()
+    out = []
+    for lado in (1, -1):
+        topo = (d["high"] if lado == 1 else -d["low"]).rolling(entra).max().shift(1)
+        piso = (d["low"] if lado == 1 else -d["high"]).rolling(sai).min().shift(1)
+        c = d["close"] * lado
+        dentro, ent, stop0, t0 = False, 0.0, 0.0, None
+        for t, ci, ti, pi in zip(d.index, c, topo, piso):
+            if np.isnan(ti) or np.isnan(pi):
+                continue
+            if not dentro and ci > ti and t >= desde:
+                dentro, ent, stop0, t0 = True, ci, pi, t
+            elif dentro and ci < pi:
+                risco = max((ent - stop0) / abs(ent), 0.005)
+                ret = (ci - ent) / abs(ent)
+                out.append({"lado": lado, "r": (ret - CUSTO) / risco, "ret": ret - CUSTO, "dias": (t - t0).days})
+                dentro = False
+    return out
+
+
+def relatorio_donchian(dons):
+    L = ["== DONCHIAN 55/10 (swing no diário, últimos 365 dias) ==",
+         "Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.",
+         f"{'mercado':<14} {'trades':>7} {'acerto':>7} {'R médio':>8} {'ret médio':>10} {'dias':>5}"]
+    for classe, nome_c in ((0, "cripto"), (1, "ações")):
+        for lado, nome_l in ((1, "long"), (-1, "short")):
+            v = [x for c, xs in dons if c == classe for x in xs if x["lado"] == lado]
+            if v:
+                L.append(f"{nome_c + ' ' + nome_l:<14} {len(v):>7} {np.mean([x['r'] > 0 for x in v]):>7.0%} "
+                         f"{np.mean([x['r'] for x in v]):>+8.2f} {np.mean([x['ret'] for x in v]):>+10.1%} "
+                         f"{np.mean([x['dias'] for x in v]):>5.0f}")
+    return L
+
+
 # ------------------------------------------------------------------ teste mês a mês
 def _novo():
     from sklearn.ensemble import HistGradientBoostingClassifier
@@ -322,7 +361,7 @@ def walk_forward(T, cols, inicio_teste):
 def relatorio(res, info):
     L = [f"TESTE LONGO DO MODELO — {datetime.datetime.now(datetime.timezone.utc):%d/%m/%Y %H:%M} UTC", "",
          *info, "",
-         "Como ler: cada mês o modelo aprende só com o passado e é testado no mês seguinte.",
+         "Como ler: últimos 365 dias, mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.",
          "'trades' = sem sobreposição (1 por ativo até sair + 1h), como o robô faria.",
          "R do robô = 3 alvos + stop móvel; R ref = alvo +2% / stop −3%. Já com 0,1% de custo.",
          "Nota pela mesma régua do painel, usando acerto e R do robô.", ""]
@@ -387,6 +426,7 @@ def main():
         fx = metrics_binance(par, dias)
         t = atributos(k, btc["close"], fx, classe=0).join(rotular(k))
         t["sym"] = par
+        DONS.append((0, donchian(k, DESDE)))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -404,6 +444,7 @@ def main():
             return None
         t = atributos(df, qqq["close"], None, classe=1).join(rotular(df))
         t["sym"] = at["nome"]
+        DONS.append((1, donchian(df, DESDE)))
         return t
 
     with ThreadPoolExecutor(4) as ex:
@@ -414,14 +455,15 @@ def main():
     T = pd.concat(tabelas).sort_index()
     T = T[T["vol24"].notna() & T["ma168"].notna()]
     cols = [c for c in T.columns if not c.startswith(("r_", "fim_", "ref_")) and c != "sym"]
-    inicio = T.index.min() + pd.Timedelta(days=180)                 # 6 meses mínimos de treino
+    inicio = max(T.index.min() + pd.Timedelta(days=180),            # 6 meses mínimos de treino
+                 pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=365))   # testa os últimos 365 dias
     print(f"tabela: {len(T)} linhas, {len(cols)} colunas; teste a partir de {inicio:%m/%Y}", flush=True)
     res = walk_forward(T, cols, inicio)
     info = [f"Cripto: {n_cripto} ativos (Binance, 1h, desde {T[T.classe == 0].index.min():%d/%m/%Y})",
             f"Ações: {n_acoes} ativos (Yahoo, 1h com pré/pós, desde {T[T.classe == 1].index.min():%d/%m/%Y}; "
             "12 velas = ~12h de negociação, não de relógio)",
             f"Linhas: {len(T)}; tempo: {(time.time() - t0) / 60:.0f} min"]
-    txt = relatorio(res, info)
+    txt = relatorio(res, info) + "\n" + "\n".join(relatorio_donchian(DONS))
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(txt + "\n")
     print(txt)
