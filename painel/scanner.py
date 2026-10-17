@@ -251,27 +251,10 @@ def limitar_e_lembrar(avisar, agora, gravar):
         os.makedirs(COLETA, exist_ok=True)
         with open(LOG8, "w", encoding="utf-8") as f:
             f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in log)
-        lembrar(novos)
         anexar_csv(os.path.join(COLETA, "historico_8.csv"),   # histórico permanente dos sinais 8+ (placar)
                    [{k: x.get(k) for k in ("tempo", "ativo", "simbolo", "lado", "nota", "rotulo", "entrada", "tp", "sl")}
                     for x in novos])
     return vistos, {a for a, n in conta.items() if n >= MAX_POR_ATIVO}
-
-
-def lembrar(novos):
-    """Lembrete no celular pelo ntfy (segredo NTFY_TOPIC). Sem o segredo, não envia."""
-    topico = os.environ.get("NTFY_TOPIC")
-    if not topico or not novos:
-        return
-    import requests
-    corpo = "\n".join(f"{'🟢 LONG' if x['lado'] == 'LONG' else '🔴 SHORT'} {x['ativo']} · nota {x['nota']}/10"
-                      for x in novos) + "\nAbra o Painel BingX."
-    try:
-        requests.post(f"https://ntfy.sh/{topico}", data=corpo.encode("utf-8"), timeout=15,
-                      headers={"Title": "Sinal 8+ no Painel BingX", "Priority": "high"}).raise_for_status()
-        print(f"lembrete enviado: {len(novos)} sinal(is)")
-    except Exception as e:
-        print("lembrete: falhou", e)
 
 
 def texto_aviso(trades, agora):
