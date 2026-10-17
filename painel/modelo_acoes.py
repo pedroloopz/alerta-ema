@@ -32,7 +32,9 @@ SAIDA = os.path.join(AQUI, "..", "relatorio_ml_acoes.txt")
 SAIDA_JSON = os.path.join(AQUI, "ml_acoes.json")
 DIAS = 60
 CONFIGS = {"A": (0.02, 0.03, 48), "B": (0.015, 0.02, 32), "C": (0.03, 0.03, 96),   # alvo, stop, candles de 15 min
-           "D": ((0.015, 0.025, 0.035), 0.03, 48)}   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
+           "D": ((0.015, 0.025, 0.035), 0.03, 48),   # igual ao robô: 3 alvos de 1/3, stop -> entrada após o 1º
+           "E": ((0.5, 0.833, 1.167), 1.0, 48)}      # igual ao D, mas em múltiplos da volatilidade diária de cada ação
+ESCALADAS = {"E"}        # alvo e stop multiplicados pela volatilidade diária (limitada a 1%–6%)
 
 MAKER, TAKER_SLIP = modelo.MAKER, modelo.TAKER_SLIP
 HORAS_PREGAO = range(8, 24)         # pré-mercado + pregão + pós-mercado (UTC), dias úteis
@@ -81,9 +83,24 @@ def features(df, mkt):
         f[f"mkt_{h}"] = m - m.shift(h)
     f["rel_16"] = f["ret_16"] - f["mkt_16"]
     f["rel_96"] = f["ret_96"] - f["mkt_96"]
+    dia = df.index.normalize()
+    pv = (df["close"] * df["volume"]).groupby(dia).cumsum()
+    vv = df["volume"].groupby(dia).cumsum().replace(0, np.nan)
+    f["dist_vwap"] = c / (pv / vv) - 1                      # distância do preço médio do dia
+    f["ret_dia"] = c / df["open"].groupby(dia).transform("first") - 1
+    hi2 = df["high"].groupby(dia).transform(lambda x: x.iloc[:2].max())
+    lo2 = df["low"].groupby(dia).transform(lambda x: x.iloc[:2].min())
+    f["faixa_abertura"] = (c - lo2) / (hi2 - lo2).replace(0, np.nan)   # >1 rompeu a máxima dos 2 primeiros candles
+    f["dvol"] = vol_diaria(df)
     f["hora"] = df.index.hour
     f["dia"] = df.index.dayofweek
     return f
+
+
+def vol_diaria(df):
+    """Volatilidade diária aproximada (desvio dos retornos de 15 min × raiz de 64 candles/dia), 1%–6%."""
+    lr = np.log(df["close"]).diff()
+    return (lr.rolling(320, min_periods=96).std() * np.sqrt(64)).clip(0.01, 0.06)
 
 
 def rotular(df, tp, sl, h):
@@ -111,7 +128,7 @@ def rotular(df, tp, sl, h):
     return out
 
 
-def rotular3(df, tps, sl, h):
+def rotular3(df, tps, sl, h, escala=None):
     """Saída do robô: 1/3 em cada alvo; stop inteiro até o 1º alvo, depois stop na entrada;
     o que sobrar fecha no fim do prazo. y = 1º alvo antes do stop; r = resultado em R (com taxas)."""
     hi, lo, cl = df["high"].to_numpy(), df["low"].to_numpy(), df["close"].to_numpy()
@@ -119,9 +136,15 @@ def rotular3(df, tps, sl, h):
     if n <= h + 1:
         return None
     out = {}
+    tps0, sl0 = tps, sl
     for lado in (1, -1):
         y = np.full(n, np.nan); rr = np.full(n, np.nan)
         for i in range(n - h):
+            if escala is not None:
+                k = escala[i]
+                if not np.isfinite(k):
+                    continue
+                tps, sl = tuple(t * k for t in tps0), sl0 * k
             e = cl[i]
             H_, L_ = hi[i + 1:i + 1 + h], lo[i + 1:i + 1 + h]
             fav = (H_ / e - 1) if lado == 1 else (1 - L_ / e)      # melhor movimento a favor no candle
@@ -181,10 +204,19 @@ def treinar(L, h_candles):
         if sel.any():
             bb = b[sel]
             sem = bb.groupby(bb.index.tz_localize(None).to_period("W"))[r].agg(["count", "mean"])
+            preg = bb.index.hour.isin(range(14, 20))
             res.setdefault("diag", {})[lado] = {
                 "dias": int(bb.index.normalize().nunique()), "ativos": int(bb["sym"].nunique()),
+                "pregao": {"n": int(preg.sum()), "r": round(float(bb[r][preg].mean()), 3) if preg.any() else None},
+                "fora": {"n": int((~preg).sum()), "r": round(float(bb[r][~preg].mean()), 3) if (~preg).any() else None},
                 "semanas": [{"semana": str(k), "n": int(v["count"]), "r": round(float(v["mean"]), 3)} for k, v in sem.iterrows()]}
     return res
+
+
+def qqq_semana(mkt, semana):
+    ini = pd.Timestamp(semana[:10], tz="UTC")
+    q = mkt[(mkt.index >= ini) & (mkt.index < ini + pd.Timedelta(days=7))]
+    return float(q.iloc[-1] / q.iloc[0] - 1) if len(q) > 1 else 0.0
 
 
 def main():
@@ -219,7 +251,12 @@ def main():
     for nome, (tp, sl, h) in CONFIGS.items():
         linhas = []
         for sym, df in hist.items():
-            rot = rotular3(df, tp, sl, h) if isinstance(tp, tuple) else rotular(df, tp, sl, h)
+            if nome in ESCALADAS:
+                rot = rotular3(df, tp, sl, h, escala=vol_diaria(df).to_numpy())
+            elif isinstance(tp, tuple):
+                rot = rotular3(df, tp, sl, h)
+            else:
+                rot = rotular(df, tp, sl, h)
             if rot is None:
                 continue
             f = features(df, mkt)
@@ -236,8 +273,11 @@ def main():
         res["qqq_teste"] = round(float(q.iloc[-1] / q.iloc[0] - 1), 4) if len(q) else None
         res["qqq_treino"] = round(float(qt.iloc[-1] / qt.iloc[0] - 1), 4) if len(qt) else None
         saida["configs"][nome] = {"tp": tp, "sl": sl, "candles": h, **res}
-        alvo = " + ".join(f"{x:.1%}" for x in tp) + " (1/3 cada, stop → entrada)" if isinstance(tp, tuple) else f"{tp:.1%}"
-        relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl:.1%} / prazo {h} candles de 15 min (~{h / 4:.0f}h de mercado) — "
+        if nome in ESCALADAS:
+            alvo = " + ".join(f"{x:.2f}" for x in tp) + " × vol. diária (1/3 cada, stop → entrada)"
+        else:
+            alvo = " + ".join(f"{x:.1%}" for x in tp) + " (1/3 cada, stop → entrada)" if isinstance(tp, tuple) else f"{tp:.1%}"
+        relatorio.append(f"\n=== Config {nome}: alvo {alvo} / stop {sl if nome in ESCALADAS else sl * 100:.1f}{'× vol.' if nome in ESCALADAS else '%'} / prazo {h} candles de 15 min (~{h / 4:.0f}h de mercado) — "
                          f"teste {res['teste'][0][:10]} a {res['teste'][1][:10]}, {res['linhas_teste']} decisões; "
                          f"QQQ no treino {res['qqq_treino']:+.1%}, no teste {res['qqq_teste']:+.1%} ===")
         for lado in (1, -1):
@@ -248,8 +288,10 @@ def main():
             relatorio.append(f"    -> faixas nota 8+: {len(melhores)} ({sum(x['n'] for x in melhores)} casos no teste)")
             dg = res.get("diag", {}).get(lado)
             if dg:
+                relatorio.append(f"       pregão: n {dg['pregao']['n']} R {dg['pregao']['r']} | pré/pós: n {dg['fora']['n']} R {dg['fora']['r']}")
                 relatorio.append(f"       em {dg['dias']} dias distintos, {dg['ativos']} ações; por semana: " +
-                                 "; ".join(f"{w['semana'][:10]} n {w['n']} R {w['r']:+.2f}" for w in dg["semanas"]))
+                                 "; ".join(f"{w['semana'][:10]} n {w['n']} R {w['r']:+.2f} (QQQ {qqq_semana(mkt, w['semana']):+.1%})"
+                                           for w in dg["semanas"]))
     cab = (f"Modelo de ações (preço + volume + QQQ) — {len(hist)} ações, 60 dias de pregão em 15 min, "
            f"decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado {saida['gerado_em']}.")
     with open(SAIDA, "w", encoding="utf-8") as f:
