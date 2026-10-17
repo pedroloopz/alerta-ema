@@ -251,6 +251,9 @@ def limitar_e_lembrar(avisar, agora, gravar):
         with open(LOG8, "w", encoding="utf-8") as f:
             f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in log)
         lembrar(novos)
+        anexar_csv(os.path.join(COLETA, "historico_8.csv"),   # histórico permanente dos sinais 8+ (placar)
+                   [{k: x.get(k) for k in ("tempo", "ativo", "simbolo", "lado", "nota", "rotulo", "entrada", "tp", "sl")}
+                    for x in novos])
     return vistos, {a for a, n in conta.items() if n >= MAX_POR_ATIVO}
 
 
