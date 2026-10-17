@@ -44,6 +44,7 @@ jobs:
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}   # lembrete no celular (app ntfy); sem ele, não envia
+          ROBO_TOKEN: ${{ secrets.ROBO_TOKEN }}   # acorda o robô privado (robo-bingx); sem ele, não faz nada
           GDRIVE_FILE_ID: "1ZCiXAx5207lLDqgvIIlMyKEfxydmqiLy"   # painel-trade.json no Drive (nao e segredo)
           RODADA_MIN: ${{ github.event_name == 'push' && '0' || '340' }}   # push (teste): 1 varredura so
         shell: bash
@@ -56,6 +57,7 @@ jobs:
             ( cd coleta && rm -rf .git && git init -q && git checkout -q -b painel-coleta && git add -A \
               && git commit -qm "coleta do painel" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" painel-coleta ) || true
             python3 -c "import central; central.publicar_branch()" && rm -rf central_novo || true
+            python3 painel/acordar_robo.py || true
             [ "$falhas" -ge 3 ] && exit 1
             agora=$(date +%s); [ $(( (agora - inicio) / 60 )) -ge "$RODADA_MIN" ] && break
             prox=$(( (agora / 900 + 1) * 900 + 60 )); sleep $(( prox - agora ))
