@@ -70,20 +70,7 @@
       "saida:PLTR"
     ]
   },
-  "pendentes": {
-    "entrada:ATKR": {
-      "tipo": "entrada",
-      "ticker": "ATKR",
-      "msg_id": null,
-      "data": "2026-10-15"
-    },
-    "entrada:SAP": {
-      "tipo": "entrada",
-      "ticker": "SAP",
-      "msg_id": null,
-      "data": "2026-10-15"
-    }
-  },
+  "pendentes": {},
   "recusados": {},
   "alertados": {},
   "historico": [
@@ -142,7 +129,7 @@
   ],
   "pausa_ate": null,
   "fechamento_em": "2026-10-16",
-  "cripto_em": "2026-10-16",
+  "cripto_em": "2026-10-17",
   "patrimonio_fech": {
     "data": "2026-10-16",
     "valor": 5539.21
