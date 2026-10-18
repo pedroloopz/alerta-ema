@@ -23,6 +23,7 @@ jobs:
     env:
       TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
       TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+      DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
@@ -38,6 +39,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           PARES: ${{ github.event.inputs.pares || 'ONDO-USDT,ASTER-USDT,PENDLE-USDT' }}
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         shell: bash
         run: python backtest_bingx.py --symbols "$PARES" 2>&1 | tee -a run.log; exit ${PIPESTATUS[0]}
 
@@ -59,4 +61,5 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"

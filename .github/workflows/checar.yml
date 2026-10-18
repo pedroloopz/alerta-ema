@@ -25,6 +25,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: |
           curl -s -X POST \
             "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
