@@ -3,6 +3,7 @@
 Sistemas (cripto e ações juntos):
 - Donchian 55/10 (diário)            — tendência, semanas
 - RSI(2) de Connors (diário)         — volta à média, ~3–5 dias, stop de 2,5x ATR
+- Keltner e Bollinger (diário)       — volta à média (os que mais sobreviveram no teste de 9 mil estratégias)
 - Ichimoku semanal                   — tendência longa
 - Momento semanal (26 semanas)       — tendência longa (Moskowitz, Ooi e Pedersen)
 Filtro de mercado: long só com BTC (cripto) / SPY (ações) acima da média de 200 dias;
@@ -154,6 +155,16 @@ def trades_ativo(d, alta, classe, nome):
     ma200, ma5 = c.rolling(200).mean(), c.rolling(5).mean()
     rodar("RSI(2)", 1, (c > ma200) & (r2 < 10) & alta, c > ma5, c - 2.5 * A, max_dias=10)
     rodar("RSI(2)", -1, (c < ma200) & (r2 > 90) & ~alta, c < ma5, c + 2.5 * A, max_dias=10)
+    # Keltner (volta à média): fecha fora do canal EMA20 ± 2x ATR(10); sai na EMA20
+    ema20, a10 = c.ewm(span=20, adjust=False).mean(), atr(d, 10)
+    rodar("Keltner", 1, (c < ema20 - 2 * a10) & (c > ma200) & alta, c > ema20, c - 2.5 * A, max_dias=15)
+    rodar("Keltner", -1, (c > ema20 + 2 * a10) & (c < ma200) & ~alta, c < ema20, c + 2.5 * A, max_dias=15)
+    # Bollinger 20/2 (volta à média): volta para dentro da banda; sai na média
+    mid, dp = c.rolling(20).mean(), c.rolling(20).std()
+    rodar("Bollinger", 1, (c.shift() < (mid - 2 * dp).shift()) & (c > mid - 2 * dp) & (c > ma200) & alta, c >= mid,
+          c - 2.5 * A, max_dias=15)
+    rodar("Bollinger", -1, (c.shift() > (mid + 2 * dp).shift()) & (c < mid + 2 * dp) & (c < ma200) & ~alta, c <= mid,
+          c + 2.5 * A, max_dias=15)
     # semanais (sinal no fechamento da semana, levado ao diário)
     w = semanal(d)                                                 # índice = último dia com pregão
     wc, wh, wl = w["close"], w["high"], w["low"]
@@ -330,7 +341,7 @@ def main():
     L = [f"TESTE DE CARTEIRA — {datetime.datetime.now(datetime.timezone.utc):%d/%m/%Y %H:%M} UTC",
          f"Desde {INICIO:%d/%m/%Y} · {len(fundings)} criptos (Binance) + {n_acoes} ações da BingX (Yahoo, diário) · "
          f"custo {CUSTO:.1%} por trade · funding real nas criptos (ações: média das criptos no dia, suposição)",
-         "Sistemas: Donchian 55/10, RSI(2), Ichimoku semanal, Momento semanal.",
+         "Sistemas: Donchian 55/10, RSI(2), Keltner, Bollinger (diário) + Ichimoku e Momento (semanal).",
          "Filtro de mercado (BTC p/ cripto, SPY p/ ações): long só em alta, short (Donchian e RSI(2)) só em baixa.",
          f"Tamanho: risco fixo sobre o stop, mas cada posição até {MAX_POSICAO:.0f}x o saldo e todas juntas até {MAX_TOTAL:.0f}x.", ""]
     L.append("== Comparação: comprar e segurar (sem alavancagem) ==")
@@ -353,6 +364,12 @@ def main():
             melhor = (tipo, curva.iloc[-1])
     L.append("")
     tipo = melhor[0] if melhor else REGIMES[0]
+    L.append(f"== Só volta à média x só tendência (filtro {tipo}, risco 3%, 10 vagas) ==")
+    for nome, grupo in (("volta à média (RSI(2), Keltner, Bollinger)", {"RSI(2)", "Keltner", "Bollinger"}),
+                        ("tendência (Donchian, Ichimoku, Momento)", {"Donchian", "Ichimoku sem.", "Momento sem."})):
+        fech, curva = carteira([t for t in trades_por_regime[tipo] if t["sist"] in grupo], funding, 0.03, 10)
+        L += [f"[{nome}]"] + resumo_carteira(fech, curva, 0.03, 10)
+    L.append("")
     trades = trades_por_regime[tipo]
     L.append(f"(daqui para baixo: filtro '{tipo}', o melhor acima)")
     L.append("")
