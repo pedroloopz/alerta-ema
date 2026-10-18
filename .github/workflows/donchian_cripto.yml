@@ -13,6 +13,7 @@ jobs:
     env:
       TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
       TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+      DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
@@ -27,6 +28,7 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         shell: bash
         run: python backtest_donchian_cripto.py 2>&1 | tee -a run.log
 
@@ -44,4 +46,5 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
