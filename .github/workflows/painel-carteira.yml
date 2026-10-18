@@ -1,0 +1,50 @@
+name: painel-carteira
+
+# Teste de carteira: Donchian + RSI(2) + Ichimoku/Momento semanais, desde 2020, com funding real.
+# Só relatório: relatorio_carteira.txt. Não muda o painel nem o robô.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [painel/teste_carteira.py, .github/workflows/painel-carteira.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: painel-carteira
+  cancel-in-progress: true
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      TELEGRAM_THREAD_ID: ${{ vars.TELEGRAM_THREAD_ID }}
+      TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy requests scikit-learn==1.9.1
+      - name: Teste de carteira
+        timeout-minutes: 120
+        shell: bash
+        run: python painel/teste_carteira.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Salvar relatório
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          cp run.log painel/teste_carteira.log 2>/dev/null || true
+          for f in relatorio_carteira.txt painel/teste_carteira.log; do [ -f "$f" ] && git add "$f"; done
+          git diff --staged --quiet || git commit -m "painel: teste de carteira"
+          git pull --rebase --autostash || true
+          git push || true
+      - name: Avisar falha (topico Avisos)
+        if: always()
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 avisos.py "${{ github.workflow }}" "${{ job.status }}"
