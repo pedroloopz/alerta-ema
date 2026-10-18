@@ -1,50 +1,42 @@
-"""Acorda o robô (repositório privado robo-bingx) quando aparece um long novo do modelo de fluxo.
+"""Acorda o robô (repositório privado robo-bingx) a cada 30 min.
 
-Roda no loop do painel-scanner, depois de gravar a coleta (o robô lê o histórico público dela).
-No máximo 8 despertares por dia (horário de Brasília), para o robô caber nos 2.000 minutos grátis;
-o resto dos sinais é pego pelo horário fixo do robô (a cada 30 min).
+Roda no loop do painel-scanner (de 15 em 15 min). O horário fixo do GitHub atrasa muito em repositório
+novo, então quem garante os 30 min é este despertar; o robô tem um horário de reserva a cada 4h.
+~48 despertares por dia ≈ 1.490 min/mês, dentro dos 2.000 grátis.
 Segredo ROBO_TOKEN: token do GitHub só com "Actions: read and write" no robo-bingx. Sem ele, não faz nada.
 """
-import csv
 import datetime
 import json
 import os
 import urllib.request
 
 AQUI = os.path.dirname(__file__)
-COLETA = os.path.join(AQUI, "..", "coleta")
-HIST = os.path.join(COLETA, "historico_8.csv")
-ESTADO = os.path.join(COLETA, "robo_acordado.json")
+ESTADO = os.path.join(AQUI, "..", "coleta", "robo_acordado.json")
 URL = "https://api.github.com/repos/pedroloopz/robo-bingx/actions/workflows/operar.yml/dispatches"
-MAX_DIA = 8
+INTERVALO_MIN = 28                    # 30 min com folga para o relógio do loop
 
 
 def main():
     token = os.environ.get("ROBO_TOKEN")
-    if not token or not os.path.exists(HIST):
-        return
-    with open(HIST, encoding="utf-8") as f:
-        sinais = [r for r in csv.DictReader(f) if r.get("rotulo") == "Modelo de fluxo" and r.get("lado") == "LONG"]
-    if not sinais:
+    if not token:
         return
     est = {}
     if os.path.exists(ESTADO):
         with open(ESTADO, encoding="utf-8") as f:
             est = json.load(f)
-    hoje = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=3)).date().isoformat()
-    if est.get("dia") != hoje:
-        est = {"dia": hoje, "n": 0, "ultimo": est.get("ultimo")}
-    ultimo = max(s["tempo"] for s in sinais)
-    if ultimo == est.get("ultimo") or est["n"] >= MAX_DIA:
+    agora = datetime.datetime.now(datetime.timezone.utc)
+    ultimo = est.get("em")
+    if ultimo and agora - datetime.datetime.fromisoformat(ultimo) < datetime.timedelta(minutes=INTERVALO_MIN):
         return
-    req = urllib.request.Request(URL, method="POST", data=json.dumps({"ref": "main", "inputs": {"motivo": "sinal"}}).encode(),
+    req = urllib.request.Request(URL, method="POST", data=json.dumps({"ref": "main", "inputs": {"motivo": "30min"}}).encode(),
                                  headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
     try:
         urllib.request.urlopen(req, timeout=15).read()
-        est.update(n=est["n"] + 1, ultimo=ultimo)
-        print(f"robô acordado ({est['n']}/{MAX_DIA} hoje)")
+        est["em"] = agora.isoformat(timespec="seconds")
+        print("robô acordado")
     except Exception as e:
         print(f"robô: não consegui acordar ({type(e).__name__})")
+    os.makedirs(os.path.dirname(ESTADO), exist_ok=True)
     with open(ESTADO, "w", encoding="utf-8") as f:
         json.dump(est, f)
 
