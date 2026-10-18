@@ -1,0 +1,19 @@
+name: Testar Discord
+on: workflow_dispatch
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mandar teste nos 4 canais
+        env:
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
+        run: |
+          python3 - <<'PY'
+          import sys, discord_envio as d
+          if not d.ativo():
+              sys.exit("Secret DISCORD_WEBHOOKS vazio ou inválido")
+          falhou = [f for f in ("trade", "cultural", "idiomas", "avisos")
+                    if not d.enviar(f, f"✅ Teste: canal #{f} conectado aos robôs")]
+          sys.exit(f"Falhou: {falhou}" if falhou else 0)
+          PY
