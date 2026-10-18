@@ -1,8 +1,8 @@
-TESTE LONGO DO MODELO — 17/10/2026 23:34 UTC
+TESTE LONGO DO MODELO — 18/10/2026 21:25 UTC
 
 Cripto: 40 ativos (Binance, 1h, desde 07/04/2024)
-Ações: 71 ativos (Yahoo, 1h com pré/pós, desde 22/12/2023; 12 velas = ~12h de negociação, não de relógio)
-Linhas: 1128176; tempo: 8 min
+Ações: 72 ativos (Yahoo, 1h com pré/pós, desde 22/12/2023; 12 velas = ~12h de negociação, não de relógio)
+Linhas: 1123593; tempo: 9 min
 
 Como ler: últimos 2 anos (ações no 1h: o Yahoo só tem 730 dias, então menos meses), mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.
 'trades' = sem sobreposição (1 por ativo até sair + 1h), como o robô faria.
@@ -11,118 +11,118 @@ Nota pela mesma régua do painel, usando acerto e R do robô.
 
 == CRIPTO · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      2363      3.6     61%  -0.128  -0.140     3   11/22      -0.42
-97–99%      5985      8.3     64%  -0.085  -0.092     4   11/24      -0.32
-90–97%     20167     28.0     64%  -0.088  -0.093     4    1/24      -0.18
-  top 1% mês a mês (trades, R médio): 24-10 2 +0.38 · 24-11 34 +0.22 · 24-12 233 -0.23 · 25-01 168 -0.28 · 25-02 184 +0.25 · 25-03 254 -0.42 · 25-04 169 +0.14 · 25-07 1 +0.43 · 25-08 1 +0.23 · 25-09 1 +0.67 · 25-10 112 +0.01 · 25-11 281 -0.34 · 25-12 43 -0.07 · 26-01 35 +0.15 · 26-02 382 -0.06 · 26-03 75 -0.32 · 26-04 36 -0.16 · 26-05 2 -0.18 · 26-06 192 -0.22 · 26-07 5 -0.06 · 26-08 53 +0.12 · 26-09 100 +0.08
+top 1%      2501      4.0     63%  -0.105  -0.128     3   11/21      -0.47
+97–99%      6237      8.7     64%  -0.086  -0.091     4    7/24      -0.27
+90–97%     20411     28.3     64%  -0.085  -0.088     4    2/24      -0.17
+  top 1% mês a mês (trades, R médio): 24-10 3 +0.20 · 24-11 87 +0.03 · 24-12 241 -0.28 · 25-01 170 -0.18 · 25-02 206 +0.14 · 25-03 193 -0.47 · 25-04 165 +0.07 · 25-05 5 +0.29 · 25-07 6 +0.60 · 25-10 127 -0.03 · 25-11 340 -0.24 · 25-12 56 -0.05 · 26-01 82 +0.17 · 26-02 388 +0.03 · 26-03 91 -0.24 · 26-04 19 -0.26 · 26-05 1 +0.14 · 26-06 167 -0.18 · 26-07 5 +0.02 · 26-08 69 -0.06 · 26-09 80 +0.03
 
 == CRIPTO · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      2137      3.0     70%  -0.013  -0.003     5    8/24      -0.67
-97–99%      6132      8.5     66%  -0.060  -0.048     4    5/24      -0.34
-90–97%     20186     28.0     65%  -0.075  -0.074     4    2/24      -0.19
-  top 1% mês a mês (trades, R médio): 24-10 72 -0.13 · 24-11 178 -0.02 · 24-12 240 -0.18 · 25-01 151 -0.07 · 25-02 207 +0.17 · 25-03 140 +0.14 · 25-04 41 -0.05 · 25-05 22 -0.67 · 25-06 81 +0.30 · 25-07 32 -0.15 · 25-08 85 -0.21 · 25-09 3 -0.15 · 25-10 125 -0.04 · 25-11 41 +0.18 · 25-12 82 +0.07 · 26-01 47 +0.14 · 26-02 120 +0.23 · 26-03 80 -0.04 · 26-04 60 -0.09 · 26-05 48 -0.05 · 26-06 160 +0.05 · 26-07 10 -0.10 · 26-08 49 -0.59 · 26-09 63 -0.11
+top 1%      2016      2.8     69%  -0.015  -0.003     5   10/24      -0.57
+97–99%      6195      8.6     68%  -0.028  -0.018     5    7/24      -0.51
+90–97%     19407     27.0     66%  -0.067  -0.068     4    2/24      -0.26
+  top 1% mês a mês (trades, R médio): 24-10 42 -0.12 · 24-11 123 -0.00 · 24-12 260 -0.08 · 25-01 225 -0.16 · 25-02 195 +0.04 · 25-03 91 +0.12 · 25-04 66 -0.20 · 25-05 11 -0.02 · 25-06 90 +0.30 · 25-07 38 -0.34 · 25-08 61 -0.20 · 25-09 19 -0.18 · 25-10 142 +0.07 · 25-11 57 +0.19 · 25-12 76 +0.23 · 26-01 54 +0.13 · 26-02 83 +0.27 · 26-03 37 +0.09 · 26-04 54 -0.15 · 26-05 30 +0.18 · 26-06 150 -0.03 · 26-07 3 -0.57 · 26-08 64 -0.49 · 26-09 45 -0.01
 
 == AÇÕES · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      1196      2.7     73%  +0.075  +0.043     7   12/15      -0.25
-97–99%      2372      3.8     67%  +0.003  -0.034     6   12/21      -0.62
-90–97%      7886     10.5     63%  -0.064  -0.096     4    8/25      -0.41
-  top 1% mês a mês (trades, R médio): 24-11 2 +0.17 · 24-12 13 +0.51 · 25-01 23 +0.04 · 25-02 20 +0.35 · 25-03 218 +0.20 · 25-04 380 +0.13 · 25-11 38 +0.01 · 26-02 43 +0.21 · 26-03 100 +0.20 · 26-04 8 +0.05 · 26-05 30 +0.29 · 26-06 151 -0.25 · 26-07 166 -0.11 · 26-08 3 -0.14 · 26-10 1 +0.67
+top 1%      1078      2.6     74%  +0.096  +0.060     7   10/14      -1.00
+97–99%      2280      3.8     67%  -0.004  -0.039     5   12/20      -0.62
+90–97%      7674     10.2     64%  -0.069  -0.103     4    7/25      -0.29
+  top 1% mês a mês (trades, R médio): 24-11 3 +0.20 · 24-12 20 +0.51 · 25-01 6 +0.36 · 25-02 1 +0.25 · 25-03 166 +0.13 · 25-04 316 +0.12 · 25-11 37 +0.56 · 26-02 15 +0.09 · 26-03 81 +0.33 · 26-04 1 -1.00 · 26-05 13 +0.14 · 26-06 176 -0.09 · 26-07 239 -0.01 · 26-10 4 -0.58
 
 == AÇÕES · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%        20      0.3     65%  -0.116  -0.127     3    0/2       -0.12
-97–99%        88      0.4     67%  +0.001  +0.010     6    4/7       -1.00
-90–97%       446      0.9     68%  +0.006  -0.014     6    7/17      -1.00
-  top 1% mês a mês (trades, R médio): 24-10 4 -0.08 · 24-11 16 -0.12
+top 1%         9      0.1     56%  -0.200  -0.310     3    1/3       -0.51
+97–99%        68      0.3     60%  -0.169  -0.216     3    1/8       -1.00
+90–97%       566      0.9     63%  -0.097  -0.130     4    9/21      -1.00
+  top 1% mês a mês (trades, R médio): 24-10 4 -0.51 · 24-11 4 -0.11 · 25-03 1 +0.67
 
 == DONCHIAN 55/10 (swing no diário, últimos 2 anos) ==
 Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.
 mercado         trades  acerto  R médio  ret médio  dias
-cripto long        171     36%    +0.22      +3.1%    27
-cripto short       231     46%    +0.05      +1.4%    29
-ações long         388     46%    +0.60     +11.8%    41
-ações short        250     24%    -0.32      -7.0%    29
+cripto long        169     37%    +0.25      +3.7%    27
+cripto short       229     45%    +0.03      +1.0%    29
+ações long         394     46%    +0.57     +11.0%    41
+ações short        255     24%    -0.34      -7.7%    28
 
 == SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos) ==
 mercado         trades  acerto  R médio  ret médio  dias  soma ret
-cripto long        337     64%    +0.09      +1.6%     4     +530%
-cripto short       790     60%    -0.19      -1.6%     4    -1247%
-ações long        1006     69%    +0.14      +1.6%     5    +1602%
-ações short        424     58%    -0.18      -1.6%     6     -664%
+cripto long        348     64%    +0.09      +1.5%     4     +514%
+cripto short       776     62%    -0.18      -1.4%     4    -1101%
+ações long        1020     69%    +0.14      +1.6%     5    +1649%
+ações short        427     57%    -0.20      -1.7%     6     -706%
 
 == INDICADORES CLÁSSICOS (últimos 2 anos; 'barras' = dias no diário, semanas no semanal) ==
 R usa o stop do sistema (Fibonacci: 78,6%) ou, sem stop, 2x a volatilidade média (ATR 14).
 sistema                              gráfico  mercado       trades  acerto  R méd  ret méd barras  soma ret
-RSI 14 (30/70)                       diário   cripto long      190     33%  -0.00    -2.4%     29     -453%
-RSI 14 (30/70)                       diário   cripto short     203     47%  -0.57    -7.0%     29    -1429%
-RSI 14 (30/70)                       diário   ações long       145     62%  +0.63    +5.3%     28     +775%
-RSI 14 (30/70)                       diário   ações short      366     35%  -1.53   -14.0%     29    -5139%
-RSI 14 (30/70)                       semanal  cripto long       21     38%  +0.11    +1.7%     15      +36%
-RSI 14 (30/70)                       semanal  cripto short      26     88%  +0.90   +31.3%     15     +814%
-RSI 14 (30/70)                       semanal  ações long        22     91%  +1.59   +45.6%     14    +1003%
-RSI 14 (30/70)                       semanal  ações short      136     38%  -1.01   -21.7%     15    -2950%
+RSI 14 (30/70)                       diário   cripto long      189     31%  -0.09    -3.7%     29     -705%
+RSI 14 (30/70)                       diário   cripto short     205     48%  -0.51    -6.1%     29    -1247%
+RSI 14 (30/70)                       diário   ações long       148     61%  +0.66    +4.9%     28     +727%
+RSI 14 (30/70)                       diário   ações short      368     35%  -1.52   -14.2%     29    -5222%
+RSI 14 (30/70)                       semanal  cripto long       22     32%  +0.05    -2.8%     15      -61%
+RSI 14 (30/70)                       semanal  cripto short      28     89%  +0.81   +28.1%     15     +788%
+RSI 14 (30/70)                       semanal  ações long        20     90%  +1.55   +45.0%     14     +899%
+RSI 14 (30/70)                       semanal  ações short      144     38%  -1.10   -21.9%     15    -3159%
 
-Ichimoku (nuvem + tenkan/kijun)      diário   cripto long      421     30%  +0.25    +2.4%     10     +991%
-Ichimoku (nuvem + tenkan/kijun)      diário   cripto short     624     36%  -0.00    -0.3%     14     -218%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações long       597     39%  +0.57    +5.4%     14    +3195%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações short      523     27%  -0.30    -2.9%     13    -1497%
-Ichimoku (nuvem + tenkan/kijun)      semanal  cripto long       41     32%  +0.40    +9.4%      8     +385%
-Ichimoku (nuvem + tenkan/kijun)      semanal  cripto short      79     59%  +0.06    +4.9%     11     +387%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       148     50%  +0.94   +17.5%     10    +2597%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       86     16%  -0.57   -15.2%      8    -1305%
+Ichimoku (nuvem + tenkan/kijun)      diário   cripto long      436     30%  +0.23    +2.2%     10     +948%
+Ichimoku (nuvem + tenkan/kijun)      diário   cripto short     613     33%  -0.02    -0.6%     14     -361%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações long       616     38%  +0.56    +5.1%     14    +3149%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações short      533     27%  -0.32    -3.6%     13    -1897%
+Ichimoku (nuvem + tenkan/kijun)      semanal  cripto long       42     29%  +0.36    +8.6%      8     +359%
+Ichimoku (nuvem + tenkan/kijun)      semanal  cripto short      75     60%  +0.04    +4.8%     11     +357%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       144     52%  +1.01   +18.9%      9    +2722%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       92     16%  -0.54   -15.2%      8    -1403%
 
-Bollinger 20/2 (volta à média)       diário   cripto long      510     65%  +0.04    +0.6%     13     +292%
-Bollinger 20/2 (volta à média)       diário   cripto short     497     72%  -0.06    -1.0%     11     -518%
-Bollinger 20/2 (volta à média)       diário   ações long       487     70%  +0.22    +2.6%     11    +1253%
-Bollinger 20/2 (volta à média)       diário   ações short      734     62%  -0.52    -4.8%     13    -3521%
-Bollinger 20/2 (volta à média)       semanal  cripto long       59     54%  -0.03    -5.1%     11     -302%
-Bollinger 20/2 (volta à média)       semanal  cripto short      70     90%  +0.43   +16.4%      7    +1151%
-Bollinger 20/2 (volta à média)       semanal  ações long        73     90%  +0.59   +15.4%      7    +1121%
-Bollinger 20/2 (volta à média)       semanal  ações short      198     56%  -1.01   -20.9%     10    -4141%
+Bollinger 20/2 (volta à média)       diário   cripto long      494     65%  +0.05    +0.7%     13     +327%
+Bollinger 20/2 (volta à média)       diário   cripto short     493     73%  -0.06    -0.8%     11     -418%
+Bollinger 20/2 (volta à média)       diário   ações long       494     71%  +0.25    +2.9%     10    +1448%
+Bollinger 20/2 (volta à média)       diário   ações short      739     61%  -0.56    -4.8%     13    -3545%
+Bollinger 20/2 (volta à média)       semanal  cripto long       61     52%  +0.01    -3.9%     11     -239%
+Bollinger 20/2 (volta à média)       semanal  cripto short      68     85%  +0.38   +15.1%      7    +1025%
+Bollinger 20/2 (volta à média)       semanal  ações long        74     91%  +0.59   +16.5%      7    +1218%
+Bollinger 20/2 (volta à média)       semanal  ações short      205     56%  -1.00   -20.2%     10    -4146%
 
-Fibonacci 61,8% (alvo no topo/fundo) diário   cripto long      320     36%  +0.08    +0.1%     12      +43%
-Fibonacci 61,8% (alvo no topo/fundo) diário   cripto short     221     38%  +0.01    +0.7%     13     +160%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       321     31%  -0.10    -2.2%     12     -704%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      230     24%  -0.36    -2.1%     10     -491%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto long       45     27%  -0.30    -7.9%      9     -357%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto short      14     57%  +0.75   +20.3%      8     +284%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long        99     41%  +0.29    +5.3%      9     +522%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       36     31%  -0.28    -5.6%      7     -201%
+Fibonacci 61,8% (alvo no topo/fundo) diário   cripto long      309     36%  +0.06    -0.6%     13     -171%
+Fibonacci 61,8% (alvo no topo/fundo) diário   cripto short     234     33%  -0.07    -0.1%     13      -19%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       332     30%  -0.11    -2.1%     11     -689%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      226     26%  -0.33    -1.7%     10     -379%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto long       43     30%  -0.27    -8.1%     10     -347%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto short      15     67%  +0.99   +29.6%     10     +444%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long       107     38%  +0.16    +2.4%      8     +261%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       34     26%  -0.45    -8.7%      6     -295%
 
 == PADRÕES SEMANAIS PARECIDOS (desenho das últimas 8 semanas, similaridade >= 70%) ==
 Teste: a cada semana dos últimos 2 anos, procura no passado desenhos >= 70% parecidos (correlação)
 e aposta na direção que eles tiveram na semana seguinte (mín. 20 parecidos).
 mercado   apostas  acerto  ret méd  só long: n  acerto  ret méd
-cripto       3957     43%   -0.78%        3332     41%   -0.44%
-ações        6963     50%   +0.36%        5835     51%   +0.80%
+cripto       3933     43%   -0.65%        3378     42%   -0.36%
+ações        7067     50%   +0.48%        6009     51%   +0.86%
 
 Esta semana (desenho até o último fechamento): parecidos >= 70% no histórico e o que veio depois
 ativo        parecidos  subiu na sem. seguinte  ret médio  mais parecido
-AMZN              1024                     44%     -0.36%            98%
-Q                  226                     44%     -0.93%            91%
-ARQQ              1281                     55%     +1.26%            98%
-DRAM              1312                     55%     +1.10%            99%
-STXUS             1876                     55%     +1.00%           100%
-NOKUS             1019                     55%     +1.07%            98%
-FLYUS             1221                     55%     +1.09%            98%
-JASMY             1732                     54%     +1.56%            98%
-PURRUS            1699                     54%     +1.18%            98%
-RDW               2184                     54%     +0.86%            98%
-INFQ              2287                     54%     +1.06%            99%
-WMT               2578                     54%     +1.56%            98%
-SNXX              1486                     54%     +1.16%            96%
-NBIS              1034                     54%     +0.90%           100%
-KORU              2191                     54%     +0.98%            99%
-KOPN              1136                     54%     +0.51%            98%
-SNDK              1208                     54%     +1.01%            97%
-CRCL              2126                     46%     +0.30%            98%
-IREN              2099                     54%     +1.10%            98%
-SPY                206                     47%     +0.55%            96%
-LUNR              2301                     53%     +0.77%            99%
-XOM               3770                     53%     +1.31%            99%
-NVDA               241                     47%     -0.40%            96%
-AKAM               984                     53%     +0.40%            98%
-APLD              2509                     53%     +1.13%            99%
+TRX                111                     40%     -1.40%            95%
+Q                  221                     44%     -1.70%            91%
+SPY                213                     44%     -0.06%            96%
+ARQQ              1272                     55%     +1.18%            98%
+DRAM              1321                     55%     +1.00%            99%
+FLYUS             1210                     55%     +1.03%            98%
+STXUS             1870                     55%     +0.87%           100%
+NOKUS             1009                     54%     +0.89%            98%
+AMZN              1016                     46%     -0.12%            98%
+WMT               2602                     54%     +1.54%            98%
+NBIS              1035                     54%     +0.90%            99%
+SNXX              1494                     54%     +0.97%            97%
+PURRUS            1697                     54%     +0.85%            98%
+SNDK              1220                     54%     +0.92%            97%
+INFQ              2280                     54%     +0.95%            99%
+GLW                601                     54%     +1.01%            98%
+KORU              2192                     54%     +1.03%            99%
+RDW               2173                     54%     +0.65%            98%
+CRDO               385                     54%     +1.70%            98%
+IREN              2101                     53%     +0.98%            98%
+LUNR              2316                     53%     +0.72%            99%
+BCH               1745                     53%     +1.48%            97%
+HOOD              1069                     53%     +0.90%            97%
+IBM               1874                     47%     -0.05%            97%
+CRCL              2115                     47%     +0.51%            98%
 
