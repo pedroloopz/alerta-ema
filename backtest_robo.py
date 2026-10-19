@@ -100,7 +100,7 @@ def simular(df, i, lado, pf):
 
 
 def velas_dict(df):
-    t = (df.index.asi8 // 1_000_000).astype(np.int64)
+    t = df.index.as_unit("ms").asi8.astype(np.int64)
     return [{"time": int(a), "open": o, "high": h, "low": l, "close": c, "volume": v}
             for a, o, h, l, c, v in zip(t, df["open"].values, df["high"].values, df["low"].values,
                                         df["close"].values, df["volume"].values)]
