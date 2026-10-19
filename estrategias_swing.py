@@ -160,3 +160,33 @@ def passo(t, v, custo=0.001, funding_dia=0.0003):
     if t["dias"] >= t["max_dias"]:
         return fecha(x["close"])
     return None
+
+
+def exa(v, max_velas=21):
+    """Exaustão long (EXA) do painel, em velas de 1h do pregão: RSI(14) < 25 numa das 2 velas anteriores, a vela fecha
+    acima da máxima da anterior com volume >= 1,3x a média de 20. Stop a 3 ATR; alvo no nível do backtest
+    (entrada − 0,5 ATR + 3 × 2,5 ATR = entrada + 7 ATR, entrada única aqui); sai em 3 pregões (21 velas)."""
+    if len(v) < 60:
+        return None
+    c = [x["close"] for x in v]
+    g = p = None
+    rsis = []
+    for i in range(1, len(c)):
+        d = c[i] - c[i - 1]
+        up, dn = max(d, 0), max(-d, 0)
+        g = up if g is None else g + (up - g) / 14
+        p = dn if p is None else p + (dn - p) / 14
+        rsis.append(100.0 if p == 0 else 100 - 100 / (1 + g / p))
+    a = None
+    for i in range(1, len(v)):
+        tr = max(v[i]["high"] - v[i]["low"], abs(v[i]["high"] - c[i - 1]), abs(v[i]["low"] - c[i - 1]))
+        a = tr if a is None else a + (tr - a) / 14
+    vols = [x.get("volume", 0) for x in v]
+    vm = sum(vols[-21:-1]) / 20
+    if not (min(rsis[-3:-1]) < 25 and c[-1] > v[-2]["high"] and vm > 0 and vols[-1] >= 1.3 * vm and a):
+        return None
+    ent = c[-1]
+    p_ = _plano("LONG", ent, ent - 3 * a, None, max_velas, "exa")
+    if p_:
+        p_["alvo"] = ent + 7 * a
+    return p_
