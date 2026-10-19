@@ -1,4 +1,4 @@
-"""Cópia das funções de gatilho do robô (robo-bingx/tese.py, 19/10/2026) para o backtest. Não edite: copie de novo."""
+"""Cópia das funções de gatilho do robô (robo-bingx/tese.py, 19/10/2026 14h30, com squeeze/varrida/nr7) para o backtest. Não edite: copie de novo."""
 
 def _ema(v, n):
     k, e = 2 / (n + 1), None
@@ -40,6 +40,11 @@ def gatilho(velas, setups_por_lado, tendencia=True, sl=0.03, atr_max=0.01, media
     sup_ant, inf_ant = media_ant + 2 * dp_ant, media_ant - 2 * dp_ant
     medias = {n: _ema(c[-n:], n) for n in {200, *(media_tendencia or {}).values()}}   # por lado (padrão: 200)
     folga = sl / atr_pct                                   # quantos ATRs cabem até o stop (mais = melhor)
+    extras = {"squeeze", "varrida", "nr7"} & {x for v in setups_por_lado.values() for x in v}
+    sq_antes = extras and _squeeze_antes(c, h, lo)
+    fundo_ant, topo_ant = min(lo[-21:-4]), max(h[-21:-4])      # extremos de 20 velas com 4+ velas de idade
+    faixas = [h[k] - lo[k] for k in range(len(c) - 8, len(c) - 1)]
+    nr7 = faixas[-1] <= min(faixas)                        # a vela anterior é a mais estreita das últimas 7
     for lado, setups in setups_por_lado.items():
         ema = medias[(media_tendencia or {}).get(lado, 200)]
         a_favor = (c[-1] > ema) if lado == "LONG" else (c[-1] < ema)
@@ -49,15 +54,24 @@ def gatilho(velas, setups_por_lado, tendencia=True, sl=0.03, atr_max=0.01, media
             if lado == "LONG":
                 ok = ((st == "recuo" and rsi_ant < 15 and lo[-2] <= inf_ant)
                       or (st == "rompimento" and c[-1] > max(h[-21:-1]))
-                      or (st == "repique" and rsi_ant < 5 and c[-2] < inf_ant))
+                      or (st == "repique" and rsi_ant < 5 and c[-2] < inf_ant)
+                      or (st == "squeeze" and sq_antes and c[-1] > sup and c[-1] > media)
+                      or (st == "varrida" and lo[-1] < fundo_ant and min(lo[-4:-1]) >= fundo_ant and c[-1] > fundo_ant)
+                      or (st == "nr7" and nr7 and c[-1] > h[-2]))
             else:
                 ok = ((st == "recuo" and rsi_ant > 85 and h[-2] >= sup_ant)
-                      or (st == "rompimento" and c[-1] < min(lo[-21:-1])))
+                      or (st == "rompimento" and c[-1] < min(lo[-21:-1]))
+                      or (st == "squeeze" and sq_antes and c[-1] < inf and c[-1] < media)
+                      or (st == "varrida" and h[-1] > topo_ant and max(h[-4:-1]) <= topo_ant and c[-1] < topo_ant)
+                      or (st == "nr7" and nr7 and c[-1] < lo[-2]))
             if ok:                                           # vela de confirmação
                 o_, rng = float(velas[-1].get("open") or c[-2]), max(h[-1] - lo[-1], 1e-12)
                 pos = (c[-1] - lo[-1]) / rng                 # onde fechou dentro da vela (0 = mínima, 1 = máxima)
-                if st == "rompimento" and ((lado == "LONG" and pos < 0.7) or (lado == "SHORT" and pos > 0.3)):
+                if st in ("rompimento", "squeeze", "nr7") and ((lado == "LONG" and pos < 0.7) or (lado == "SHORT" and pos > 0.3)):
                     ok = False                               # rompimento com pavio contra: fraco
+                if st == "varrida" and ((lado == "LONG" and (pos < 0.5 or c[-1] <= o_))
+                                        or (lado == "SHORT" and (pos > 0.5 or c[-1] >= o_))):
+                    ok = False                               # varrida: a vela tem de fechar virada a favor
                 if st in ("recuo", "repique") and ((lado == "LONG" and not (c[-1] > o_ and c[-1] > c[-2]))
                                                     or (lado == "SHORT" and not (c[-1] < o_ and c[-1] < c[-2]))):
                     ok = False                               # recuo só quando a vela já virou a favor
@@ -81,6 +95,19 @@ def gatilho(velas, setups_por_lado, tendencia=True, sl=0.03, atr_max=0.01, media
                 nota = folga + (1.0 if a_favor else 0.0) + (0.5 if 1 <= distancia_media <= 8 else 0.0)
                 return {"lado": lado, "setup": st, "nota": round(nota, 2), "atr_pct": round(atr_pct, 4), "adx": adx(velas)}
     return None
+
+
+def _squeeze_antes(c, h, lo, janelas=6):
+    """TTM Squeeze (John Carter): Bollinger (20, 2) dentro do Keltner (20, 1,5 ATR) em alguma das 6 velas antes da atual."""
+    for k in range(2, janelas + 2):
+        fim = len(c) - k + 1
+        cc = c[fim - 20:fim]
+        m = sum(cc) / 20
+        dp = (sum((x - m) ** 2 for x in cc) / 20) ** 0.5
+        atr = sum(max(h[i] - lo[i], abs(h[i] - c[i - 1]), abs(lo[i] - c[i - 1])) for i in range(fim - 20, fim)) / 20
+        if 2 * dp < 1.5 * atr:
+            return True
+    return False
 
 
 def adx(velas, n=14):

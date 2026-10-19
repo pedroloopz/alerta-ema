@@ -20,15 +20,15 @@ ALVOS = [(0.015, 0.25), (0.02, 0.25), (0.025, 0.20), (0.03, 0.10)]
 PERFIS = {"normal": {"sl": 0.03, "emerg": 0.10, "tempo": 12, "risco": 0.03, "diario": False},
           "diario": {"sl": 0.10, "emerg": 0.15, "tempo": 72, "risco": 0.05, "diario": True}}
 GRUPOS = {  # nome: (lados, perfil, atr_max, media_tendencia)
-    "neoclouds": ({"LONG": ["recuo", "rompimento"]}, "diario", 0.03, {"LONG": 50}),
-    "petróleo": ({"SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
-    "top 20 EUA": ({"LONG": ["recuo", "rompimento"], "SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
-    "defesa": ({"LONG": ["recuo", "rompimento"], "SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
-    "energia elétrica": ({"LONG": ["recuo", "rompimento"], "SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
-    "índices": ({"LONG": ["recuo", "rompimento"], "SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
-    "commodities": ({"LONG": ["recuo", "rompimento"], "SHORT": ["recuo", "rompimento"]}, "normal", 0.01, None),
+    "neoclouds": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "diario", 0.03, {"LONG": 50}),
+    "petróleo": ({"SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
+    "top 20 EUA": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"], "SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
+    "defesa": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"], "SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
+    "energia elétrica": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"], "SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
+    "índices": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"], "SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
+    "commodities": ({"LONG": ["recuo", "rompimento", "squeeze", "varrida", "nr7"], "SHORT": ["recuo", "rompimento", "squeeze", "varrida", "nr7"]}, "normal", 0.01, None),
 }
-CRIPTO_LADOS = {"SHORT": ["rompimento"], "LONG": ["repique"]}
+CRIPTO_LADOS = {"SHORT": ["rompimento", "squeeze", "varrida", "nr7"], "LONG": ["repique"]}
 
 
 def rsi2(c):
@@ -112,6 +112,8 @@ def backtest(dados, regras, classe):
         if nome not in regras or len(df) < 260:
             continue
         lados, pf, atr_max, mt = regras[nome]
+        df = df.copy()
+        df.index = df.index.tz_localize("UTC") if df.index.tz is None else df.index.tz_convert("UTC")
         vd = velas_dict(df)
         cand = candidatos(df)
         livre = 0
