@@ -82,9 +82,10 @@ def binance_velas(simbolo, intervalo, desde_ms):
     if not linhas:
         return None
     df = pd.DataFrame(linhas, columns=list(range(12)))
-    df = pd.DataFrame({"open": df[1].astype(float), "high": df[2].astype(float), "low": df[3].astype(float),
-                       "close": df[4].astype(float), "volume": df[7].astype(float)},
-                      index=pd.to_datetime(df[0], unit="ms", utc=True))
+    df = pd.DataFrame({"open": df[1].astype(float).values, "high": df[2].astype(float).values,
+                       "low": df[3].astype(float).values, "close": df[4].astype(float).values,
+                       "volume": df[7].astype(float).values},
+                      index=pd.to_datetime(df[0].values, unit="ms", utc=True))
     return df[~df.index.duplicated()]
 
 
