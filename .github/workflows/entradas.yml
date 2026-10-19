@@ -1,0 +1,34 @@
+name: entradas
+
+# Backtest de 2 anos das 2 entradas do estudo (continuação e força relativa), cripto e ações.
+# Só leitura: não opera nada. Roda à mão ou quando o script muda. Resultado: relatorio_entradas.txt
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [backtest_entradas.py, .github/workflows/entradas.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  testar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas numpy requests yfinance lxml
+      - name: Backtest
+        run: python backtest_entradas.py 2>&1 | tee run.log
+      - name: Salvar relatório
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add relatorio_entradas.txt entradas_continuacao_*.csv || true
+          git diff --staged --quiet || git commit -m "backtest das entradas"
+          git pull --rebase --autostash || true
+          git push || true
