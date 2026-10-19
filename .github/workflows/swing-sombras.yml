@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [backtest_swing.py, estrategias_swing.py, .github/workflows/swing-sombras.yml]
+    paths: [backtest_sombras.py, estrategias_swing.py, .github/workflows/swing-sombras.yml]
 
 permissions:
   contents: write
@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
       - run: pip install pandas numpy requests yfinance lxml
       - name: Backtest
-        run: python backtest_swing.py 2>&1 | tee run.log
+        run: python backtest_sombras.py 2>&1 | tee run.log
       - name: Salvar relatório
         if: always()
         run: |
