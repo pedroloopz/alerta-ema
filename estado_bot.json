@@ -5,7 +5,7 @@
       "versao": 2,
       "inicio": "2026-09-25",
       "capital_inicial": 7087.88,
-      "reserva_usdt": 251.63,
+      "reserva_usdt": 1108.88,
       "aportes": [],
       "ativos": {
         "NFLX": {
@@ -15,7 +15,7 @@
           "preco_entrada": 69.16,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 70.609901
+          "ultimo_preco": 69.834999
         },
         "PENG": {
           "token": "PENGon",
@@ -24,25 +24,7 @@
           "preco_entrada": 72.73999786376953,
           "data_entrada": "2026-10-07",
           "origem": "donchian",
-          "ultimo_preco": 58.5
-        },
-        "INSW": {
-          "token": "INSWon",
-          "tipo": "acao",
-          "unidades": 7.1757,
-          "preco_entrada": 121.3499984741211,
-          "data_entrada": "2026-10-08",
-          "origem": "donchian",
-          "ultimo_preco": 111.660004
-        },
-        "PLTR": {
-          "token": "PLTRon",
-          "tipo": "acao",
-          "unidades": 0.3348,
-          "preco_entrada": 197.4499969482422,
-          "data_entrada": "2026-10-08",
-          "origem": "donchian",
-          "ultimo_preco": 186.899994
+          "ultimo_preco": 57.57
         },
         "ATKR": {
           "token": "ATKRon",
@@ -51,7 +33,7 @@
           "preco_entrada": 94.94999694824219,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 94.955002
+          "ultimo_preco": 94.959999
         },
         "SAP": {
           "token": "SAPon",
@@ -60,14 +42,13 @@
           "preco_entrada": 225.1199951171875,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 223.449997
+          "ultimo_preco": 225.964996
         }
       }
     },
-    "n_historico": 4,
+    "n_historico": 6,
     "chaves": [
-      "saida:INSW",
-      "saida:PLTR"
+      "saida:PENG"
     ]
   },
   "pendentes": {},
@@ -154,10 +135,10 @@
     }
   ],
   "pausa_ate": null,
-  "fechamento_em": "2026-10-16",
+  "fechamento_em": "2026-10-19",
   "cripto_em": "2026-10-18",
   "patrimonio_fech": {
-    "data": "2026-10-16",
-    "valor": 5539.21
+    "data": "2026-10-19",
+    "valor": 5523.61
   }
 }
