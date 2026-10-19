@@ -257,6 +257,11 @@ def limitar_e_lembrar(avisar, agora, gravar):
     return vistos, {a for a, n in conta.items() if n >= MAX_POR_ATIVO}
 
 
+# 19/10/2026: alertas manuais ("Trade agora" e swing) desligados no Discord — quem opera é o robô (robo-bingx).
+# O painel continua mostrando os sinais. Para religar, troque para True.
+AVISO_MANUAL = False
+
+
 def texto_aviso(trades, agora):
     linhas = [f"🎯 Trade agora ({br(agora):%d/%m %H:%M}) — vale até {br(agora + datetime.timedelta(minutes=VALIDADE_MIN)):%H:%M}"]
     for x in trades:
@@ -344,14 +349,14 @@ def main():
     if painel["avisar"]:
         painel["aviso_texto"] = texto_aviso(painel["avisar"], agora)
         print(painel["aviso_texto"])
-        if not a.max:
+        if not a.max and AVISO_MANUAL:
             sys.path.insert(0, os.path.join(AQUI, ".."))
             import central
             central.publicar_item("trade", "sinal", painel["aviso_texto"])
     if swings:
         painel["swing_texto"] = swing.texto(swings)
         print(painel["swing_texto"])
-        if not a.max:
+        if not a.max and AVISO_MANUAL:
             sys.path.insert(0, os.path.join(AQUI, ".."))
             import central
             central.publicar_item("trade", "swing", painel["swing_texto"])
