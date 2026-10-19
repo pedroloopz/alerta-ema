@@ -201,7 +201,7 @@ def por_semestre(t):
 
 
 # ---------------------------------------------------------------- entrada 2
-def backtest_forca(diarios, L, H, K, stop=0.10, funding=True, so_long=False):
+def backtest_forca(diarios, L, H, K, stop=0.10, funding=True, so_long=False, serie=False):
     fech = pd.DataFrame({k: v["close"] for k, v in diarios.items()}).sort_index()
     datas = fech.index
     rets, legs_l, legs_s = [], [], []
@@ -243,6 +243,8 @@ def backtest_forca(diarios, L, H, K, stop=0.10, funding=True, so_long=False):
     cagr = curva.iloc[-1] ** (1 / anos) - 1
     sharpe = r.mean() / r.std() * math.sqrt(365 / H) if r.std() > 0 else 0
     dd = (1 - curva / curva.cummax()).max()
+    if serie:
+        return r
     return {"periodos": len(r), "cagr": cagr, "sharpe": sharpe, "dd": dd, "pos": (r > 0).mean(),
             "long": np.mean(legs_l) if legs_l else 0, "short": np.mean(legs_s) if legs_s else 0}
 
