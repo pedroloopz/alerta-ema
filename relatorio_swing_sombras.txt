@@ -1,0 +1,80 @@
+# Sombras de swing e trade original arrumado — 19/10/2026 18:59 UTC
+Custos: 0,1% por lado + funding 0,03%/dia. R = resultado ÷ risco do stop. 2 anos de trades (com ~7 meses antes para o semanal).
+Dados: 44 criptos · 71 ações/ETFs (diário) · 1h: 46 criptos, 70 ações
+Semanal hoje: BTC alta forte · QQQ neutro · CRWV baixa forte · NBIS neutro · IREN baixa forte · NVDA neutro
+
+## Donchian swing (rompimento de 20 dias)
+cripto · filtro semanal · stop 2,5 ATR · alvo 3R: 489 trades (4.7/semana) · acerto 40% · média +0.013R · total +6.5R · fator de lucro 1.03 · maior queda 58.0R
+   janelas de 2 meses: 44% positivas · mediana -2.1R · pior -26.9R · melhor +44.0R
+   em média 9.4 posições abertas (máx 36) · com 1% de risco por trade, nocional médio 63% da banca (máx 239%) · stop médio 16.8%
+   últimos 2 meses: 49 trades · -4.9R
+ações · filtro semanal · stop 2,5 ATR · alvo 3R: 855 trades (8.2/semana) · acerto 37% · média -0.056R · total -47.5R · fator de lucro 0.90 · maior queda 79.7R
+   janelas de 2 meses: 37% positivas · mediana -11.2R · pior -38.0R · melhor +48.7R
+   em média 22.7 posições abertas (máx 41) · com 1% de risco por trade, nocional médio 383% da banca (máx 809%) · stop médio 8.3%
+   últimos 2 meses: 81 trades · -8.4R
+cripto · filtro semanal · stop 2 ATR · alvo 2R: 592 trades (5.7/semana) · acerto 37% · média -0.063R · total -37.4R · fator de lucro 0.88 · maior queda 83.7R
+   janelas de 2 meses: 27% positivas · mediana -8.9R · pior -28.7R · melhor +50.3R
+   em média 9.5 posições abertas (máx 35) · com 1% de risco por trade, nocional médio 73% da banca (máx 263%) · stop médio 14.5%
+   últimos 2 meses: 56 trades · -14.6R
+ações · filtro semanal · stop 2 ATR · alvo 2R: 974 trades (9.3/semana) · acerto 36% · média -0.088R · total -85.5R · fator de lucro 0.86 · maior queda 102.2R
+   janelas de 2 meses: 38% positivas · mediana -11.5R · pior -41.8R · melhor +45.6R
+   em média 20.5 posições abertas (máx 38) · com 1% de risco por trade, nocional médio 423% da banca (máx 932%) · stop médio 6.9%
+   últimos 2 meses: 92 trades · -12.8R
+cripto · filtro semanal · stop 3 ATR · só saída por fundo de 10d: 387 trades (3.7/semana) · acerto 42% · média +0.031R · total +12.1R · fator de lucro 1.08 · maior queda 37.7R
+   janelas de 2 meses: 46% positivas · mediana -0.7R · pior -16.4R · melhor +33.8R
+   em média 7.9 posições abertas (máx 33) · com 1% de risco por trade, nocional médio 49% da banca (máx 189%) · stop médio 18.2%
+   últimos 2 meses: 39 trades · -5.0R
+ações · filtro semanal · stop 3 ATR · só saída por fundo de 10d: 792 trades (7.6/semana) · acerto 40% · média +0.002R · total +1.3R · fator de lucro 1.00 · maior queda 50.9R
+   janelas de 2 meses: 41% positivas · mediana -4.7R · pior -33.3R · melhor +42.9R
+   em média 23.2 posições abertas (máx 44) · com 1% de risco por trade, nocional médio 331% da banca (máx 742%) · stop médio 9.2%
+   últimos 2 meses: 81 trades · -5.3R
+cripto · SEM filtro semanal · stop 2,5 ATR · alvo 3R: 974 trades (9.3/semana) · acerto 38% · média +0.082R · total +80.0R · fator de lucro 1.17 · maior queda 87.1R
+   janelas de 2 meses: 54% positivas · mediana +1.8R · pior -56.0R · melhor +64.4R
+   em média 17.5 posições abertas (máx 38) · com 1% de risco por trade, nocional médio 127% da banca (máx 359%) · stop médio 15.6%
+   últimos 2 meses: 119 trades · +53.6R
+ações · SEM filtro semanal · stop 2,5 ATR · alvo 3R: 1415 trades (13.6/semana) · acerto 37% · média -0.099R · total -140.7R · fator de lucro 0.81 · maior queda 139.4R
+   janelas de 2 meses: 27% positivas · mediana -13.5R · pior -42.4R · melhor +49.0R
+   em média 38.4 posições abertas (máx 60) · com 1% de risco por trade, nocional médio 632% da banca (máx 1041%) · stop médio 8.2%
+   últimos 2 meses: 130 trades · -17.5R
+
+## Comprar queda em cripto com o semanal em alta forte
+cripto · só semanal em alta forte: 209 trades (2.0/semana) · acerto 62% · média +0.043R · total +8.9R · fator de lucro 1.34 · maior queda 5.4R
+   janelas de 2 meses: 59% positivas · mediana +0.4R · pior -3.1R · melhor +8.0R
+   em média 1.1 posições abertas (máx 21) · com 1% de risco por trade, nocional médio 8% da banca (máx 177%) · stop médio 15.7%
+   últimos 2 meses: 36 trades · +3.9R
+cripto · semanal em alta (forte ou não): 224 trades (2.1/semana) · acerto 61% · média +0.032R · total +7.2R · fator de lucro 1.25 · maior queda 6.4R
+   janelas de 2 meses: 56% positivas · mediana +0.2R · pior -3.4R · melhor +8.1R
+   em média 1.2 posições abertas (máx 22) · com 1% de risco por trade, nocional médio 9% da banca (máx 177%) · stop médio 15.6%
+   últimos 2 meses: 37 trades · +3.7R
+cripto · sem filtro (qualquer semanal): 1502 trades (14.4/semana) · acerto 62% · média +0.008R · total +11.7R · fator de lucro 1.04 · maior queda 61.9R
+   janelas de 2 meses: 53% positivas · mediana +2.8R · pior -46.9R · melhor +32.7R
+   em média 7.6 posições abertas (máx 37) · com 1% de risco por trade, nocional médio 51% da banca (máx 279%) · stop médio 16.5%
+   últimos 2 meses: 111 trades · +22.9R
+
+## Virada em ações depois de queda de 20%+ (neoclouds e chips; e todas as ações)
+neoclouds + chips: 101 trades (1.0/semana) · acerto 37% · média +0.142R · total +14.3R · fator de lucro 1.22 · maior queda 16.2R
+   janelas de 2 meses: 49% positivas · mediana +0.0R · pior -14.9R · melhor +17.7R
+   em média 2.1 posições abertas (máx 9) · com 1% de risco por trade, nocional médio 19% da banca (máx 83%) · stop médio 11.1%
+   últimos 2 meses: 15 trades · -4.4R
+todas as ações/ETFs: 293 trades (2.8/semana) · acerto 40% · média +0.078R · total +22.9R · fator de lucro 1.14 · maior queda 36.2R
+   janelas de 2 meses: 51% positivas · mediana +1.5R · pior -34.4R · melhor +30.1R
+   em média 7.7 posições abertas (máx 24) · com 1% de risco por trade, nocional médio 82% da banca (máx 233%) · stop médio 10.1%
+   últimos 2 meses: 40 trades · +4.6R
+
+## Trade original arrumado: gatilho do robô em 4h, stop 2,5 ATR, alvo 3R, até 5 dias
+cripto · a favor do semanal: 2654 trades (25.4/semana) · acerto 43% · média +0.005R · total +12.8R · fator de lucro 1.01 · maior queda 132.1R
+   janelas de 2 meses: 53% positivas · mediana +2.6R · pior -73.4R · melhor +103.6R
+   em média 13.1 posições abertas (máx 36) · com 1% de risco por trade, nocional médio 225% da banca (máx 682%) · stop médio 6.9%
+   últimos 2 meses: 176 trades · -26.2R
+ações · a favor do semanal: 1401 trades (13.4/semana) · acerto 37% · média -0.089R · total -125.2R · fator de lucro 0.86 · maior queda 163.1R
+   janelas de 2 meses: 35% positivas · mediana -12.4R · pior -54.4R · melhor +27.3R
+   em média 23.1 posições abertas (máx 42) · com 1% de risco por trade, nocional médio 600% da banca (máx 1199%) · stop médio 5.5%
+   últimos 2 meses: 122 trades · +12.7R
+cripto · sem filtro semanal: 4574 trades (43.9/semana) · acerto 42% · média +0.015R · total +67.6R · fator de lucro 1.03 · maior queda 162.5R
+   janelas de 2 meses: 50% positivas · mediana -0.4R · pior -119.0R · melhor +110.3R
+   em média 22.5 posições abertas (máx 40) · com 1% de risco por trade, nocional médio 383% da banca (máx 770%) · stop médio 7.1%
+   últimos 2 meses: 375 trades · +42.5R
+ações · sem filtro semanal: 1880 trades (18.0/semana) · acerto 38% · média -0.086R · total -162.1R · fator de lucro 0.87 · maior queda 203.9R
+   janelas de 2 meses: 27% positivas · mediana -20.8R · pior -59.6R · melhor +40.9R
+   em média 31.0 posições abertas (máx 46) · com 1% de risco por trade, nocional médio 796% da banca (máx 1443%) · stop médio 5.6%
+   últimos 2 meses: 155 trades · +8.9R
