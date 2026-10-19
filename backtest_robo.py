@@ -203,4 +203,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+        B.p("FALHOU:\n" + traceback.format_exc()[-3000:])
+        open("relatorio_robo.txt", "w", encoding="utf-8").write("\n".join(B.OUT) + "\n")
+        raise
