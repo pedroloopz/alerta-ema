@@ -1,0 +1,191 @@
+<title>Kronos 24h</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: mesa de operação — seletor de ativos, gráfico grande com o leque de 100 futuros, ficha do trade ao lado, tabela completa embaixo */
+:root {
+  --bg: #f3f5f8; --painel: #ffffff; --tinta: #16202c; --suave: #5b6878; --linha: #dde3ea;
+  --leque: 37, 99, 235; --mediana: #7c3aed; --sobe: #0f9d6b; --desce: #d43d3d; --real: #0f9d6b;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e141b; --painel: #151d27; --tinta: #e4eaf1; --suave: #8c99a8; --linha: #253141;
+  --leque: 96, 165, 250; --mediana: #c4a5ff; --sobe: #34d399; --desce: #f87171; --real: #34d399; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e141b; --painel: #151d27; --tinta: #e4eaf1; --suave: #8c99a8; --linha: #253141;
+  --leque: 96, 165, 250; --mediana: #c4a5ff; --sobe: #34d399; --desce: #f87171; --real: #34d399; color-scheme: dark }
+body { background: var(--bg); color: var(--tinta); font-family: var(--sans); font-size: 14px; }
+.pagina { max-width: 1180px; margin: 0 auto; padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 18px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+h1 { font-size: 1.35rem; font-weight: 600; margin: 0; text-wrap: balance; }
+.meta { color: var(--suave); font-family: var(--mono); font-size: 12px; }
+.ativos { display: flex; flex-wrap: wrap; gap: 6px; }
+.ativos button { font: 500 13px var(--sans); color: var(--tinta); background: var(--painel); border: 1px solid var(--linha);
+  border-radius: 6px; padding: 6px 10px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.ativos button[aria-pressed="true"] { border-color: var(--mediana); box-shadow: inset 0 0 0 1px var(--mediana); }
+.ativos button:focus-visible, .tabela tr:focus-visible { outline: 2px solid var(--mediana); outline-offset: 2px; }
+.ativos .p { font-family: var(--mono); font-size: 12px; }
+.trade-chip { font: 600 10px var(--mono); letter-spacing: .06em; padding: 1px 5px; border-radius: 4px; background: var(--mediana); color: var(--painel); }
+.mesa { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+@media (max-width: 860px) { .mesa { grid-template-columns: minmax(0, 1fr); } }
+.grafico { background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; padding: 10px; min-width: 0; }
+#chart { height: 440px; width: 100%; }
+@media (max-width: 500px) { #chart { height: 340px; } }
+.legenda { display: flex; flex-wrap: wrap; gap: 14px; color: var(--suave); font-size: 12px; padding: 8px 4px 0; }
+.legenda i { display: inline-block; width: 14px; height: 3px; vertical-align: middle; margin-right: 5px; border-radius: 2px; }
+.ficha { display: grid; gap: 14px; min-width: 0; }
+.prob { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.prob div { background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; padding: 10px 12px; }
+.prob small, .kv dt { color: var(--suave); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.prob strong { display: block; font: 500 1.7rem var(--mono); font-variant-numeric: tabular-nums; }
+.sobe { color: var(--sobe); } .desce { color: var(--desce); }
+.bloco { background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; padding: 12px; display: grid; gap: 8px; }
+.bloco h2 { font-size: 13px; margin: 0; font-weight: 600; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0; }
+.kv dd { margin: 0; text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.aviso { color: var(--suave); font-size: 12px; line-height: 1.45; margin: 0; }
+.tabela-wrap { overflow-x: auto; background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; }
+.tabela { border-collapse: collapse; width: 100%; font-size: 13px; }
+.tabela th, .tabela td { padding: 7px 10px; border-bottom: 1px solid var(--linha); text-align: right; white-space: nowrap; }
+.tabela th:first-child, .tabela td:first-child, .tabela td.txt { text-align: left; }
+.tabela th { color: var(--suave); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+.tabela td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tabela td.txt { font-family: var(--sans); color: var(--suave); white-space: normal; min-width: 180px; }
+.tabela tr { cursor: pointer; }
+.tabela tr.sel td { background: color-mix(in srgb, var(--mediana) 9%, transparent); }
+</style>
+
+<div class="pagina">
+  <header>
+    <h1>Kronos-small · próximas 24 velas de 1h</h1>
+    <span class="meta" id="meta"></span>
+  </header>
+  <nav class="ativos" id="ativos" aria-label="Ativos"></nav>
+  <section class="mesa">
+    <div class="grafico">
+      <div id="chart"></div>
+      <div class="legenda">
+        <span><i style="background:var(--suave)"></i>velas reais</span>
+        <span><i style="background:rgba(var(--leque),.6)"></i>100 futuros</span>
+        <span><i style="background:var(--mediana)"></i>velas prováveis (mediana)</span>
+        <span><i style="background:var(--real)"></i>velas reais depois da previsão</span>
+      </div>
+    </div>
+    <aside class="ficha" id="ficha"></aside>
+  </section>
+  <div class="tabela-wrap"><table class="tabela" id="tabela"></table></div>
+  <p class="aviso">P(alta) = fração dos 100 caminhos que fecham a 24ª vela acima do último fechamento. Teste de 1 ano: 1 previsão por semana, no mesmo dia e hora, com 8 caminhos; "chute" é o acerto de quem aposta sempre no lado que mais aconteceu. Probabilidade do modelo não é garantia; o teste não garante resultado futuro.</p>
+</div>
+
+<script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+const D = /*DADOS*/null;
+const pct = (x, c = 1) => (x >= 0 ? "+" : "") + (x * 100).toFixed(c).replace(".", ",") + "%";
+const pp = x => Math.round(x * 100) + "%";
+const fmtP = v => v >= 100 ? v.toFixed(2) : v >= 1 ? v.toFixed(4) : v.toPrecision(4);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const brt = iso => new Date(iso).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+document.getElementById("meta").textContent = `gerado ${brt(D.gerado_em)} · ${D.ativos.length} ativos · ${D.trades.length} trade(s)`;
+let chart, series = [], atual = 0;
+
+function tema() {
+  return { layout: { background: { color: css("--painel") }, textColor: css("--suave"), fontFamily: "IBM Plex Mono, monospace" },
+    grid: { vertLines: { color: css("--linha") }, horzLines: { color: css("--linha") } },
+    rightPriceScale: { borderColor: css("--linha") }, timeScale: { borderColor: css("--linha"), timeVisible: true } };
+}
+function criar() {
+  const el = document.getElementById("chart");
+  chart = LightweightCharts.createChart(el, { ...tema(), autoSize: true,
+    localization: { timeFormatter: t => new Date(t * 1000).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit" }) + "h" } });
+}
+function desenhar(i) {
+  atual = i;
+  const d = D.ativos[i];
+  series.forEach(s => chart.removeSeries(s)); series = [];
+  const sobe = css("--sobe"), desce = css("--desce"), leque = css("--leque"), med = css("--mediana");
+  const reais = chart.addCandlestickSeries({ upColor: "transparent", downColor: css("--suave"), borderUpColor: css("--suave"),
+    borderDownColor: css("--suave"), wickUpColor: css("--suave"), wickDownColor: css("--suave"), priceFormat: { type: "price", precision: 6, minMove: 1e-6 } });
+  reais.setData(d.reais.map(x => ({ time: x[0], open: x[1], high: x[2], low: x[3], close: x[4] })));
+  series.push(reais);
+  const fut = k => d.t0 + 3600 * (k + 1);
+  d.caminhos.forEach(c => {
+    const s = chart.addLineSeries({ color: `rgba(${leque},0.13)`, lineWidth: 1, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false });
+    s.setData([{ time: d.t0, value: d.ultimo }, ...c.map((v, k) => ({ time: fut(k), value: v }))]);
+    series.push(s);
+  });
+  const q = p => d.caminhos[0].map((_, k) => { const v = d.caminhos.map(c => c[k]).sort((a, b) => a - b); return v[Math.min(v.length - 1, Math.floor(p * v.length))]; });
+  [[0.1, "p10"], [0.9, "p90"]].forEach(([p, nome]) => {
+    const s = chart.addLineSeries({ color: med, lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false, title: nome });
+    s.setData(q(p).map((v, k) => ({ time: fut(k), value: v }))); series.push(s);
+  });
+  const mc = chart.addCandlestickSeries({ upColor: med, downColor: "transparent", borderUpColor: med, borderDownColor: med, wickUpColor: med, wickDownColor: med, lastValueVisible: false, priceLineVisible: false });
+  mc.setData(d.velas_medianas.map((x, k) => ({ time: fut(k), open: x[0], high: x[1], low: x[2], close: x[3] })));
+  series.push(mc);
+  if (d.depois.length) {
+    const dep = chart.addCandlestickSeries({ upColor: sobe, downColor: desce, borderUpColor: sobe, borderDownColor: desce, wickUpColor: sobe, wickDownColor: desce });
+    dep.setData(d.depois.map(x => ({ time: x[0], open: x[1], high: x[2], low: x[3], close: x[4] })));
+    series.push(dep);
+  }
+  const pl = d.plano, s1 = pl.lado === "LONG" ? 1 : -1;
+  if (d.escolhido) {
+    [[d.ultimo, "entrada", css("--suave")], [d.ultimo * (1 - s1 * pl.sl), "stop", desce],
+     [d.ultimo * (1 + s1 * pl.tp1), "alvo 1", sobe], [d.ultimo * (1 + s1 * pl.tp2), "alvo 2", sobe]]
+      .forEach(([price, title, color]) => reais.createPriceLine({ price, title, color, lineWidth: 1, lineStyle: 1, axisLabelVisible: true }));
+  }
+  chart.timeScale().setVisibleRange({ from: d.t0 - 3600 * 96, to: fut(H_ - 1) + 3600 * 2 });
+  ficha(d);
+  document.querySelectorAll("#ativos button").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
+  document.querySelectorAll("#tabela tbody tr").forEach((r, j) => r.classList.toggle("sel", +r.dataset.i === i));
+}
+const H_ = D.ativos.length ? D.ativos[0].caminhos[0].length : 24;
+function ficha(d) {
+  const t = d.teste, pl = d.plano;
+  const trade = d.escolhido
+    ? `<div class="bloco"><h2>Trade de teste · ${pl.lado === "LONG" ? "compra (long)" : "venda (short)"}</h2>
+        <dl class="kv"><dt>Entrada</dt><dd>a mercado (~${fmtP(d.ultimo)})</dd><dt>Stop</dt><dd class="desce">−${(pl.sl*100).toFixed(1).replace(".",",")}%</dd>
+        <dt>Alvo 1 (50%)</dt><dd class="sobe">+${(pl.tp1*100).toFixed(1).replace(".",",")}%</dd><dt>Alvo 2 (50%)</dt><dd class="sobe">+${(pl.tp2*100).toFixed(1).replace(".",",")}%</dd>
+        <dt>Alavancagem</dt><dd>${pl.alav}x isolada</dd><dt>Saída por tempo</dt><dd>24h</dd></dl>
+        <p class="aviso">Depois do alvo 1, o stop vai para a entrada.</p></div>`
+    : `<div class="bloco"><h2>Sem trade neste ativo</h2><p class="aviso">${pl.barrado || "fora dos 4 melhores"}</p></div>`;
+  const teste = t.n
+    ? `<dl class="kv"><dt>Semanas</dt><dd>${t.n}</dd><dt>Acerto da direção</dt><dd>${pp(t.acerto)}</dd><dt>Chute (lado mais comum)</dt><dd>${pp(t.chute)}</dd>
+       <dt>Acerto com 5+ de 8 caminhos</dt><dd>${t.acerto_conf == null ? "—" : pp(t.acerto_conf) + " (" + t.n_conf + ")"}</dd>
+       <dt>Brier (0,25 = moeda)</dt><dd>${t.brier.toFixed(3).replace(".",",")}</dd><dt>Resultado médio/semana</dt><dd class="${t.ret_medio >= 0 ? "sobe" : "desce"}">${pct(t.ret_medio, 2)}</dd></dl>`
+    : `<p class="aviso">Sem histórico suficiente para o teste.</p>`;
+  document.getElementById("ficha").innerHTML =
+    `<div class="prob"><div><small>Alta em 24h</small><strong class="sobe">${pp(d.p_alta)}</strong></div>
+      <div><small>Baixa em 24h</small><strong class="desce">${pp(1 - d.p_alta)}</strong></div></div>
+     <div class="bloco"><h2>${d.ativo} · ${d.tipo}</h2><dl class="kv"><dt>Último fechamento</dt><dd>${fmtP(d.ultimo)}</dd>
+      <dt>Mediana em 24h</dt><dd>${pct(d.ret_mediano, 2)}</dd><dt>Faixa p10 – p90</dt><dd>${pct(d.ret_q.p10)} a ${pct(d.ret_q.p90)}</dd></dl></div>
+     ${trade}<div class="bloco"><h2>Teste de 1 ano (semanal)</h2>${teste}</div>`;
+}
+function montar() {
+  const nav = document.getElementById("ativos");
+  D.ativos.forEach((d, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = `${d.ativo} <span class="p ${d.p_alta >= .5 ? "sobe" : "desce"}">${d.p_alta >= .5 ? "↑" + pp(d.p_alta) : "↓" + pp(1 - d.p_alta)}</span>${d.escolhido ? '<span class="trade-chip">TRADE</span>' : ""}`;
+    b.onclick = () => desenhar(i);
+    nav.appendChild(b);
+  });
+  const tb = D.ativos.map((d, i) => {
+    const t = d.teste;
+    return `<tr data-i="${i}" tabindex="0"><td>${d.ativo}${d.escolhido ? ' <span class="trade-chip">TRADE</span>' : ""}</td>
+      <td class="sobe">${pp(d.p_alta)}</td><td class="desce">${pp(1 - d.p_alta)}</td><td>${pct(d.ret_mediano, 2)}</td>
+      <td>${t.n ? pp(t.acerto) : "—"}</td><td>${t.n ? pp(t.chute) : "—"}</td><td>${t.n || 0}</td>
+      <td class="txt">${d.escolhido ? `${d.plano.lado.toLowerCase()} · stop −${(d.plano.sl*100).toFixed(1).replace(".",",")}% · ${d.plano.alav}x` : (d.plano.barrado || "fora dos 4 melhores")}</td></tr>`;
+  }).join("");
+  const tab = document.getElementById("tabela");
+  tab.innerHTML = `<thead><tr><th>Ativo</th><th>Alta</th><th>Baixa</th><th>Mediana 24h</th><th>Acerto 1 ano</th><th>Chute</th><th>Semanas</th><th>Trade</th></tr></thead><tbody>${tb}</tbody>`;
+  tab.querySelectorAll("tbody tr").forEach(r => { r.onclick = () => desenhar(+r.dataset.i); r.onkeydown = e => { if (e.key === "Enter") desenhar(+r.dataset.i); }; });
+}
+criar(); montar(); if (D.ativos.length) desenhar(0);
+const reTema = () => { chart.applyOptions(tema()); desenhar(atual); };
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", reTema);
+new MutationObserver(reTema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
