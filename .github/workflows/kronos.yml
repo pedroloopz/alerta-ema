@@ -15,7 +15,7 @@ on:
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
   schedule:
     - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília: completa (100 futuros + teste de 1 ano)
-    - cron: "37 */2 * * *"   # de 2 em 2h: rápida (só os 100 futuros; usa o teste da semana)
+    - cron: "37 * * * *"     # de hora em hora: rápida (só os 100 futuros; usa o teste da semana)
 
 permissions:
   contents: write
@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  RAPIDA: ${{ github.event.schedule == '37 */2 * * *' && '1' || '0' }}
+  RAPIDA: ${{ github.event.schedule == '37 * * * *' && '1' || '0' }}
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
   PARTES: 20
 
@@ -118,6 +118,7 @@ jobs:
           ROBO_TOKEN: ${{ secrets.ROBO_TOKEN }}
         run: |
           [ -z "$ROBO_TOKEN" ] && exit 0
+          [ "$RAPIDA" = "1" ] && { echo "rodada rápida: o robô pega os sinais no ciclo de 30 min"; exit 0; }
           curl -s -o /dev/null -w "robô: %{http_code}\n" -X POST -H "Authorization: Bearer $ROBO_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/pedroloopz/robo-bingx/actions/workflows/operar.yml/dispatches \
