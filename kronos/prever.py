@@ -221,7 +221,9 @@ def resumo_caminhos(a, ultimo):
         i_stop = np.where(stop.any(1), stop.argmax(1), H + 1)
         corrida[lado] = {"alvo1_antes": float((i_alvo < i_stop).mean()), "stop_antes": float((i_stop <= i_alvo).mean()
                          - ((i_stop == H + 1) & (i_alvo == H + 1)).mean())}
-    return {"p_alta": float((final > ultimo).mean()), "corrida": corrida,
+    recuo = {"LONG": {"q50": 1 - q(mins, 0.5) / ultimo, "q75": 1 - q(mins, 0.25) / ultimo},    # quanto o preço volta
+             "SHORT": {"q50": q(maxs, 0.5) / ultimo - 1, "q75": q(maxs, 0.75) / ultimo - 1}}   # contra antes de seguir
+    return {"p_alta": float((final > ultimo).mean()), "corrida": corrida, "recuo": recuo,
             "ret_mediano": q(final, 0.5) / ultimo - 1,
             "ret_q": {k: q(final, p) / ultimo - 1 for k, p in (("p10", .1), ("p25", .25), ("p75", .75), ("p90", .9))},
             "queda_q15": 1 - q(mins, 0.15) / ultimo,           # quanto 85% dos caminhos NÃO caem abaixo
@@ -387,7 +389,13 @@ def plano(r):
     if (tp1 + tp2) / 2 < 0.6 * sl:
         motivo.append(f"alvo pequeno para o stop (alvos +{br(tp1, 1)}/+{br(tp2, 1)} × stop −{br(sl, 1)})")
     alav = int(min(max(RISCO_MARGEM // sl, ALAV_MIN), ALAV_MAX))
-    return {"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
+    gat = []                                              # até 2 entradas extras no recuo previsto (ordem limite)
+    rc = (r.get("recuo") or {}).get(lado)
+    if rc:
+        d1 = max(rc["q50"], 0.002)
+        d2 = max(rc["q75"], d1 + 0.002)
+        gat = [round(d, 4) for d in (d1, d2) if d <= 0.7 * sl]
+    return {"gatilhos": gat,"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
             "alav": alav, "nota": round(p_dir * (t.get("acerto_trade") or t.get("acerto", 0)), 4), "barrado": "; ".join(motivo) or None,
             "alvo1_antes": (r.get("corrida") or {}).get(lado, {}).get("alvo1_antes"),
             "stop_antes": (r.get("corrida") or {}).get(lado, {}).get("stop_antes")}
