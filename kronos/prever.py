@@ -234,7 +234,8 @@ def rodar(i, n_partes):
     if os.environ.get("KRONOS_RAPIDA") == "1":
         p = os.path.join(AQUI, "teste_semanal.json")
         sem = json.load(open(p)) if os.path.exists(p) else {}
-        ja_testados = set(sem.get("testes") or {r["simbolo"] for r in sem.get("ativos", []) if r["teste_resumo"].get("n")})
+        testes = sem.get("testes") or {r["simbolo"]: r["teste_resumo"] for r in sem.get("ativos", [])}
+        ja_testados = {k for k, v in testes.items() if v.get("acerto_trade") is not None}
     motor = carregar_modelo()
     out = []
     for a in ativos:
@@ -267,8 +268,14 @@ def rodar(i, n_partes):
                 ult = float(df["close"].iloc[o - 1])
                 real = float(df["close"].iloc[min(o + H - 1, len(df) - 1)]) / ult - 1
                 p = float((s_[:, -1, 3] > ult).mean())
+                fut = df.iloc[o:o + H][["open", "high", "low", "close"]].values
+                rz = resumo_caminhos(s_, ult)
+                lado = "LONG" if p >= 0.5 else "SHORT"
+                sl, tp1, tp2 = niveis(rz, lado)
                 bt.append({"data": df["data"].iloc[o - 1].isoformat(), "p_alta": p,
-                           "ret_mediano": float(np.median(s_[:, -1, 3])) / ult - 1, "ret_real": real})
+                           "ret_mediano": float(np.median(s_[:, -1, 3])) / ult - 1, "ret_real": real,
+                           "trade_r": simular_trade(fut, ult, lado, sl, tp1, tp2),
+                           "viradas": viradas(np.median(s_[:, :, 3], axis=0), fut[:, 3], ult)})
         r["teste"] = bt
         r["teste_resumo"] = medir_teste(bt)
         out.append(r)
@@ -276,6 +283,48 @@ def rodar(i, n_partes):
         os.makedirs(SAIDA, exist_ok=True)
         with open(os.path.join(SAIDA, f"parte_{i}.json"), "w") as f:     # grava a cada ativo (se o tempo acabar,
             json.dump(out, f)                                             # o que já saiu não se perde)
+
+
+def niveis(rz, lado):
+    """Stop e alvos do plano (em %, a favor): mesma regra no teste e ao vivo."""
+    s = 1 if lado == "LONG" else -1
+    q = rz["ret_q"]
+    sl = min(max(rz["queda_q15"] if lado == "LONG" else rz["alta_q15"], SL_MIN), SL_MAX)
+    tp1 = max(s * rz["ret_mediano"], MOVE_MIN)
+    tp2 = max(s * (q["p75"] if lado == "LONG" else q["p25"]), tp1 + 0.003)
+    return sl, tp1, tp2
+
+
+def simular_trade(fut, entrada, lado, sl, tp1, tp2):
+    """Resultado em R nas velas reais: metade no alvo 1 (stop vai à entrada), metade no alvo 2, sai em 24h.
+    Vela que toca stop e alvo juntos conta como stop (conservador)."""
+    s = 1 if lado == "LONG" else -1
+    feito, metade, stop = 0.0, False, -sl
+    for o, h, l, c in fut:
+        contra = s * ((l if s == 1 else h) / entrada - 1)
+        favor = s * ((h if s == 1 else l) / entrada - 1)
+        if contra <= stop:
+            return ((feito + (0.5 if metade else 1.0) * stop) - CUSTO) / sl
+        if not metade and favor >= tp1:
+            feito, metade, stop = 0.5 * tp1, True, CUSTO / 2
+        if metade and favor >= tp2:
+            return (feito + 0.5 * tp2 - CUSTO) / sl
+    final = s * (fut[-1][3] / entrada - 1)
+    return (feito + (0.5 if metade else 1.0) * final - CUSTO) / sl
+
+
+def viradas(mediana, reais, entrada, minimo=3):
+    """Pernas da mediana prevista (trechos de 3h+ na mesma direção) x o que o preço real fez no mesmo trecho."""
+    m = np.concatenate([[entrada], mediana])
+    sinais = np.sign(np.diff(m))
+    pernas, ini = [], 0
+    for i in range(1, len(sinais) + 1):
+        if i == len(sinais) or sinais[i] != sinais[ini]:
+            if i - ini >= minimo and sinais[ini] != 0:
+                pernas.append((ini, i, int(sinais[ini])))
+            ini = i
+    r = np.concatenate([[entrada], reais])
+    return [{"ordem": k, "lado": d, "ret": float(d * (r[b] / r[a] - 1) - CUSTO)} for k, (a, b, d) in enumerate(pernas)]
 
 
 def medir_teste(bt):
@@ -294,7 +343,22 @@ def medir_teste(bt):
             "ret_medio": float(ganho.mean()),                   # seguindo todo sinal, já com custo
             "n_conf": int(conf.sum()),
             "acerto_conf": float(((lado > 0) == (real > 0))[conf].mean()) if conf.any() else None,
-            "ret_conf": float(ganho[conf].mean()) if conf.any() else None}
+            "ret_conf": float(ganho[conf].mean()) if conf.any() else None,
+            **medir_trades(bt)}
+
+
+def medir_trades(bt):
+    tr = np.array([x["trade_r"] for x in bt if x.get("trade_r") is not None])
+    pv = [v for x in bt for v in x.get("viradas", [])]
+    depois = [v for v in pv if v["ordem"] > 0]
+    out = {}
+    if len(tr):
+        out.update(acerto_trade=float((tr > 0).mean()), r_medio=float(tr.mean()), stops=float((tr <= -0.9).mean()))
+    if pv:
+        out.update(viradas_n=len(pv), viradas_acerto=float(np.mean([v["ret"] > 0 for v in pv])),
+                   viradas_ret=float(np.mean([v["ret"] for v in pv])), viradas_depois_n=len(depois),
+                   viradas_depois_acerto=float(np.mean([v["ret"] > 0 for v in depois])) if depois else None)
+    return out
 
 
 # ---------------------------------------------------------------- juntar
@@ -312,19 +376,19 @@ def plano(r):
         motivo.append(f"só {br(p_dir, 0)} dos caminhos a favor")
     if t.get("n", 0) < SEMANAS_MIN:
         motivo.append(f"teste curto ({t.get('n', 0)} semanas)")
+    elif t.get("acerto_trade") is not None:                     # acerto do TRADE (stop/alvos nas velas reais)
+        if t["acerto_trade"] < ACERTO_MIN or t["r_medio"] <= 0:
+            motivo.append(f"teste do trade fraco (acerto {br(t['acerto_trade'], 0)}, {t['r_medio']:+.2f}R por trade)".replace(".", ","))
     elif t["acerto"] < ACERTO_MIN or t["acerto"] < t["chute"] or t["ret_medio"] <= 0:
         motivo.append(f"teste fraco (acerto {br(t['acerto'], 0)}, chute {br(t['chute'], 0)}, {br(t['ret_medio'], 2, True)}/sem)")
     if s * r["ret_mediano"] < MOVE_MIN:
         motivo.append(f"movimento previsto pequeno ({br(r['ret_mediano'], 2, True)})")
-    q = r["ret_q"]
-    sl = min(max(r["queda_q15"] if lado == "LONG" else r["alta_q15"], SL_MIN), SL_MAX)
-    tp1 = max(s * r["ret_mediano"], MOVE_MIN)
-    tp2 = max(s * (q["p75"] if lado == "LONG" else q["p25"]), tp1 + 0.003)
+    sl, tp1, tp2 = niveis(r, lado)
     if (tp1 + tp2) / 2 < 0.6 * sl:
         motivo.append(f"alvo pequeno para o stop (alvos +{br(tp1, 1)}/+{br(tp2, 1)} × stop −{br(sl, 1)})")
     alav = int(min(max(RISCO_MARGEM // sl, ALAV_MIN), ALAV_MAX))
     return {"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
-            "alav": alav, "nota": round(p_dir * t.get("acerto", 0), 4), "barrado": "; ".join(motivo) or None,
+            "alav": alav, "nota": round(p_dir * (t.get("acerto_trade") or t.get("acerto", 0)), 4), "barrado": "; ".join(motivo) or None,
             "alvo1_antes": (r.get("corrida") or {}).get(lado, {}).get("alvo1_antes"),
             "stop_antes": (r.get("corrida") or {}).get(lado, {}).get("stop_antes")}
 
@@ -363,7 +427,8 @@ def juntar():
     sinais = {"id": sid, "gerado_em": agora.isoformat(timespec="seconds"), "prazo_h": H, "modelo": "Kronos-small",
               "trades": [{"ativo": r["ativo"], "simbolo": r["simbolo"], "tipo": r["tipo"], **r["plano"],
                           "preco_previsao": r["ultimo"], "peso": round(1 / len(bons), 4),
-                          "acerto_teste": r["teste_resumo"].get("acerto"), "semanas_teste": r["teste_resumo"].get("n")}
+                          "acerto_teste": r["teste_resumo"].get("acerto_trade", r["teste_resumo"].get("acerto")),
+                          "r_medio_teste": r["teste_resumo"].get("r_medio"), "semanas_teste": r["teste_resumo"].get("n")}
                          for r in bons]}
     os.makedirs(os.path.join(AQUI), exist_ok=True)
     json.dump(sinais, open(os.path.join(AQUI, "sinais.json"), "w"), ensure_ascii=False, indent=1)
@@ -402,7 +467,8 @@ def mensagem(prev, sinais):
     L += ["", "**Maiores probabilidades (alta / baixa · acerto no teste de 1 ano):**"]
     for r in ordem_exibicao(prev, sinais)[:12]:
         t = r["teste_resumo"]
-        ac = f"{br(t['acerto'], 0)} em {t['n']} sem" if t.get("n") else "sem teste"
+        ac = (f"trade {br(t['acerto_trade'], 0)} ({t['r_medio']:+.2f}R)".replace(".", ",") + f" · direção {br(t['acerto'], 0)} em {t['n']} sem"
+              if t.get("acerto_trade") is not None else (f"direção {br(t['acerto'], 0)} em {t['n']} sem" if t.get("n") else "sem teste"))
         L.append(f"• {r['ativo']}: ⬆️ {br(r['p_alta'], 0)} / ⬇️ {br(1 - r['p_alta'], 0)} · mediana {br(r['ret_mediano'], 2, True)} · {ac}")
     L += ["", "Gráfico com velas reais + caminhos: kronos/grafico.html (branch kronos do alerta-ema)."]
     return "\n".join(L)
