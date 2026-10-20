@@ -10,6 +10,10 @@ on:
         description: "Só índices e commodities (junta com a rodada anterior de até 6h)"
         type: boolean
         default: false
+      rapida:
+        description: "Rodada rápida (só os 100 futuros; usa o teste da semana) — o painel-scanner dispara de hora em hora"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
@@ -25,9 +29,9 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  RAPIDA: ${{ github.event.schedule == '37 * * * *' && '1' || '0' }}
+  RAPIDA: ${{ (github.event.schedule == '37 * * * *' || inputs.rapida) && '1' || '0' }}
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
-  PARTES: 20
+  PARTES: 40                 # o GitHub roda 20 por vez; partes menores não estouram o tempo
 
 jobs:
   lista:

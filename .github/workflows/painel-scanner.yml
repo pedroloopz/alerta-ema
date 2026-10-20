@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write          # kronos/acordar.py dispara o kronos de hora em hora
 
 concurrency:
   group: painel-scanner
@@ -45,6 +46,7 @@ jobs:
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
           ROBO_TOKEN: ${{ secrets.ROBO_TOKEN }}   # acorda o robô privado (robo-bingx); sem ele, não faz nada
+          KRONOS_TOKEN: ${{ github.token }}       # dispara o kronos (rodada rápida) de hora em hora
           GDRIVE_FILE_ID: "1ZCiXAx5207lLDqgvIIlMyKEfxydmqiLy"   # painel-trade.json no Drive (nao e segredo)
           RODADA_MIN: ${{ github.event_name == 'push' && '0' || '340' }}   # push (teste): 1 varredura so
         shell: bash
@@ -58,6 +60,7 @@ jobs:
               && git commit -qm "coleta do painel" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" painel-coleta ) || true
             python3 -c "import central; central.publicar_branch()" && rm -rf central_novo || true
             python3 painel/acordar_robo.py || true
+            python3 kronos/acordar.py || true
             [ "$falhas" -ge 3 ] && exit 1
             agora=$(date +%s); [ $(( (agora - inicio) / 60 )) -ge "$RODADA_MIN" ] && break
             prox=$(( (agora / 900 + 1) * 900 + 60 )); sleep $(( prox - agora ))
