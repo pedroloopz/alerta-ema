@@ -32,7 +32,7 @@ N_TESTE = int(os.environ.get("N_TESTE", 8))
 SEMANAS = int(os.environ.get("SEMANAS", 52))
 LOTE = 48                           # linhas (série x sorteio) por passada: cabe na memória do GitHub
 CUSTO = 0.0012                      # taxas de ida e volta + deslize
-N_CRIPTO = 30
+N_CRIPTO = 60                       # mais candidatas: só passa quem tem vantagem no teste
 ACOES = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "AVGO", "TSLA", "JPM", "LLY", "V", "WMT", "ORCL",
          "MA", "NFLX", "COST", "AMD", "PLTR", "UNH",                                   # top 20 EUA (tese)
          "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR",   # neoclouds (tese)
