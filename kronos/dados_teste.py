@@ -1,6 +1,6 @@
 """Base de dados para testar regras sobre o Kronos-small (agentes de teste). Só leitura, sem chave.
 
-Para cada ativo do universo do prever.py: ~1 ano de partidas, uma a cada 23h (passa por todas as horas do dia),
+Para cada ativo do universo do prever.py: ~1 ano de partidas, uma a cada 46h (passa por todas as horas do dia),
 8 caminhos por partida. Grava, por partida, o resumo dos caminhos (o mesmo do robô), as faixas dos caminhos hora
 a hora e as 24 velas reais seguintes — tudo em % do último fechamento. Assim qualquer regra de entrada/saída pode
 ser testada depois sem rodar o modelo de novo.
@@ -21,10 +21,10 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import prever as P  # noqa: E402
 
-PASSO = 23                                   # horas entre partidas
+PASSO = int(os.environ.get("PASSO", 46))     # horas entre partidas (os 5 primeiros ativos saíram com 23)
 DIAS = int(os.environ.get("DIAS", 365))
 N = int(os.environ.get("N_TESTE", 8))
-ORCAMENTO_MIN = float(os.environ.get("ORCAMENTO_MIN", 320))   # não começa ativo novo se não der tempo
+ORCAMENTO_MIN = float(os.environ.get("ORCAMENTO_MIN", 330))   # não começa ativo novo se não der tempo
 BLOCO = 40                                   # partidas por passada do modelo
 QS = (0.1, 0.25, 0.5, 0.75, 0.9)
 
@@ -67,7 +67,7 @@ def rodar(i, n_partes):
     motor, ultimo_custo = None, 0.0
     for a in ativos:
         gasto = (time.time() - t_ini) / 60
-        if gasto + 1.3 * ultimo_custo > ORCAMENTO_MIN:
+        if gasto + 1.1 * ultimo_custo > ORCAMENTO_MIN:
             P.log(f"sem tempo para {a['ativo']} ({gasto:.0f} min usados); fica para a próxima rodada")
             break
         t0 = time.time()
