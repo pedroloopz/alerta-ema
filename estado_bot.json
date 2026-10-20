@@ -15,7 +15,7 @@
           "preco_entrada": 69.16,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 69.834999
+          "ultimo_preco": 69.849998
         },
         "PENG": {
           "token": "PENGon",
@@ -24,7 +24,12 @@
           "preco_entrada": 72.73999786376953,
           "data_entrada": "2026-10-07",
           "origem": "donchian",
-          "ultimo_preco": 57.57
+          "ultimo_preco": 56.540001,
+          "saida": {
+            "data": "2026-10-19",
+            "preco_ref": 56.540000915527344,
+            "frac": 1.0
+          }
         },
         "ATKR": {
           "token": "ATKRon",
@@ -42,18 +47,27 @@
           "preco_entrada": 225.1199951171875,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 225.964996
+          "ultimo_preco": 226.029999
         }
       }
     },
     "n_historico": 6,
     "chaves": [
-      "saida:PENG"
+      "entrada:UNH"
     ]
   },
-  "pendentes": {},
+  "pendentes": {
+    "entrada:UNH": {
+      "tipo": "entrada",
+      "ticker": "UNH",
+      "msg_id": null,
+      "data": "2026-10-20"
+    }
+  },
   "recusados": {},
-  "alertados": {},
+  "alertados": {
+    "UNH": "2026-10-20"
+  },
   "historico": [
     {
       "ticker": "AEHR",
@@ -130,6 +144,19 @@
       "data_saida": "2026-10-19",
       "lucro_usd": -3.5,
       "lucro_pct": -0.052924776448497246,
+      "origem": "donchian",
+      "confirmado": false
+    },
+    {
+      "ticker": "PENG",
+      "token": "PENGon",
+      "unidades": 11.9986,
+      "preco_entrada": 72.73999786376953,
+      "data_entrada": "2026-10-07",
+      "preco_saida": 54.849998474121094,
+      "data_saida": "2026-10-20",
+      "lucro_usd": -214.65,
+      "lucro_pct": -0.24594445855158764,
       "origem": "donchian",
       "confirmado": false
     }
