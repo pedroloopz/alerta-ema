@@ -152,7 +152,7 @@ function ficha(d) {
         <dt>Alavancagem</dt><dd>${pl.alav}x isolada</dd><dt>Saída por tempo</dt><dd>24h</dd>
         ${pl.alvo1_antes == null ? "" : `<dt>Alvo 1 antes do stop</dt><dd class="sobe">${pp(pl.alvo1_antes)} dos caminhos</dd><dt>Stop antes do alvo 1</dt><dd class="desce">${pp(pl.stop_antes)} dos caminhos</dd>`}</dl>
         <p class="aviso">Depois do alvo 1, o stop vai para a entrada.</p></div>`
-    : `<div class="bloco"><h2>Sem trade neste ativo</h2><p class="aviso">${pl.barrado || "fora dos 8 melhores"}</p></div>`;
+    : `<div class="bloco"><h2>Sem trade neste ativo</h2><p class="aviso">${pl.barrado || "fora dos melhores"}</p></div>`;
   const teste = t.n
     ? `<dl class="kv"><dt>Semanas</dt><dd>${t.n}</dd><dt>Acerto da direção</dt><dd>${pp(t.acerto)}</dd><dt>Chute (lado mais comum)</dt><dd>${pp(t.chute)}</dd>
        <dt>Acerto com 5+ de 8 caminhos</dt><dd>${t.acerto_conf == null ? "—" : pp(t.acerto_conf) + " (" + t.n_conf + ")"}</dd>
@@ -179,7 +179,7 @@ function montar() {
     return `<tr data-i="${i}" tabindex="0"><td>${d.ativo}${d.escolhido ? ' <span class="trade-chip">TRADE</span>' : ""}</td>
       <td class="sobe">${pp(d.p_alta)}</td><td class="desce">${pp(1 - d.p_alta)}</td><td>${pct(d.ret_mediano, 2)}</td>
       <td>${t.n ? pp(t.acerto) : "—"}</td><td>${t.n ? pp(t.chute) : "—"}</td><td>${t.n || 0}</td>
-      <td class="txt">${d.escolhido ? `${d.plano.lado.toLowerCase()} · stop −${(d.plano.sl*100).toFixed(1).replace(".",",")}% · ${d.plano.alav}x` : (d.plano.barrado || "fora dos 8 melhores")}</td></tr>`;
+      <td class="txt">${d.escolhido ? `${d.plano.lado.toLowerCase()} · stop −${(d.plano.sl*100).toFixed(1).replace(".",",")}% · ${d.plano.alav}x` : (d.plano.barrado || "fora dos melhores")}</td></tr>`;
   }).join("");
   const tab = document.getElementById("tabela");
   tab.innerHTML = `<thead><tr><th>Ativo</th><th>Alta</th><th>Baixa</th><th>Mediana 24h</th><th>Acerto 1 ano</th><th>Chute</th><th>Semanas</th><th>Trade</th></tr></thead><tbody>${tb}</tbody>`;
