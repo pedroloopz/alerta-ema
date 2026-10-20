@@ -2,11 +2,12 @@ name: kronos-dados
 
 # Base para os agentes de teste: 1 ano de previsões do Kronos-small (1 partida a cada 46h, 8 caminhos)
 # + velas reais seguintes, por ativo, na branch kronos-dados. Não mexe no robô nem na branch kronos.
-# Roda a cada 6h e retoma de onde parou; quando todos os ativos estão feitos, não faz nada.
+# Roda de hora em hora (uma rodada por vez, emendando) e retoma de onde parou; quando todos os ativos
+# estão feitos, não faz nada. Ordem: primeiro os ativos que o robô opera (acerto 59%+ no teste semanal).
 on:
   workflow_dispatch:
   schedule:
-    - cron: "41 */6 * * *"
+    - cron: "41 * * * *"
 
 permissions:
   contents: write
@@ -34,6 +35,9 @@ jobs:
         run: |
           git fetch -q --depth 1 origin +kronos-dados:refs/remotes/origin/kronos-dados 2>/dev/null && \
             git ls-tree --name-only origin/kronos-dados dados/ | sed 's#dados/##; s#\.json\.gz$##' > feitos.txt || touch feitos.txt
+          mkdir -p saida
+          git fetch -q --depth 1 origin +kronos:refs/remotes/origin/kronos 2>/dev/null && \
+            git show origin/kronos:kronos/teste_semanal.json > saida/teste_semanal.json || true
           python kronos/dados_teste.py lista feitos.txt
       - id: p
         run: |

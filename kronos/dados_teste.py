@@ -21,7 +21,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import prever as P  # noqa: E402
 
-PASSO = int(os.environ.get("PASSO", 46))     # horas entre partidas (os 5 primeiros ativos saíram com 23)
+PASSO = int(os.environ.get("PASSO", 92))     # horas entre partidas (5 primeiros ativos com 23; acelerado para 92 em 20/10)
 DIAS = int(os.environ.get("DIAS", 365))
 N = int(os.environ.get("N_TESTE", 8))
 ORCAMENTO_MIN = float(os.environ.get("ORCAMENTO_MIN", 330))   # não começa ativo novo se não der tempo
@@ -29,11 +29,24 @@ BLOCO = 40                                   # partidas por passada do modelo
 QS = (0.1, 0.25, 0.5, 0.75, 0.9)
 
 
+def prioridade():
+    """Ordem de prioridade: ativos aprovados no teste semanal (acerto 59%+) primeiro, pelo R médio."""
+    try:
+        t = json.load(open(os.path.join(P.SAIDA, "teste_semanal.json")))["testes"]
+    except Exception:
+        t = {}
+    def chave(a):
+        v = t.get(a["simbolo"]) or {}
+        return ((v.get("acerto_trade") or 0) >= 0.59, v.get("r_medio") or -9)
+    return chave
+
+
 def lista(feitos_txt):
     P.lista()
     feitos = set(open(feitos_txt).read().split()) if os.path.exists(feitos_txt) else set()
     p = os.path.join(P.SAIDA, "universo.json")
     ativos = [a for a in json.load(open(p)) if a["simbolo"] not in feitos]
+    ativos.sort(key=prioridade(), reverse=True)   # primeiro os ativos que o robô opera (acerto 59%+ no teste semanal)
     json.dump(ativos, open(p, "w"), ensure_ascii=False)
     P.log(f"faltam {len(ativos)} ativos (já feitos: {len(feitos)})")
 
