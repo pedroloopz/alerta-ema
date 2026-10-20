@@ -18,7 +18,7 @@ concurrency:
 
 env:
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
-  PARTES: 4                  # 4 máquinas: o kronos de hora em hora usa 14 e sobram 2 para robô, scanner e bot
+  PARTES: 16                 # 16 máquinas enquanto o kronos de hora em hora está pausado (20/10); voltar a 4 ao religar
 
 jobs:
   lista:
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 350
     strategy:
       fail-fast: false
-      max-parallel: 4
+      max-parallel: 16
       matrix:
         parte: ${{ fromJson(needs.lista.outputs.partes) }}
     steps:
