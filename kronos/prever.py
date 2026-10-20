@@ -277,6 +277,8 @@ def rodar(i, n_partes):
                 bt.append({"data": df["data"].iloc[o - 1].isoformat(), "p_alta": p,
                            "ret_mediano": float(np.median(s_[:, -1, 3])) / ult - 1, "ret_real": real,
                            "trade_r": simular_trade(fut, ult, lado, sl, tp1, tp2),
+                           "setup_r": simular_setup(fut, ult, lado, sl, tp1, tp2,
+                                                    gatilhos_de(rz, lado, sl)),
                            "viradas": viradas(np.median(s_[:, :, 3], axis=0), fut[:, 3], ult)})
         r["teste"] = bt
         r["teste_resumo"] = medir_teste(bt)
@@ -285,6 +287,16 @@ def rodar(i, n_partes):
         os.makedirs(SAIDA, exist_ok=True)
         with open(os.path.join(SAIDA, f"parte_{i}.json"), "w") as f:     # grava a cada ativo (se o tempo acabar,
             json.dump(out, f)                                             # o que já saiu não se perde)
+
+
+def gatilhos_de(rz, lado, sl):
+    """Até 2 entradas extras no recuo previsto (ordem limite): mediana e 75% do recuo dos caminhos."""
+    rc = (rz.get("recuo") or {}).get(lado)
+    if not rc:
+        return []
+    d1 = max(rc["q50"], 0.002)
+    d2 = max(rc["q75"], d1 + 0.002)
+    return [round(d, 4) for d in (d1, d2) if d <= 0.7 * sl]
 
 
 def niveis(rz, lado):
@@ -313,6 +325,47 @@ def simular_trade(fut, entrada, lado, sl, tp1, tp2):
             return (feito + 0.5 * tp2 - CUSTO) / sl
     final = s * (fut[-1][3] / entrada - 1)
     return (feito + (0.5 if metade else 1.0) * final - CUSTO) / sl
+
+
+def simular_setup(fut, entrada, lado, sl, tp1, tp2, gat, validade=3):
+    """Setup novo, em R do orçamento de risco (1R = perder o stop com o tamanho cheio):
+    mercado com 2/3 do risco + gatilhos limite no recuo (1/6 cada, valem 3h); metade sai no alvo 1 e o resto
+    segue com stop móvel (60% do alvo 1) ou sai no alvo 2; stop único; sai em 24h. Vela ambígua = stop."""
+    sg = 1 if lado == "LONG" else -1
+    gat = [d for d in (gat or [])[:2] if sl - d > 0.002]
+    partes = [[entrada, (2 / 3 if gat else 1.0)]]               # [preço de entrada, tamanho em "unidades de 1R"]
+    pend = [(entrada * (1 - sg * d), (1 / 6) * sl / (sl - d)) for d in gat]
+    stop_px = entrada * (1 - sg * sl)
+    alvo1, alvo2 = entrada * (1 + sg * tp1), entrada * (1 + sg * tp2)
+    taxa = min(max(tp1 * 0.6, 0.003), 0.03)
+    feito, metade, extremo, movel = 0.0, False, None, None
+    tam = lambda: sum(q for _, q in partes)
+    media = lambda: sum(px * q for px, q in partes) / tam()
+    ret = lambda px_saida, px_ent: sg * (px_saida / px_ent - 1)
+    for k, (o, h, l, c) in enumerate(fut):
+        lo, hi = (l, h) if sg == 1 else (h, l)                 # lo = pior preço da vela, hi = melhor
+        if k < validade:
+            for px, q in list(pend):
+                if sg * (lo - px) <= 0:                         # passou pelo gatilho (mesmo que vá ao stop)
+                    partes.append([px, q]); pend.remove((px, q))
+        if not metade and sg * (lo - stop_px) <= 0:
+            return (feito + sum(q * ret(stop_px, px) for px, q in partes) - CUSTO * tam()) / sl
+        if metade:
+            stop_atual = max(media() * (1 + sg * CUSTO / 2) * sg, movel * sg if movel else -1e18) * sg
+            if sg * (lo - stop_atual) <= 0:
+                return (feito + sum(q * ret(stop_atual, px) for px, q in partes) - CUSTO * tam_total) / sl
+        if not metade and sg * (hi - alvo1) >= 0:
+            tam_total = tam()
+            feito += sum(0.5 * q * ret(alvo1, px) for px, q in partes)
+            partes = [[px, 0.5 * q] for px, q in partes]
+            metade, pend, extremo = True, [], alvo1
+        if metade:
+            extremo = hi if sg * (hi - extremo) > 0 else extremo
+            movel = extremo * (1 - sg * taxa)
+            if sg * (hi - alvo2) >= 0:
+                return (feito + sum(q * ret(alvo2, px) for px, q in partes) - CUSTO * tam_total) / sl
+    t_tot = tam_total if metade else tam()
+    return (feito + sum(q * ret(fut[-1][3], px) for px, q in partes) - CUSTO * t_tot) / sl
 
 
 def viradas(mediana, reais, entrada, minimo=3):
@@ -351,11 +404,14 @@ def medir_teste(bt):
 
 def medir_trades(bt):
     tr = np.array([x["trade_r"] for x in bt if x.get("trade_r") is not None])
+    su = np.array([x["setup_r"] for x in bt if x.get("setup_r") is not None])
     pv = [v for x in bt for v in x.get("viradas", [])]
     depois = [v for v in pv if v["ordem"] > 0]
     out = {}
     if len(tr):
         out.update(acerto_trade=float((tr > 0).mean()), r_medio=float(tr.mean()), stops=float((tr <= -0.9).mean()))
+    if len(su):                                     # setup novo (gatilhos + stop móvel) no mesmo teste
+        out.update(acerto_setup=float((su > 0).mean()), r_medio_setup=float(su.mean()))
     if pv:
         out.update(viradas_n=len(pv), viradas_acerto=float(np.mean([v["ret"] > 0 for v in pv])),
                    viradas_ret=float(np.mean([v["ret"] for v in pv])), viradas_depois_n=len(depois),
@@ -389,13 +445,7 @@ def plano(r):
     if (tp1 + tp2) / 2 < 0.6 * sl:
         motivo.append(f"alvo pequeno para o stop (alvos +{br(tp1, 1)}/+{br(tp2, 1)} × stop −{br(sl, 1)})")
     alav = int(min(max(RISCO_MARGEM // sl, ALAV_MIN), ALAV_MAX))
-    gat = []                                              # até 2 entradas extras no recuo previsto (ordem limite)
-    rc = (r.get("recuo") or {}).get(lado)
-    if rc:
-        d1 = max(rc["q50"], 0.002)
-        d2 = max(rc["q75"], d1 + 0.002)
-        gat = [round(d, 4) for d in (d1, d2) if d <= 0.7 * sl]
-    return {"gatilhos": gat,"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
+    return {"gatilhos": gatilhos_de(r, lado, sl),"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
             "alav": alav, "nota": round(p_dir * (t.get("acerto_trade") or t.get("acerto", 0)), 4), "barrado": "; ".join(motivo) or None,
             "alvo1_antes": (r.get("corrida") or {}).get(lado, {}).get("alvo1_antes"),
             "stop_antes": (r.get("corrida") or {}).get(lado, {}).get("stop_antes")}
