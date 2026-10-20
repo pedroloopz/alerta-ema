@@ -35,13 +35,15 @@ CUSTO = 0.0012                      # taxas de ida e volta + deslize
 N_CRIPTO = 30
 ACOES = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "AVGO", "TSLA", "JPM", "LLY", "V", "WMT", "ORCL",
          "MA", "NFLX", "COST", "AMD", "PLTR", "UNH",                                   # top 20 EUA (tese)
-         "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR"]  # neoclouds (tese)
+         "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR",   # neoclouds (tese)
+         "ASML", "TSM", "BABA", "SAP", "SONY", "TM", "NVO", "SHOP", "ARM", "PDD"]           # de outros países
 EXTRAS = {"NASDAQ 100": "NCSINASDAQ1002USD-USDT", "DAX (Alemanha)": "NCSIGER2USD-USDT",
           "Nikkei 225 (Japão)": "NCSINIKKEI2252USD-USDT", "Ouro": "NCCOGOLD2USD-USDT", "Prata": "NCCOXAG2USD-USDT",
           "S&P 500": "NCSISP5002USD-USDT", "Dow Jones": "NCSIDOWJONES2USD-USDT", "Russell 2000": "NCSIRUSSELL20002USD-USDT",
           "KOSPI (Coreia)": "NCSIKOSPI12USD-USDT", "Dólar (DXY)": "NCSIDXY2USD-USDT", "Petróleo WTI": "NCCO1OILWTI2USD-USDT",
           "Petróleo Brent": "NCCO1OILBRENT2USD-USDT", "Cobre": "NCCO724COPPER2USD-USDT", "Platina": "NCCOXPT2USD-USDT",
-          "Paládio": "NCCOPALLADIUM2USD-USDT", "Gás natural": "NCCO7241NATGAS2USD-USDT"}   # índices e commodities
+          "Paládio": "NCCOPALLADIUM2USD-USDT", "Gás natural": "NCCO7241NATGAS2USD-USDT",
+          "Japão (EWJ)": "NCSIEWJ2USD-USDT", "Coreia (EWY)": "NCSIEWY2USD-USDT"}   # índices e commodities
 ESTAVEIS = {"USDC", "USDT", "FDUSD", "TUSD", "USDE", "DAI", "USD1", "PYUSD", "BUSD", "USDP", "USDS", "USDD", "RLUSD",
             "WBTC", "WETH", "STETH", "WSTETH", "WEETH", "CBBTC", "BSC-USD", "XAUT", "PAXG", "LEO", "USDTB", "BUIDL",
             "USYC", "SUSDE", "SUSDS", "JITOSOL", "RETH", "METH", "CBETH", "BNSOL", "LBTC", "SOLVBTC", "USDF", "USDG"}
@@ -52,7 +54,7 @@ P_MIN = 0.60                        # pelo menos 60% dos 100 caminhos a favor
 ACERTO_MIN = 0.55                   # no teste de 1 ano, acertou a direção em 55%+ das semanas
 SEMANAS_MIN = 20
 MOVE_MIN = 0.005                    # mediana prevista anda pelo menos 0,5% a favor
-MAX_TRADES = 8
+MAX_TRADES = 20                     # lista ordenada; o robô escolhe pelas vagas e pelo teto de cada classe
 SL_MIN, SL_MAX = 0.008, 0.05
 RISCO_MARGEM = 0.15                 # alavancagem tal que o stop custe ~15% da margem do trade
 ALAV_MIN, ALAV_MAX = 2, 10
