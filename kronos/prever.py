@@ -230,6 +230,11 @@ def resumo_caminhos(a, ultimo):
 
 def rodar(i, n_partes):
     ativos = json.load(open(os.path.join(SAIDA, "universo.json")))[i::n_partes]
+    ja_testados = set()                 # rodada rápida: pula o teste de 1 ano de quem já tem teste da semana
+    if os.environ.get("KRONOS_RAPIDA") == "1":
+        p = os.path.join(AQUI, "teste_semanal.json")
+        sem = json.load(open(p)) if os.path.exists(p) else {}
+        ja_testados = set(sem.get("testes") or {r["simbolo"] for r in sem.get("ativos", []) if r["teste_resumo"].get("n")})
     motor = carregar_modelo()
     out = []
     for a in ativos:
@@ -252,7 +257,8 @@ def rodar(i, n_partes):
              "atr_1h": float((df["high"] - df["low"]).tail(48).mean() / ultimo),
              "volume_24h_usd": float((df["volume"] * df["close"]).tail(24).sum())}
         # teste de 1 ano: 1 partida por semana, no mesmo dia/hora de agora
-        origens = [len(df) - k * 168 for k in range(1, SEMANAS + 1) if len(df) - k * 168 - CTX >= 0]
+        semanas = 0 if a["simbolo"] in ja_testados else SEMANAS
+        origens = [len(df) - k * 168 for k in range(1, semanas + 1) if len(df) - k * 168 - CTX >= 0]
         bt = []
         if origens:
             jan = [df.iloc[o - CTX:o].reset_index(drop=True) for o in origens]
