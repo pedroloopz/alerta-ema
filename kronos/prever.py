@@ -51,7 +51,7 @@ BASES = ["https://open-api.bingx.com", "https://open-api.bingx.pro"]
 
 # regras do trade (o robô aplica sobre o preço da hora da entrada)
 P_MIN = 0.60                        # pelo menos 60% dos 100 caminhos a favor
-ACERTO_MIN = 0.55                   # no teste de 1 ano, acertou a direção em 55%+ das semanas
+ACERTO_MIN = 0.59                   # no teste de 1 ano, acertou a direção em 59%+ das semanas
 SEMANAS_MIN = 20
 MOVE_MIN = 0.005                    # mediana prevista anda pelo menos 0,5% a favor
 MAX_TRADES = 20                     # lista ordenada; o robô escolhe pelas vagas e pelo teto de cada classe
@@ -362,7 +362,9 @@ def juntar():
     sid = agora.strftime("%Y%m%d%H")
     sinais = {"id": sid, "gerado_em": agora.isoformat(timespec="seconds"), "prazo_h": H, "modelo": "Kronos-small",
               "trades": [{"ativo": r["ativo"], "simbolo": r["simbolo"], "tipo": r["tipo"], **r["plano"],
-                          "preco_previsao": r["ultimo"], "peso": round(1 / len(bons), 4)} for r in bons]}
+                          "preco_previsao": r["ultimo"], "peso": round(1 / len(bons), 4),
+                          "acerto_teste": r["teste_resumo"].get("acerto"), "semanas_teste": r["teste_resumo"].get("n")}
+                         for r in bons]}
     os.makedirs(os.path.join(AQUI), exist_ok=True)
     json.dump(sinais, open(os.path.join(AQUI, "sinais.json"), "w"), ensure_ascii=False, indent=1)
     prev = {"id": sid, "gerado_em": sinais["gerado_em"], "ativos": rs}
