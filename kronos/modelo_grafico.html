@@ -156,6 +156,8 @@ function ficha(d) {
   const teste = t.n
     ? `<dl class="kv"><dt>Semanas</dt><dd>${t.n}</dd><dt>Acerto da direção</dt><dd>${pp(t.acerto)}</dd><dt>Chute (lado mais comum)</dt><dd>${pp(t.chute)}</dd>
        <dt>Acerto com 5+ de 8 caminhos</dt><dd>${t.acerto_conf == null ? "—" : pp(t.acerto_conf) + " (" + t.n_conf + ")"}</dd>
+       ${t.acerto_trade == null ? "" : `<dt>Acerto do trade (stop/alvos)</dt><dd>${pp(t.acerto_trade)}</dd><dt>Resultado médio do trade</dt><dd class="${t.r_medio >= 0 ? "sobe" : "desce"}">${(t.r_medio >= 0 ? "+" : "") + t.r_medio.toFixed(2).replace(".", ",")}R</dd><dt>Trades que bateram o stop</dt><dd>${pp(t.stops)}</dd>`}
+       ${t.viradas_n ? `<dt>Viradas da mediana certas</dt><dd>${pp(t.viradas_acerto)} (${t.viradas_n})</dd>${t.viradas_depois_acerto == null ? "" : `<dt>Só a partir da 2ª perna</dt><dd>${pp(t.viradas_depois_acerto)} (${t.viradas_depois_n})</dd>`}` : ""}
        <dt>Brier (0,25 = moeda)</dt><dd>${t.brier.toFixed(3).replace(".",",")}</dd><dt>Resultado médio/semana</dt><dd class="${t.ret_medio >= 0 ? "sobe" : "desce"}">${pct(t.ret_medio, 2)}</dd></dl>`
     : `<p class="aviso">Sem histórico suficiente para o teste.</p>`;
   document.getElementById("ficha").innerHTML =
@@ -178,11 +180,11 @@ function montar() {
     const t = d.teste;
     return `<tr data-i="${i}" tabindex="0"><td>${d.ativo}${d.escolhido ? ' <span class="trade-chip">TRADE</span>' : ""}</td>
       <td class="sobe">${pp(d.p_alta)}</td><td class="desce">${pp(1 - d.p_alta)}</td><td>${pct(d.ret_mediano, 2)}</td>
-      <td>${t.n ? pp(t.acerto) : "—"}</td><td>${t.n ? pp(t.chute) : "—"}</td><td>${t.n || 0}</td>
+      <td>${t.acerto_trade == null ? "—" : pp(t.acerto_trade)}</td><td>${t.n ? pp(t.acerto) : "—"}</td><td>${t.n ? pp(t.chute) : "—"}</td><td>${t.n || 0}</td>
       <td class="txt">${d.escolhido ? `${d.plano.lado.toLowerCase()} · stop −${(d.plano.sl*100).toFixed(1).replace(".",",")}% · ${d.plano.alav}x` : (d.plano.barrado || "fora dos melhores")}</td></tr>`;
   }).join("");
   const tab = document.getElementById("tabela");
-  tab.innerHTML = `<thead><tr><th>Ativo</th><th>Alta</th><th>Baixa</th><th>Mediana 24h</th><th>Acerto 1 ano</th><th>Chute</th><th>Semanas</th><th>Trade</th></tr></thead><tbody>${tb}</tbody>`;
+  tab.innerHTML = `<thead><tr><th>Ativo</th><th>Alta</th><th>Baixa</th><th>Mediana 24h</th><th>Acerto trade</th><th>Acerto direção</th><th>Chute</th><th>Semanas</th><th>Trade</th></tr></thead><tbody>${tb}</tbody>`;
   tab.querySelectorAll("tbody tr").forEach(r => { r.onclick = () => desenhar(+r.dataset.i); r.onkeydown = e => { if (e.key === "Enter") desenhar(+r.dataset.i); }; });
 }
 criar(); montar(); if (D.ativos.length) desenhar(0);
