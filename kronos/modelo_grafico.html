@@ -149,7 +149,8 @@ function ficha(d) {
     ? `<div class="bloco"><h2>Trade de teste · ${pl.lado === "LONG" ? "compra (long)" : "venda (short)"}</h2>
         <dl class="kv"><dt>Entrada</dt><dd>a mercado (~${fmtP(d.ultimo)})</dd><dt>Stop</dt><dd class="desce">−${(pl.sl*100).toFixed(1).replace(".",",")}%</dd>
         <dt>Alvo 1 (50%)</dt><dd class="sobe">+${(pl.tp1*100).toFixed(1).replace(".",",")}%</dd><dt>Alvo 2 (50%)</dt><dd class="sobe">+${(pl.tp2*100).toFixed(1).replace(".",",")}%</dd>
-        <dt>Alavancagem</dt><dd>${pl.alav}x isolada</dd><dt>Saída por tempo</dt><dd>24h</dd></dl>
+        <dt>Alavancagem</dt><dd>${pl.alav}x isolada</dd><dt>Saída por tempo</dt><dd>24h</dd>
+        ${pl.alvo1_antes == null ? "" : `<dt>Alvo 1 antes do stop</dt><dd class="sobe">${pp(pl.alvo1_antes)} dos caminhos</dd><dt>Stop antes do alvo 1</dt><dd class="desce">${pp(pl.stop_antes)} dos caminhos</dd>`}</dl>
         <p class="aviso">Depois do alvo 1, o stop vai para a entrada.</p></div>`
     : `<div class="bloco"><h2>Sem trade neste ativo</h2><p class="aviso">${pl.barrado || "fora dos 8 melhores"}</p></div>`;
   const teste = t.n

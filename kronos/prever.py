@@ -209,7 +209,17 @@ def resumo_caminhos(a, ultimo):
     final = fech[:, -1]
     mins, maxs = a[:, :, 2].min(1), a[:, :, 1].max(1)
     q = lambda v, p: float(np.quantile(v, p))
-    return {"p_alta": float((final > ultimo).mean()),
+    corrida = {}                       # nos caminhos: chance de tocar o alvo 1 ANTES do stop (stop/alvo como no plano)
+    for lado, s in (("LONG", 1), ("SHORT", -1)):
+        sl = min(max((1 - q(mins, 0.15) / ultimo) if s == 1 else (q(maxs, 0.85) / ultimo - 1), SL_MIN), SL_MAX)
+        tp1 = max(s * (q(final, 0.5) / ultimo - 1), MOVE_MIN)
+        alvo = (a[:, :, 1] >= ultimo * (1 + tp1)) if s == 1 else (a[:, :, 2] <= ultimo * (1 - tp1))
+        stop = (a[:, :, 2] <= ultimo * (1 - sl)) if s == 1 else (a[:, :, 1] >= ultimo * (1 + sl))
+        i_alvo = np.where(alvo.any(1), alvo.argmax(1), H + 1)
+        i_stop = np.where(stop.any(1), stop.argmax(1), H + 1)
+        corrida[lado] = {"alvo1_antes": float((i_alvo < i_stop).mean()), "stop_antes": float((i_stop <= i_alvo).mean()
+                         - ((i_stop == H + 1) & (i_alvo == H + 1)).mean())}
+    return {"p_alta": float((final > ultimo).mean()), "corrida": corrida,
             "ret_mediano": q(final, 0.5) / ultimo - 1,
             "ret_q": {k: q(final, p) / ultimo - 1 for k, p in (("p10", .1), ("p25", .25), ("p75", .75), ("p90", .9))},
             "queda_q15": 1 - q(mins, 0.15) / ultimo,           # quanto 85% dos caminhos NÃO caem abaixo
@@ -306,7 +316,9 @@ def plano(r):
         motivo.append(f"alvo pequeno para o stop (alvos +{br(tp1, 1)}/+{br(tp2, 1)} × stop −{br(sl, 1)})")
     alav = int(min(max(RISCO_MARGEM // sl, ALAV_MIN), ALAV_MAX))
     return {"lado": lado, "p_dir": p_dir, "sl": round(sl, 4), "tp1": round(tp1, 4), "tp2": round(tp2, 4),
-            "alav": alav, "nota": round(p_dir * t.get("acerto", 0), 4), "barrado": "; ".join(motivo) or None}
+            "alav": alav, "nota": round(p_dir * t.get("acerto", 0), 4), "barrado": "; ".join(motivo) or None,
+            "alvo1_antes": (r.get("corrida") or {}).get(lado, {}).get("alvo1_antes"),
+            "stop_antes": (r.get("corrida") or {}).get(lado, {}).get("stop_antes")}
 
 
 def juntar():
@@ -372,7 +384,9 @@ def mensagem(prev, sinais):
         L.append("**Trades (teste de 24h, capital pequeno):**")
         for t in sinais["trades"]:
             L.append(f"• {t['ativo']} {t['lado'].lower()} · {br(t['p_dir'], 0)} dos caminhos a favor · stop −{br(t['sl'], 1)} · "
-                     f"alvos +{br(t['tp1'], 1)} / +{br(t['tp2'], 1)} · {t['alav']}x · saída em 24h")
+                     f"alvos +{br(t['tp1'], 1)} / +{br(t['tp2'], 1)} · {t['alav']}x · saída em 24h"
+                     + (f" · alvo 1 antes do stop em {br(t['alvo1_antes'], 0)} dos caminhos (stop antes em "
+                        f"{br(t['stop_antes'], 0)})" if t.get("alvo1_antes") is not None else ""))
     else:
         L.append("**Nenhum trade:** nenhum ativo passou nas regras (65% dos caminhos + teste de 1 ano bom).")
     L += ["", "**Maiores probabilidades (alta / baixa · acerto no teste de 1 ano):**"]
