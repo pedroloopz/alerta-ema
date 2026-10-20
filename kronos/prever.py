@@ -488,6 +488,8 @@ def juntar():
                           "acerto_teste": r["teste_resumo"].get("acerto_trade", r["teste_resumo"].get("acerto")),
                           "r_medio_teste": r["teste_resumo"].get("r_medio"), "semanas_teste": r["teste_resumo"].get("n")}
                          for r in bons]}
+    sinais["leituras"] = {r["simbolo"]: {"p_alta": round(r["p_alta"], 3), "ret_mediano": round(r["ret_mediano"], 5)}
+                          for r in rs}                   # leitura de todos (o robô mede a regra de saída antecipada)
     os.makedirs(os.path.join(AQUI), exist_ok=True)
     json.dump(sinais, open(os.path.join(AQUI, "sinais.json"), "w"), ensure_ascii=False, indent=1)
     prev = {"id": sid, "gerado_em": sinais["gerado_em"], "ativos": rs}
