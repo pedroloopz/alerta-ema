@@ -70,7 +70,12 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: universo, path: saida }
       - run: |
-          [ "$RAPIDA" = "1" ] && export SEMANAS=0
+          if [ "$RAPIDA" = "1" ]; then
+            export KRONOS_RAPIDA=1
+            git fetch -q --depth 1 origin +kronos:refs/remotes/origin/kronos && \
+              (git show origin/kronos:kronos/teste_semanal.json > kronos/teste_semanal.json 2>/dev/null || \
+               git show origin/kronos:kronos/previsao.json > kronos/teste_semanal.json) || true
+          fi
           python kronos/prever.py rodar ${{ matrix.parte }} $PARTES
       - uses: actions/upload-artifact@v4
         if: always()
