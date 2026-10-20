@@ -27,6 +27,7 @@ jobs:
           git show origin/kronos:kronos/previsao.json > kronos/previsao.json
           git show origin/kronos:kronos/sinais.json > kronos/sinais.json
           git show origin/kronos:kronos/conferido.json > kronos/conferido.json 2>/dev/null || rm -f kronos/conferido.json
+          git show origin/kronos:kronos/historico.json > kronos/historico.json 2>/dev/null || rm -f kronos/historico.json
           python3 -c "import json,datetime as d,sys;p=json.load(open('kronos/previsao.json'));t=d.datetime.fromisoformat(p['gerado_em']);sys.exit(0 if d.datetime.now(d.timezone.utc)-t<d.timedelta(hours=30) else 1)" \
             && echo "ok=sim" >> "$GITHUB_OUTPUT" || echo "ok=nao" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5
@@ -44,7 +45,8 @@ jobs:
         run: |
           mkdir -p /tmp/k && cp kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png /tmp/k/
           [ -f kronos/conferido.json ] && cp kronos/conferido.json /tmp/k/
+          cp kronos/historico.json /tmp/k/ 2>/dev/null || true
           git config user.name "kronos"; git config user.email "kronos@users.noreply.github.com"
-          rm -f kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png kronos/conferido.json
+          rm -f kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png kronos/conferido.json kronos/historico.json
           git checkout -q -B kronos-conf origin/kronos && mkdir -p kronos && cp /tmp/k/* kronos/
           git add kronos && (git diff --staged --quiet || git commit -qm "conferir $(date -u +%F_%H)") && git push -q origin HEAD:kronos

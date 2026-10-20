@@ -14,7 +14,8 @@ on:
     branches: [main]
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
   schedule:
-    - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília (teste semanal)
+    - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília: completa (100 futuros + teste de 1 ano)
+    - cron: "37 */2 * * *"   # de 2 em 2h: rápida (só os 100 futuros; usa o teste da semana)
 
 permissions:
   contents: write
@@ -24,6 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  RAPIDA: ${{ github.event.schedule == '37 */2 * * *' && '1' || '0' }}
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
   PARTES: 20
 
@@ -67,7 +69,9 @@ jobs:
         with: { path: ~/.cache/huggingface, key: kronos-small-v1 }
       - uses: actions/download-artifact@v4
         with: { name: universo, path: saida }
-      - run: python kronos/prever.py rodar ${{ matrix.parte }} $PARTES
+      - run: |
+          [ "$RAPIDA" = "1" ] && export SEMANAS=0
+          python kronos/prever.py rodar ${{ matrix.parte }} $PARTES
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: "parte-${{ matrix.parte }}", path: "saida/parte_*.json", if-no-files-found: ignore }
@@ -84,18 +88,22 @@ jobs:
       - run: pip install -q numpy pandas matplotlib
       - uses: actions/download-artifact@v4
         with: { pattern: "parte-*", path: saida, merge-multiple: true }
-      - name: Rodada anterior (para juntar)
-        if: inputs.so_extras
+      - name: Rodada anterior e teste semanal
         run: |
-          git fetch -q --depth 1 origin +kronos:refs/remotes/origin/kronos && \
-            git show origin/kronos:kronos/previsao.json > kronos/previsao_anterior.json || true
+          git fetch -q --depth 1 origin +kronos:refs/remotes/origin/kronos || exit 0
+          git show origin/kronos:kronos/teste_semanal.json > kronos/teste_semanal.json 2>/dev/null || \
+            git show origin/kronos:kronos/previsao.json > kronos/teste_semanal.json || rm -f kronos/teste_semanal.json
+          git show origin/kronos:kronos/historico.json > kronos/historico.json 2>/dev/null || rm -f kronos/historico.json
+          git show origin/kronos:kronos/conferido.json > kronos/conferido.json 2>/dev/null || rm -f kronos/conferido.json
+          if [ "${{ inputs.so_extras }}" = "true" ]; then git show origin/kronos:kronos/previsao.json > kronos/previsao_anterior.json || true; fi
       - name: Juntar, escolher trades, desenhar, avisar no Discord
         env:
           DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: python kronos/prever.py juntar
       - name: Publicar na branch kronos
         run: |
-          mkdir -p /tmp/k && cp kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png /tmp/k/
+          mkdir -p /tmp/k && cp kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png kronos/teste_semanal.json kronos/historico.json /tmp/k/
+          cp kronos/conferido.json /tmp/k/ 2>/dev/null || true
           git config user.name "kronos"; git config user.email "kronos@users.noreply.github.com"
           git checkout -q --orphan kronos-novo && git rm -rq --cached . && git clean -fdq -e saida
           mkdir -p kronos && cp /tmp/k/* kronos/
