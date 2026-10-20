@@ -48,7 +48,7 @@ ESTAVEIS = {"USDC", "USDT", "FDUSD", "TUSD", "USDE", "DAI", "USD1", "PYUSD", "BU
 BASES = ["https://open-api.bingx.com", "https://open-api.bingx.pro"]
 
 # regras do trade (o robô aplica sobre o preço da hora da entrada)
-P_MIN = 0.65                        # pelo menos 65% dos 100 caminhos a favor
+P_MIN = 0.60                        # pelo menos 60% dos 100 caminhos a favor
 ACERTO_MIN = 0.55                   # no teste de 1 ano, acertou a direção em 55%+ das semanas
 SEMANAS_MIN = 20
 MOVE_MIN = 0.005                    # mediana prevista anda pelo menos 0,5% a favor
@@ -287,6 +287,9 @@ def plano(r):
     t = r["teste_resumo"]
     s = 1 if lado == "LONG" else -1
     motivo = []
+    agora = datetime.datetime.now(datetime.timezone.utc)
+    if r["tipo"] == "ação" and (agora.weekday() >= 5 or (agora.weekday() == 4 and agora.hour >= 20)):
+        motivo.append("ações: sem entrada no fim de semana")
     if p_dir < P_MIN:
         motivo.append(f"só {br(p_dir, 0)} dos caminhos a favor")
     if t.get("n", 0) < SEMANAS_MIN:
@@ -320,6 +323,18 @@ def juntar():
             rs += [r for r in a["ativos"] if r["simbolo"] not in novos]
     if not rs:
         raise SystemExit("nenhuma previsão")
+    semanal_p = os.path.join(AQUI, "teste_semanal.json")        # teste de 1 ano da última rodada semanal
+    semanal = json.load(open(semanal_p)) if os.path.exists(semanal_p) else {}
+    if "ativos" in semanal:                                       # (veio no formato de previsao.json)
+        semanal = {"testes": {r["simbolo"]: r["teste_resumo"] for r in semanal["ativos"] if r["teste_resumo"].get("n")}}
+    testes = semanal.get("testes", {})
+    for r in rs:
+        if not r["teste_resumo"].get("n") and r["simbolo"] in testes:   # rodada rápida: usa o teste semanal
+            r["teste_resumo"] = testes[r["simbolo"]]
+        elif r["teste_resumo"].get("n"):
+            testes[r["simbolo"]] = r["teste_resumo"]
+    json.dump({"atualizado_em": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+               "testes": testes}, open(semanal_p, "w"))
     for r in rs:
         r["plano"] = plano(r)
     bons = sorted([r for r in rs if not r["plano"]["barrado"]], key=lambda r: -r["plano"]["nota"])[:MAX_TRADES]
@@ -333,6 +348,7 @@ def juntar():
     prev = {"id": sid, "gerado_em": sinais["gerado_em"], "ativos": rs}
     json.dump(prev, open(os.path.join(AQUI, "previsao.json"), "w"))
     desenhar(prev, sinais)
+    guardar_historico(prev, sinais)
     texto = mensagem(prev, sinais)
     print(texto)
     enviar_discord(texto, [os.path.join(AQUI, "grafico.png")])
@@ -423,36 +439,77 @@ def desenhar(prev, sinais, reais_depois=None):
         log(f"png: {e}")
 
 
+def guardar_historico(prev, sinais):
+    """Resumo de cada previsão (para medir o acerto ao vivo, fora do teste)."""
+    p = os.path.join(AQUI, "historico.json")
+    hist = json.load(open(p)) if os.path.exists(p) else []
+    escolhidos = {t["simbolo"] for t in sinais["trades"]}
+    hist.append({"id": prev["id"], "gerado_em": prev["gerado_em"],
+                 "ativos": [{"ativo": r["ativo"], "simbolo": r["simbolo"], "p_alta": r["p_alta"], "ultimo": r["ultimo"],
+                             "origem": r["origem"], "p10": r["ret_q"]["p10"], "p90": r["ret_q"]["p90"],
+                             "trade": r["simbolo"] in escolhidos} for r in prev["ativos"]]})
+    json.dump(hist[-400:], open(p, "w"))
+
+
 def conferir():
-    """Velas reais depois da previsão: atualiza o gráfico; depois de 24h, placar no Discord (1 vez)."""
+    """Velas reais depois da previsão mais recente no gráfico; previsões com 24h fechadas viram placar ao vivo;
+    1 resumo por dia no Discord (depois das 23h UTC)."""
     prev = json.load(open(os.path.join(AQUI, "previsao.json")))
     sinais = json.load(open(os.path.join(AQUI, "sinais.json")))
-    depois, placar = {}, []
+    cache, depois = {}, {}
+
+    def vel(sim):
+        if sim not in cache:
+            try:
+                cache[sim] = velas(sim, 80)
+            except Exception:
+                cache[sim] = None
+        return cache[sim]
+
     for r in prev["ativos"]:
-        try:
-            df = velas(r["simbolo"], 48)
-        except Exception:
-            continue
-        t0 = pd.Timestamp(r["origem"])
-        d = df[df["data"] > t0].head(H)
-        depois[r["simbolo"]] = [[int(x.t // 1000), x.open, x.high, x.low, x.close] for x in d.itertuples()]
-        if len(d) >= H:
-            real = float(d["close"].iloc[-1]) / r["ultimo"] - 1
-            dentro = r["ret_q"]["p10"] <= real <= r["ret_q"]["p90"]
-            placar.append((r, real, (real > 0) == (r["p_alta"] >= 0.5), dentro))
+        df = vel(r["simbolo"])
+        if df is not None:
+            d = df[df["data"] > pd.Timestamp(r["origem"])].head(H)
+            depois[r["simbolo"]] = [[int(x.t // 1000), x.open, x.high, x.low, x.close] for x in d.itertuples()]
     desenhar(prev, sinais, depois)
+    hp = os.path.join(AQUI, "historico.json")
+    hist = json.load(open(hp)) if os.path.exists(hp) else []
+    agora = datetime.datetime.now(datetime.timezone.utc)
+    for h in hist:
+        for x in h["ativos"]:
+            if "real" in x:
+                continue
+            t0 = pd.Timestamp(x["origem"])
+            if agora - t0.to_pydatetime() < datetime.timedelta(hours=H + 1):
+                continue
+            df = vel(x["simbolo"])
+            if df is None:
+                continue
+            d = df[df["data"] > t0].head(H)
+            if len(d) >= H:
+                x["real"] = float(d["close"].iloc[-1]) / x["ultimo"] - 1
+                x["certo"] = (x["real"] > 0) == (x["p_alta"] >= 0.5)
+                x["conferido_em"] = agora.isoformat(timespec="seconds")
+    json.dump(hist, open(hp, "w"))
     estado_p = os.path.join(AQUI, "conferido.json")
     feito = json.load(open(estado_p)) if os.path.exists(estado_p) else {}
-    if placar and len(placar) >= 0.8 * len(prev["ativos"]) and feito.get("id") != prev["id"]:
-        acertos = sum(p[2] for p in placar)
-        L = [f"📏 Kronos · placar das 24h ({prev['id']}): direção certa em {acertos} de {len(placar)} ativos "
-             f"({br(acertos / len(placar), 0)}); real dentro da faixa p10–p90 em {sum(p[3] for p in placar)}.", ""]
-        escolhidos = {t["simbolo"] for t in sinais["trades"]}
-        for r, real, ok, _ in sorted(placar, key=lambda p: p[0]["simbolo"] not in escolhidos)[:12]:
-            L.append(f"{'✅' if ok else '❌'} {r['ativo']}{' (trade)' if r['simbolo'] in escolhidos else ''}: "
-                     f"previsto ⬆️ {br(r['p_alta'], 0)} · real {br(real, 2, True)}")
-        enviar_discord("\n".join(L), [os.path.join(AQUI, "grafico.png")])
-        json.dump({"id": prev["id"], "acertos": acertos, "n": len(placar)}, open(estado_p, "w"))
+    hoje = agora.date().isoformat()
+    if agora.hour < 23 or feito.get("dia") == hoje:
+        return
+    dia = [x for h in hist for x in h["ativos"] if x.get("conferido_em", "")[:10] == hoje]
+    if not dia:
+        return
+    tudo = [x for h in hist for x in h["ativos"] if "real" in x]
+    fortes = lambda v: [x for x in v if max(x["p_alta"], 1 - x["p_alta"]) >= P_MIN]
+    taxa = lambda v: f"{sum(x['certo'] for x in v)}/{len(v)} ({br(sum(x['certo'] for x in v) / len(v), 0)})" if v else "—"
+    tr = [x for x in dia if x["trade"]]
+    L = [f"📏 Kronos · placar ao vivo de hoje ({len(dia)} previsões de 24h fechadas)",
+         f"• direção certa: {taxa(dia)}",
+         f"• só as de {br(P_MIN, 0)}+ dos caminhos: {taxa(fortes(dia))}",
+         f"• as que viraram trade: {taxa(tr)}",
+         f"• desde o início: {taxa(tudo)} · {br(P_MIN, 0)}+: {taxa(fortes(tudo))}"]
+    enviar_discord("\n".join(L), [os.path.join(AQUI, "grafico.png")])
+    json.dump({"dia": hoje}, open(estado_p, "w"))
 
 
 if __name__ == "__main__":
