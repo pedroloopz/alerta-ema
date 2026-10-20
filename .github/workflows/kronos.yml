@@ -1,0 +1,99 @@
+name: kronos
+
+# Kronos-small: 100 futuros das próximas 24 velas de 1h para 30 criptos + ações dos EUA (BingX),
+# teste semanal de 1 ano e trades para o robô (kronos/sinais.json na branch kronos).
+# Repositório público: minutos grátis e 20 máquinas em paralelo. Nenhuma chave da BingX aqui.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
+  schedule:
+    - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília (teste semanal)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kronos
+  cancel-in-progress: false
+
+env:
+  KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
+  PARTES: 20
+
+jobs:
+  lista:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      partes: ${{ steps.p.outputs.partes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q numpy pandas
+      - run: python kronos/prever.py lista
+      - id: p
+        run: echo "partes=$(python -c 'import json;print(json.dumps(list(range(int(${{ env.PARTES }})))))')" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with: { name: universo, path: saida/universo.json }
+
+  prever:
+    needs: lista
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: ${{ fromJson(needs.lista.outputs.partes) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Instalar Kronos (CPU)
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q numpy pandas einops==0.8.1 huggingface_hub==0.33.1 safetensors tqdm
+          git clone -q https://github.com/shiyu-coder/Kronos.git Kronos && git -C Kronos checkout -q "$KRONOS_COMMIT"
+      - uses: actions/cache@v4
+        with: { path: ~/.cache/huggingface, key: kronos-small-v1 }
+      - uses: actions/download-artifact@v4
+        with: { name: universo, path: saida }
+      - run: python kronos/prever.py rodar ${{ matrix.parte }} $PARTES
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "parte-${{ matrix.parte }}", path: "saida/parte_*.json", if-no-files-found: ignore }
+
+  juntar:
+    needs: prever
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q numpy pandas matplotlib
+      - uses: actions/download-artifact@v4
+        with: { pattern: "parte-*", path: saida, merge-multiple: true }
+      - name: Juntar, escolher trades, desenhar, avisar no Discord
+        env:
+          DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
+        run: python kronos/prever.py juntar
+      - name: Publicar na branch kronos
+        run: |
+          mkdir -p /tmp/k && cp kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png /tmp/k/
+          git config user.name "kronos"; git config user.email "kronos@users.noreply.github.com"
+          git checkout -q --orphan kronos-novo && git rm -rq --cached . && git clean -fdq -e saida
+          mkdir -p kronos && cp /tmp/k/* kronos/
+          git add kronos && git commit -qm "kronos $(date -u +%F_%H)" && git push -qf origin HEAD:kronos
+      - name: Acordar o robô (entra nos trades na hora)
+        env:
+          ROBO_TOKEN: ${{ secrets.ROBO_TOKEN }}
+        run: |
+          [ -z "$ROBO_TOKEN" ] && exit 0
+          curl -s -o /dev/null -w "robô: %{http_code}\n" -X POST -H "Authorization: Bearer $ROBO_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/pedroloopz/robo-bingx/actions/workflows/operar.yml/dispatches \
+            -d '{"ref":"main","inputs":{"motivo":"kronos"}}'
