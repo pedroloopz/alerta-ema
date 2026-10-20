@@ -12,7 +12,7 @@
       "preco_entrada": 69.16,
       "data_entrada": "2026-10-06",
       "origem": "legado",
-      "ultimo_preco": 69.440002
+      "ultimo_preco": 69.324997
     },
     "ATKR": {
       "token": "ATKRon",
@@ -30,7 +30,7 @@
       "preco_entrada": 225.1199951171875,
       "data_entrada": "2026-10-15",
       "origem": "donchian",
-      "ultimo_preco": 228.009995
+      "ultimo_preco": 228.330002
     },
     "UNH": {
       "token": "UNHon",
@@ -39,7 +39,7 @@
       "preco_entrada": 421.0400085449219,
       "data_entrada": "2026-10-20",
       "origem": "donchian",
-      "ultimo_preco": 421.040009
+      "ultimo_preco": 419.721008
     }
   }
 }
