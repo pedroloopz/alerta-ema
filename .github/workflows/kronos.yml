@@ -19,7 +19,7 @@ on:
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
   schedule:
     - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília: completa (100 futuros + teste de 1 ano)
-    - cron: "37 * * * *"     # de hora em hora: rápida (só os 100 futuros; usa o teste da semana)
+    # a rodada rápida de hora em hora é disparada pelo painel-scanner (kronos/acordar.py)
 
 permissions:
   contents: write
