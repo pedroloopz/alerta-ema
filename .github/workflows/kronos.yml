@@ -5,6 +5,11 @@ name: kronos
 # Repositório público: minutos grátis e 20 máquinas em paralelo. Nenhuma chave da BingX aqui.
 on:
   workflow_dispatch:
+    inputs:
+      so_extras:
+        description: "Só índices e commodities (junta com a rodada anterior de até 6h)"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
@@ -34,6 +39,8 @@ jobs:
         with: { python-version: "3.11" }
       - run: pip install -q numpy pandas
       - run: python kronos/prever.py lista
+        env:
+          KRONOS_SO_EXTRAS: ${{ inputs.so_extras && '1' || '0' }}
       - id: p
         run: echo "partes=$(python -c 'import json;print(json.dumps(list(range(int(${{ env.PARTES }})))))')" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
@@ -77,6 +84,11 @@ jobs:
       - run: pip install -q numpy pandas matplotlib
       - uses: actions/download-artifact@v4
         with: { pattern: "parte-*", path: saida, merge-multiple: true }
+      - name: Rodada anterior (para juntar)
+        if: inputs.so_extras
+        run: |
+          git fetch -q --depth 1 origin +kronos:refs/remotes/origin/kronos && \
+            git show origin/kronos:kronos/previsao.json > kronos/previsao_anterior.json || true
       - name: Juntar, escolher trades, desenhar, avisar no Discord
         env:
           DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}

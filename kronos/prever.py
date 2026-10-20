@@ -36,6 +36,12 @@ N_CRIPTO = 30
 ACOES = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "AVGO", "TSLA", "JPM", "LLY", "V", "WMT", "ORCL",
          "MA", "NFLX", "COST", "AMD", "PLTR", "UNH",                                   # top 20 EUA (tese)
          "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR"]  # neoclouds (tese)
+EXTRAS = {"NASDAQ 100": "NCSINASDAQ1002USD-USDT", "DAX (Alemanha)": "NCSIGER2USD-USDT",
+          "Nikkei 225 (Japão)": "NCSINIKKEI2252USD-USDT", "Ouro": "NCCOGOLD2USD-USDT", "Prata": "NCCOXAG2USD-USDT",
+          "S&P 500": "NCSISP5002USD-USDT", "Dow Jones": "NCSIDOWJONES2USD-USDT", "Russell 2000": "NCSIRUSSELL20002USD-USDT",
+          "KOSPI (Coreia)": "NCSIKOSPI12USD-USDT", "Dólar (DXY)": "NCSIDXY2USD-USDT", "Petróleo WTI": "NCCO1OILWTI2USD-USDT",
+          "Petróleo Brent": "NCCO1OILBRENT2USD-USDT", "Cobre": "NCCO724COPPER2USD-USDT", "Platina": "NCCOXPT2USD-USDT",
+          "Paládio": "NCCOPALLADIUM2USD-USDT", "Gás natural": "NCCO7241NATGAS2USD-USDT"}   # índices e commodities
 ESTAVEIS = {"USDC", "USDT", "FDUSD", "TUSD", "USDE", "DAI", "USD1", "PYUSD", "BUSD", "USDP", "USDS", "USDD", "RLUSD",
             "WBTC", "WETH", "STETH", "WSTETH", "WEETH", "CBBTC", "BSC-USD", "XAUT", "PAXG", "LEO", "USDTB", "BUIDL",
             "USYC", "SUSDE", "SUSDS", "JITOSOL", "RETH", "METH", "CBETH", "BNSOL", "LBTC", "SOLVBTC", "USDF", "USDG"}
@@ -111,6 +117,17 @@ def velas(simbolo, n):
 def lista():
     contratos = {c["symbol"]: c for c in bingx("/openApi/swap/v2/quote/contracts", {})}
     ativos = []
+    so_extras = os.environ.get("KRONOS_SO_EXTRAS") == "1"
+    for nome, sim in EXTRAS.items():
+        if sim in contratos:
+            ativos.append({"ativo": nome, "simbolo": sim, "tipo": "índice" if sim.startswith("NCSI") else "commodity"})
+        else:
+            log(f"{nome}: sem contrato na BingX")
+    if so_extras:
+        os.makedirs(SAIDA, exist_ok=True)
+        json.dump(ativos, open(os.path.join(SAIDA, "universo.json"), "w"), ensure_ascii=False)
+        log(f"{len(ativos)} ativos: " + ", ".join(a["ativo"] for a in ativos))
+        return
     try:
         mercado = _get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
                        "&per_page=120&page=1")
@@ -294,6 +311,13 @@ def juntar():
     for nome in sorted(os.listdir(SAIDA)):
         if nome.startswith("parte_"):
             rs += json.load(open(os.path.join(SAIDA, nome)))
+    anterior = os.path.join(AQUI, "previsao_anterior.json")     # junta com a rodada de pouco antes (até 6h)
+    if os.path.exists(anterior):
+        a = json.load(open(anterior))
+        idade = datetime.datetime.now(datetime.timezone.utc) - datetime.datetime.fromisoformat(a["gerado_em"])
+        if idade < datetime.timedelta(hours=6):
+            novos = {r["simbolo"] for r in rs}
+            rs += [r for r in a["ativos"] if r["simbolo"] not in novos]
     if not rs:
         raise SystemExit("nenhuma previsão")
     for r in rs:
