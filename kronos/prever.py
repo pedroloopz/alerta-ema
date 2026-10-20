@@ -238,9 +238,9 @@ def rodar(i, n_partes):
         r["teste_resumo"] = medir_teste(bt)
         out.append(r)
         log(f"{a['ativo']}: P(alta) {r['p_alta']:.0%} · teste {len(bt)} semanas · {time.time() - t0:.0f}s")
-    os.makedirs(SAIDA, exist_ok=True)
-    with open(os.path.join(SAIDA, f"parte_{i}.json"), "w") as f:
-        json.dump(out, f)
+        os.makedirs(SAIDA, exist_ok=True)
+        with open(os.path.join(SAIDA, f"parte_{i}.json"), "w") as f:     # grava a cada ativo (se o tempo acabar,
+            json.dump(out, f)                                             # o que já saiu não se perde)
 
 
 def medir_teste(bt):
