@@ -1,6 +1,6 @@
 name: kronos-dados
 
-# Base para os agentes de teste: 1 ano de previsões do Kronos-small (1 partida a cada 23h, 8 caminhos)
+# Base para os agentes de teste: 1 ano de previsões do Kronos-small (1 partida a cada 46h, 8 caminhos)
 # + velas reais seguintes, por ativo, na branch kronos-dados. Não mexe no robô nem na branch kronos.
 # Roda a cada 6h e retoma de onde parou; quando todos os ativos estão feitos, não faz nada.
 on:
@@ -47,7 +47,7 @@ jobs:
     needs: lista
     if: needs.lista.outputs.partes != '[]'
     runs-on: ubuntu-24.04
-    timeout-minutes: 345
+    timeout-minutes: 350
     strategy:
       fail-fast: false
       max-parallel: 4
