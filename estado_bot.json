@@ -5,7 +5,7 @@
       "versao": 2,
       "inicio": "2026-09-25",
       "capital_inicial": 7087.88,
-      "reserva_usdt": 1108.88,
+      "reserva_usdt": 981.59,
       "aportes": [],
       "ativos": {
         "NFLX": {
@@ -15,21 +15,7 @@
           "preco_entrada": 69.16,
           "data_entrada": "2026-10-06",
           "origem": "legado",
-          "ultimo_preco": 69.849998
-        },
-        "PENG": {
-          "token": "PENGon",
-          "tipo": "acao",
-          "unidades": 11.9986,
-          "preco_entrada": 72.73999786376953,
-          "data_entrada": "2026-10-07",
-          "origem": "donchian",
-          "ultimo_preco": 56.540001,
-          "saida": {
-            "data": "2026-10-19",
-            "preco_ref": 56.540000915527344,
-            "frac": 1.0
-          }
+          "ultimo_preco": 65.790001
         },
         "ATKR": {
           "token": "ATKRon",
@@ -47,13 +33,22 @@
           "preco_entrada": 225.1199951171875,
           "data_entrada": "2026-10-15",
           "origem": "donchian",
-          "ultimo_preco": 226.029999
+          "ultimo_preco": 231.389999
+        },
+        "UNH": {
+          "token": "UNHon",
+          "tipo": "acao",
+          "unidades": 1.8654,
+          "preco_entrada": 421.0400085449219,
+          "data_entrada": "2026-10-20",
+          "origem": "donchian",
+          "ultimo_preco": 417.040009
         }
       }
     },
-    "n_historico": 6,
+    "n_historico": 7,
     "chaves": [
-      "entrada:UNH"
+      "saida:NFLX"
     ]
   },
   "pendentes": {
@@ -160,10 +155,10 @@
     }
   ],
   "pausa_ate": null,
-  "fechamento_em": "2026-10-20",
+  "fechamento_em": "2026-10-21",
   "cripto_em": "2026-10-20",
   "patrimonio_fech": {
-    "data": "2026-10-20",
-    "valor": 5475.63
+    "data": "2026-10-21",
+    "valor": 5374.74
   }
 }
