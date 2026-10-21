@@ -110,6 +110,13 @@ jobs:
         env:
           DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
         run: python kronos/prever.py juntar
+      - name: Painel Kronos 24h no Drive (o artifact lê de lá)
+        continue-on-error: true
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+        run: |
+          pip install -q google-auth requests
+          python kronos/subir_drive.py kronos/painel_dados.json 1dFoJgJIfw0VIlxdmxwxdLZT8rGBiWygl
       - name: Publicar na branch kronos
         run: |
           mkdir -p /tmp/k && cp kronos/sinais.json kronos/previsao.json kronos/grafico.html kronos/grafico.png kronos/teste_semanal.json kronos/historico.json /tmp/k/

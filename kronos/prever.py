@@ -592,6 +592,7 @@ def enviar_discord(texto, arquivos):
 def desenhar(prev, sinais, reais_depois=None):
     """grafico.html (TradingView Lightweight Charts) e grafico.png (Discord)."""
     escolhidos = {t["simbolo"]: t for t in sinais["trades"]}
+    recuo = {t["simbolo"]: t for t in sinais.get("recuo") or []}
     dados = []
     for r in ordem_exibicao(prev, sinais):
         t0 = int(pd.Timestamp(r["origem"]).timestamp())
@@ -602,11 +603,16 @@ def desenhar(prev, sinais, reais_depois=None):
                       "depois": (reais_depois or {}).get(r["simbolo"], []),
                       "mediana": [x[3] for x in r["velas_medianas"]],
                       "velas_medianas": r["velas_medianas"],
-                      "caminhos": [[round(v, 8) for v in c] for c in r["caminhos"]]})
+                      "caminhos": [[round(v, 8) for v in c] for c in r["caminhos"]],
+                      "recuo": recuo.get(r["simbolo"])})
     html = open(os.path.join(AQUI, "modelo_grafico.html"), encoding="utf-8").read()
     html = html.replace("/*DADOS*/null", json.dumps({"gerado_em": prev["gerado_em"], "ativos": dados,
                                                      "trades": sinais["trades"]}, separators=(",", ":")))
     open(os.path.join(AQUI, "grafico.html"), "w", encoding="utf-8").write(html)
+    leve = [dict(d, caminhos=d["caminhos"][:40], reais=d["reais"][-120:]) for d in dados]   # painel Kronos 24h (Drive)
+    with open(os.path.join(AQUI, "painel_dados.json"), "w", encoding="utf-8") as f:
+        json.dump({"gerado_em": prev["gerado_em"], "ativos": leve, "trades": sinais["trades"],
+                   "recuo": sinais.get("recuo") or []}, f, ensure_ascii=False, separators=(",", ":"))
     try:
         import matplotlib
         matplotlib.use("Agg")
