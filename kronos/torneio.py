@@ -59,6 +59,9 @@ def carregar(pasta):
         ts = [x["t"] for x in p]
         ul = [x["ult"] for x in p]
         series[d["simbolo"]] = (ts, ul)
+        fund = d.get("funding") or []                 # funding real (base kronos-dados-23h); sem ele, estimativa
+        f_ts = [x[0] for x in fund]
+        f_ac = list(itertools.accumulate([x[1] for x in fund], initial=0.0))
         atrs = []
         for x in p:
             o = {"t": x["t"], "simbolo": d["simbolo"], "ativo": nome, "tipo": d["tipo"],
@@ -67,6 +70,9 @@ def carregar(pasta):
                  "atr": x["atr_1h"], "r24": x["ret_24h_antes"], "vol": x["vol_24h_usd"],
                  "reais": np.asarray(x["reais"], dtype=float), "faixa": x["faixa_fech"]}
             o["atr_rel"] = x["atr_1h"] / np.median(atrs) if len(atrs) >= 5 else 1.0
+            if f_ts and f_ts[0] <= x["t"]:
+                base = f_ac[bisect.bisect_right(f_ts, x["t"])]
+                o["fcum"] = [f_ac[bisect.bisect_right(f_ts, x["t"] + h * 3600000)] - base for h in range(H + 1)]
             atrs.append(x["atr_1h"])
             o["grupo"] = grupo(o)
             ops.append(o)
@@ -132,6 +138,14 @@ def alvos_de(o, s, sl, x):
     return [(max(d, 0.003), f) for d, f in alvos]
 
 
+def fcusto(o, s, i0, i1):
+    """Funding pago entre as horas i0 e i1 do trade (positivo = custo). Real quando a base tem; senão, estimativa."""
+    f = o.get("fcum")
+    if f is None:
+        return FUNDING_H * (i1 - i0)
+    return s * (f[min(i1, H)] - f[min(i0, H)])
+
+
 def simular(o, s, x):
     """Resultado em R (1R = perder o stop com a posição cheia) e horas no trade. Vela ambígua = stop."""
     re = o["reais"]
@@ -166,7 +180,7 @@ def simular(o, s, x):
             fav = max(s * ((1 + c) / ent - 1), 0.0)
         if con <= stop:
             feito += pos * stop
-            return (feito - custo - FUNDING_H * (i - i0 + 1)) / sl, i - i0 + 1
+            return (feito - custo - fcusto(o, s, i0, i + 1)) / sl, i - i0 + 1
         while k_alvo < len(alvos) and fav >= alvos[k_alvo][0]:
             d, f = alvos[k_alvo]
             f = min(f, pos)
@@ -176,7 +190,7 @@ def simular(o, s, x):
             if k_alvo == 1 and x.get("be") is not None:
                 stop = max(stop, x["be"] * sl)
         if pos <= 1e-9:
-            return (feito - custo - FUNDING_H * (i - i0 + 1)) / sl, i - i0 + 1
+            return (feito - custo - fcusto(o, s, i0, i + 1)) / sl, i - i0 + 1
         extremo = max(extremo, fav)
         if trail == "chandelier" and (k_alvo >= 1 or not x.get("trail_so_apos")):
             stop = max(stop, extremo - x.get("trail_k", 4) * o["atr"])
@@ -187,7 +201,7 @@ def simular(o, s, x):
     fim = min(len(re), sair_h) - 1
     final = s * ((1 + re[fim][3]) / ent - 1)
     feito += pos * final
-    return (feito - custo - FUNDING_H * (fim - i0 + 1)) / sl, fim - i0 + 1
+    return (feito - custo - fcusto(o, s, i0, fim + 1)) / sl, fim - i0 + 1
 
 
 # ---------------------------------------------------------------- traders
