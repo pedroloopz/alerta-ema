@@ -451,6 +451,49 @@ def plano(r):
             "stop_antes": (r.get("corrida") or {}).get(lado, {}).get("stop_antes")}
 
 
+# setup "recuo" (vencedor do torneio de 21/10/2026, kronos/torneio.py): limite no recuo previsto, stop do Kronos,
+# sem alvo, trailing de 5 ATR, 24h. Grupos ruins no treino e fora da amostra ficam de fora.
+RECUO_P_MIN, RECUO_MOVE_MIN, RECUO_K, RECUO_TRAIL_ATR = 0.70, 0.004, 1.0, 5
+GRUPOS_RECUO = {
+    "cripto grande": {"BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "TRX", "DOGE", "BCH", "LTC", "LINK", "XLM", "HBAR", "DOT"},
+    "neoclouds": {"IREN", "NBIS", "CRWV", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR"},
+    "big tech": {"AAPL", "MSFT", "AMZN", "NVDA", "AMD", "AVGO", "ARM", "ASML", "TSLA", "ORCL", "META", "GOOGL"},
+    "ações outras": {"JPM", "LLY", "MA", "V", "UNH", "WMT", "COST", "NVO", "SONY", "TM", "BABA", "PDD", "SHOP"},
+    "metais": {"Ouro", "Prata", "Platina", "Paládio", "Cobre"},
+    "energia": {"Petróleo WTI", "Petróleo Brent", "Gás natural"},
+}
+GRUPOS_FORA = {"big tech", "energia", "ações outras"}
+
+
+def grupo_de(r):
+    if r["tipo"] == "índice":
+        return "índices"
+    nome = r["ativo"].split(" (")[0]
+    for g, s in GRUPOS_RECUO.items():
+        if nome in s:
+            return g
+    return {"cripto": "cripto alt", "ação": "ações outras"}.get(r["tipo"], "metais")
+
+
+def plano_recuo(r, agora=None):
+    """Trade do setup recuo (ou None): 70%+ dos caminhos a favor e mediana andando 0,4%+."""
+    lado = "LONG" if r["p_alta"] >= 0.5 else "SHORT"
+    s = 1 if lado == "LONG" else -1
+    p_dir = r["p_alta"] if s == 1 else 1 - r["p_alta"]
+    g = grupo_de(r)
+    agora = agora or datetime.datetime.now(datetime.timezone.utc)
+    if p_dir < RECUO_P_MIN or s * r["ret_mediano"] < RECUO_MOVE_MIN or g in GRUPOS_FORA:
+        return None
+    if r["tipo"] == "ação" and (agora.weekday() >= 5 or (agora.weekday() == 4 and agora.hour >= 20)):
+        return None
+    sl = min(max(r["queda_q15"] if s == 1 else r["alta_q15"], SL_MIN), SL_MAX)
+    recuo = max(((r.get("recuo") or {}).get(lado) or {}).get("q50", 0) * RECUO_K, 0.001)
+    return {"ativo": r["ativo"], "simbolo": r["simbolo"], "tipo": r["tipo"], "grupo": g, "lado": lado,
+            "p_dir": round(p_dir, 4), "sl": round(sl, 4), "recuo": round(recuo, 4),
+            "trail": round(min(max(RECUO_TRAIL_ATR * r["atr_1h"], 0.003), 0.10), 4),
+            "preco_previsao": r["ultimo"], "nota": round(p_dir, 4)}
+
+
 def juntar():
     rs = []
     for nome in sorted(os.listdir(SAIDA)):
@@ -490,6 +533,7 @@ def juntar():
                          for r in bons]}
     sinais["leituras"] = {r["simbolo"]: {"p_alta": round(r["p_alta"], 3), "ret_mediano": round(r["ret_mediano"], 5)}
                           for r in rs}                   # leitura de todos (o robô mede a regra de saída antecipada)
+    sinais["recuo"] = sorted([p for p in (plano_recuo(r, agora) for r in rs) if p], key=lambda p: -p["nota"])
     os.makedirs(os.path.join(AQUI), exist_ok=True)
     json.dump(sinais, open(os.path.join(AQUI, "sinais.json"), "w"), ensure_ascii=False, indent=1)
     prev = {"id": sid, "gerado_em": sinais["gerado_em"], "ativos": rs}
