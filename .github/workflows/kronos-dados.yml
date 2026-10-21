@@ -18,7 +18,7 @@ concurrency:
 
 env:
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
-  PARTES: 16                 # 16 máquinas enquanto o kronos de hora em hora está pausado (20/10); voltar a 4 ao religar
+  PARTES: 4                  # 4 máquinas: o kronos de hora em hora voltou em 21/10 (setup recuo)
 
 jobs:
   lista:
