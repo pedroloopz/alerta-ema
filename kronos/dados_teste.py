@@ -51,6 +51,26 @@ def lista(feitos_txt):
     P.log(f"faltam {len(ativos)} ativos (já feitos: {len(feitos)})")
 
 
+def funding(simbolo, desde_ms):
+    """Funding real da BingX desde desde_ms: [[t_ms, taxa], ...] (positivo = long paga). Falhou = lista vazia."""
+    out, ini = {}, int(desde_ms)
+    for _ in range(10):
+        try:
+            d = P.bingx("/openApi/swap/v2/quote/fundingRate", {"symbol": simbolo, "startTime": ini, "limit": 1000}) or []
+        except Exception as e:
+            P.log(f"{simbolo}: funding sem dados ({type(e).__name__})")
+            break
+        d = [x for x in d if isinstance(x, dict) and x.get("fundingTime")]
+        novos = {int(x["fundingTime"]): float(x.get("fundingRate") or 0) for x in d}
+        if not novos or set(novos) <= set(out):
+            break
+        out.update(novos)
+        ini = max(novos) + 1
+        if len(d) < 1000:
+            break
+    return sorted([t, round(v, 6)] for t, v in out.items())
+
+
 def _r(x, c=5):
     return np.round(np.asarray(x, dtype=float), c).tolist()
 
@@ -103,9 +123,10 @@ def rodar(i, n_partes):
                 ult = float(df["close"].iloc[o - 1])
                 fut = df.iloc[o:o + P.H][["open", "high", "low", "close"]].values
                 saida.append(partida(cam, fut, ult, df["t"].iloc[o - 1], df.iloc[o - 48:o]))
+        fund = funding(a["simbolo"], int(df["t"].iloc[0])) if saida else []
         nome = os.path.join(destino, a["simbolo"] + ".json.gz")
         with gzip.open(nome, "wt") as f:
-            json.dump({**a, "passo_h": PASSO, "n_caminhos": N, "custo": P.CUSTO, "partidas": saida}, f)
+            json.dump({**a, "passo_h": PASSO, "n_caminhos": N, "custo": P.CUSTO, "partidas": saida, "funding": fund}, f)
         ultimo_custo = (time.time() - t0) / 60
         P.log(f"{a['ativo']}: {len(saida)} partidas em {ultimo_custo:.0f} min")
 
