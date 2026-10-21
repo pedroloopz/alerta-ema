@@ -1,0 +1,1872 @@
+{
+ "periodo": {
+  "inicio": 1761314400000,
+  "fim": 1792461600000,
+  "corte": 1784592000000,
+  "dias_fora": 92.08333333333333
+ },
+ "n_partidas": 6324,
+ "n_ativos": 71,
+ "n_testes": 906,
+ "traders": {
+  "Tendência (Turtle)": {
+   "categoria": "pro",
+   "descricao": "Kronos a favor da tendência de 10 e 30 dias; stop por ATR, alvos 2R/3,5R, chandelier",
+   "params": {
+    "p": 0.55,
+    "sl_k": 6,
+    "trail_k": 4
+   },
+   "treino": {
+    "n": 514,
+    "por_dia": 1.9078255490256726,
+    "ret": -0.1327845675949113,
+    "dd": 0.23528083254781712,
+    "acerto": 0.4143968871595331,
+    "r_medio": -0.023085313237369006,
+    "fator": 0.9107562709215719,
+    "sharpe_trade": -0.03475049145804598,
+    "pior_seq": 19,
+    "nota": -0.7878481335130036
+   },
+   "fora": {
+    "n": 269,
+    "por_dia": 2.921266968325792,
+    "ret": -0.09365429555972782,
+    "dd": 0.17541098665891344,
+    "acerto": 0.4423791821561338,
+    "r_medio": -0.03549705989536315,
+    "fator": 0.8594759149839165,
+    "sharpe_trade": -0.058388101069011406,
+    "pior_seq": 11,
+    "nota": -0.957636059885868
+   }
+  },
+  "Macro": {
+   "categoria": "pro",
+   "descricao": "Regime do S&P/BTC/ouro decide se pode comprar ou vender; Kronos escolhe o ativo",
+   "params": {
+    "p": 0.7,
+    "short_so_off": false
+   },
+   "treino": {
+    "n": 822,
+    "por_dia": 3.0510361892978657,
+    "ret": -0.5743384284259592,
+    "dd": 0.5998004271608889,
+    "acerto": 0.4440389294403893,
+    "r_medio": -0.1156166354308676,
+    "fator": 0.7755639056508342,
+    "sharpe_trade": -0.09948235092622178,
+    "pior_seq": 17,
+    "nota": -2.8522129576618442
+   },
+   "fora": {
+    "n": 410,
+    "por_dia": 4.452488687782806,
+    "ret": -0.15571004191799442,
+    "dd": 0.34808218814154746,
+    "acerto": 0.4609756097560976,
+    "r_medio": -0.06499378539130156,
+    "fator": 0.8621589176549334,
+    "sharpe_trade": -0.060246992888251596,
+    "pior_seq": 11,
+    "nota": -1.2199086286897007
+   }
+  },
+  "Reversão à média": {
+   "categoria": "pro",
+   "descricao": "Contra um movimento de 24h esticado, só se o Kronos prevê a volta; sai em 12h",
+   "params": {
+    "z": 1.5,
+    "p": 0.6
+   },
+   "treino": {
+    "n": 74,
+    "por_dia": 0.2746674914939684,
+    "ret": 0.03730306546289208,
+    "dd": 0.05675173852509264,
+    "acerto": 0.5945945945945946,
+    "r_medio": 0.051072365133352636,
+    "fator": 1.155497605319421,
+    "sharpe_trade": 0.05921361485654786,
+    "pior_seq": 4,
+    "nota": 0.5093747752334123
+   },
+   "fora": {
+    "n": 62,
+    "por_dia": 0.6733031674208145,
+    "ret": -0.15146910054090323,
+    "dd": 0.169554667582743,
+    "acerto": 0.3225806451612903,
+    "r_medio": -0.3076713674975901,
+    "fator": 0.4486074646057774,
+    "sharpe_trade": -0.2974072116933887,
+    "pior_seq": 9,
+    "nota": -2.34178672666164
+   }
+  },
+  "Rompimento de volatilidade": {
+   "categoria": "pro",
+   "descricao": "Volatilidade comprimida + Kronos prevendo faixa larga; só trailing, sem alvo",
+   "params": {
+    "p": 0.65,
+    "compr": 0.8,
+    "trail_k": 3
+   },
+   "treino": {
+    "n": 417,
+    "por_dia": 1.5477884317970925,
+    "ret": 0.03235331850942447,
+    "dd": 0.15223655874299466,
+    "acerto": 0.40047961630695444,
+    "r_medio": -0.003126278354059455,
+    "fator": 0.9891203568867332,
+    "sharpe_trade": -0.004312941621657836,
+    "pior_seq": 11,
+    "nota": -0.0880727601763025
+   },
+   "fora": {
+    "n": 280,
+    "por_dia": 3.040723981900453,
+    "ret": -0.17005093898858226,
+    "dd": 0.25658581194625996,
+    "acerto": 0.325,
+    "r_medio": -0.09588827835222202,
+    "fator": 0.7146311655275636,
+    "sharpe_trade": -0.12227294683085341,
+    "pior_seq": 12,
+    "nota": -2.0460177387980285
+   }
+  },
+  "Paridade de risco": {
+   "categoria": "pro",
+   "descricao": "Pega muitos sinais, mão igual em risco, alvos curtos 1R/2R",
+   "params": {
+    "p": 0.7
+   },
+   "treino": {
+    "n": 1061,
+    "por_dia": 3.938137952366223,
+    "ret": -0.5843060920624001,
+    "dd": 0.6331007867559538,
+    "acerto": 0.4759660697455231,
+    "r_medio": -0.10130215864475331,
+    "fator": 0.786370058655585,
+    "sharpe_trade": -0.1075293106001113,
+    "pior_seq": 10,
+    "nota": -3.502551691133402
+   },
+   "fora": {
+    "n": 394,
+    "por_dia": 4.278733031674208,
+    "ret": -0.2956039430225691,
+    "dd": 0.39503337972449565,
+    "acerto": 0.4593908629441624,
+    "r_medio": -0.11005112670574158,
+    "fator": 0.7670019740160997,
+    "sharpe_trade": -0.11831800053965698,
+    "pior_seq": 14,
+    "nota": -2.3485452529535586
+   }
+  },
+  "Valor esperado": {
+   "categoria": "pro",
+   "descricao": "Só entra quando a corrida alvo-antes-do-stop dos caminhos dá valor esperado positivo",
+   "params": {
+    "ev": 0.5
+   },
+   "treino": {
+    "n": 1043,
+    "por_dia": 3.8713269409217443,
+    "ret": -0.6105779135390952,
+    "dd": 0.6659381471992317,
+    "acerto": 0.4161073825503356,
+    "r_medio": -0.10335542838635423,
+    "fator": 0.8140547218076516,
+    "sharpe_trade": -0.08159193327713722,
+    "pior_seq": 13,
+    "nota": -2.635053139817971
+   },
+   "fora": {
+    "n": 438,
+    "por_dia": 4.756561085972851,
+    "ret": -0.16468072066419437,
+    "dd": 0.35059303831402816,
+    "acerto": 0.4246575342465753,
+    "r_medio": -0.04848230406623886,
+    "fator": 0.9095815394315304,
+    "sharpe_trade": -0.03759770147528931,
+    "pior_seq": 12,
+    "nota": -0.7868615980123428
+   }
+  },
+  "Sessões": {
+   "categoria": "pro",
+   "descricao": "Só nas aberturas de Tóquio, Londres e Nova York de cada mercado",
+   "params": {
+    "p": 0.65,
+    "sair_h": 8
+   },
+   "treino": {
+    "n": 446,
+    "por_dia": 1.6554283946798638,
+    "ret": -0.46724532585797607,
+    "dd": 0.5097989574266785,
+    "acerto": 0.4282511210762332,
+    "r_medio": -0.1609477029158537,
+    "fator": 0.6022266223267275,
+    "sharpe_trade": -0.1896394740887353,
+    "pior_seq": 13,
+    "nota": -4.004941452651067
+   },
+   "fora": {
+    "n": 204,
+    "por_dia": 2.2153846153846155,
+    "ret": -0.37252840316493285,
+    "dd": 0.3992133307959153,
+    "acerto": 0.29411764705882354,
+    "r_medio": -0.25857215377346865,
+    "fator": 0.45577003607163286,
+    "sharpe_trade": -0.30066262872865884,
+    "pior_seq": 13,
+    "nota": -4.294321288406537
+   }
+  },
+  "Entrada no recuo": {
+   "categoria": "pro",
+   "descricao": "Ordem limite no recuo previsto (maker), stop e alvos do Kronos",
+   "params": {
+    "p": 0.7,
+    "recuo_k": 1.0
+   },
+   "treino": {
+    "n": 651,
+    "por_dia": 2.4163315805753167,
+    "ret": 0.17845470638148053,
+    "dd": 0.3782093328399657,
+    "acerto": 0.44393241167434716,
+    "r_medio": 0.03771438695877058,
+    "fator": 1.069809960710493,
+    "sharpe_trade": 0.02618279799637589,
+    "pior_seq": 14,
+    "nota": 0.6680462790917149
+   },
+   "fora": {
+    "n": 297,
+    "por_dia": 3.225339366515837,
+    "ret": 0.1670538142891389,
+    "dd": 0.1679354735768233,
+    "acerto": 0.4781144781144781,
+    "r_medio": 0.06476930370119478,
+    "fator": 1.1319030912329164,
+    "sharpe_trade": 0.05137870895102142,
+    "pior_seq": 8,
+    "nota": 0.8854446368021602
+   }
+  },
+  "Seletivo (consenso)": {
+   "categoria": "pro",
+   "descricao": "Kronos + tendência + valor esperado concordando; só os melhores",
+   "params": {
+    "p": 0.8
+   },
+   "treino": {
+    "n": 659,
+    "por_dia": 2.4460253634395297,
+    "ret": -0.4429551615748871,
+    "dd": 0.5585946851572546,
+    "acerto": 0.4142640364188164,
+    "r_medio": -0.09080399500949037,
+    "fator": 0.8383740377592265,
+    "sharpe_trade": -0.07826719968512427,
+    "pior_seq": 14,
+    "nota": -2.0091969157295626
+   },
+   "fora": {
+    "n": 301,
+    "por_dia": 3.268778280542987,
+    "ret": 0.16789476903742173,
+    "dd": 0.13159007383269697,
+    "acerto": 0.4584717607973422,
+    "r_medio": 0.03956783305247785,
+    "fator": 1.0795728315812112,
+    "sharpe_trade": 0.03339721874733668,
+    "pior_seq": 9,
+    "nota": 0.5794200896045065
+   }
+  },
+  "Diversificado": {
+   "categoria": "pro",
+   "descricao": "Exige mais confiança em altcoins, teto por grupo, stop ATR, alvos 1,5R/2,5R",
+   "params": {
+    "p": 0.55,
+    "sl_k": 6
+   },
+   "treino": {
+    "n": 954,
+    "por_dia": 3.540983606557377,
+    "ret": -0.5161965294174614,
+    "dd": 0.5237450731586734,
+    "acerto": 0.4392033542976939,
+    "r_medio": -0.07529392744403347,
+    "fator": 0.7410365175280513,
+    "sharpe_trade": -0.1171033947044821,
+    "pior_seq": 15,
+    "nota": -3.6169597203940898
+   },
+   "fora": {
+    "n": 382,
+    "por_dia": 4.1484162895927605,
+    "ret": -0.12795585589295988,
+    "dd": 0.20469397417134957,
+    "acerto": 0.4581151832460733,
+    "r_medio": -0.04121281604579787,
+    "fator": 0.8496935075718819,
+    "sharpe_trade": -0.0605168020430219,
+    "pior_seq": 12,
+    "nota": -1.1827900201956654
+   }
+  },
+  "Amador: Kronos puro": {
+   "categoria": "amador",
+   "descricao": "Entra em toda previsão, sem filtro",
+   "params": {},
+   "treino": {
+    "n": 1309,
+    "por_dia": 4.85864522115682,
+    "ret": -0.7027560999953006,
+    "dd": 0.7171424624596185,
+    "acerto": 0.4789915966386555,
+    "r_medio": -0.10058617398748822,
+    "fator": 0.785614426206015,
+    "sharpe_trade": -0.09395081126859052,
+    "pior_seq": 12,
+    "nota": -3.399150219374902
+   },
+   "fora": {
+    "n": 539,
+    "por_dia": 5.853393665158372,
+    "ret": -0.3865853565315498,
+    "dd": 0.49167326536580175,
+    "acerto": 0.4619666048237477,
+    "r_medio": -0.11627911318494233,
+    "fator": 0.7475188548185763,
+    "sharpe_trade": -0.115290283761471,
+    "pior_seq": 11,
+    "nota": -2.6766222924728234
+   }
+  },
+  "Amador: martingale": {
+   "categoria": "amador",
+   "descricao": "Dobra a mão depois de cada perda (até 4x)",
+   "params": {},
+   "treino": {
+    "n": 1043,
+    "por_dia": 3.8713269409217443,
+    "ret": -0.7072648556642206,
+    "dd": 0.7278599430767487,
+    "acerto": 0.4650047938638543,
+    "r_medio": -0.12720697753204643,
+    "fator": 0.737637140728125,
+    "sharpe_trade": -0.12275125963692217,
+    "pior_seq": 11,
+    "nota": -3.9643145974274643
+   },
+   "fora": {
+    "n": 462,
+    "por_dia": 5.0171945701357465,
+    "ret": -0.41478228409434725,
+    "dd": 0.46269991237898866,
+    "acerto": 0.461038961038961,
+    "r_medio": -0.13623125978424908,
+    "fator": 0.7025768733892066,
+    "sharpe_trade": -0.14560106458501007,
+    "pior_seq": 11,
+    "nota": -3.129576256273233
+   }
+  },
+  "Amador: RSI 30/70": {
+   "categoria": "amador",
+   "descricao": "Compra depois de queda forte, vende depois de alta, sem Kronos",
+   "params": {
+    "queda": 0.03
+   },
+   "treino": {
+    "n": 537,
+    "por_dia": 1.9931951747602845,
+    "ret": 0.545970187939846,
+    "dd": 0.30885491681674826,
+    "acerto": 0.43575418994413406,
+    "r_medio": 0.10229913636707137,
+    "fator": 1.1888589806707441,
+    "sharpe_trade": 0.07892733913947482,
+    "pior_seq": 13,
+    "nota": 1.8290037867028681
+   },
+   "fora": {
+    "n": 194,
+    "por_dia": 2.106787330316742,
+    "ret": -0.048790778565624526,
+    "dd": 0.30329719519495085,
+    "acerto": 0.41237113402061853,
+    "r_medio": -0.006943143077614298,
+    "fator": 0.987924704884114,
+    "sharpe_trade": -0.005492612456217115,
+    "pior_seq": 10,
+    "nota": -0.07650323894628994
+   }
+  },
+  "Amador: compra o que subiu": {
+   "categoria": "amador",
+   "descricao": "Compra quem mais subiu em 24h",
+   "params": {
+    "alta": 0.03
+   },
+   "treino": {
+    "n": 284,
+    "por_dia": 1.0541292916795546,
+    "ret": -0.2531161041617501,
+    "dd": 0.3116157324228218,
+    "acerto": 0.46830985915492956,
+    "r_medio": -0.09383370262429527,
+    "fator": 0.8042087364519657,
+    "sharpe_trade": -0.10301839841362788,
+    "pior_seq": 13,
+    "nota": -1.7360969088519644
+   },
+   "fora": {
+    "n": 157,
+    "por_dia": 1.704977375565611,
+    "ret": -0.340221108104517,
+    "dd": 0.3547796055871527,
+    "acerto": 0.3821656050955414,
+    "r_medio": -0.25560543830846977,
+    "fator": 0.5454009458444571,
+    "sharpe_trade": -0.28796952257845615,
+    "pior_seq": 10,
+    "nota": -3.6082477758114178
+   }
+  },
+  "Amador: alavancagem alta": {
+   "categoria": "amador",
+   "descricao": "Alvo minúsculo (0,5%), stop 3%, risco 5% por trade",
+   "params": {},
+   "treino": {
+    "n": 668,
+    "por_dia": 2.479430869161769,
+    "ret": -0.6894932716671334,
+    "dd": 0.7114553590286166,
+    "acerto": 0.6826347305389222,
+    "r_medio": -0.06807534005689733,
+    "fator": 0.5580148867914981,
+    "sharpe_trade": -0.19167464919743155,
+    "pior_seq": 6,
+    "nota": -4.953964707669226
+   },
+   "fora": {
+    "n": 221,
+    "por_dia": 2.4,
+    "ret": -0.2462479330454983,
+    "dd": 0.2531788800294175,
+    "acerto": 0.5972850678733032,
+    "r_medio": -0.0498789305889784,
+    "fator": 0.5953967770248323,
+    "sharpe_trade": -0.17064977491261699,
+    "pior_seq": 4,
+    "nota": -2.536891285565393
+   }
+  },
+  "Setup atual do robô": {
+   "categoria": "referência",
+   "descricao": "Regras do Kronos ao vivo hoje (stop −0,3R após alvo 1, alvos 60%)",
+   "params": {},
+   "treino": {
+    "n": 813,
+    "por_dia": 3.0176306835756264,
+    "ret": -0.5274056308979984,
+    "dd": 0.6204586973157762,
+    "acerto": 0.4747847478474785,
+    "r_medio": -0.09970394824593458,
+    "fator": 0.7869960770071928,
+    "sharpe_trade": -0.10469791166172174,
+    "pior_seq": 11,
+    "nota": -2.9852677686001274
+   },
+   "fora": {
+    "n": 326,
+    "por_dia": 3.54027149321267,
+    "ret": -0.31619889882695174,
+    "dd": 0.3508772053907681,
+    "acerto": 0.4723926380368098,
+    "r_medio": -0.13489323778638398,
+    "fator": 0.7022813326076514,
+    "sharpe_trade": -0.15083520293524869,
+    "pior_seq": 9,
+    "nota": -2.7234004944026786
+   }
+  }
+ },
+ "vencedor": "Entrada no recuo",
+ "params": {
+  "p": 0.7,
+  "recuo_k": 1.0
+ },
+ "saidas_top": [
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "trail": "chandelier",
+    "trail_k": 5,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 638,
+    "por_dia": 2.3724821815928103,
+    "ret": 0.5275901333042285,
+    "dd": 0.39832399827218234,
+    "acerto": 0.3448275862068966,
+    "r_medio": 0.11492311905136196,
+    "fator": 1.1919498825683255,
+    "sharpe_trade": 0.05684789882227326,
+    "pior_seq": 16,
+    "nota": 1.4359018549760747
+   },
+   "fora": {
+    "n": 282,
+    "por_dia": 3.0960658737419946,
+    "ret": 0.7924693304483996,
+    "dd": 0.12783876254173593,
+    "acerto": 0.43617021276595747,
+    "r_medio": 0.2748290714897635,
+    "fator": 1.560037537411658,
+    "sharpe_trade": 0.15466004163690472,
+    "pior_seq": 14,
+    "nota": 2.5971837499711885
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "be": -0.3,
+    "trail": "chandelier",
+    "trail_k": 5,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 638,
+    "por_dia": 2.3724821815928103,
+    "ret": 0.5275901333042285,
+    "dd": 0.39832399827218234,
+    "acerto": 0.3448275862068966,
+    "r_medio": 0.11492311905136196,
+    "fator": 1.1919498825683255,
+    "sharpe_trade": 0.05684789882227326,
+    "pior_seq": 16,
+    "nota": 1.4359018549760747
+   },
+   "fora": {
+    "n": 282,
+    "por_dia": 3.0960658737419946,
+    "ret": 0.7924693304483996,
+    "dd": 0.12783876254173593,
+    "acerto": 0.43617021276595747,
+    "r_medio": 0.2748290714897635,
+    "fator": 1.560037537411658,
+    "sharpe_trade": 0.15466004163690472,
+    "pior_seq": 14,
+    "nota": 2.5971837499711885
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "be": 0.0,
+    "trail": "chandelier",
+    "trail_k": 5,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 638,
+    "por_dia": 2.3724821815928103,
+    "ret": 0.5275901333042285,
+    "dd": 0.39832399827218234,
+    "acerto": 0.3448275862068966,
+    "r_medio": 0.11492311905136196,
+    "fator": 1.1919498825683255,
+    "sharpe_trade": 0.05684789882227326,
+    "pior_seq": 16,
+    "nota": 1.4359018549760747
+   },
+   "fora": {
+    "n": 282,
+    "por_dia": 3.0960658737419946,
+    "ret": 0.7924693304483996,
+    "dd": 0.12783876254173593,
+    "acerto": 0.43617021276595747,
+    "r_medio": 0.2748290714897635,
+    "fator": 1.560037537411658,
+    "sharpe_trade": 0.15466004163690472,
+    "pior_seq": 14,
+    "nota": 2.5971837499711885
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "trail": "chandelier",
+    "trail_k": 3,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 641,
+    "por_dia": 2.3836380539200492,
+    "ret": 0.4779081918650947,
+    "dd": 0.39851634940771485,
+    "acerto": 0.35725429017160687,
+    "r_medio": 0.09998690449769866,
+    "fator": 1.1848432806195632,
+    "sharpe_trade": 0.054202877539806904,
+    "pior_seq": 18,
+    "nota": 1.372307250376019
+   },
+   "fora": {
+    "n": 292,
+    "por_dia": 3.2058554437328457,
+    "ret": 0.5207684088681122,
+    "dd": 0.1561751940572817,
+    "acerto": 0.3767123287671233,
+    "r_medio": 0.19315108290681351,
+    "fator": 1.3961204162018928,
+    "sharpe_trade": 0.11069200544499701,
+    "pior_seq": 16,
+    "nota": 1.8915058181975257
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "be": -0.3,
+    "trail": "chandelier",
+    "trail_k": 3,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 641,
+    "por_dia": 2.3836380539200492,
+    "ret": 0.4779081918650947,
+    "dd": 0.39851634940771485,
+    "acerto": 0.35725429017160687,
+    "r_medio": 0.09998690449769866,
+    "fator": 1.1848432806195632,
+    "sharpe_trade": 0.054202877539806904,
+    "pior_seq": 18,
+    "nota": 1.372307250376019
+   },
+   "fora": {
+    "n": 292,
+    "por_dia": 3.2058554437328457,
+    "ret": 0.5207684088681122,
+    "dd": 0.1561751940572817,
+    "acerto": 0.3767123287671233,
+    "r_medio": 0.19315108290681351,
+    "fator": 1.3961204162018928,
+    "sharpe_trade": 0.11069200544499701,
+    "pior_seq": 16,
+    "nota": 1.8915058181975257
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.0,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "be": 0.0,
+    "trail": "chandelier",
+    "trail_k": 3,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 641,
+    "por_dia": 2.3836380539200492,
+    "ret": 0.4779081918650947,
+    "dd": 0.39851634940771485,
+    "acerto": 0.35725429017160687,
+    "r_medio": 0.09998690449769866,
+    "fator": 1.1848432806195632,
+    "sharpe_trade": 0.054202877539806904,
+    "pior_seq": 18,
+    "nota": 1.372307250376019
+   },
+   "fora": {
+    "n": 292,
+    "por_dia": 3.2058554437328457,
+    "ret": 0.5207684088681122,
+    "dd": 0.1561751940572817,
+    "acerto": 0.3767123287671233,
+    "r_medio": 0.19315108290681351,
+    "fator": 1.3961204162018928,
+    "sharpe_trade": 0.11069200544499701,
+    "pior_seq": 16,
+    "nota": 1.8915058181975257
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.3,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "trail": "chandelier",
+    "trail_k": 3,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 622,
+    "por_dia": 2.3165735567970205,
+    "ret": 0.323223968367371,
+    "dd": 0.38255201251771476,
+    "acerto": 0.37138263665594856,
+    "r_medio": 0.06510892102537987,
+    "fator": 1.141636916088394,
+    "sharpe_trade": 0.04325999354452317,
+    "pior_seq": 17,
+    "nota": 1.0789011167830442
+   },
+   "fora": {
+    "n": 273,
+    "por_dia": 2.997255260750229,
+    "ret": 0.5121604741341088,
+    "dd": 0.12955032523588222,
+    "acerto": 0.40293040293040294,
+    "r_medio": 0.17808092618735794,
+    "fator": 1.4346534286753791,
+    "sharpe_trade": 0.12215736482201202,
+    "pior_seq": 15,
+    "nota": 2.01837091388339
+   }
+  },
+  {
+   "saida": {
+    "sl": "kronos",
+    "sl_k": 1.3,
+    "tp": "nenhum",
+    "sair_h": 24,
+    "be": -0.3,
+    "trail": "chandelier",
+    "trail_k": 3,
+    "trail_so_apos": false
+   },
+   "treino": {
+    "n": 622,
+    "por_dia": 2.3165735567970205,
+    "ret": 0.323223968367371,
+    "dd": 0.38255201251771476,
+    "acerto": 0.37138263665594856,
+    "r_medio": 0.06510892102537987,
+    "fator": 1.141636916088394,
+    "sharpe_trade": 0.04325999354452317,
+    "pior_seq": 17,
+    "nota": 1.0789011167830442
+   },
+   "fora": {
+    "n": 273,
+    "por_dia": 2.997255260750229,
+    "ret": 0.5121604741341088,
+    "dd": 0.12955032523588222,
+    "acerto": 0.40293040293040294,
+    "r_medio": 0.17808092618735794,
+    "fator": 1.4346534286753791,
+    "sharpe_trade": 0.12215736482201202,
+    "pior_seq": 15,
+    "nota": 2.01837091388339
+   }
+  }
+ ],
+ "saida_padrao_fora": {
+  "n": 297,
+  "por_dia": 3.260750228728271,
+  "ret": 0.1670538142891389,
+  "dd": 0.1679354735768233,
+  "acerto": 0.4781144781144781,
+  "r_medio": 0.06476930370119478,
+  "fator": 1.1319030912329164,
+  "sharpe_trade": 0.05137870895102142,
+  "pior_seq": 8,
+  "nota": 0.8854446368021602
+ },
+ "saida_escolhida": {
+  "sl": "kronos",
+  "sl_k": 1.0,
+  "tp": "nenhum",
+  "sair_h": 24,
+  "trail": "chandelier",
+  "trail_k": 5,
+  "trail_so_apos": false
+ },
+ "grade_vagas": [
+  {
+   "vagas": 16,
+   "risco_aberto": 0.08,
+   "por_grupo": 4,
+   "n": 712,
+   "por_dia": 2.647660365664704,
+   "ret": 0.6855281076139055,
+   "dd": 0.33926156088105547,
+   "acerto": 0.34831460674157305,
+   "r_medio": 0.12964222495731312,
+   "fator": 1.2160305393419875,
+   "sharpe_trade": 0.06365587905011545,
+   "pior_seq": 18,
+   "nota": 1.6985507079865954
+  },
+  {
+   "vagas": 12,
+   "risco_aberto": 0.08,
+   "por_grupo": 4,
+   "n": 685,
+   "por_dia": 2.5472575147195538,
+   "ret": 0.7448539228055311,
+   "dd": 0.3958769985739815,
+   "acerto": 0.34890510948905107,
+   "r_medio": 0.1292942354842431,
+   "fator": 1.2145786293715024,
+   "sharpe_trade": 0.06313387956324436,
+   "pior_seq": 28,
+   "nota": 1.6523717568585394
+  },
+  {
+   "vagas": 12,
+   "risco_aberto": 0.12,
+   "por_grupo": 4,
+   "n": 738,
+   "por_dia": 2.7443445925007746,
+   "ret": 0.6708565299554075,
+   "dd": 0.41644753667399687,
+   "acerto": 0.34688346883468835,
+   "r_medio": 0.11790233190374763,
+   "fator": 1.1950786752934062,
+   "sharpe_trade": 0.058175055685327756,
+   "pior_seq": 20,
+   "nota": 1.5803926039897007
+  },
+  {
+   "vagas": 8,
+   "risco_aberto": 0.06,
+   "por_grupo": 2,
+   "n": 488,
+   "por_dia": 1.8146885652308644,
+   "ret": 0.5883352289892658,
+   "dd": 0.39989412909280636,
+   "acerto": 0.35040983606557374,
+   "r_medio": 0.12404597710014988,
+   "fator": 1.2103821927499732,
+   "sharpe_trade": 0.06366562038519084,
+   "pior_seq": 11,
+   "nota": 1.4064195230752592
+  },
+  {
+   "vagas": 8,
+   "risco_aberto": 0.08,
+   "por_grupo": 3,
+   "n": 609,
+   "por_dia": 2.264642082429501,
+   "ret": 0.6657145915080542,
+   "dd": 0.45447764867727264,
+   "acerto": 0.3464696223316913,
+   "r_medio": 0.130004392606173,
+   "fator": 1.217252344668516,
+   "sharpe_trade": 0.06349146074989612,
+   "pior_seq": 25,
+   "nota": 1.5668375292884584
+  },
+  {
+   "vagas": 16,
+   "risco_aberto": 0.12,
+   "por_grupo": 4,
+   "n": 751,
+   "por_dia": 2.79268670591881,
+   "ret": 0.5548204153694367,
+   "dd": 0.3916042333599486,
+   "acerto": 0.34620505992010653,
+   "r_medio": 0.11419169749108518,
+   "fator": 1.188618152707924,
+   "sharpe_trade": 0.05656955657135544,
+   "pior_seq": 21,
+   "nota": 1.5502535801411708
+  },
+  {
+   "vagas": 16,
+   "risco_aberto": 0.06,
+   "por_grupo": 4,
+   "n": 632,
+   "por_dia": 2.3501704369383325,
+   "ret": 0.4230201824335085,
+   "dd": 0.31644852512865596,
+   "acerto": 0.3449367088607595,
+   "r_medio": 0.11292523556692352,
+   "fator": 1.1871740827510837,
+   "sharpe_trade": 0.055825496835443605,
+   "pior_seq": 25,
+   "nota": 1.403431228545256
+  },
+  {
+   "vagas": 12,
+   "risco_aberto": 0.08,
+   "por_grupo": 3,
+   "n": 638,
+   "por_dia": 2.3724821815928103,
+   "ret": 0.5275901333042285,
+   "dd": 0.39832399827218234,
+   "acerto": 0.3448275862068966,
+   "r_medio": 0.11492311905136196,
+   "fator": 1.1919498825683255,
+   "sharpe_trade": 0.05684789882227326,
+   "pior_seq": 16,
+   "nota": 1.4359018549760747
+  },
+  {
+   "vagas": 8,
+   "risco_aberto": 0.12,
+   "por_grupo": 3,
+   "n": 628,
+   "por_dia": 2.335295940502014,
+   "ret": 0.5994715003314999,
+   "dd": 0.4560578465677128,
+   "acerto": 0.34554140127388533,
+   "r_medio": 0.11878655696223178,
+   "fator": 1.198781155482424,
+   "sharpe_trade": 0.0586036115648612,
+   "pior_seq": 16,
+   "nota": 1.4686022964518146
+  },
+  {
+   "vagas": 8,
+   "risco_aberto": 0.08,
+   "por_grupo": 4,
+   "n": 650,
+   "por_dia": 2.417105670901766,
+   "ret": 0.5794379890646415,
+   "dd": 0.45154161788391783,
+   "acerto": 0.34615384615384615,
+   "r_medio": 0.1189363890961365,
+   "fator": 1.1969595379600837,
+   "sharpe_trade": 0.05936982831591887,
+   "pior_seq": 26,
+   "nota": 1.5136395655076187
+  }
+ ],
+ "vagas_escolhidas": {
+  "vagas": 16,
+  "risco_aberto": 0.08,
+  "por_grupo": 4,
+  "n": 712,
+  "por_dia": 2.647660365664704,
+  "ret": 0.6855281076139055,
+  "dd": 0.33926156088105547,
+  "acerto": 0.34831460674157305,
+  "r_medio": 0.12964222495731312,
+  "fator": 1.2160305393419875,
+  "sharpe_trade": 0.06365587905011545,
+  "pior_seq": 18,
+  "nota": 1.6985507079865954
+ },
+ "monte_carlo": [
+  {
+   "risco": 0.005,
+   "mediana": 0.20439284875372765,
+   "p10": -0.002849289493474516,
+   "p25": 0.08561267274304352,
+   "p75": 0.3490417435824358,
+   "p90": 0.5131841964371144,
+   "chance_lucro": 0.8958,
+   "chance_perder_10": 0.0185,
+   "chance_perder_20": 0.0015,
+   "dd_mediano": 0.07361546834373361,
+   "chance_dd_20": 0.0075
+  },
+  {
+   "risco": 0.01,
+   "mediana": 0.4215053213687483,
+   "p10": -0.019518813760631692,
+   "p25": 0.15830976605074643,
+   "p75": 0.7650080273110818,
+   "p90": 1.1950330551579555,
+   "chance_lucro": 0.8861,
+   "chance_perder_10": 0.0533,
+   "chance_perder_20": 0.0184,
+   "dd_mediano": 0.144546860710573,
+   "chance_dd_20": 0.2262
+  },
+  {
+   "risco": 0.015,
+   "mediana": 0.6407471127520141,
+   "p10": -0.050517479786606256,
+   "p25": 0.2163087750806243,
+   "p75": 1.2468183136625406,
+   "p90": 2.0745557815765783,
+   "chance_lucro": 0.8744,
+   "chance_perder_10": 0.0762,
+   "chance_perder_20": 0.0438,
+   "dd_mediano": 0.21291051753037088,
+   "chance_dd_20": 0.5592
+  },
+  {
+   "risco": 0.02,
+   "mediana": 0.856407476036418,
+   "p10": -0.09287798864180097,
+   "p25": 0.2530022263822833,
+   "p75": 1.8017781288490768,
+   "p90": 3.193479377828039,
+   "chance_lucro": 0.8629,
+   "chance_perder_10": 0.098,
+   "chance_perder_20": 0.0635,
+   "dd_mediano": 0.27826023833657676,
+   "chance_dd_20": 0.776
+  },
+  {
+   "risco": 0.03,
+   "mediana": 1.250042642534026,
+   "p10": -0.2126332403864526,
+   "p25": 0.2723171379785476,
+   "p75": 3.0997738964515795,
+   "p90": 6.229227034636605,
+   "chance_lucro": 0.8338,
+   "chance_perder_10": 0.134,
+   "chance_perder_20": 0.1039,
+   "dd_mediano": 0.40101181564496957,
+   "chance_dd_20": 0.9517
+  },
+  {
+   "risco": 0.04,
+   "mediana": 1.539849538548931,
+   "p10": -0.35858723425639805,
+   "p25": 0.20686156256065003,
+   "p75": 4.552617127387752,
+   "p90": 10.491997427084899,
+   "chance_lucro": 0.8017,
+   "chance_perder_10": 0.173,
+   "chance_perder_20": 0.1443,
+   "dd_mediano": 0.5123721647390664,
+   "chance_dd_20": 0.9905
+  }
+ ],
+ "risco_escolhido": {
+  "risco": 0.005,
+  "mediana": 0.20439284875372765,
+  "p10": -0.002849289493474516,
+  "p25": 0.08561267274304352,
+  "p75": 0.3490417435824358,
+  "p90": 0.5131841964371144,
+  "chance_lucro": 0.8958,
+  "chance_perder_10": 0.0185,
+  "chance_perder_20": 0.0015,
+  "dd_mediano": 0.07361546834373361,
+  "chance_dd_20": 0.0075
+ },
+ "final_fora": {
+  "n": 355,
+  "por_dia": 3.8552036199095023,
+  "ret": 0.4828316334738685,
+  "dd": 0.10170287398439862,
+  "acerto": 0.4169014084507042,
+  "r_medio": 0.23620017911674335,
+  "fator": 1.4576936788523098,
+  "sharpe_trade": 0.13241844435770034,
+  "pior_seq": 16,
+  "nota": 2.4949546617464318
+ },
+ "ativos": [
+  {
+   "simbolo": "ENA-USDT",
+   "ativo": "ENA",
+   "grupo": "cripto alt",
+   "n": 7,
+   "r_medio": 1.7828413332891202,
+   "acerto": 0.5714285714285714,
+   "r_encolhido": 0.7341111372366965,
+   "r_total": 12.479889333023841
+  },
+  {
+   "simbolo": "NCSKAPLD2USD-USDT",
+   "ativo": "APLD",
+   "grupo": "neoclouds",
+   "n": 5,
+   "r_medio": 2.1927314693497326,
+   "acerto": 0.6,
+   "r_encolhido": 0.7309104897832442,
+   "r_total": 10.963657346748663
+  },
+  {
+   "simbolo": "BCH-USDT",
+   "ativo": "BCH",
+   "grupo": "cripto grande",
+   "n": 20,
+   "r_medio": 1.0775161130470408,
+   "acerto": 0.6,
+   "r_encolhido": 0.7183440753646939,
+   "r_total": 21.550322260940817
+  },
+  {
+   "simbolo": "M-USDT",
+   "ativo": "M",
+   "grupo": "cripto alt",
+   "n": 16,
+   "r_medio": 0.9941553497082422,
+   "acerto": 0.4375,
+   "r_encolhido": 0.6117879075127644,
+   "r_total": 15.906485595331874
+  },
+  {
+   "simbolo": "ETH-USDT",
+   "ativo": "ETH",
+   "grupo": "cripto grande",
+   "n": 18,
+   "r_medio": 0.8968427437988259,
+   "acerto": 0.4444444444444444,
+   "r_encolhido": 0.5765417638706738,
+   "r_total": 16.143169388378865
+  },
+  {
+   "simbolo": "CC-USDT",
+   "ativo": "CC",
+   "grupo": "cripto alt",
+   "n": 20,
+   "r_medio": 0.8576839783367973,
+   "acerto": 0.45,
+   "r_encolhido": 0.5717893188911982,
+   "r_total": 17.153679566735946
+  },
+  {
+   "simbolo": "PUMP-USDT",
+   "ativo": "PUMP",
+   "grupo": "cripto alt",
+   "n": 11,
+   "r_medio": 1.0425066017675153,
+   "acerto": 0.2727272727272727,
+   "r_encolhido": 0.546074886640127,
+   "r_total": 11.467572619442668
+  },
+  {
+   "simbolo": "LTC-USDT",
+   "ativo": "LTC",
+   "grupo": "cripto grande",
+   "n": 20,
+   "r_medio": 0.758189300082732,
+   "acerto": 0.55,
+   "r_encolhido": 0.505459533388488,
+   "r_total": 15.16378600165464
+  },
+  {
+   "simbolo": "WLFI-USDT",
+   "ativo": "WLFI",
+   "grupo": "cripto alt",
+   "n": 11,
+   "r_medio": 0.91789671142333,
+   "acerto": 0.2727272727272727,
+   "r_encolhido": 0.4808030393169824,
+   "r_total": 10.09686382565663
+  },
+  {
+   "simbolo": "LINK-USDT",
+   "ativo": "LINK",
+   "grupo": "cripto grande",
+   "n": 19,
+   "r_medio": 0.7310271301862548,
+   "acerto": 0.47368421052631576,
+   "r_encolhido": 0.4789488094323738,
+   "r_total": 13.88951547353884
+  },
+  {
+   "simbolo": "DOT-USDT",
+   "ativo": "DOT",
+   "grupo": "cripto grande",
+   "n": 25,
+   "r_medio": 0.6316462486844524,
+   "acerto": 0.36,
+   "r_encolhido": 0.45117589191746604,
+   "r_total": 15.791156217111311
+  },
+  {
+   "simbolo": "NEAR-USDT",
+   "ativo": "NEAR",
+   "grupo": "cripto alt",
+   "n": 11,
+   "r_medio": 0.8464808774321877,
+   "acerto": 0.2727272727272727,
+   "r_encolhido": 0.4433947453216221,
+   "r_total": 9.311289651754064
+  },
+  {
+   "simbolo": "UNI-USDT",
+   "ativo": "UNI",
+   "grupo": "cripto alt",
+   "n": 17,
+   "r_medio": 0.6738523706891614,
+   "acerto": 0.29411764705882354,
+   "r_encolhido": 0.4242774185820646,
+   "r_total": 11.455490301715743
+  },
+  {
+   "simbolo": "DOGE-USDT",
+   "ativo": "DOGE",
+   "grupo": "cripto grande",
+   "n": 18,
+   "r_medio": 0.6401237618613662,
+   "acerto": 0.3888888888888889,
+   "r_encolhido": 0.411508132625164,
+   "r_total": 11.522227713504591
+  },
+  {
+   "simbolo": "SUI-USDT",
+   "ativo": "SUI",
+   "grupo": "cripto alt",
+   "n": 10,
+   "r_medio": 0.7835065690418771,
+   "acerto": 0.5,
+   "r_encolhido": 0.39175328452093855,
+   "r_total": 7.835065690418771
+  },
+  {
+   "simbolo": "XLM-USDT",
+   "ativo": "XLM",
+   "grupo": "cripto grande",
+   "n": 14,
+   "r_medio": 0.6224055493659808,
+   "acerto": 0.42857142857142855,
+   "r_encolhido": 0.36306990379682214,
+   "r_total": 8.713677691123731
+  },
+  {
+   "simbolo": "NCSKNBIS2USD-USDT",
+   "ativo": "NBIS",
+   "grupo": "neoclouds",
+   "n": 4,
+   "r_medio": 1.1784650264322432,
+   "acerto": 0.5,
+   "r_encolhido": 0.3367042932663552,
+   "r_total": 4.713860105728973
+  },
+  {
+   "simbolo": "NCCOXPT2USD-USDT",
+   "ativo": "Platina",
+   "grupo": "metais",
+   "n": 11,
+   "r_medio": 0.6138249668148927,
+   "acerto": 0.5454545454545454,
+   "r_encolhido": 0.3215273635697057,
+   "r_total": 6.75207463496382
+  },
+  {
+   "simbolo": "NCCOXAG2USD-USDT",
+   "ativo": "Prata",
+   "grupo": "metais",
+   "n": 28,
+   "r_medio": 0.43318545059833385,
+   "acerto": 0.4642857142857143,
+   "r_encolhido": 0.31918927938824604,
+   "r_total": 12.129192616753349
+  },
+  {
+   "simbolo": "ARB-USDT",
+   "ativo": "ARB",
+   "grupo": "cripto alt",
+   "n": 12,
+   "r_medio": 0.5449548464190449,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": 0.29724809804675173,
+   "r_total": 6.539458157028538
+  },
+  {
+   "simbolo": "NCSIEWY2USD-USDT",
+   "ativo": "Coreia",
+   "grupo": "índices",
+   "n": 15,
+   "r_medio": 0.43328462912659743,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": 0.2599707774759585,
+   "r_total": 6.499269436898961
+  },
+  {
+   "simbolo": "BNB-USDT",
+   "ativo": "BNB",
+   "grupo": "cripto grande",
+   "n": 17,
+   "r_medio": 0.39544640312669327,
+   "acerto": 0.5294117647058824,
+   "r_encolhido": 0.2489847723390291,
+   "r_total": 6.722588853153786
+  },
+  {
+   "simbolo": "ADA-USDT",
+   "ativo": "ADA",
+   "grupo": "cripto grande",
+   "n": 12,
+   "r_medio": 0.39290250247573794,
+   "acerto": 0.4166666666666667,
+   "r_encolhido": 0.21431045589585704,
+   "r_total": 4.714830029708855
+  },
+  {
+   "simbolo": "NCSIEWJ2USD-USDT",
+   "ativo": "Japão",
+   "grupo": "índices",
+   "n": 10,
+   "r_medio": 0.40843560728764994,
+   "acerto": 0.5,
+   "r_encolhido": 0.20421780364382497,
+   "r_total": 4.084356072876499
+  },
+  {
+   "simbolo": "HBAR-USDT",
+   "ativo": "HBAR",
+   "grupo": "cripto grande",
+   "n": 10,
+   "r_medio": 0.3565233184266199,
+   "acerto": 0.5,
+   "r_encolhido": 0.17826165921330994,
+   "r_total": 3.565233184266199
+  },
+  {
+   "simbolo": "SKY-USDT",
+   "ativo": "SKY",
+   "grupo": "cripto alt",
+   "n": 17,
+   "r_medio": 0.2496700820264313,
+   "acerto": 0.4117647058823529,
+   "r_encolhido": 0.1571996812759012,
+   "r_total": 4.244391394449332
+  },
+  {
+   "simbolo": "TRX-USDT",
+   "ativo": "TRX",
+   "grupo": "cripto grande",
+   "n": 10,
+   "r_medio": 0.3139775018389906,
+   "acerto": 0.5,
+   "r_encolhido": 0.1569887509194953,
+   "r_total": 3.139775018389906
+  },
+  {
+   "simbolo": "NCCO724COPPER2USD-USDT",
+   "ativo": "Cobre",
+   "grupo": "metais",
+   "n": 18,
+   "r_medio": 0.2244395674396556,
+   "acerto": 0.3888888888888889,
+   "r_encolhido": 0.14428257906835001,
+   "r_total": 4.039912213913801
+  },
+  {
+   "simbolo": "XMR-USDT",
+   "ativo": "XMR",
+   "grupo": "cripto alt",
+   "n": 7,
+   "r_medio": 0.3225421730634948,
+   "acerto": 0.42857142857142855,
+   "r_encolhido": 0.1328114830261449,
+   "r_total": 2.2577952114444635
+  },
+  {
+   "simbolo": "XRP-USDT",
+   "ativo": "XRP",
+   "grupo": "cripto grande",
+   "n": 15,
+   "r_medio": 0.20541649606220783,
+   "acerto": 0.4,
+   "r_encolhido": 0.12324989763732469,
+   "r_total": 3.0812474409331174
+  },
+  {
+   "simbolo": "OKB-USDT",
+   "ativo": "OKB",
+   "grupo": "cripto alt",
+   "n": 10,
+   "r_medio": 0.16192880839574314,
+   "acerto": 0.4,
+   "r_encolhido": 0.08096440419787157,
+   "r_total": 1.6192880839574313
+  },
+  {
+   "simbolo": "CRO-USDT",
+   "ativo": "CRO",
+   "grupo": "cripto alt",
+   "n": 12,
+   "r_medio": 0.14303428542861935,
+   "acerto": 0.4166666666666667,
+   "r_encolhido": 0.07801870114288328,
+   "r_total": 1.7164114251434321
+  },
+  {
+   "simbolo": "NCSKMSFT2USD-USDT",
+   "ativo": "MSFT",
+   "grupo": "big tech",
+   "n": 9,
+   "r_medio": 0.15924182319519156,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": 0.07543033730298547,
+   "r_total": 1.433176408756724
+  },
+  {
+   "simbolo": "NCCOPALLADIUM2USD-USDT",
+   "ativo": "Paládio",
+   "grupo": "metais",
+   "n": 8,
+   "r_medio": 0.14886596937411367,
+   "acerto": 0.375,
+   "r_encolhido": 0.06616265305516163,
+   "r_total": 1.1909277549929094
+  },
+  {
+   "simbolo": "NCSIDOWJONES2USD-USDT",
+   "ativo": "Dow Jones",
+   "grupo": "índices",
+   "n": 15,
+   "r_medio": 0.10601251668992481,
+   "acerto": 0.6,
+   "r_encolhido": 0.06360751001395488,
+   "r_total": 1.5901877503488722
+  },
+  {
+   "simbolo": "NCSKAMD2USD-USDT",
+   "ativo": "AMD",
+   "grupo": "big tech",
+   "n": 6,
+   "r_medio": 0.15009960407659464,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": 0.056287351528722995,
+   "r_total": 0.9005976244595679
+  },
+  {
+   "simbolo": "NCCO7241NATGAS2USD-USDT",
+   "ativo": "Gás natural",
+   "grupo": "energia",
+   "n": 2,
+   "r_medio": 0.25282875668554217,
+   "acerto": 0.5,
+   "r_encolhido": 0.042138126114257025,
+   "r_total": 0.5056575133710843
+  },
+  {
+   "simbolo": "ASTER-USDT",
+   "ativo": "ASTER",
+   "grupo": "cripto alt",
+   "n": 24,
+   "r_medio": 0.04922199384621647,
+   "acerto": 0.5,
+   "r_encolhido": 0.03474493683262339,
+   "r_total": 1.1813278523091952
+  },
+  {
+   "simbolo": "NCSKAAPL2USD-USDT",
+   "ativo": "AAPL",
+   "grupo": "big tech",
+   "n": 8,
+   "r_medio": 0.07333180024031762,
+   "acerto": 0.375,
+   "r_encolhido": 0.03259191121791894,
+   "r_total": 0.5866544019225409
+  },
+  {
+   "simbolo": "NCSKORCL2USD-USDT",
+   "ativo": "ORCL",
+   "grupo": "big tech",
+   "n": 15,
+   "r_medio": 0.051059062372503954,
+   "acerto": 0.26666666666666666,
+   "r_encolhido": 0.030635437423502374,
+   "r_total": 0.7658859355875594
+  },
+  {
+   "simbolo": "NCSINIKKEI2252USD-USDT",
+   "ativo": "Nikkei 225",
+   "grupo": "índices",
+   "n": 36,
+   "r_medio": 0.03234710961252056,
+   "acerto": 0.4166666666666667,
+   "r_encolhido": 0.025315129261972612,
+   "r_total": 1.1644959460507402
+  },
+  {
+   "simbolo": "NCSINASDAQ1002USD-USDT",
+   "ativo": "NASDAQ 100",
+   "grupo": "índices",
+   "n": 47,
+   "r_medio": -0.026907257634074797,
+   "acerto": 0.3617021276595745,
+   "r_encolhido": -0.022186686119324832,
+   "r_total": -1.2646411088015155
+  },
+  {
+   "simbolo": "WLD-USDT",
+   "ativo": "WLD",
+   "grupo": "cripto alt",
+   "n": 18,
+   "r_medio": -0.04209977041440375,
+   "acerto": 0.3888888888888889,
+   "r_encolhido": -0.02706413812354527,
+   "r_total": -0.7577958674592675
+  },
+  {
+   "simbolo": "NCCOGOLD2USD-USDT",
+   "ativo": "Ouro",
+   "grupo": "metais",
+   "n": 47,
+   "r_medio": -0.04004253265594523,
+   "acerto": 0.40425531914893614,
+   "r_encolhido": -0.033017526926832026,
+   "r_total": -1.8819990348294255
+  },
+  {
+   "simbolo": "NCSIRUSSELL20002USD-USDT",
+   "ativo": "Russell 2000",
+   "grupo": "índices",
+   "n": 20,
+   "r_medio": -0.07280115870302614,
+   "acerto": 0.35,
+   "r_encolhido": -0.04853410580201743,
+   "r_total": -1.456023174060523
+  },
+  {
+   "simbolo": "NCSKASML2USD-USDT",
+   "ativo": "ASML",
+   "grupo": "big tech",
+   "n": 11,
+   "r_medio": -0.12341549298092289,
+   "acerto": 0.18181818181818182,
+   "r_encolhido": -0.06464621060905484,
+   "r_total": -1.3575704227901517
+  },
+  {
+   "simbolo": "MORPHO-USDT",
+   "ativo": "MORPHO",
+   "grupo": "cripto alt",
+   "n": 14,
+   "r_medio": -0.17971512811749424,
+   "acerto": 0.2857142857142857,
+   "r_encolhido": -0.10483382473520497,
+   "r_total": -2.5160117936449193
+  },
+  {
+   "simbolo": "NCCO1OILBRENT2USD-USDT",
+   "ativo": "Petróleo Brent",
+   "grupo": "energia",
+   "n": 12,
+   "r_medio": -0.19801654639824698,
+   "acerto": 0.4166666666666667,
+   "r_encolhido": -0.10800902530813472,
+   "r_total": -2.376198556778964
+  },
+  {
+   "simbolo": "BTC-USDT",
+   "ativo": "BTC",
+   "grupo": "cripto grande",
+   "n": 9,
+   "r_medio": -0.23118562374302234,
+   "acerto": 0.2222222222222222,
+   "r_encolhido": -0.10950897966774742,
+   "r_total": -2.080670613687201
+  },
+  {
+   "simbolo": "NCSKLLY2USD-USDT",
+   "ativo": "LLY",
+   "grupo": "ações outras",
+   "n": 3,
+   "r_medio": -0.5303585782595435,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": -0.12239044113681773,
+   "r_total": -1.5910757347786304
+  },
+  {
+   "simbolo": "NCSKNVDA2USD-USDT",
+   "ativo": "NVDA",
+   "grupo": "big tech",
+   "n": 11,
+   "r_medio": -0.2788934011878555,
+   "acerto": 0.18181818181818182,
+   "r_encolhido": -0.14608701966982907,
+   "r_total": -3.0678274130664103
+  },
+  {
+   "simbolo": "1000PEPE-USDT",
+   "ativo": "PEPE",
+   "grupo": "cripto alt",
+   "n": 10,
+   "r_medio": -0.3433344350847718,
+   "acerto": 0.2,
+   "r_encolhido": -0.1716672175423859,
+   "r_total": -3.433344350847718
+  },
+  {
+   "simbolo": "NCSISP5002USD-USDT",
+   "ativo": "S&P 500",
+   "grupo": "índices",
+   "n": 42,
+   "r_medio": -0.22330776396936086,
+   "acerto": 0.35714285714285715,
+   "r_encolhido": -0.18036396320602222,
+   "r_total": -9.378926086713156
+  },
+  {
+   "simbolo": "ZEC-USDT",
+   "ativo": "ZEC",
+   "grupo": "cripto alt",
+   "n": 10,
+   "r_medio": -0.3935915433676522,
+   "acerto": 0.2,
+   "r_encolhido": -0.1967957716838261,
+   "r_total": -3.935915433676522
+  },
+  {
+   "simbolo": "MNT-USDT",
+   "ativo": "MNT",
+   "grupo": "cripto alt",
+   "n": 8,
+   "r_medio": -0.45166538143256685,
+   "acerto": 0.25,
+   "r_encolhido": -0.20074016952558527,
+   "r_total": -3.613323051460535
+  },
+  {
+   "simbolo": "HYPE-USDT",
+   "ativo": "HYPE",
+   "grupo": "cripto alt",
+   "n": 24,
+   "r_medio": -0.2998560015147083,
+   "acerto": 0.3333333333333333,
+   "r_encolhido": -0.21166305989273526,
+   "r_total": -7.196544036352999
+  },
+  {
+   "simbolo": "AAVE-USDT",
+   "ativo": "AAVE",
+   "grupo": "cripto alt",
+   "n": 23,
+   "r_medio": -0.3118047527004215,
+   "acerto": 0.2608695652173913,
+   "r_encolhido": -0.21731846400332408,
+   "r_total": -7.171509312109695
+  },
+  {
+   "simbolo": "TAO-USDT",
+   "ativo": "TAO",
+   "grupo": "cripto alt",
+   "n": 14,
+   "r_medio": -0.4019421710486866,
+   "acerto": 0.2857142857142857,
+   "r_encolhido": -0.23446626644506718,
+   "r_total": -5.627190394681612
+  },
+  {
+   "simbolo": "NCCO1OILWTI2USD-USDT",
+   "ativo": "Petróleo WTI",
+   "grupo": "energia",
+   "n": 5,
+   "r_medio": -0.8208394857704953,
+   "acerto": 0.0,
+   "r_encolhido": -0.27361316192349844,
+   "r_total": -4.104197428852476
+  },
+  {
+   "simbolo": "QNT-USDT",
+   "ativo": "QNT",
+   "grupo": "cripto alt",
+   "n": 21,
+   "r_medio": -0.41187108146579765,
+   "acerto": 0.2857142857142857,
+   "r_encolhido": -0.2790094422832823,
+   "r_total": -8.64929271078175
+  },
+  {
+   "simbolo": "NCSKAVGO2USD-USDT",
+   "ativo": "AVGO",
+   "grupo": "big tech",
+   "n": 6,
+   "r_medio": -0.752557086366037,
+   "acerto": 0.16666666666666666,
+   "r_encolhido": -0.2822089073872639,
+   "r_total": -4.515342518196222
+  },
+  {
+   "simbolo": "SOL-USDT",
+   "ativo": "SOL",
+   "grupo": "cripto grande",
+   "n": 5,
+   "r_medio": -0.8526508059443415,
+   "acerto": 0.0,
+   "r_encolhido": -0.2842169353147805,
+   "r_total": -4.263254029721708
+  },
+  {
+   "simbolo": "BTW-USDT",
+   "ativo": "BTW",
+   "grupo": "cripto alt",
+   "n": 7,
+   "r_medio": -0.6970557605137131,
+   "acerto": 0.14285714285714285,
+   "r_encolhido": -0.2870229602115289,
+   "r_total": -4.879390323595992
+  },
+  {
+   "simbolo": "NCSKJPM2USD-USDT",
+   "ativo": "JPM",
+   "grupo": "ações outras",
+   "n": 5,
+   "r_medio": -0.8693642339276106,
+   "acerto": 0.0,
+   "r_encolhido": -0.2897880779758702,
+   "r_total": -4.346821169638053
+  },
+  {
+   "simbolo": "NCSKTSLA2USD-USDT",
+   "ativo": "TSLA",
+   "grupo": "big tech",
+   "n": 13,
+   "r_medio": -0.5533177970942972,
+   "acerto": 0.23076923076923078,
+   "r_encolhido": -0.31274484183590706,
+   "r_total": -7.193131362225863
+  },
+  {
+   "simbolo": "NCSKARM2USD-USDT",
+   "ativo": "ARM",
+   "grupo": "big tech",
+   "n": 13,
+   "r_medio": -0.5706965357478755,
+   "acerto": 0.23076923076923078,
+   "r_encolhido": -0.3225676071618427,
+   "r_total": -7.419054964722382
+  },
+  {
+   "simbolo": "NCSKIREN2USD-USDT",
+   "ativo": "IREN",
+   "grupo": "neoclouds",
+   "n": 5,
+   "r_medio": -1.0465934661039982,
+   "acerto": 0.0,
+   "r_encolhido": -0.3488644887013327,
+   "r_total": -5.23296733051999
+  },
+  {
+   "simbolo": "ONDO-USDT",
+   "ativo": "ONDO",
+   "grupo": "cripto alt",
+   "n": 24,
+   "r_medio": -0.5119381279230543,
+   "acerto": 0.25,
+   "r_encolhido": -0.36136809029862654,
+   "r_total": -12.286515070153303
+  },
+  {
+   "simbolo": "ICP-USDT",
+   "ativo": "ICP",
+   "grupo": "cripto alt",
+   "n": 11,
+   "r_medio": -0.7082956627060707,
+   "acerto": 0.18181818181818182,
+   "r_encolhido": -0.37101201379841797,
+   "r_total": -7.791252289766778
+  },
+  {
+   "simbolo": "NCSKAMZN2USD-USDT",
+   "ativo": "AMZN",
+   "grupo": "big tech",
+   "n": 11,
+   "r_medio": -0.8562177505860556,
+   "acerto": 0.0,
+   "r_encolhido": -0.4484950122117434,
+   "r_total": -9.418395256446612
+  }
+ ],
+ "chance_r_positivo": 0.984,
+ "alav": {
+  "mediana": 10.0,
+  "p90": 10.0
+ },
+ "sl_mediano": 0.008,
+ "horas_medias": 14.596774193548388,
+ "colchao": {
+  "Nasdaq 100": {
+   "ret": 0.022408423749750606,
+   "dd": 0.07071390940782168
+  },
+  "S&P 500": {
+   "ret": 0.031046342018279827,
+   "dd": 0.027920147609041008
+  },
+  "Ouro": {
+   "ret": 0.023121700551067992,
+   "dd": 0.12348075372532635
+  }
+ },
+ "por_grupo_fora": {
+  "metais": {
+   "n": 45,
+   "r_medio": 0.5060799159355475,
+   "acerto": 0.5111111111111111
+  },
+  "índices": {
+   "n": 65,
+   "r_medio": 0.24282975187093073,
+   "acerto": 0.47692307692307695
+  },
+  "cripto alt": {
+   "n": 90,
+   "r_medio": -0.13489887202969153,
+   "acerto": 0.3333333333333333
+  },
+  "cripto grande": {
+   "n": 59,
+   "r_medio": 0.6705918088515135,
+   "acerto": 0.4745762711864407
+  },
+  "ações outras": {
+   "n": 4,
+   "r_medio": -0.3991774265210204,
+   "acerto": 0.25
+  },
+  "neoclouds": {
+   "n": 9,
+   "r_medio": 0.7950650575136756,
+   "acerto": 0.3333333333333333
+  },
+  "big tech": {
+   "n": 28,
+   "r_medio": -0.20283250757366497,
+   "acerto": 0.21428571428571427
+  },
+  "energia": {
+   "n": 10,
+   "r_medio": -0.23901151932302214,
+   "acerto": 0.4
+  }
+ },
+ "lados_fora": {
+  "short": {
+   "n": 202,
+   "r_medio": 0.28211593565048715,
+   "acerto": 0.42574257425742573
+  },
+  "long": {
+   "n": 108,
+   "r_medio": 0.06003314567708268,
+   "acerto": 0.37037037037037035
+  }
+ }
+}
