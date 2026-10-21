@@ -167,6 +167,32 @@ def avaliar(ativo, stats, fundings):
         return []
 
 
+def robo_painel():
+    """Trades do robô (robo-bingx, privado): baixa o artifact painel-robo da última rodada com o ROBO_TOKEN.
+    Nada do robô vai para o log (este repositório é público). Sem token ou sem artifact: None."""
+    token = os.environ.get("ROBO_TOKEN")
+    if not token:
+        return None
+    try:
+        import io as _io
+        import zipfile
+        import requests
+        cab = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"}
+        r = requests.get("https://api.github.com/repos/pedroloopz/robo-bingx/actions/artifacts",
+                         params={"name": "painel-robo", "per_page": 1}, headers=cab, timeout=20)
+        r.raise_for_status()
+        arts = [a for a in r.json().get("artifacts", []) if not a.get("expired")]
+        if not arts:
+            return None
+        z = requests.get(arts[0]["archive_download_url"], headers=cab, timeout=30)   # o redirect não leva o token
+        z.raise_for_status()
+        with zipfile.ZipFile(_io.BytesIO(z.content)) as zf:
+            return json.loads(zf.read("painel_robo.json").decode("utf-8"))
+    except Exception as e:
+        print(f"robô: sem resumo ({type(e).__name__})")
+        return None
+
+
 def subir_drive(caminho):
     info, fid = os.environ.get("GDRIVE_SA_JSON"), os.environ.get("GDRIVE_FILE_ID")
     if not info or not fid:
@@ -382,6 +408,7 @@ def main():
         os.makedirs(COLETA, exist_ok=True)
         with open(hist, "w", encoding="utf-8") as f:
             f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in antigos[-500:])
+    painel["robo"] = robo_painel()
     caminho = os.path.join(AQUI, "painel.json")
     with open(caminho, "w") as f:
         json.dump(painel, f, ensure_ascii=False, separators=(",", ":"))
