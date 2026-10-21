@@ -1,154 +1,162 @@
-universo: 445 ativos (161 cripto, 284 ações)
-falhou NCSKSATLUSDT-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-sinais simulados: 831096 em 299s
-  acao: 275 ativos, de 2026-10-10 04:00:00+00:00 a 2026-10-20 04:15:00+00:00
-  cripto: 161 ativos, de 2026-07-22 13:45:00+00:00 a 2026-10-20 04:15:00+00:00
-fontes: {'bingx': np.int64(317), 'binance': np.int64(128)}
-modelo de fluxo: 260589 linhas, 127 ativos
-  faixas 1 [{'de': 0.625785, 'ate': 0.736762, 'n': 9496, 'acerto': 0.571, 'r': 0.022}, {'de': 0.736762, 'ate': 0.806262, 'n': 865, 'acerto': 0.528, 'r': -0.031}, {'de': 0.806262, 'ate': None, 'n': 101, 'acerto': 0.505, 'r': 0.035}]
-  faixas -1 [{'de': 0.569921, 'ate': 0.653069, 'n': 8930, 'acerto': 0.56, 'r': -0.03}, {'de': 0.653069, 'ate': 0.707287, 'n': 1652, 'acerto': 0.597, 'r': 0.02}, {'de': 0.707287, 'ate': None, 'n': 322, 'acerto': 0.596, 'r': 0.017}]
+universo: 446 ativos (161 cripto, 285 ações)
+falhou NCSKAMAT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKBAC2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKCLSK2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKTAIYOYUDEN2JPY-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKGFS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKAXONUSDT-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKUMC2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKSONY2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou PONS-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+sinais simulados: 833535 em 302s
+  acao: 270 ativos, de 2026-10-11 04:00:00+00:00 a 2026-10-21 04:30:00+00:00
+  cripto: 160 ativos, de 2026-07-23 13:45:00+00:00 a 2026-10-21 04:30:00+00:00
+fontes: {'bingx': np.int64(318), 'binance': np.int64(128)}
+modelo de fluxo: 260613 linhas, 127 ativos
+  faixas 1 [{'de': 0.635759, 'ate': 0.740247, 'n': 7999, 'acerto': 0.559, 'r': 0.002}, {'de': 0.740247, 'ate': 0.803645, 'n': 526, 'acerto': 0.513, 'r': -0.044}, {'de': 0.803645, 'ate': None, 'n': 49, 'acerto': 0.633, 'r': 0.109}]
+  faixas -1 [{'de': 0.56947, 'ate': 0.652944, 'n': 8282, 'acerto': 0.563, 'r': -0.023}, {'de': 0.652944, 'ate': 0.707316, 'n': 1239, 'acerto': 0.595, 'r': 0.01}, {'de': 0.707316, 'ate': None, 'n': 177, 'acerto': 0.678, 'r': 0.134}]
 saídas escolhidas: {
  "acao|EXA|1": {
-  "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.17,
-  "r": -0.262,
-  "n": 112
+  "sl": 1.5,
+  "tp": 2.0,
+  "p": 0.316,
+  "r": -0.234,
+  "n": 114
  },
  "acao|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.316,
-  "r": -0.084,
-  "n": 1139
+  "p": 0.319,
+  "r": -0.062,
+  "n": 1125
  },
  "acao|PULL|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.569,
-  "r": -0.261,
-  "n": 765
+  "p": 0.589,
+  "r": -0.22,
+  "n": 749
  },
  "acao|ROMP|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.382,
-  "r": 0.221,
-  "n": 684
+  "p": 0.371,
+  "r": 0.201,
+  "n": 720
  },
  "acao|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.261,
-  "r": -0.195,
-  "n": 307
+  "p": 0.293,
+  "r": -0.071,
+  "n": 376
  },
  "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.292,
-  "r": -0.269,
-  "n": 1548
+  "p": 0.305,
+  "r": -0.218,
+  "n": 1547
  },
  "acao|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.524,
-  "r": -0.33,
-  "n": 1396
+  "p": 0.541,
+  "r": -0.279,
+  "n": 1370
  },
  "cripto|EXA|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.567,
-  "r": -0.166,
-  "n": 2671
+  "p": 0.564,
+  "r": -0.159,
+  "n": 2772
  },
  "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.252,
-  "r": -0.038,
-  "n": 1072
+  "p": 0.254,
+  "r": -0.035,
+  "n": 1077
  },
  "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.253,
-  "r": -0.067,
-  "n": 3954
+  "p": 0.251,
+  "r": -0.068,
+  "n": 3949
  },
  "cripto|PULL|1": {
   "sl": 2.0,
   "tp": 2.0,
-  "p": 0.391,
-  "r": -0.048,
-  "n": 3124
+  "p": 0.388,
+  "r": -0.05,
+  "n": 3073
  },
  "cripto|ROMP|-1": {
   "sl": 2.0,
   "tp": 1.0,
   "p": 0.607,
-  "r": -0.124,
-  "n": 26398
+  "r": -0.125,
+  "n": 26206
  },
  "cripto|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.32,
-  "r": -0.08,
-  "n": 31750
+  "p": 0.321,
+  "r": -0.078,
+  "n": 32069
  },
  "cripto|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.61,
-  "r": -0.154,
-  "n": 8751
+  "p": 0.609,
+  "r": -0.155,
+  "n": 8718
  },
  "cripto|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.621,
-  "r": -0.148,
-  "n": 8621
+  "p": 0.626,
+  "r": -0.14,
+  "n": 8695
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 537,
-  "acerto": 0.436,
-  "r_medio": -0.806
+  "n": 552,
+  "acerto": 0.411,
+  "r_medio": -0.803
  },
  "2": {
-  "n": 4596,
-  "acerto": 0.546,
-  "r_medio": -0.112
+  "n": 4278,
+  "acerto": 0.525,
+  "r_medio": -0.102
  },
  "3": {
-  "n": 8159,
-  "acerto": 0.524,
-  "r_medio": -0.079
+  "n": 8017,
+  "acerto": 0.497,
+  "r_medio": -0.07
  },
  "4": {
-  "n": 3861,
-  "acerto": 0.479,
-  "r_medio": -0.043
+  "n": 3750,
+  "acerto": 0.448,
+  "r_medio": -0.059
  },
  "5": {
-  "n": 5903,
-  "acerto": 0.341,
-  "r_medio": -0.081
+  "n": 6364,
+  "acerto": 0.327,
+  "r_medio": -0.076
  },
  "6": {
-  "n": 195,
-  "acerto": 0.615,
-  "r_medio": -0.071
+  "n": 222,
+  "acerto": 0.608,
+  "r_medio": -0.094
  },
  "7": {
   "n": 9,
-  "acerto": 0.556,
-  "r_medio": -0.213
+  "acerto": 0.667,
+  "r_medio": 0.086
  },
  "8+": {
   "n": 0,
@@ -156,14 +164,14 @@ validação fora da amostra: {
   "r_medio": null
  },
  "3-": {
-  "n": 13292,
-  "acerto": 0.528,
-  "r_medio": -0.119
+  "n": 12847,
+  "acerto": 0.503,
+  "r_medio": -0.112
  },
  "todos": {
-  "n": 23260,
-  "acerto": 0.473,
-  "r_medio": -0.097
+  "n": 23192,
+  "acerto": 0.447,
+  "r_medio": -0.093
  }
 }
-ok em 312s; stats.json 170 KB
+ok em 314s; stats.json 170 KB
