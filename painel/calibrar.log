@@ -1,162 +1,157 @@
-universo: 446 ativos (161 cripto, 285 ações)
-falhou NCSKAMAT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKBAC2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKCLSK2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKTAIYOYUDEN2JPY-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKGFS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKAXONUSDT-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKUMC2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou NCSKSONY2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-falhou PONS-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
-sinais simulados: 833535 em 302s
-  acao: 270 ativos, de 2026-10-11 04:00:00+00:00 a 2026-10-21 04:30:00+00:00
-  cripto: 160 ativos, de 2026-07-23 13:45:00+00:00 a 2026-10-21 04:30:00+00:00
-fontes: {'bingx': np.int64(318), 'binance': np.int64(128)}
-modelo de fluxo: 260613 linhas, 127 ativos
-  faixas 1 [{'de': 0.635759, 'ate': 0.740247, 'n': 7999, 'acerto': 0.559, 'r': 0.002}, {'de': 0.740247, 'ate': 0.803645, 'n': 526, 'acerto': 0.513, 'r': -0.044}, {'de': 0.803645, 'ate': None, 'n': 49, 'acerto': 0.633, 'r': 0.109}]
-  faixas -1 [{'de': 0.56947, 'ate': 0.652944, 'n': 8282, 'acerto': 0.563, 'r': -0.023}, {'de': 0.652944, 'ate': 0.707316, 'n': 1239, 'acerto': 0.595, 'r': 0.01}, {'de': 0.707316, 'ate': None, 'n': 177, 'acerto': 0.678, 'r': 0.134}]
+universo: 449 ativos (161 cripto, 288 ações)
+falhou NCSKMSTR2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKSOXL2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKGOOGL2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+falhou NCSKDASH2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
+sinais simulados: 845190 em 311s
+  acao: 278 ativos, de 2026-10-12 04:15:00+00:00 a 2026-10-22 04:30:00+00:00
+  cripto: 161 ativos, de 2026-07-24 13:45:00+00:00 a 2026-10-22 04:30:00+00:00
+fontes: {'bingx': np.int64(320), 'binance': np.int64(129)}
+modelo de fluxo: 262701 linhas, 128 ativos
+  faixas 1 [{'de': 0.643995, 'ate': 0.736866, 'n': 7340, 'acerto': 0.559, 'r': 0.006}, {'de': 0.736866, 'ate': 0.788925, 'n': 818, 'acerto': 0.575, 'r': 0.04}, {'de': 0.788925, 'ate': None, 'n': 146, 'acerto': 0.562, 'r': 0.04}]
+  faixas -1 [{'de': 0.558107, 'ate': 0.636668, 'n': 8751, 'acerto': 0.573, 'r': 0.001}, {'de': 0.636668, 'ate': 0.686287, 'n': 1870, 'acerto': 0.593, 'r': 0.031}, {'de': 0.686287, 'ate': None, 'n': 668, 'acerto': 0.605, 'r': 0.032}]
 saídas escolhidas: {
  "acao|EXA|1": {
-  "sl": 1.5,
-  "tp": 2.0,
-  "p": 0.316,
-  "r": -0.234,
-  "n": 114
+  "sl": 2.0,
+  "tp": 3.0,
+  "p": 0.15,
+  "r": -0.252,
+  "n": 107
  },
  "acao|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.319,
-  "r": -0.062,
-  "n": 1125
+  "p": 0.335,
+  "r": 0.007,
+  "n": 1184
  },
  "acao|PULL|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.589,
-  "r": -0.22,
-  "n": 749
+  "p": 0.587,
+  "r": -0.194,
+  "n": 864
  },
  "acao|ROMP|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.371,
-  "r": 0.201,
-  "n": 720
+  "p": 0.366,
+  "r": 0.205,
+  "n": 694
  },
  "acao|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.293,
-  "r": -0.071,
-  "n": 376
+  "p": 0.272,
+  "r": -0.098,
+  "n": 323
  },
  "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.305,
-  "r": -0.218,
-  "n": 1547
+  "p": 0.3,
+  "r": -0.244,
+  "n": 1860
  },
  "acao|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.541,
-  "r": -0.279,
-  "n": 1370
+  "p": 0.529,
+  "r": -0.3,
+  "n": 1544
  },
  "cripto|EXA|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.564,
-  "r": -0.159,
-  "n": 2772
+  "p": 0.563,
+  "r": -0.16,
+  "n": 2806
  },
  "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.254,
-  "r": -0.035,
-  "n": 1077
+  "p": 0.257,
+  "r": -0.027,
+  "n": 1099
  },
  "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.251,
-  "r": -0.068,
-  "n": 3949
+  "p": 0.255,
+  "r": -0.061,
+  "n": 3881
  },
  "cripto|PULL|1": {
   "sl": 2.0,
   "tp": 2.0,
-  "p": 0.388,
+  "p": 0.391,
   "r": -0.05,
-  "n": 3073
+  "n": 3170
  },
  "cripto|ROMP|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.607,
-  "r": -0.125,
-  "n": 26206
+  "p": 0.608,
+  "r": -0.122,
+  "n": 26370
  },
  "cripto|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
   "p": 0.321,
-  "r": -0.078,
-  "n": 32069
+  "r": -0.077,
+  "n": 32505
  },
  "cripto|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.609,
-  "r": -0.155,
-  "n": 8718
+  "p": 0.608,
+  "r": -0.158,
+  "n": 8702
  },
  "cripto|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.626,
-  "r": -0.14,
-  "n": 8695
+  "p": 0.629,
+  "r": -0.133,
+  "n": 8751
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 552,
-  "acerto": 0.411,
-  "r_medio": -0.803
+  "n": 507,
+  "acerto": 0.428,
+  "r_medio": -0.867
  },
  "2": {
-  "n": 4278,
-  "acerto": 0.525,
+  "n": 4290,
+  "acerto": 0.534,
   "r_medio": -0.102
  },
  "3": {
-  "n": 8017,
-  "acerto": 0.497,
-  "r_medio": -0.07
+  "n": 7665,
+  "acerto": 0.494,
+  "r_medio": -0.071
  },
  "4": {
-  "n": 3750,
-  "acerto": 0.448,
-  "r_medio": -0.059
+  "n": 3806,
+  "acerto": 0.441,
+  "r_medio": -0.078
  },
  "5": {
-  "n": 6364,
-  "acerto": 0.327,
-  "r_medio": -0.076
+  "n": 6671,
+  "acerto": 0.338,
+  "r_medio": -0.07
  },
  "6": {
-  "n": 222,
-  "acerto": 0.608,
-  "r_medio": -0.094
+  "n": 345,
+  "acerto": 0.6,
+  "r_medio": -0.108
  },
  "7": {
-  "n": 9,
-  "acerto": 0.667,
-  "r_medio": 0.086
+  "n": 40,
+  "acerto": 0.55,
+  "r_medio": -0.176
  },
  "8+": {
   "n": 0,
@@ -164,14 +159,14 @@ validação fora da amostra: {
   "r_medio": null
  },
  "3-": {
-  "n": 12847,
-  "acerto": 0.503,
-  "r_medio": -0.112
+  "n": 12462,
+  "acerto": 0.505,
+  "r_medio": -0.114
  },
  "todos": {
-  "n": 23192,
-  "acerto": 0.447,
-  "r_medio": -0.093
+  "n": 23324,
+  "acerto": 0.448,
+  "r_medio": -0.096
  }
 }
-ok em 314s; stats.json 170 KB
+ok em 332s; stats.json 173 KB
