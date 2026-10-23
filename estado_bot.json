@@ -58,12 +58,6 @@
     ]
   },
   "pendentes": {
-    "entrada:UNH": {
-      "tipo": "entrada",
-      "ticker": "UNH",
-      "msg_id": null,
-      "data": "2026-10-20"
-    },
     "entrada:NOW": {
       "tipo": "entrada",
       "ticker": "NOW",
@@ -78,10 +72,7 @@
     }
   },
   "recusados": {},
-  "alertados": {
-    "NOW": "2026-10-22",
-    "DIS": "2026-10-22"
-  },
+  "alertados": {},
   "historico": [
     {
       "ticker": "AEHR",
