@@ -21,7 +21,7 @@
       "preco_entrada": 225.1199951171875,
       "data_entrada": "2026-10-15",
       "origem": "donchian",
-      "ultimo_preco": 238.979996
+      "ultimo_preco": 238.139999
     },
     "UNH": {
       "token": "UNHon",
@@ -30,7 +30,7 @@
       "preco_entrada": 421.0400085449219,
       "data_entrada": "2026-10-20",
       "origem": "donchian",
-      "ultimo_preco": 418.035004
+      "ultimo_preco": 418.089996
     },
     "NOW": {
       "token": "NOWon",
@@ -39,7 +39,7 @@
       "preco_entrada": 157.17999267578125,
       "data_entrada": "2026-10-22",
       "origem": "donchian",
-      "ultimo_preco": 157.720001
+      "ultimo_preco": 158.960007
     },
     "DIS": {
       "token": "DISon",
@@ -48,7 +48,7 @@
       "preco_entrada": 112.83999633789062,
       "data_entrada": "2026-10-22",
       "origem": "donchian",
-      "ultimo_preco": 112.739998
+      "ultimo_preco": 112.519997
     }
   }
 }
