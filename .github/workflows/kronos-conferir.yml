@@ -34,7 +34,7 @@ jobs:
         if: steps.ha.outputs.ok == 'sim'
         with: { python-version: "3.11" }
       - if: steps.ha.outputs.ok == 'sim'
-        run: pip install -q numpy pandas matplotlib
+        run: pip install -q numpy==2.4.6 pandas==3.1.0 matplotlib==3.11.2
       - name: Conferir
         if: steps.ha.outputs.ok == 'sim'
         env:

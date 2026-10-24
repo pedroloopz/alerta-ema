@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install -r requirements.txt yfinance lxml
+      - run: pip install -r requirements.txt
 
       - name: Baixar precos (Yahoo e Binance)
         env:

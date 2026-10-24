@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pandas numpy requests scikit-learn==1.9.1
+      - run: pip install pandas==3.1.0 numpy==2.5.4 requests==2.34.2 scikit-learn==1.9.1
       - name: Teste de carteira
         timeout-minutes: 120
         shell: bash

@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pandas numpy
+      - run: pip install pandas==3.1.0 numpy==2.5.4
       - name: Backtest
         shell: bash
         run: python painel/${{ inputs.script }} $([ "${{ inputs.script }}" = backtest_rev.py ] && echo --max "${{ inputs.max }}") 2>&1 | tee run.log; exit ${PIPESTATUS[0]}

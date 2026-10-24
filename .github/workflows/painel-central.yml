@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install google-auth requests pillow
+      - run: pip install google-auth==2.62.0 requests==2.34.2 pillow==13.0.0
       - name: Juntar e enviar ao Drive
         env:
           GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}

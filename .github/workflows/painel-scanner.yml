@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pandas numpy google-auth requests scikit-learn==1.9.1
+      - run: pip install pandas==3.1.0 numpy==2.5.4 google-auth==2.62.0 requests==2.34.2 scikit-learn==1.9.1
       - name: Trazer o modelo de fluxo
         uses: actions/cache/restore@v4
         with:
