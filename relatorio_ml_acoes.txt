@@ -1,163 +1,159 @@
-Modelo de ações (preço + volume + QQQ) — 271 ações, 60 dias de pregão em 15 min, decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado 2026-10-24T06:26:59+00:00.
+Modelo de ações (preço + volume + QQQ) — 275 ações, 60 dias de pregão em 15 min, decisões de hora em hora em dias úteis (pré, pregão e pós); faixas medidas fora da amostra. Gerado 2026-10-24T13:28:27+00:00.
 
-=== Config A: alvo 2.0% / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 72834 decisões; QQQ no treino +7.7%, no teste -4.6% ===
+=== Config A: alvo 2.0% / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 73814 decisões; QQQ no treino +7.7%, no teste -4.6% ===
   LONG (faixas da menor para a maior pontuação):
-    n   7390  acerto 0.157  R -0.042  nota 5
-    n   7751  acerto 0.284  R -0.047  nota 5
-    n   7665  acerto 0.345  R -0.077  nota 4
-    n   7154  acerto 0.390  R -0.094  nota 4
-    n   6571  acerto 0.416  R -0.111  nota 3
-    n   6268  acerto 0.452  R -0.110  nota 3
-    n   6160  acerto 0.463  R -0.137  nota 3
-    n   6266  acerto 0.492  R -0.112  nota 3
-    n   5755  acerto 0.505  R -0.110  nota 3
-    n   4708  acerto 0.482  R -0.162  nota 3
-    n   1924  acerto 0.482  R -0.183  nota 3
-    n   2006  acerto 0.677  R +0.133  nota 8
-    -> faixas nota 8+: 1 (2006 casos no teste)
-       pregão: n 882 R 0.122 | pré/pós: n 1124 R 0.143
-       em 11 dias distintos, 161 ações; por semana: 2026-09-28 n 10 R +0.65 (QQQ +1.5%); 2026-10-05 n 241 R +0.55 (QQQ +0.2%); 2026-10-12 n 1239 R -0.06 (QQQ -5.9%); 2026-10-19 n 516 R +0.39 (QQQ -1.8%)
-  SHORT (faixas da menor para a maior pontuação):
-    n   6530  acerto 0.191  R -0.073  nota 4
-    n   8063  acerto 0.336  R -0.048  nota 5
-    n   8540  acerto 0.386  R -0.018  nota 5
-    n   8802  acerto 0.434  R +0.009  nota 5
-    n   7566  acerto 0.509  R +0.067  nota 6
-    n   7194  acerto 0.554  R +0.081  nota 7
-    n   6840  acerto 0.574  R +0.075  nota 7
-    n   6352  acerto 0.578  R +0.046  nota 6
-    n   5823  acerto 0.602  R +0.051  nota 6
-    n   3052  acerto 0.615  R +0.062  nota 7
-    n    579  acerto 0.620  R +0.077  nota 7
-    n    277  acerto 0.639  R +0.099  nota 7
-    -> faixas nota 8+: 0 (0 casos no teste)
-
-=== Config B: alvo 1.5% / stop 2.0% / prazo 32 candles de 15 min (~8h de mercado) — teste 2026-09-25 a 2026-10-23, 73746 decisões; QQQ no treino +7.6%, no teste -5.4% ===
-  LONG (faixas da menor para a maior pontuação):
-    n   8184  acerto 0.171  R -0.069  nota 4
-    n   7445  acerto 0.293  R -0.073  nota 4
-    n   7406  acerto 0.348  R -0.093  nota 4
-    n   7252  acerto 0.396  R -0.092  nota 4
-    n   6799  acerto 0.426  R -0.109  nota 3
-    n   6376  acerto 0.447  R -0.121  nota 3
-    n   6323  acerto 0.471  R -0.114  nota 3
-    n   6010  acerto 0.469  R -0.141  nota 3
-    n   5980  acerto 0.492  R -0.108  nota 3
-    n   4953  acerto 0.493  R -0.117  nota 3
-    n   2224  acerto 0.472  R -0.173  nota 3
-    n   2753  acerto 0.557  R -0.036  nota 5
+    n   7591  acerto 0.161  R -0.037  nota 5
+    n   7797  acerto 0.288  R -0.044  nota 5
+    n   7577  acerto 0.339  R -0.082  nota 4
+    n   7167  acerto 0.381  R -0.104  nota 3
+    n   6631  acerto 0.425  R -0.090  nota 4
+    n   6305  acerto 0.446  R -0.120  nota 3
+    n   6453  acerto 0.462  R -0.133  nota 3
+    n   6031  acerto 0.493  R -0.110  nota 3
+    n   6122  acerto 0.502  R -0.110  nota 3
+    n   4773  acerto 0.482  R -0.155  nota 3
+    n   1902  acerto 0.486  R -0.180  nota 3
+    n   2204  acerto 0.646  R +0.077  nota 7
     -> faixas nota 8+: 0 (0 casos no teste)
   SHORT (faixas da menor para a maior pontuação):
-    n   7362  acerto 0.232  R -0.087  nota 4
-    n   8830  acerto 0.356  R -0.038  nota 5
-    n   8693  acerto 0.404  R -0.012  nota 5
-    n   8115  acerto 0.445  R +0.004  nota 5
-    n   7325  acerto 0.482  R +0.025  nota 5
-    n   7006  acerto 0.518  R +0.035  nota 6
-    n   7177  acerto 0.545  R +0.039  nota 6
-    n   7012  acerto 0.544  R +0.009  nota 6
-    n   6003  acerto 0.552  R -0.006  nota 5
-    n   3234  acerto 0.575  R +0.017  nota 6
-    n    624  acerto 0.643  R +0.128  nota 8
-    n    324  acerto 0.698  R +0.208  nota 9
-    -> faixas nota 8+: 2 (948 casos no teste)
-       pregão: n 142 R 0.016 | pré/pós: n 806 R 0.18
-       em 21 dias distintos, 161 ações; por semana: 2026-09-21 n 5 R +0.02 (QQQ +2.5%); 2026-09-28 n 305 R +0.17 (QQQ +1.5%); 2026-10-05 n 267 R +0.19 (QQQ +0.2%); 2026-10-12 n 174 R +0.08 (QQQ -5.9%); 2026-10-19 n 197 R +0.15 (QQQ -1.8%)
+    n   7147  acerto 0.210  R -0.069  nota 4
+    n   8297  acerto 0.336  R -0.048  nota 5
+    n   8491  acerto 0.384  R -0.012  nota 5
+    n   8500  acerto 0.436  R +0.015  nota 5
+    n   7648  acerto 0.507  R +0.066  nota 6
+    n   7316  acerto 0.548  R +0.077  nota 6
+    n   6982  acerto 0.567  R +0.063  nota 7
+    n   6263  acerto 0.588  R +0.057  nota 6
+    n   5745  acerto 0.591  R +0.036  nota 6
+    n   3282  acerto 0.618  R +0.065  nota 7
+    n    664  acerto 0.627  R +0.084  nota 7
+    n    218  acerto 0.706  R +0.203  nota 9
+    -> faixas nota 8+: 1 (218 casos no teste)
+       pregão: n 47 R -0.031 | pré/pós: n 171 R 0.267
+       em 20 dias distintos, 87 ações; por semana: 2026-09-28 n 55 R +0.33 (QQQ +1.5%); 2026-10-05 n 71 R +0.10 (QQQ +0.2%); 2026-10-12 n 45 R +0.19 (QQQ -5.9%); 2026-10-19 n 47 R +0.22 (QQQ -1.8%)
 
-=== Config C: alvo 3.0% / stop 3.0% / prazo 96 candles de 15 min (~24h de mercado) — teste 2026-09-28 a 2026-10-23, 72834 decisões; QQQ no treino +7.7%, no teste -4.6% ===
+=== Config B: alvo 1.5% / stop 2.0% / prazo 32 candles de 15 min (~8h de mercado) — teste 2026-09-25 a 2026-10-23, 74737 decisões; QQQ no treino +7.6%, no teste -5.4% ===
   LONG (faixas da menor para a maior pontuação):
-    n   7140  acerto 0.198  R -0.000  nota 5
-    n   8213  acerto 0.270  R -0.059  nota 4
-    n   6704  acerto 0.312  R -0.096  nota 4
-    n   6859  acerto 0.346  R -0.114  nota 3
-    n   6435  acerto 0.367  R -0.126  nota 3
-    n   6438  acerto 0.383  R -0.150  nota 3
-    n   6382  acerto 0.406  R -0.138  nota 3
-    n   5975  acerto 0.412  R -0.143  nota 3
-    n   5410  acerto 0.404  R -0.171  nota 3
-    n   4449  acerto 0.393  R -0.211  nota 2
-    n   1563  acerto 0.411  R -0.196  nota 3
-    n    663  acerto 0.621  R +0.225  nota 8
-    -> faixas nota 8+: 1 (663 casos no teste)
-       pregão: n 266 R 0.13 | pré/pós: n 397 R 0.288
-       em 10 dias distintos, 111 ações; por semana: 2026-09-28 n 5 R +0.58 (QQQ +1.5%); 2026-10-05 n 84 R +0.76 (QQQ +0.2%); 2026-10-12 n 565 R +0.16 (QQQ -5.9%); 2026-10-19 n 9 R -0.81 (QQQ -1.8%)
-  SHORT (faixas da menor para a maior pontuação):
-    n   9441  acerto 0.260  R -0.070  nota 4
-    n   7385  acerto 0.360  R +0.007  nota 5
-    n   7307  acerto 0.394  R +0.024  nota 5
-    n   6914  acerto 0.437  R +0.077  nota 5
-    n   6387  acerto 0.451  R +0.066  nota 5
-    n   6461  acerto 0.479  R +0.080  nota 5
-    n   6628  acerto 0.499  R +0.091  nota 5
-    n   6256  acerto 0.500  R +0.064  nota 6
-    n   5573  acerto 0.538  R +0.114  nota 6
-    n   3046  acerto 0.568  R +0.158  nota 7
-    n    607  acerto 0.603  R +0.244  nota 8
-    n    226  acerto 0.504  R +0.053  nota 6
-    -> faixas nota 8+: 1 (607 casos no teste)
-       pregão: n 197 R 0.067 | pré/pós: n 410 R 0.328
-       em 18 dias distintos, 147 ações; por semana: 2026-09-28 n 202 R +0.18 (QQQ +1.5%); 2026-10-05 n 169 R +0.07 (QQQ +0.2%); 2026-10-12 n 177 R +0.50 (QQQ -5.9%); 2026-10-19 n 59 R +0.20 (QQQ -1.8%)
-
-=== Config D: alvo 1.5% + 2.5% + 3.5% (1/3 cada, stop → entrada) / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 72834 decisões; QQQ no treino +7.7%, no teste -4.6% ===
-  LONG (faixas da menor para a maior pontuação):
-    n   7932  acerto 0.273  R -0.035  nota 5
-    n   7511  acerto 0.408  R -0.029  nota 5
-    n   7113  acerto 0.473  R -0.076  nota 4
-    n   6968  acerto 0.506  R -0.092  nota 4
-    n   6581  acerto 0.543  R -0.084  nota 4
-    n   6301  acerto 0.558  R -0.104  nota 3
-    n   6406  acerto 0.577  R -0.101  nota 3
-    n   5950  acerto 0.589  R -0.087  nota 4
-    n   5591  acerto 0.588  R -0.099  nota 4
-    n   4446  acerto 0.562  R -0.143  nota 3
-    n   2081  acerto 0.558  R -0.183  nota 3
-    n   2738  acerto 0.676  R +0.061  nota 7
+    n   8320  acerto 0.173  R -0.067  nota 4
+    n   7798  acerto 0.295  R -0.068  nota 4
+    n   7442  acerto 0.346  R -0.087  nota 4
+    n   7278  acerto 0.393  R -0.092  nota 4
+    n   6629  acerto 0.424  R -0.111  nota 3
+    n   6461  acerto 0.449  R -0.121  nota 3
+    n   6377  acerto 0.475  R -0.106  nota 3
+    n   6235  acerto 0.473  R -0.133  nota 3
+    n   6193  acerto 0.487  R -0.118  nota 3
+    n   5203  acerto 0.477  R -0.145  nota 3
+    n   2405  acerto 0.490  R -0.145  nota 3
+    n   2326  acerto 0.562  R -0.028  nota 5
     -> faixas nota 8+: 0 (0 casos no teste)
   SHORT (faixas da menor para a maior pontuação):
-    n   7287  acerto 0.299  R -0.084  nota 4
-    n   8045  acerto 0.453  R -0.039  nota 5
-    n   8085  acerto 0.507  R +0.020  nota 6
-    n   7736  acerto 0.558  R +0.050  nota 6
-    n   7491  acerto 0.596  R +0.053  nota 6
-    n   7265  acerto 0.631  R +0.075  nota 7
-    n   7088  acerto 0.647  R +0.064  nota 7
-    n   6702  acerto 0.680  R +0.089  nota 7
-    n   5668  acerto 0.686  R +0.081  nota 7
-    n   3170  acerto 0.717  R +0.112  nota 7
-    n    766  acerto 0.727  R +0.102  nota 7
-    n    315  acerto 0.721  R +0.174  nota 8
-    -> faixas nota 8+: 1 (315 casos no teste)
-       pregão: n 76 R -0.083 | pré/pós: n 239 R 0.256
-       em 20 dias distintos, 108 ações; por semana: 2026-09-28 n 71 R +0.33 (QQQ +1.5%); 2026-10-05 n 135 R +0.03 (QQQ +0.2%); 2026-10-12 n 67 R +0.15 (QQQ -5.9%); 2026-10-19 n 42 R +0.42 (QQQ -1.8%)
+    n   7074  acerto 0.220  R -0.085  nota 4
+    n   9139  acerto 0.350  R -0.035  nota 5
+    n   8822  acerto 0.402  R -0.020  nota 5
+    n   8431  acerto 0.440  R -0.001  nota 5
+    n   7542  acerto 0.483  R +0.021  nota 5
+    n   7131  acerto 0.519  R +0.028  nota 6
+    n   7249  acerto 0.540  R +0.025  nota 6
+    n   6907  acerto 0.547  R +0.019  nota 6
+    n   6001  acerto 0.557  R +0.009  nota 6
+    n   3291  acerto 0.582  R +0.030  nota 6
+    n    738  acerto 0.634  R +0.113  nota 7
+    n    342  acerto 0.696  R +0.209  nota 9
+    -> faixas nota 8+: 1 (342 casos no teste)
+       pregão: n 20 R -0.516 | pré/pós: n 322 R 0.254
+       em 21 dias distintos, 118 ações; por semana: 2026-09-21 n 2 R -0.16 (QQQ +2.5%); 2026-09-28 n 112 R +0.15 (QQQ +1.5%); 2026-10-05 n 100 R +0.27 (QQQ +0.2%); 2026-10-12 n 77 R +0.28 (QQQ -5.9%); 2026-10-19 n 51 R +0.11 (QQQ -1.8%)
 
-=== Config E: alvo 0.50 + 0.83 + 1.17 × vol. diária (1/3 cada, stop → entrada) / stop 1.0× vol. / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 72834 decisões; QQQ no treino +7.7%, no teste -4.6% ===
+=== Config C: alvo 3.0% / stop 3.0% / prazo 96 candles de 15 min (~24h de mercado) — teste 2026-09-28 a 2026-10-23, 73814 decisões; QQQ no treino +7.7%, no teste -4.6% ===
   LONG (faixas da menor para a maior pontuação):
-    n   8154  acerto 0.390  R -0.070  nota 4
-    n   8052  acerto 0.440  R -0.087  nota 4
-    n   7722  acerto 0.447  R -0.105  nota 3
-    n   7379  acerto 0.471  R -0.102  nota 3
-    n   6647  acerto 0.476  R -0.113  nota 3
-    n   6087  acerto 0.485  R -0.112  nota 3
-    n   5765  acerto 0.488  R -0.107  nota 3
-    n   5448  acerto 0.500  R -0.106  nota 3
-    n   5587  acerto 0.500  R -0.108  nota 3
-    n   4778  acerto 0.507  R -0.121  nota 3
-    n   2090  acerto 0.610  R +0.010  nota 6
-    n   1909  acerto 0.705  R +0.134  nota 8
-    -> faixas nota 8+: 1 (1909 casos no teste)
-       pregão: n 841 R 0.176 | pré/pós: n 1068 R 0.1
-       em 11 dias distintos, 212 ações; por semana: 2026-09-28 n 7 R +0.11 (QQQ +1.5%); 2026-10-05 n 292 R +0.49 (QQQ +0.2%); 2026-10-12 n 1076 R -0.00 (QQQ -5.9%); 2026-10-19 n 534 R +0.21 (QQQ -1.8%)
+    n   7212  acerto 0.195  R +0.003  nota 5
+    n   8414  acerto 0.280  R -0.036  nota 5
+    n   7012  acerto 0.303  R -0.119  nota 3
+    n   6692  acerto 0.347  R -0.108  nota 3
+    n   6493  acerto 0.368  R -0.126  nota 3
+    n   6587  acerto 0.383  R -0.142  nota 3
+    n   6361  acerto 0.395  R -0.162  nota 3
+    n   6039  acerto 0.418  R -0.134  nota 3
+    n   5636  acerto 0.412  R -0.162  nota 3
+    n   4130  acerto 0.379  R -0.234  nota 2
+    n   1599  acerto 0.377  R -0.257  nota 2
+    n    944  acerto 0.644  R +0.273  nota 8
+    -> faixas nota 8+: 1 (944 casos no teste)
+       pregão: n 372 R 0.206 | pré/pós: n 572 R 0.317
+       em 10 dias distintos, 139 ações; por semana: 2026-09-28 n 2 R +0.99 (QQQ +1.5%); 2026-10-05 n 158 R +0.73 (QQQ +0.2%); 2026-10-12 n 766 R +0.20 (QQQ -5.9%); 2026-10-19 n 18 R -0.58 (QQQ -1.8%)
   SHORT (faixas da menor para a maior pontuação):
-    n   8010  acerto 0.460  R +0.002  nota 5
-    n   7793  acerto 0.543  R +0.073  nota 6
-    n   8192  acerto 0.543  R +0.058  nota 6
-    n   7991  acerto 0.546  R +0.043  nota 6
-    n   7647  acerto 0.549  R +0.035  nota 6
-    n   7044  acerto 0.565  R +0.050  nota 6
-    n   6772  acerto 0.578  R +0.060  nota 7
-    n   6220  acerto 0.586  R +0.058  nota 6
-    n   5813  acerto 0.577  R +0.034  nota 6
-    n   3254  acerto 0.614  R +0.050  nota 6
-    n    666  acerto 0.617  R +0.040  nota 6
-    n    216  acerto 0.644  R +0.043  nota 6
+    n  10442  acerto 0.233  R -0.104  nota 3
+    n   7312  acerto 0.368  R +0.012  nota 5
+    n   6745  acerto 0.411  R +0.053  nota 5
+    n   6848  acerto 0.440  R +0.075  nota 5
+    n   6403  acerto 0.469  R +0.093  nota 5
+    n   6444  acerto 0.482  R +0.078  nota 5
+    n   6526  acerto 0.488  R +0.066  nota 5
+    n   6359  acerto 0.504  R +0.074  nota 6
+    n   5848  acerto 0.531  R +0.106  nota 6
+    n   3207  acerto 0.580  R +0.179  nota 7
+    n    679  acerto 0.605  R +0.253  nota 8
+    n    306  acerto 0.565  R +0.154  nota 7
+    -> faixas nota 8+: 1 (679 casos no teste)
+       pregão: n 214 R 0.009 | pré/pós: n 465 R 0.365
+       em 17 dias distintos, 136 ações; por semana: 2026-09-28 n 205 R +0.05 (QQQ +1.5%); 2026-10-05 n 176 R +0.10 (QQQ +0.2%); 2026-10-12 n 225 R +0.52 (QQQ -5.9%); 2026-10-19 n 73 R +0.36 (QQQ -1.8%)
+
+=== Config D: alvo 1.5% + 2.5% + 3.5% (1/3 cada, stop → entrada) / stop 3.0% / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 73814 decisões; QQQ no treino +7.7%, no teste -4.6% ===
+  LONG (faixas da menor para a maior pontuação):
+    n   8114  acerto 0.280  R -0.032  nota 5
+    n   7454  acerto 0.406  R -0.036  nota 5
+    n   7173  acerto 0.464  R -0.074  nota 4
+    n   7130  acerto 0.506  R -0.091  nota 4
+    n   6459  acerto 0.547  R -0.075  nota 4
+    n   6321  acerto 0.557  R -0.097  nota 4
+    n   6284  acerto 0.574  R -0.102  nota 3
+    n   6308  acerto 0.581  R -0.104  nota 3
+    n   6050  acerto 0.576  R -0.111  nota 3
+    n   4514  acerto 0.579  R -0.128  nota 3
+    n   1873  acerto 0.550  R -0.176  nota 3
+    n   2873  acerto 0.680  R +0.060  nota 7
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   6905  acerto 0.283  R -0.078  nota 4
+    n   8113  acerto 0.425  R -0.058  nota 4
+    n   8236  acerto 0.491  R -0.002  nota 5
+    n   7735  acerto 0.558  R +0.038  nota 6
+    n   7631  acerto 0.601  R +0.060  nota 7
+    n   7633  acerto 0.645  R +0.097  nota 7
+    n   7191  acerto 0.650  R +0.067  nota 7
+    n   6993  acerto 0.679  R +0.088  nota 7
+    n   5758  acerto 0.697  R +0.099  nota 7
+    n   3242  acerto 0.706  R +0.093  nota 7
+    n    772  acerto 0.719  R +0.101  nota 7
+    n    344  acerto 0.698  R +0.111  nota 7
+    -> faixas nota 8+: 0 (0 casos no teste)
+
+=== Config E: alvo 0.50 + 0.83 + 1.17 × vol. diária (1/3 cada, stop → entrada) / stop 1.0× vol. / prazo 48 candles de 15 min (~12h de mercado) — teste 2026-09-28 a 2026-10-23, 73814 decisões; QQQ no treino +7.7%, no teste -4.6% ===
+  LONG (faixas da menor para a maior pontuação):
+    n   8399  acerto 0.380  R -0.080  nota 4
+    n   8168  acerto 0.434  R -0.100  nota 3
+    n   7762  acerto 0.450  R -0.107  nota 3
+    n   7478  acerto 0.466  R -0.109  nota 3
+    n   7082  acerto 0.481  R -0.108  nota 3
+    n   6321  acerto 0.488  R -0.093  nota 4
+    n   5818  acerto 0.497  R -0.100  nota 3
+    n   5466  acerto 0.499  R -0.099  nota 4
+    n   5680  acerto 0.510  R -0.098  nota 4
+    n   4595  acerto 0.520  R -0.109  nota 3
+    n   1987  acerto 0.629  R +0.026  nota 6
+    n   1797  acerto 0.694  R +0.114  nota 7
+    -> faixas nota 8+: 0 (0 casos no teste)
+  SHORT (faixas da menor para a maior pontuação):
+    n   7940  acerto 0.451  R -0.006  nota 5
+    n   8040  acerto 0.531  R +0.055  nota 6
+    n   8297  acerto 0.541  R +0.058  nota 6
+    n   8080  acerto 0.548  R +0.044  nota 6
+    n   7780  acerto 0.557  R +0.047  nota 6
+    n   7396  acerto 0.567  R +0.051  nota 6
+    n   7000  acerto 0.571  R +0.051  nota 6
+    n   6391  acerto 0.584  R +0.049  nota 6
+    n   5874  acerto 0.594  R +0.051  nota 6
+    n   3000  acerto 0.614  R +0.051  nota 6
+    n    554  acerto 0.659  R +0.109  nota 7
+    n    201  acerto 0.652  R +0.080  nota 7
     -> faixas nota 8+: 0 (0 casos no teste)
