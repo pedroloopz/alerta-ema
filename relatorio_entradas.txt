@@ -1,38 +1,38 @@
-# Backtest das 2 entradas do estudo — 19/10/2026 17:16 UTC
+# Backtest das 2 entradas do estudo — 24/10/2026 13:27 UTC
 Custos: 0.1% por lado + funding 0.01%/8h contra a posição. R = resultado ÷ risco de 3%.
-Dados: 51 criptos (1h), 51 (diário) · 70 ações/ETFs (1h), 71 (diário)
+Dados: 56 criptos (1h), 56 (diário) · 69 ações/ETFs (1h), 71 (diário)
 Atenção: universo de hoje (as criptos que sobreviveram) puxa o resultado para cima; ações no Yahoo só têm o pregão normal (6,5 velas de 1h por dia), na BingX o contrato roda 24h.
 
 ## Entrada 1 — continuação em tendência (1h)
-cripto · ATR ≤ 1.2% · long+short: 13912 trades (131.8/semana) · acerto 50% · média -0.070R · total -970.1R · fator de lucro 0.74 · maior queda 994.4R
-   sem custos (borda bruta): 13942 trades (132.1/semana) · acerto 55% · média -0.000R · total -3.8R · fator de lucro 1.00 · maior queda 157.3R
-   só long: 6281 trades (59.5/semana) · acerto 50% · média -0.086R · total -538.5R · fator de lucro 0.70 · maior queda 540.0R
-   só short: 7631 trades (72.3/semana) · acerto 51% · média -0.057R · total -431.7R · fator de lucro 0.79 · maior queda 486.8R
-   por semestre → 2024-S2: 847 tr, -0.027R, total -22.5R | 2025-S1: 2529 tr, -0.036R, total -92.2R | 2025-S2: 3625 tr, -0.096R, total -346.5R | 2026-S1: 4016 tr, -0.057R, total -228.6R | 2026-S2: 2895 tr, -0.097R, total -280.4R
-cripto · ATR ≤ 2.0% · long+short: 24702 trades (234.0/semana) · acerto 54% · média -0.079R · total -1940.6R · fator de lucro 0.75 · maior queda 1970.9R
-   sem custos (borda bruta): 24747 trades (234.4/semana) · acerto 58% · média -0.011R · total -269.0R · fator de lucro 0.96 · maior queda 394.0R
-   só long: 11068 trades (104.8/semana) · acerto 52% · média -0.108R · total -1199.0R · fator de lucro 0.67 · maior queda 1202.4R
-   só short: 13634 trades (129.1/semana) · acerto 55% · média -0.054R · total -741.6R · fator de lucro 0.81 · maior queda 803.0R
-   por semestre → 2024-S2: 2089 tr, -0.053R, total -111.5R | 2025-S1: 5724 tr, -0.071R, total -403.7R | 2025-S2: 6210 tr, -0.081R, total -504.9R | 2026-S1: 6422 tr, -0.074R, total -473.8R | 2026-S2: 4257 tr, -0.105R, total -446.7R
-ações · ATR ≤ 1.0% · long+short: 7149 trades (47.0/semana) · acerto 48% · média -0.087R · total -618.7R · fator de lucro 0.68 · maior queda 627.7R
-   sem custos (borda bruta): 7158 trades (47.1/semana) · acerto 54% · média -0.017R · total -120.3R · fator de lucro 0.93 · maior queda 176.8R
-   só long: 4154 trades (27.3/semana) · acerto 52% · média -0.053R · total -219.2R · fator de lucro 0.79 · maior queda 257.4R
-   só short: 2995 trades (19.7/semana) · acerto 44% · média -0.133R · total -399.5R · fator de lucro 0.57 · maior queda 402.1R
-   por semestre → 2023-S2: 230 tr, -0.072R, total -16.6R | 2024-S1: 1374 tr, -0.050R, total -68.1R | 2024-S2: 1336 tr, -0.096R, total -128.8R | 2025-S1: 1118 tr, -0.102R, total -113.5R | 2025-S2: 1320 tr, -0.107R, total -140.9R | 2026-S1: 1023 tr, -0.061R, total -62.0R | 2026-S2: 748 tr, -0.119R, total -89.0R
-ações · ATR ≤ 2.0% · long+short: 9542 trades (62.8/semana) · acerto 50% · média -0.097R · total -926.7R · fator de lucro 0.69 · maior queda 943.9R
-   sem custos (borda bruta): 9552 trades (62.8/semana) · acerto 55% · média -0.027R · total -259.4R · fator de lucro 0.90 · maior queda 340.2R
-   só long: 5408 trades (35.6/semana) · acerto 53% · média -0.056R · total -302.2R · fator de lucro 0.80 · maior queda 354.1R
-   só short: 4134 trades (27.2/semana) · acerto 46% · média -0.151R · total -624.5R · fator de lucro 0.57 · maior queda 632.7R
-   por semestre → 2023-S2: 252 tr, -0.057R, total -14.4R | 2024-S1: 1624 tr, -0.049R, total -80.2R | 2024-S2: 1662 tr, -0.084R, total -139.7R | 2025-S1: 1567 tr, -0.083R, total -129.6R | 2025-S2: 1768 tr, -0.145R, total -257.0R | 2026-S1: 1623 tr, -0.096R, total -155.4R | 2026-S2: 1046 tr, -0.144R, total -150.4R
+cripto · ATR ≤ 1.2% · long+short: 14746 trades (139.7/semana) · acerto 51% · média -0.067R · total -991.5R · fator de lucro 0.76 · maior queda 1043.2R
+   sem custos (borda bruta): 14783 trades (140.0/semana) · acerto 56% · média +0.002R · total +34.5R · fator de lucro 1.01 · maior queda 153.5R
+   só long: 6523 trades (61.8/semana) · acerto 50% · média -0.086R · total -560.1R · fator de lucro 0.70 · maior queda 577.1R
+   só short: 8223 trades (77.9/semana) · acerto 52% · média -0.052R · total -431.4R · fator de lucro 0.80 · maior queda 501.0R
+   por semestre → 2024-S2: 776 tr, -0.006R, total -5.0R | 2025-S1: 2555 tr, -0.036R, total -91.2R | 2025-S2: 3816 tr, -0.092R, total -350.6R | 2026-S1: 4400 tr, -0.056R, total -248.2R | 2026-S2: 3199 tr, -0.093R, total -296.6R
+cripto · ATR ≤ 2.0% · long+short: 26808 trades (253.9/semana) · acerto 54% · média -0.077R · total -2057.4R · fator de lucro 0.75 · maior queda 2116.8R
+   sem custos (borda bruta): 26863 trades (254.5/semana) · acerto 58% · média -0.010R · total -256.1R · fator de lucro 0.97 · maior queda 428.7R
+   só long: 11791 trades (111.7/semana) · acerto 53% · média -0.109R · total -1283.4R · fator de lucro 0.67 · maior queda 1302.0R
+   só short: 15017 trades (142.2/semana) · acerto 56% · média -0.052R · total -774.0R · fator de lucro 0.82 · maior queda 868.0R
+   por semestre → 2024-S2: 1969 tr, -0.036R, total -70.9R | 2025-S1: 5907 tr, -0.073R, total -431.9R | 2025-S2: 6881 tr, -0.083R, total -572.1R | 2026-S1: 7194 tr, -0.068R, total -487.3R | 2026-S2: 4857 tr, -0.102R, total -495.2R
+ações · ATR ≤ 1.0% · long+short: 7123 trades (47.0/semana) · acerto 49% · média -0.086R · total -613.2R · fator de lucro 0.69 · maior queda 633.1R
+   sem custos (borda bruta): 7131 trades (47.0/semana) · acerto 54% · média -0.017R · total -117.8R · fator de lucro 0.93 · maior queda 188.0R
+   só long: 4145 trades (27.3/semana) · acerto 52% · média -0.055R · total -226.1R · fator de lucro 0.78 · maior queda 269.5R
+   só short: 2978 trades (19.6/semana) · acerto 44% · média -0.130R · total -387.1R · fator de lucro 0.58 · maior queda 393.1R
+   por semestre → 2023-S2: 196 tr, -0.068R, total -13.3R | 2024-S1: 1374 tr, -0.050R, total -68.1R | 2024-S2: 1336 tr, -0.096R, total -128.8R | 2025-S1: 1118 tr, -0.102R, total -113.5R | 2025-S2: 1320 tr, -0.107R, total -140.9R | 2026-S1: 1022 tr, -0.061R, total -62.4R | 2026-S2: 757 tr, -0.114R, total -86.3R
+ações · ATR ≤ 2.0% · long+short: 9512 trades (62.8/semana) · acerto 50% · média -0.093R · total -887.6R · fator de lucro 0.70 · maior queda 920.8R
+   sem custos (borda bruta): 9523 trades (62.8/semana) · acerto 55% · média -0.023R · total -221.1R · fator de lucro 0.91 · maior queda 325.9R
+   só long: 5395 trades (35.6/semana) · acerto 53% · média -0.055R · total -298.5R · fator de lucro 0.80 · maior queda 357.4R
+   só short: 4117 trades (27.2/semana) · acerto 47% · média -0.143R · total -589.1R · fator de lucro 0.58 · maior queda 606.0R
+   por semestre → 2023-S2: 214 tr, -0.049R, total -10.4R | 2024-S1: 1624 tr, -0.049R, total -80.2R | 2024-S2: 1662 tr, -0.084R, total -139.7R | 2025-S1: 1563 tr, -0.083R, total -130.3R | 2025-S2: 1758 tr, -0.137R, total -241.1R | 2026-S1: 1620 tr, -0.095R, total -153.8R | 2026-S2: 1071 tr, -0.123R, total -132.0R
 
 ## Entrada 2 — força relativa (diário), stop 10% no fechamento
-cripto · ordena 14d, segura 14d, 3+3: 52 períodos · -12% ao ano · Sharpe 0.03 · maior queda 55% · 42% períodos positivos · média por perna: long +3.28% / short -3.13%
-cripto · ordena 14d, segura 14d, 5+5: 52 períodos · -11% ao ano · Sharpe -0.11 · maior queda 40% · 46% períodos positivos · média por perna: long +1.82% / short -2.16%
-cripto · ordena 7d, segura 7d, 3+3: 105 períodos · +16% ao ano · Sharpe 0.54 · maior queda 43% · 47% períodos positivos · média por perna: long +1.56% / short -0.65%
-cripto · ordena 28d, segura 14d, 3+3: 51 períodos · -0% ao ano · Sharpe 0.25 · maior queda 48% · 47% períodos positivos · média por perna: long +1.96% / short -0.87%
-cripto · só long (14d/14d, top 3): 52 períodos · +38% ao ano · Sharpe 0.69 · maior queda 59% · 38% períodos positivos · média por perna: long +3.28% / short +0.00%
-ações · ordena 14d, segura 14d, 3+3: 35 períodos · -21% ao ano · Sharpe -0.56 · maior queda 40% · 40% períodos positivos · média por perna: long +2.69% / short -4.56%
-ações · ordena 14d, segura 14d, 5+5: 35 períodos · -20% ao ano · Sharpe -0.79 · maior queda 41% · 37% períodos positivos · média por perna: long +1.38% / short -3.40%
-ações · ordena 63d, segura 14d, 3+3: 32 períodos · -8% ao ano · Sharpe -0.13 · maior queda 41% · 41% períodos positivos · média por perna: long +0.85% / short -1.22%
-ações · ordena 126d, segura 21d, 5+5: 18 períodos · -9% ao ano · Sharpe -0.19 · maior queda 42% · 50% períodos positivos · média por perna: long +5.36% / short -6.19%
-ações · só long (14d/14d, top 3): 35 períodos · +34% ao ano · Sharpe 0.83 · maior queda 42% · 46% períodos positivos · média por perna: long +2.69% / short +0.00%
+cripto · ordena 14d, segura 14d, 3+3: 52 períodos · +29% ao ano · Sharpe 0.76 · maior queda 31% · 46% períodos positivos · média por perna: long +2.40% / short +0.24%
+cripto · ordena 14d, segura 14d, 5+5: 52 períodos · -2% ao ano · Sharpe 0.08 · maior queda 32% · 46% períodos positivos · média por perna: long +0.79% / short -0.61%
+cripto · ordena 7d, segura 7d, 3+3: 105 períodos · -8% ao ano · Sharpe 0.07 · maior queda 65% · 44% períodos positivos · média por perna: long +0.00% / short +0.13%
+cripto · ordena 28d, segura 14d, 3+3: 51 períodos · -3% ao ano · Sharpe 0.11 · maior queda 34% · 45% períodos positivos · média por perna: long +0.63% / short -0.29%
+cripto · só long (14d/14d, top 3): 52 períodos · +26% ao ano · Sharpe 0.61 · maior queda 66% · 40% períodos positivos · média por perna: long +2.40% / short +0.00%
+ações · ordena 14d, segura 14d, 3+3: 35 períodos · +15% ao ano · Sharpe 0.67 · maior queda 31% · 46% períodos positivos · média por perna: long +2.85% / short -0.78%
+ações · ordena 14d, segura 14d, 5+5: 35 períodos · +14% ao ano · Sharpe 0.71 · maior queda 23% · 51% períodos positivos · média por perna: long +3.10% / short -1.28%
+ações · ordena 63d, segura 14d, 3+3: 32 períodos · -3% ao ano · Sharpe 0.04 · maior queda 41% · 44% períodos positivos · média por perna: long +1.98% / short -1.87%
+ações · ordena 126d, segura 21d, 5+5: 18 períodos · -1% ao ano · Sharpe 0.10 · maior queda 34% · 44% períodos positivos · média por perna: long +5.05% / short -4.70%
+ações · só long (14d/14d, top 3): 35 períodos · +36% ao ano · Sharpe 0.87 · maior queda 40% · 46% períodos positivos · média por perna: long +2.85% / short +0.00%
