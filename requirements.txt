@@ -1,6 +1,6 @@
-pandas
-requests
-matplotlib
-yfinance
-ccxt
-lxml
+pandas==3.1.0
+requests==2.34.2
+matplotlib==3.11.2
+yfinance==1.7.0
+ccxt==4.5.90
+lxml==6.1.3
