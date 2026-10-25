@@ -1,4 +1,4 @@
-universo: 456 ativos (162 cripto, 294 ações)
+universo: 452 ativos (159 cripto, 293 ações)
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -27,7 +27,6 @@ universo: 456 ativos (162 cripto, 294 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou STABLE-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -220,34 +219,7 @@ falhou STABLE-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKPDD2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -343,7 +315,6 @@ falhou NCSKDASH2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou NCSKGEV2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -358,7 +329,6 @@ falhou NCSKGEV2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou NCSKHIMS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -401,7 +371,6 @@ falhou NCSKHIMS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou NCSKABT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -414,6 +383,7 @@ falhou NCSKABT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKCIEN2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -424,7 +394,6 @@ falhou NCSKABT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou NCSKMA2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -553,175 +522,196 @@ falhou NCSKMA2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-sinais simulados: 844443 em 227s
-  acao: 277 ativos, de 2026-10-14 09:00:00+00:00 a 2026-10-24 09:15:00+00:00
-  cripto: 161 ativos, de 2026-07-26 18:45:00+00:00 a 2026-10-24 09:15:00+00:00
-fontes: {'bingx': np.int64(328), 'binance': np.int64(128)}
-modelo de fluxo: 260690 linhas, 127 ativos
-  faixas 1 [{'de': 0.64705, 'ate': 0.739378, 'n': 5981, 'acerto': 0.535, 'r': -0.028}, {'de': 0.739378, 'ate': 0.793822, 'n': 593, 'acerto': 0.535, 'r': -0.006}, {'de': 0.793822, 'ate': None, 'n': 128, 'acerto': 0.57, 'r': 0.047}]
-  faixas -1 [{'de': 0.574192, 'ate': 0.65692, 'n': 6909, 'acerto': 0.583, 'r': 0.023}, {'de': 0.65692, 'ate': 0.707482, 'n': 1379, 'acerto': 0.619, 'r': 0.072}, {'de': 0.707482, 'ate': None, 'n': 369, 'acerto': 0.631, 'r': 0.065}]
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+sinais simulados: 836919 em 243s
+  acao: 279 ativos, de 2026-10-15 04:00:00+00:00 a 2026-10-25 04:15:00+00:00
+  cripto: 159 ativos, de 2026-07-27 13:45:00+00:00 a 2026-10-25 04:15:00+00:00
+fontes: {'bingx': np.int64(326), 'binance': np.int64(126)}
+modelo de fluxo: 256581 linhas, 125 ativos
+  faixas 1 [{'de': 0.656698, 'ate': 0.74279, 'n': 5327, 'acerto': 0.528, 'r': -0.058}, {'de': 0.74279, 'ate': 0.78942, 'n': 549, 'acerto': 0.641, 'r': 0.142}, {'de': 0.78942, 'ate': None, 'n': 124, 'acerto': 0.565, 'r': -0.012}]
+  faixas -1 [{'de': 0.567139, 'ate': 0.646839, 'n': 5987, 'acerto': 0.586, 'r': 0.025}, {'de': 0.646839, 'ate': 0.695333, 'n': 1179, 'acerto': 0.576, 'r': 0.007}, {'de': 0.695333, 'ate': None, 'n': 297, 'acerto': 0.582, 'r': 0.012}]
 saídas escolhidas: {
- "acao|EXA|1": {
-  "sl": 1.5,
-  "tp": 2.0,
-  "p": 0.318,
-  "r": -0.196,
-  "n": 107
- },
  "acao|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.271,
-  "r": -0.13,
-  "n": 1120
+  "p": 0.282,
+  "r": -0.12,
+  "n": 1166
  },
  "acao|PULL|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.571,
-  "r": -0.222,
-  "n": 847
+  "p": 0.582,
+  "r": -0.213,
+  "n": 944
  },
  "acao|ROMP|-1": {
   "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.326,
-  "r": 0.138,
-  "n": 694
+  "tp": 2.0,
+  "p": 0.443,
+  "r": -0.037,
+  "n": 555
  },
  "acao|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.265,
-  "r": -0.077,
-  "n": 377
+  "p": 0.272,
+  "r": -0.064,
+  "n": 372
  },
  "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.276,
+  "p": 0.282,
   "r": -0.245,
-  "n": 2156
+  "n": 2181
  },
  "acao|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.516,
-  "r": -0.309,
-  "n": 1637
+  "p": 0.475,
+  "r": -0.387,
+  "n": 1707
  },
  "cripto|EXA|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.568,
-  "r": -0.15,
-  "n": 2763
+  "p": 0.569,
+  "r": -0.146,
+  "n": 2706
  },
  "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.25,
-  "r": -0.037,
-  "n": 1113
+  "p": 0.246,
+  "r": -0.034,
+  "n": 1148
  },
  "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
   "p": 0.255,
-  "r": -0.064,
-  "n": 3805
+  "r": -0.061,
+  "n": 3889
  },
  "cripto|PULL|1": {
   "sl": 2.0,
   "tp": 2.0,
-  "p": 0.393,
-  "r": -0.049,
-  "n": 3138
+  "p": 0.387,
+  "r": -0.056,
+  "n": 3016
  },
  "cripto|ROMP|-1": {
   "sl": 2.0,
   "tp": 1.0,
   "p": 0.614,
-  "r": -0.112,
-  "n": 26766
+  "r": -0.111,
+  "n": 26567
  },
  "cripto|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
   "p": 0.319,
-  "r": -0.08,
-  "n": 31902
+  "r": -0.078,
+  "n": 31424
  },
  "cripto|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.612,
-  "r": -0.151,
-  "n": 8741
+  "p": 0.616,
+  "r": -0.144,
+  "n": 8634
  },
  "cripto|SQZ|1": {
   "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.308,
-  "r": -0.129,
-  "n": 8608
+  "tp": 1.0,
+  "p": 0.631,
+  "r": -0.13,
+  "n": 8545
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 454,
-  "acerto": 0.43,
-  "r_medio": -0.927
+  "n": 490,
+  "acerto": 0.441,
+  "r_medio": -0.892
  },
  "2": {
-  "n": 4201,
-  "acerto": 0.568,
-  "r_medio": -0.096
+  "n": 4014,
+  "acerto": 0.531,
+  "r_medio": -0.112
  },
  "3": {
-  "n": 8613,
-  "acerto": 0.538,
-  "r_medio": -0.065
+  "n": 7772,
+  "acerto": 0.493,
+  "r_medio": -0.081
  },
  "4": {
-  "n": 4237,
-  "acerto": 0.508,
+  "n": 3877,
+  "acerto": 0.468,
   "r_medio": -0.022
  },
  "5": {
-  "n": 5360,
-  "acerto": 0.37,
-  "r_medio": -0.049
+  "n": 6063,
+  "acerto": 0.358,
+  "r_medio": -0.055
  },
  "6": {
-  "n": 301,
-  "acerto": 0.661,
-  "r_medio": -0.031
+  "n": 511,
+  "acerto": 0.691,
+  "r_medio": 0.037
  },
  "7": {
-  "n": 35,
-  "acerto": 0.714,
-  "r_medio": 0.05
+  "n": 101,
+  "acerto": 0.743,
+  "r_medio": 0.112
  },
  "8": {
-  "n": 4,
-  "acerto": 0.5,
-  "r_medio": -0.33
+  "n": 1,
+  "acerto": 1.0,
+  "r_medio": 0.476
  },
  "8+": {
-  "n": 4,
-  "acerto": 0.5,
-  "r_medio": -0.33
+  "n": 1,
+  "acerto": 1.0,
+  "r_medio": 0.476
  },
  "3-": {
-  "n": 13268,
-  "acerto": 0.544,
-  "r_medio": -0.104
+  "n": 12276,
+  "acerto": 0.503,
+  "r_medio": -0.123
  },
  "todos": {
-  "n": 23205,
-  "acerto": 0.499,
-  "r_medio": -0.075
+  "n": 22829,
+  "acerto": 0.464,
+  "r_medio": -0.083
  }
 }
-ok em 246s; stats.json 173 KB
+ok em 261s; stats.json 169 KB
