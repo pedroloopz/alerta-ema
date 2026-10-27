@@ -27,63 +27,18 @@ BTC: 21912 candles de 1h desde 01/04/2024
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto BTCUSDT: ok (69s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto BTCUSDT: ok (64s)
-  cripto UNIUSDT: ok (82s)
-  cripto AAVEUSDT: ok (83s)
-  cripto BNBUSDT: ok (83s)
-  cripto SOLUSDT: ok (83s)
-  cripto ETHUSDT: ok (84s)
-  cripto ZECUSDT: ok (84s)
-  cripto NEARUSDT: ok (85s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-  cripto TAOUSDT: ok (123s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto AVAXUSDT: ok (144s)
-  cripto ARBUSDT: ok (145s)
-  cripto SUIUSDT: ok (145s)
-  cripto FILUSDT: ok (145s)
-  cripto DYDXUSDT: ok (146s)
-  cripto LTCUSDT: ok (146s)
-  cripto APEUSDT: ok (146s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto XRPUSDT: ok (171s)
+  cripto TAOUSDT: ok (78s)
+  cripto ETHUSDT: ok (80s)
+  cripto NEARUSDT: ok (84s)
+  cripto UNIUSDT: ok (84s)
+  cripto AAVEUSDT: ok (85s)
+  cripto SOLUSDT: ok (85s)
+  cripto ZECUSDT: ok (86s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
@@ -108,30 +63,22 @@ BTC: 21912 candles de 1h desde 01/04/2024
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto HYPEUSDT: ok (203s)
-  cripto CFXUSDT: ok (205s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto ENAUSDT: ok (206s)
-  cripto INJUSDT: ok (208s)
-  cripto JTOUSDT: ok (208s)
-  cripto ICPUSDT: ok (210s)
-  cripto STRKUSDT: ok (211s)
+  cripto BNBUSDT: ok (123s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto ADAUSDT: ok (240s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto AVAXUSDT: ok (138s)
+  cripto ARBUSDT: ok (138s)
+  cripto SUIUSDT: ok (139s)
+  cripto CFXUSDT: ok (139s)
+  cripto INJUSDT: ok (140s)
+  cripto LTCUSDT: ok (140s)
+  cripto FILUSDT: ok (140s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
@@ -142,36 +89,13 @@ BTC: 21912 candles de 1h desde 01/04/2024
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
+  cripto JTOUSDT: ok (167s)
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto TIAUSDT: ok (266s)
-  cripto STXUSDT: ok (266s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto LINKUSDT: ok (267s)
-  cripto WLDUSDT: ok (267s)
-  cripto 1INCHUSDT: ok (267s)
-  cripto JASMYUSDT: ok (268s)
-  cripto TRXUSDT: ok (268s)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto BCHUSDT: ok (305s)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
@@ -188,14 +112,94 @@ BTC: 21912 candles de 1h desde 01/04/2024
   f["dia"] = df.index.dayofweek
 /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
   result = getattr(ufunc, method)(*inputs, **kwargs)
-  cripto ONDOUSDT: ok (326s)
-  cripto ETCUSDT: ok (327s)
-  cripto APTUSDT: ok (328s)
-  cripto DOTUSDT: ok (331s)
-  cripto ZROUSDT: ok (331s)
+  cripto APEUSDT: ok (192s)
+  cripto XRPUSDT: ok (193s)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto TRXUSDT: ok (201s)
+  cripto STRKUSDT: ok (202s)
+  cripto ENAUSDT: ok (202s)
+  cripto DYDXUSDT: ok (202s)
+  cripto ICPUSDT: ok (204s)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto HYPEUSDT: ok (215s)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto ADAUSDT: ok (251s)
+  cripto TIAUSDT: ok (251s)
+  cripto COMPUSDT: ok (252s)
+  cripto BCHUSDT: ok (252s)
+  cripto WLDUSDT: ok (253s)
+  cripto 1INCHUSDT: ok (253s)
+  cripto LINKUSDT: ok (253s)
+  cripto JASMYUSDT: ok (274s)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
+  f["dia"] = df.index.dayofweek
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas/core/arraylike.py:438: RuntimeWarning: divide by zero encountered in log
+  result = getattr(ufunc, method)(*inputs, **kwargs)
+  cripto ONDOUSDT: ok (324s)
+  cripto ZROUSDT: ok (324s)
+  cripto STXUSDT: ok (326s)
+  cripto JUPUSDT: ok (331s)
   cripto IMXUSDT: ok (332s)
-  cripto RUNEUSDT: ok (332s)
-cripto: 40 ativos em 333s (sem dados: —)
+  cripto DOTUSDT: ok (332s)
+  cripto RUNEUSDT: ok (334s)
+cripto: 40 ativos em 334s (sem dados: —)
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -336,29 +340,27 @@ cripto: 40 ativos em 333s (sem dados: —)
   f["dia"] = df.index.dayofweek
 /home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   f["dia"] = df.index.dayofweek
-/home/runner/work/alerta-ema/alerta-ema/painel/teste_longo.py:206: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  f["dia"] = df.index.dayofweek
-ações: 71 em 349s (sem dados: 9)
-tabela: 1637364 linhas, 23 colunas; teste a partir de 10/2024
+ações: 70 em 355s (sem dados: 10)
+tabela: 1616641 linhas, 23 colunas; teste a partir de 10/2024
 swing, indicadores e padrões gravados
-  2024-10 (+1 mês): treino 367097 linhas, teste 101051
-  2024-12 (+1 mês): treino 469028 linhas, teste 98993
-  2025-02 (+1 mês): treino 567136 linhas, teste 96478
-  2025-04 (+1 mês): treino 663597 linhas, teste 102883
-  2025-06 (+1 mês): treino 767382 linhas, teste 104671
-  2025-08 (+1 mês): treino 871110 linhas, teste 105698
-  2025-10 (+1 mês): treino 976793 linhas, teste 105164
-  2025-12 (+1 mês): treino 1082902 linhas, teste 103817
-  2026-02 (+1 mês): treino 1186719 linhas, teste 102411
-  2026-04 (+1 mês): treino 1288150 linhas, teste 107722
-  2026-06 (+1 mês): treino 1396852 linhas, teste 110318
-  2026-08 (+1 mês): treino 1506176 linhas, teste 109028
-  2026-10 (+1 mês): treino 1615206 linhas, teste 20646
-TESTE LONGO DO MODELO — 27/10/2026 01:17 UTC
+  2024-10 (+1 mês): treino 360505 linhas, teste 99646
+  2024-12 (+1 mês): treino 461003 linhas, teste 97700
+  2025-02 (+1 mês): treino 557846 linhas, teste 95175
+  2025-04 (+1 mês): treino 653004 linhas, teste 101460
+  2025-06 (+1 mês): treino 755338 linhas, teste 103255
+  2025-08 (+1 mês): treino 857678 linhas, teste 104288
+  2025-10 (+1 mês): treino 961951 linhas, teste 103786
+  2025-12 (+1 mês): treino 1066654 linhas, teste 102535
+  2026-02 (+1 mês): treino 1169189 linhas, teste 101638
+  2026-04 (+1 mês): treino 1269861 linhas, teste 107026
+  2026-06 (+1 mês): treino 1377853 linhas, teste 109589
+  2026-08 (+1 mês): treino 1486462 linhas, teste 108317
+  2026-10 (+1 mês): treino 1594781 linhas, teste 20362
+TESTE LONGO DO MODELO — 27/10/2026 02:57 UTC
 
 Cripto: 40 ativos (Binance, 1h, desde 07/04/2024)
-Ações: 71 ativos (Yahoo, 1h com pré/pós, desde 12/12/2023; 12 velas = ~12h de negociação, não de relógio)
-Linhas: 1637364; tempo: 9 min
+Ações: 70 ativos (Yahoo, 1h com pré/pós, desde 12/12/2023; 12 velas = ~12h de negociação, não de relógio)
+Linhas: 1616641; tempo: 9 min
 
 Como ler: últimos 2 anos (ações no 1h: o Yahoo só tem 730 dias, então menos meses), mês a mês; cada mês o modelo aprende só com o passado e é testado no mês.
 'trades' = sem sobreposição (1 por ativo até sair + 1h), como o robô faria.
@@ -367,118 +369,118 @@ Nota pela mesma régua do painel, usando acerto e R do robô.
 
 == CRIPTO · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%       943      1.6     68%  +0.031  +0.029     6   13/20      -1.00
-97–99%      3451      4.8     64%  -0.040  -0.050     5   12/24      -0.49
-90–97%     16502     22.9     64%  -0.042  -0.045     5    7/24      -0.14
-  top 1% mês a mês (trades, R médio): 24-10 2 +0.48 · 24-11 58 +0.18 · 24-12 79 -0.34 · 25-01 102 -0.10 · 25-02 111 +0.35 · 25-03 65 -0.33 · 25-04 84 +0.07 · 25-07 10 +0.26 · 25-10 51 +0.06 · 25-11 81 -0.14 · 25-12 15 +0.42 · 26-01 21 +0.34 · 26-02 132 +0.17 · 26-03 43 -0.23 · 26-04 1 -1.00 · 26-05 1 +0.77 · 26-06 5 +0.25 · 26-07 1 -1.00 · 26-08 36 +0.17 · 26-09 45 +0.16
+top 1%       824      1.4     67%  +0.022  +0.030     6   13/20      -0.58
+97–99%      3310      4.6     67%  -0.000  -0.014     5   14/24      -0.66
+90–97%     16363     22.7     64%  -0.033  -0.036     5    9/24      -0.19
+  top 1% mês a mês (trades, R médio): 24-10 3 +0.08 · 24-11 36 +0.06 · 24-12 47 -0.42 · 25-01 59 -0.04 · 25-02 115 +0.32 · 25-03 64 -0.26 · 25-04 107 +0.40 · 25-07 1 +0.77 · 25-10 60 -0.27 · 25-11 141 -0.40 · 25-12 35 +0.39 · 26-01 12 +0.33 · 26-02 75 +0.32 · 26-03 9 -0.58 · 26-04 9 -0.48 · 26-05 2 +0.48 · 26-06 23 +0.27 · 26-07 1 +0.77 · 26-08 13 +0.13 · 26-09 12 +0.28
 
 == CRIPTO · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      1586      2.2     66%  +0.010  +0.019     6   12/24      -0.74
-97–99%      6245      8.7     67%  +0.018  +0.023     6   13/24      -0.39
-90–97%     23301     32.4     66%  -0.011  -0.008     5    7/24      -0.16
-  top 1% mês a mês (trades, R médio): 24-10 38 +0.17 · 24-11 138 +0.06 · 24-12 179 +0.03 · 25-01 175 -0.29 · 25-02 126 +0.33 · 25-03 123 +0.24 · 25-04 44 +0.31 · 25-05 35 -0.08 · 25-06 160 +0.24 · 25-07 31 -0.44 · 25-08 29 -0.74 · 25-09 1 +0.31 · 25-10 38 -0.72 · 25-11 19 -0.12 · 25-12 82 +0.38 · 26-01 20 +0.29 · 26-02 87 +0.19 · 26-03 29 +0.04 · 26-04 15 -0.18 · 26-05 19 -0.25 · 26-06 90 -0.26 · 26-07 7 -0.19 · 26-08 59 -0.47 · 26-09 42 -0.10
+top 1%      1339      1.9     65%  -0.018  -0.022     5    9/23      -0.62
+97–99%      5602      7.8     65%  -0.012  -0.009     5   10/24      -0.36
+90–97%     22498     31.2     66%  -0.001  +0.004     5   10/24      -0.16
+  top 1% mês a mês (trades, R médio): 24-10 46 -0.01 · 24-11 133 +0.05 · 24-12 145 -0.15 · 25-01 97 -0.16 · 25-02 137 +0.23 · 25-03 108 +0.24 · 25-04 23 +0.23 · 25-05 52 -0.21 · 25-06 148 +0.42 · 25-07 22 -0.35 · 25-08 35 -0.62 · 25-10 41 -0.47 · 25-11 23 +0.01 · 25-12 20 +0.25 · 26-01 5 -0.17 · 26-02 36 +0.12 · 26-03 35 -0.08 · 26-04 13 -0.17 · 26-05 6 +0.38 · 26-06 82 -0.10 · 26-07 6 -0.38 · 26-08 94 -0.50 · 26-09 32 -0.14
 
 == AÇÕES · LONG ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      7633     10.2     75%  +0.125  +0.105     8   23/25      -0.21
-97–99%     12536     16.7     71%  +0.069  +0.052     7   23/25      -0.18
-90–97%     26870     35.8     67%  +0.009  -0.005     6   18/25      -0.20
-  top 1% mês a mês (trades, R médio): 24-10 138 +0.30 · 24-11 168 +0.31 · 24-12 209 +0.15 · 25-01 184 +0.12 · 25-02 322 +0.10 · 25-03 467 +0.14 · 25-04 440 +0.16 · 25-05 235 +0.27 · 25-06 157 +0.29 · 25-07 131 +0.27 · 25-08 200 +0.25 · 25-09 134 +0.19 · 25-10 281 +0.27 · 25-11 404 -0.02 · 25-12 216 +0.07 · 26-01 273 +0.22 · 26-02 342 +0.13 · 26-03 552 +0.31 · 26-04 323 +0.14 · 26-05 364 +0.04 · 26-06 533 +0.07 · 26-07 749 +0.01 · 26-08 173 +0.07 · 26-09 205 +0.14 · 26-10 433 -0.21
+top 1%      7727     10.3     75%  +0.136  +0.115     8   24/25      -0.21
+97–99%     12365     16.5     71%  +0.064  +0.049     7   23/25      -0.18
+90–97%     26286     35.0     67%  +0.015  -0.003     6   18/25      -0.19
+  top 1% mês a mês (trades, R médio): 24-10 129 +0.38 · 24-11 164 +0.29 · 24-12 180 +0.26 · 25-01 180 +0.17 · 25-02 314 +0.11 · 25-03 419 +0.18 · 25-04 430 +0.19 · 25-05 228 +0.29 · 25-06 169 +0.35 · 25-07 110 +0.26 · 25-08 166 +0.22 · 25-09 117 +0.19 · 25-10 269 +0.30 · 25-11 378 +0.01 · 25-12 231 +0.11 · 26-01 277 +0.24 · 26-02 355 +0.12 · 26-03 612 +0.29 · 26-04 278 +0.15 · 26-05 339 +0.10 · 26-06 545 +0.07 · 26-07 813 +0.00 · 26-08 235 +0.06 · 26-09 274 +0.20 · 26-10 515 -0.21
 
 == AÇÕES · SHORT ==
 faixa     trades  por dia  acerto  R robô   R ref  nota  meses +  pior mês
-top 1%      4683      6.2     78%  +0.160  +0.154     8   24/25      -0.00
-97–99%      6648      8.9     74%  +0.112  +0.098     7   23/25      -0.03
-90–97%     11939     15.9     70%  +0.062  +0.040     7   20/25      -0.05
-  top 1% mês a mês (trades, R médio): 24-10 100 +0.20 · 24-11 123 +0.03 · 24-12 122 +0.32 · 25-01 173 +0.15 · 25-02 108 +0.22 · 25-03 158 +0.26 · 25-04 232 +0.18 · 25-05 169 +0.22 · 25-06 141 +0.20 · 25-07 106 +0.25 · 25-08 99 +0.27 · 25-09 140 +0.09 · 25-10 289 +0.12 · 25-11 151 +0.20 · 25-12 176 +0.17 · 26-01 246 +0.10 · 26-02 220 +0.14 · 26-03 276 +0.16 · 26-04 317 +0.15 · 26-05 283 +0.16 · 26-06 291 +0.19 · 26-07 234 +0.05 · 26-08 238 +0.10 · 26-09 129 -0.00 · 26-10 162 +0.29
+top 1%      4774      6.4     78%  +0.151  +0.142     8   24/25      -0.03
+97–99%      6711      8.9     74%  +0.108  +0.094     7   24/25      -0.05
+90–97%     11895     15.9     70%  +0.054  +0.031     6   18/25      -0.05
+  top 1% mês a mês (trades, R médio): 24-10 85 +0.22 · 24-11 115 +0.04 · 24-12 131 +0.32 · 25-01 179 +0.15 · 25-02 92 +0.22 · 25-03 120 +0.28 · 25-04 176 +0.10 · 25-05 178 +0.24 · 25-06 127 +0.15 · 25-07 94 +0.27 · 25-08 94 +0.27 · 25-09 151 +0.10 · 25-10 248 +0.12 · 25-11 160 +0.28 · 25-12 183 +0.17 · 26-01 262 +0.10 · 26-02 219 +0.14 · 26-03 284 +0.14 · 26-04 330 +0.15 · 26-05 315 +0.16 · 26-06 362 +0.14 · 26-07 263 +0.04 · 26-08 275 +0.12 · 26-09 190 -0.03 · 26-10 141 +0.25
 
 == DONCHIAN 55/10 (swing no diário, últimos 2 anos) ==
 Entra quando fecha acima da máxima de 55 dias; sai quando fecha abaixo da mínima de 10 dias.
 mercado         trades  acerto  R médio  ret médio  dias
-cripto long        180     37%    +0.23      +3.1%    27
-cripto short       237     44%    +0.06      +1.5%    29
-ações long         375     47%    +0.61     +11.4%    42
-ações short        254     26%    -0.26      -6.4%    30
+cripto long        178     38%    +0.25      +3.5%    27
+cripto short       235     43%    +0.05      +1.1%    29
+ações long         369     47%    +0.61     +11.7%    42
+ações short        247     25%    -0.28      -6.7%    30
 
 == SWING RSI(2) — Connors, ~3 dias (diário, últimos 2 anos) ==
 mercado         trades  acerto  R médio  ret médio  dias  soma ret
-cripto long        359     65%    +0.10      +1.6%     4     +575%
-cripto short       796     62%    -0.15      -1.1%     4     -864%
-ações long         986     69%    +0.14      +1.5%     5    +1475%
-ações short        465     58%    -0.16      -1.3%     6     -601%
+cripto long        366     65%    +0.10      +1.6%     4     +577%
+cripto short       795     61%    -0.16      -1.2%     4     -966%
+ações long         967     70%    +0.14      +1.5%     5    +1491%
+ações short        440     58%    -0.16      -1.3%     6     -584%
 
 == INDICADORES CLÁSSICOS (últimos 2 anos; 'barras' = dias no diário, semanas no semanal) ==
 R usa o stop do sistema (Fibonacci: 78,6%) ou, sem stop, 2x a volatilidade média (ATR 14).
 sistema                              gráfico  mercado       trades  acerto  R méd  ret méd barras  soma ret
-RSI 14 (30/70)                       diário   cripto long      194     32%  -0.05    -3.0%     29     -574%
-RSI 14 (30/70)                       diário   cripto short     203     47%  -0.58    -7.0%     29    -1424%
-RSI 14 (30/70)                       diário   ações long       156     62%  +0.68    +5.8%     28     +907%
-RSI 14 (30/70)                       diário   ações short      348     36%  -1.42   -12.1%     30    -4221%
-RSI 14 (30/70)                       semanal  cripto long       22     36%  +0.07    -2.3%     15      -50%
-RSI 14 (30/70)                       semanal  cripto short      31     94%  +0.99   +34.1%     15    +1057%
-RSI 14 (30/70)                       semanal  ações long        21     90%  +1.33   +32.8%     14     +689%
-RSI 14 (30/70)                       semanal  ações short      133     38%  -1.08   -22.1%     15    -2943%
+RSI 14 (30/70)                       diário   cripto long      193     33%  -0.05    -3.0%     29     -574%
+RSI 14 (30/70)                       diário   cripto short     204     47%  -0.65    -7.6%     29    -1547%
+RSI 14 (30/70)                       diário   ações long       149     61%  +0.69    +6.0%     28     +897%
+RSI 14 (30/70)                       diário   ações short      342     36%  -1.45   -12.5%     30    -4265%
+RSI 14 (30/70)                       semanal  cripto long       20     40%  +0.15    +0.4%     15       +9%
+RSI 14 (30/70)                       semanal  cripto short      31     94%  +0.97   +34.1%     15    +1056%
+RSI 14 (30/70)                       semanal  ações long        19     89%  +1.42   +34.7%     14     +660%
+RSI 14 (30/70)                       semanal  ações short      134     38%  -1.08   -22.0%     15    -2951%
 
-Ichimoku (nuvem + tenkan/kijun)      diário   cripto long      409     33%  +0.36    +3.8%     11    +1551%
-Ichimoku (nuvem + tenkan/kijun)      diário   cripto short     628     36%  +0.01    -0.0%     14      -13%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações long       606     39%  +0.59    +5.4%     14    +3281%
-Ichimoku (nuvem + tenkan/kijun)      diário   ações short      538     28%  -0.26    -2.5%     13    -1345%
-Ichimoku (nuvem + tenkan/kijun)      semanal  cripto long       46     26%  +0.19    +4.4%      7     +201%
-Ichimoku (nuvem + tenkan/kijun)      semanal  cripto short      80     62%  +0.07    +6.8%     12     +541%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       145     46%  +0.94   +17.8%      9    +2579%
-Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       92     16%  -0.55   -13.9%      8    -1279%
+Ichimoku (nuvem + tenkan/kijun)      diário   cripto long      410     31%  +0.37    +3.9%     11    +1595%
+Ichimoku (nuvem + tenkan/kijun)      diário   cripto short     627     35%  -0.00    -0.3%     14     -158%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações long       595     39%  +0.59    +5.6%     14    +3339%
+Ichimoku (nuvem + tenkan/kijun)      diário   ações short      522     29%  -0.26    -2.6%     13    -1366%
+Ichimoku (nuvem + tenkan/kijun)      semanal  cripto long       44     30%  +0.25    +6.0%      7     +263%
+Ichimoku (nuvem + tenkan/kijun)      semanal  cripto short      82     60%  +0.05    +5.7%     11     +469%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações long       140     47%  +0.97   +18.5%      9    +2594%
+Ichimoku (nuvem + tenkan/kijun)      semanal  ações short       89     17%  -0.54   -13.7%      8    -1223%
 
-Bollinger 20/2 (volta à média)       diário   cripto long      511     65%  +0.06    +1.0%     13     +511%
-Bollinger 20/2 (volta à média)       diário   cripto short     486     73%  -0.10    -1.5%     11     -745%
-Bollinger 20/2 (volta à média)       diário   ações long       494     71%  +0.26    +2.8%     11    +1375%
-Bollinger 20/2 (volta à média)       diário   ações short      718     62%  -0.52    -4.5%     13    -3228%
-Bollinger 20/2 (volta à média)       semanal  cripto long       56     57%  +0.03    -2.1%     11     -119%
-Bollinger 20/2 (volta à média)       semanal  cripto short      73     86%  +0.43   +16.9%      7    +1234%
-Bollinger 20/2 (volta à média)       semanal  ações long        78     90%  +0.59   +14.5%      7    +1129%
-Bollinger 20/2 (volta à média)       semanal  ações short      196     57%  -1.00   -20.7%     10    -4052%
+Bollinger 20/2 (volta à média)       diário   cripto long      510     65%  +0.07    +1.1%     13     +546%
+Bollinger 20/2 (volta à média)       diário   cripto short     491     73%  -0.11    -1.5%     11     -728%
+Bollinger 20/2 (volta à média)       diário   ações long       482     71%  +0.27    +2.9%     10    +1387%
+Bollinger 20/2 (volta à média)       diário   ações short      704     61%  -0.53    -4.7%     13    -3319%
+Bollinger 20/2 (volta à média)       semanal  cripto long       56     54%  +0.02    -2.9%     11     -160%
+Bollinger 20/2 (volta à média)       semanal  cripto short      74     86%  +0.43   +17.0%      7    +1260%
+Bollinger 20/2 (volta à média)       semanal  ações long        74     89%  +0.59   +14.6%      7    +1077%
+Bollinger 20/2 (volta à média)       semanal  ações short      193     56%  -1.02   -20.9%     10    -4029%
 
-Fibonacci 61,8% (alvo no topo/fundo) diário   cripto long      304     36%  +0.06    -0.1%     12      -31%
-Fibonacci 61,8% (alvo no topo/fundo) diário   cripto short     230     37%  +0.01    +1.1%     13     +243%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       329     30%  -0.05    -1.9%     12     -623%
-Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      238     26%  -0.27    -1.3%     10     -303%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto long       48     29%  -0.24    -7.2%     10     -346%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto short      17     59%  +0.79   +23.1%      8     +393%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long       107     38%  +0.20    +3.3%      8     +355%
-Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       42     29%  -0.34    -5.9%      7     -250%
+Fibonacci 61,8% (alvo no topo/fundo) diário   cripto long      309     36%  +0.10    +0.1%     12      +24%
+Fibonacci 61,8% (alvo no topo/fundo) diário   cripto short     237     38%  +0.04    +1.4%     13     +323%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações long       323     29%  -0.09    -2.3%     12     -743%
+Fibonacci 61,8% (alvo no topo/fundo) diário   ações short      230     27%  -0.26    -1.2%     10     -270%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto long       48     29%  -0.24    -7.4%     10     -355%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  cripto short      15     60%  +0.88   +24.7%      8     +370%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações long       105     37%  +0.18    +2.8%      8     +296%
+Fibonacci 61,8% (alvo no topo/fundo) semanal  ações short       37     27%  -0.40    -7.0%      7     -258%
 
 == PADRÕES SEMANAIS PARECIDOS (desenho das últimas 8 semanas, similaridade >= 70%) ==
 Teste: a cada semana dos últimos 2 anos, procura no passado desenhos >= 70% parecidos (correlação)
 e aposta na direção que eles tiveram na semana seguinte (mín. 20 parecidos).
 mercado   apostas  acerto  ret méd  só long: n  acerto  ret méd
-cripto       4002     45%   -0.53%        3243     43%   -0.18%
-ações        7025     51%   +0.50%        5781     53%   +0.92%
+cripto       4002     45%   -0.50%        3271     43%   -0.12%
+ações        6915     51%   +0.48%        5678     53%   +0.93%
 
 Esta semana (desenho até o último fechamento): parecidos >= 70% no histórico e o que veio depois
 ativo        parecidos  subiu na sem. seguinte  ret médio  mais parecido
-TRX                113                     37%     -1.85%            95%
-QCOM               604                     44%     -1.13%            95%
-NVDA              1117                     55%     +0.80%            99%
-LITE              1004                     55%     +1.11%            99%
-DELL              1977                     55%     +1.08%            98%
-AMAT              1305                     54%     +0.89%            98%
-JASMY             1775                     54%     +1.67%            98%
-BE                2337                     54%     +1.01%            99%
-COHR              2383                     54%     +0.83%            98%
-RKLB              1772                     54%     +0.83%            99%
-GOOGL             1007                     54%     +0.69%            98%
-MU                2091                     54%     +0.84%            98%
-USO               2229                     54%     +1.68%            99%
-AAOI              2715                     54%     +0.83%            98%
-SOXL              1750                     53%     +0.80%            98%
-COPUS             2624                     53%     +1.56%            99%
-SPY                397                     53%     +0.52%            97%
-AKAM              2164                     53%     +0.83%            99%
-KOPN              2875                     53%     +0.78%            99%
-ARM               2167                     53%     +0.80%            98%
-AVGO              3234                     53%     +0.85%            99%
-OXYUS             2144                     53%     +1.54%            98%
-META              1732                     47%     -0.18%            98%
-AMDUS             1655                     47%     -0.24%            99%
-GLW               2850                     53%     +0.85%            99%
+TRX                111                     36%     -2.04%            95%
+JASMY             1747                     54%     +1.70%            98%
+TSLA               374                     54%     +1.18%            94%
+GOOGL             3026                     54%     +0.95%            99%
+QCOM               639                     47%     -0.28%            97%
+IBM               2416                     53%     +1.60%            99%
+SPY                506                     47%     -0.23%            97%
+AAPL              3668                     53%     +1.17%            98%
+BCH               1718                     53%     +1.46%            97%
+AMZN               441                     47%     -0.47%            97%
+META              1409                     53%     +0.62%            99%
+MRVL              1155                     48%     -0.10%           100%
+ZRO               4117                     52%     +1.27%            99%
+XLK               1276                     48%     -0.13%            99%
+AMDUS             1276                     48%     -0.22%            99%
+IMX               3862                     52%     +1.18%            97%
+RUNE              5679                     52%     +1.09%           100%
+USO               3308                     52%     +1.22%            99%
+SUI               3820                     52%     +1.12%            98%
+CRCL              3216                     48%     +0.20%            99%
+JTO                791                     48%     +0.31%            96%
+LINK              4083                     52%     +0.87%            98%
+EWZ                543                     48%     +0.07%            98%
+LLY               5604                     52%     +1.05%            99%
+ENA               4391                     52%     +0.93%            98%
 
