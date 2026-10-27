@@ -37,6 +37,7 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 - Teste antes (pytest, execução de ensaio ou `workflow_dispatch`); depois commit e push direto na `main`. Push bloqueado → abra PR e faça o merge. Teste falhou e não dá para corrigir → desfaça e explique.
 - Mensagens dos bots em português.
 - Segredos só via `secrets`/`vars` do GitHub. Nunca chave no código nem no log; nunca peça token colado na conversa.
+- Repositório público: commits só com o e-mail `194338683+pedroloopz@users.noreply.github.com`; posição, saldo ou resultado em dinheiro nunca em arquivo aberto, log ou branch (use o cofre).
 - Dependeu de decisão do Pedro → pare e pergunte em uma frase, com opções.
 - **Custo:** não adicione chamadas à API do Claude. Use o Gemini gratuito ou nenhuma IA; se algo realmente precisar do Claude, pergunte antes.
 - **Privacidade:** o bot é admin do grupo e recebe tudo. Só processa mensagens do próprio tópico (`do_meu_topico` em `bot.py`); as de outros tópicos (📸 Família, 📝 Rascunhos…) são descartadas sem salvar, logar ou enviar a nenhum serviço.
