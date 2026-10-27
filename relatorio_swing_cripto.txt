@@ -1,61 +1,61 @@
-EXA long swing (1h, 24h por dia) — cripto, 126 ativos, 28/01/2024 a 24/10/2026
-Escolha da configuração até 16/02/2026; teste (não visto) depois disso.
+EXA long swing (1h, 24h por dia) — cripto, 124 ativos, 31/01/2024 a 27/10/2026
+Escolha da configuração até 19/02/2026; teste (não visto) depois disso.
 Retorno médio por trade sobre o nocional, já com taxas, slippage e funding. Sem alavancagem.
 
 10 melhores configurações no treino:
 stop ATR alvo R dias parcial | n trei acerto   ret% | n teste acerto   ret%
-     3.0    1.5    3     não |   2572    56%  +1.02 |     800    49%  +0.04
-     3.0    2.0    3     não |   2572    53%  +1.00 |     800    45%  +0.16
-     3.0    3.0    3     não |   2572    51%  +0.96 |     800    41%  +0.16
-     2.0    3.0    3     não |   2572    45%  +0.95 |     800    36%  +0.11
-     2.0    2.0    3     não |   2572    52%  +0.85 |     800    45%  +0.08
-     3.0    1.5    3     sim |   2572    64%  +0.83 |     800    62%  +0.10
-     3.0    1.5    2     não |   2572    57%  +0.82 |     801    52%  +0.10
-     2.0    3.0    2     não |   2572    47%  +0.78 |     801    39%  +0.13
-     2.0    2.0    2     não |   2572    53%  +0.77 |     801    46%  +0.07
-     3.0    1.5    2     sim |   2572    65%  +0.76 |     801    62%  +0.11
+     3.0    1.5    3     não |   2475    56%  +1.02 |     796    49%  +0.08
+     3.0    2.0    3     não |   2475    53%  +0.99 |     796    45%  +0.17
+     3.0    3.0    3     não |   2475    51%  +0.95 |     796    42%  +0.17
+     2.0    3.0    3     não |   2475    45%  +0.94 |     796    36%  +0.11
+     2.0    2.0    3     não |   2475    52%  +0.84 |     796    46%  +0.11
+     3.0    1.5    3     sim |   2475    64%  +0.84 |     796    63%  +0.16
+     3.0    1.5    2     não |   2475    57%  +0.82 |     803    52%  +0.12
+     2.0    3.0    2     não |   2475    47%  +0.78 |     803    39%  +0.11
+     3.0    1.5    2     sim |   2475    65%  +0.77 |     803    63%  +0.16
+     2.0    2.0    2     não |   2475    53%  +0.76 |     803    46%  +0.08
 
-Configuração das ações (stop 3 ATR, alvo 3R, 3 dias, sem parcial) na cripto: treino 51% / +0.96%, teste 41% / +0.16%
+Configuração das ações (stop 3 ATR, alvo 3R, 3 dias, sem parcial) na cripto: treino 51% / +0.95%, teste 42% / +0.17%
 
 Configuração escolhida para cripto: stop 3.0 ATR, alvo 1.5 R, 3 dia(s), parcial não
-  entrada sorteada (treino): acerto 46%, ret médio -0.30%  <- quanto do resultado é só a alta do mercado
-  entrada sorteada (teste): acerto 49%, ret médio -0.05%  <- quanto do resultado é só a alta do mercado
+  entrada sorteada (treino): acerto 47%, ret médio -0.17%  <- quanto do resultado é só a alta do mercado
+  entrada sorteada (teste): acerto 50%, ret médio -0.03%  <- quanto do resultado é só a alta do mercado
 
 Carteira — só cripto. exposição 29 mil. período todo (banca US$ 14.500)
-  trades 1513. lucro total US$ 12.602 (+87% da banca). média +2.7% ao mês
-  pior queda (drawdown) US$ -7.433 (-51% da banca)
-  meses no lucro 65%, pior mês -23.2%, melhor mês +25.2%
+  trades 1479. lucro total US$ 12.021 (+83% da banca). média +2.5% ao mês
+  pior queda (drawdown) US$ -8.158 (-56% da banca)
+  meses no lucro 67%, pior mês -28.7%, melhor mês +25.8%
 
 Carteira — só cripto. exposição 29 mil. só o teste (banca US$ 14.500)
-  trades 479. lucro total US$ 2.474 (+17% da banca). média +2.1% ao mês
-  pior queda (drawdown) US$ -4.541 (-31% da banca)
-  meses no lucro 67%, pior mês -15.6%, melhor mês +12.7%
+  trades 474. lucro total US$ 1.854 (+13% da banca). média +1.6% ao mês
+  pior queda (drawdown) US$ -3.623 (-25% da banca)
+  meses no lucro 56%, pior mês -15.5%, melhor mês +11.5%
 
-===== Carteira combinada (ações + cripto), 29/01/2024 a 21/10/2026; teste depois de 16/02/2026 =====
+===== Carteira combinada (ações + cripto), 01/02/2024 a 26/10/2026; teste depois de 19/02/2026 =====
 
 Carteira — Exposição 29 mil (6 posições de ~4.833). período todo (banca US$ 14.500)
-  trades 1644. lucro total US$ 13.732 (+95% da banca). média +2.9% ao mês
-  pior queda (drawdown) US$ -8.011 (-55% da banca)
-  meses no lucro 65%, pior mês -32.5%, melhor mês +25.0%
+  trades 1632. lucro total US$ 20.341 (+140% da banca). média +4.3% ao mês
+  pior queda (drawdown) US$ -7.460 (-51% da banca)
+  meses no lucro 67%, pior mês -42.4%, melhor mês +34.7%
 
 Carteira — Exposição 29 mil (6 posições de ~4.833). só o teste (banca US$ 14.500)
-  trades 525. lucro total US$ 5.367 (+37% da banca). média +4.6% ao mês
-  pior queda (drawdown) US$ -4.350 (-30% da banca)
-  meses no lucro 56%, pior mês -21.6%, melhor mês +25.0%
+  trades 529. lucro total US$ 4.293 (+30% da banca). média +3.6% ao mês
+  pior queda (drawdown) US$ -3.841 (-26% da banca)
+  meses no lucro 56%, pior mês -20.4%, melhor mês +22.5%
 
 Carteira — Exposição 45 mil (9 posições de 5 mil). período todo (banca US$ 14.500)
-  trades 2193. lucro total US$ 23.535 (+162% da banca). média +5.0% ao mês
-  pior queda (drawdown) US$ -9.754 (-67% da banca)
-  meses no lucro 68%, pior mês -40.1%, melhor mês +37.3%
+  trades 2170. lucro total US$ 25.914 (+179% da banca). média +5.5% ao mês
+  pior queda (drawdown) US$ -9.698 (-67% da banca)
+  meses no lucro 70%, pior mês -55.0%, melhor mês +39.6%
 
 Carteira — Exposição 45 mil (9 posições de 5 mil). só o teste (banca US$ 14.500)
-  trades 686. lucro total US$ 5.886 (+41% da banca). média +5.1% ao mês
-  pior queda (drawdown) US$ -5.045 (-35% da banca)
-  meses no lucro 56%, pior mês -23.5%, melhor mês +31.0%
-  sinais no teste, ação: 259, acerto 58%, ret médio +1.16%
-  sinais no teste, cripto: 800, acerto 49%, ret médio +0.04%
-  nota no painel, acao: 7/10 (teste: 311 sinais, acerto 56%, R médio +0.14)
-  nota no painel, cripto: 5/10 (teste: 800 sinais, acerto 49%, R médio -0.04)
+  trades 692. lucro total US$ 4.123 (+28% da banca). média +3.5% ao mês
+  pior queda (drawdown) US$ -5.017 (-35% da banca)
+  meses no lucro 56%, pior mês -32.3%, melhor mês +33.8%
+  sinais no teste, ação: 309, acerto 52%, ret médio +0.49%
+  sinais no teste, cripto: 796, acerto 49%, ret médio +0.08%
+  nota no painel, acao: 6/10 (teste: 349 sinais, acerto 52%, R médio +0.07)
+  nota no painel, cripto: 5/10 (teste: 796 sinais, acerto 50%, R médio -0.03)
 
 Queda medida nos trades fechados: no meio do trade ela pode ser maior.
 Juros do consignado ~2,25% da banca ao mês: é o mínimo para empatar.
