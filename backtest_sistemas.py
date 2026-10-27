@@ -288,7 +288,7 @@ def t_stat(x):
 
 # ---------------------------------------------------------------- main
 def main():
-    capital = json.load(open("carteira.json"))["capital_inicial"]
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
     tick = universo()
     brutos = baixar(tick + ["SPY", "QQQ"])
     ref = {k: brutos.pop(k)["Close"] for k in ("SPY", "QQQ") if k in brutos}

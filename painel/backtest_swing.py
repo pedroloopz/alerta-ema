@@ -31,10 +31,10 @@ FATOR_FUND = 1.4      # dias corridos de funding por dia de trade (7 candles de 
 SEMIS = {"AMD", "NVDA", "AVGO", "MU", "TSM", "ASML", "AMAT", "LRCX", "KLAC", "MRVL", "QCOM", "INTC",
          "ARM", "ON", "TXN", "ADI", "SWKS", "SMCI", "TER", "ONTO", "ENTG", "COHU", "ACMR", "AEHR",
          "MXL", "STM", "TSEM", "UMC", "VSH", "AXTI", "CRDO", "SNDK", "WDC", "STX"}
-BANCA = 14_500
+BANCA = 100                       # banca fictícia (repositório público); os % não mudam
 CENARIOS = (  # nome, exposição máxima, nocional por trade
-    ("2x por posição (margem isolada cabe na banca)", 29_000, 29_000 / 6),
-    ("Exposição 45 mil (9 posições de 5 mil)", 45_000, 5_000),
+    ("2x por posição (margem isolada cabe na banca)", 200, 200 / 6),
+    ("Exposição 3,1x a banca (9 posições)", 310, 310 / 9),
 )
 
 

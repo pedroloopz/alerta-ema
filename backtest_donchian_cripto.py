@@ -45,7 +45,7 @@ def klines(par):
 
 
 def main():
-    capital = json.load(open("carteira.json"))["capital_inicial"]
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
     dados = {m: d for m in MOEDAS if (d := klines(m + "USDT")) is not None}
     dias = sorted(set().union(*[d.index for d in dados.values()]))
     idx = pd.DatetimeIndex(dias)

@@ -1,4 +1,4 @@
-DONCHIAN v2 - SPOT, SO COMPRADO | capital US$ 7.088 | 5 posicoes
+DONCHIAN v2 - SPOT, SO COMPRADO | capital US$ 100 | 5 posicoes
 
 ACOES: 532 (S&P 500 + Nasdaq-100 + lista do bot) | 19/10/2015 a 25/09/2026 | validacao desde 01/01/2022
 filtro: SPY acima da MMA 200 | entrada: maxima de 55 dias

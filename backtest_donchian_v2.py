@@ -205,7 +205,7 @@ def met(curva, idx, mask):
 
 # ---------------------------------------------------------------- main
 def main():
-    capital = json.load(open("carteira.json"))["capital_inicial"]
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
     L = [f"DONCHIAN v2 - SPOT, SO COMPRADO | capital {usd(capital)} | {K} posicoes", ""]
 
     # ---------- acoes

@@ -1,25 +1,25 @@
-ESTIMATIVA PARA 2 MESES (42 pregoes) - capital S$ +7.088
+ESTIMATIVA PARA 2 MESES (42 pregoes) - capital S$ +100
 base: todas as janelas de 42 pregoes de 01/01/2022 a 25/09/2026
 nucleo atual usa: ABNB, BE, MVLL, UNH, NFLX, UBER, ENPH
 
 A. Donchian 55/10 escolhido
-  mediana +3,4% (US$ +240) | media +5,8%
-  cenario ruim (10%) -5,3% (US$ -374) | bom (90%) +19,6% (US$ +1.393)
+  mediana +3,4% (US$ +3) | media +5,8%
+  cenario ruim (10%) -5,3% (US$ -5) | bom (90%) +19,6% (US$ +20)
   chance de terminar no prejuizo 30% | pior janela -13,3% | melhor +37,2%
 
 B. Atual - nucleo 7 acoes com regra +10%
-  mediana +2,1% (US$ +152) | media +3,0%
-  cenario ruim (10%) -6,3% (US$ -444) | bom (90%) +15,0% (US$ +1.063)
+  mediana +2,1% (US$ +2) | media +3,0%
+  cenario ruim (10%) -6,3% (US$ -6) | bom (90%) +15,0% (US$ +15)
   chance de terminar no prejuizo 39% | pior janela -24,1% | melhor +37,0%
 
 C. Atual - swings pullback 2 ATR
-  mediana +0,1% (US$ +10) | media +1,1%
-  cenario ruim (10%) -9,4% (US$ -665) | bom (90%) +11,7% (US$ +831)
+  mediana +0,1% (US$ +0) | media +1,1%
+  cenario ruim (10%) -9,4% (US$ -9) | bom (90%) +11,7% (US$ +12)
   chance de terminar no prejuizo 49% | pior janela -28,6% | melhor +32,8%
 
 D. QQQ segurar
-  mediana +3,5% (US$ +248) | media +3,0%
-  cenario ruim (10%) -7,9% (US$ -561) | bom (90%) +13,0% (US$ +918)
+  mediana +3,5% (US$ +3) | media +3,0%
+  cenario ruim (10%) -7,9% (US$ -8) | bom (90%) +13,0% (US$ +13)
   chance de terminar no prejuizo 33% | pior janela -21,4% | melhor +32,2%
 
 Romperam a maxima de 55 dias nos ultimos 5 pregoes: AMD, BE, HPE, MRNA, MRVL, MSFT, MU, QCOM, TSM, CRWD, GME, INTC, META, PLTR, HOOD, IREN, AAPL, MSTR, COIN

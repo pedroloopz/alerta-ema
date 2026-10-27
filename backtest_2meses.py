@@ -61,7 +61,7 @@ def nucleo(capital, ativos):
 
 def main():
     cart = json.load(open("carteira.json"))
-    capital = cart["capital_inicial"]
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
     ativos = list(cart["ativos"])
 
     # A. Donchian escolhido

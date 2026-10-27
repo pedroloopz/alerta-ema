@@ -28,24 +28,24 @@ Configuração escolhida: stop 3.0 ATR, alvo 3.0 R, 3 dia(s), parcial não
   entrada sorteada (treino): acerto 51%, ret médio +0.11%  <- quanto do resultado é só a alta do mercado
   entrada sorteada (teste): acerto 50%, ret médio +0.39%  <- quanto do resultado é só a alta do mercado
 
-Carteira — 2x por posição (margem isolada cabe na banca). período todo (banca US$ 14.500)
-  trades 700. lucro total US$ 21.314 (+147% da banca). média +4.3% ao mês
-  pior queda (drawdown) US$ -6.142 (-42% da banca)
+Carteira — 2x por posição (margem isolada cabe na banca). período todo (banca US$ 100)
+  trades 700. lucro total US$ 147 (+147% da banca). média +4.3% ao mês
+  pior queda (drawdown) US$ -42 (-42% da banca)
   meses no lucro 63%, pior mês -25.9%, melhor mês +31.0%
 
-Carteira — 2x por posição (margem isolada cabe na banca). só o teste (banca US$ 14.500)
-  trades 188. lucro total US$ 11.389 (+79% da banca). média +9.4% ao mês
-  pior queda (drawdown) US$ -1.793 (-12% da banca)
+Carteira — 2x por posição (margem isolada cabe na banca). só o teste (banca US$ 100)
+  trades 188. lucro total US$ 79 (+79% da banca). média +9.4% ao mês
+  pior queda (drawdown) US$ -12 (-12% da banca)
   meses no lucro 70%, pior mês -7.1%, melhor mês +31.0%
 
-Carteira — Exposição 45 mil (9 posições de 5 mil). período todo (banca US$ 14.500)
-  trades 870. lucro total US$ 20.794 (+143% da banca). média +4.2% ao mês
-  pior queda (drawdown) US$ -8.797 (-61% da banca)
+Carteira — Exposição 3,1x a banca (9 posições). período todo (banca US$ 100)
+  trades 870. lucro total US$ 143 (+143% da banca). média +4.2% ao mês
+  pior queda (drawdown) US$ -61 (-61% da banca)
   meses no lucro 63%, pior mês -33.4%, melhor mês +35.5%
 
-Carteira — Exposição 45 mil (9 posições de 5 mil). só o teste (banca US$ 14.500)
-  trades 231. lucro total US$ 10.647 (+73% da banca). média +8.7% ao mês
-  pior queda (drawdown) US$ -3.070 (-21% da banca)
+Carteira — Exposição 3,1x a banca (9 posições). só o teste (banca US$ 100)
+  trades 231. lucro total US$ 73 (+73% da banca). média +8.7% ao mês
+  pior queda (drawdown) US$ -21 (-21% da banca)
   meses no lucro 70%, pior mês -12.3%, melhor mês +23.6%
 
 Juros do consignado ~2,25% da banca ao mês: é o mínimo para empatar.

@@ -5,12 +5,12 @@ custo 0,10%/lado x1,5 | spot 1x | 5 posicoes | so comprado
 com filtro BTC + tamanho por vol (a regra escolhida)
   treino: CAGR +72,7% | pior queda -25,7%
   validacao: CAGR +10,8% | pior queda -31,5%
-  todo: CAGR +33,6% | pior queda -31,5% | US$ 7.088 -> US$ 76.043
+  todo: CAGR +33,6% | pior queda -31,5% | US$ 100 -> US$ 1.073
 
 sem filtro, tamanho igual (Donchian puro)
   treino: CAGR +134,9% | pior queda -49,4%
   validacao: CAGR +17,1% | pior queda -60,8%
-  todo: CAGR +57,1% | pior queda -60,8% | US$ 7.088 -> US$ 286.887
+  todo: CAGR +57,1% | pior queda -60,8% | US$ 100 -> US$ 4.048
 
 BTC segurar treino: CAGR +70,5% | pior queda -63,3%
 BTC segurar validacao: CAGR +12,7% | pior queda -66,9%

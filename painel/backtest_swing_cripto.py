@@ -27,8 +27,8 @@ DIAS_HIST = 1000
 SAIDA = os.path.join(os.path.dirname(__file__), "..", "relatorio_swing_cripto.txt")
 NOTAS = os.path.join(os.path.dirname(__file__), "swing_stats.json")   # nota do swing no painel
 CENARIOS = (  # nome, exposição máxima, nocional por trade
-    ("Exposição 29 mil (6 posições de ~4.833)", 29_000, 29_000 / 6),
-    ("Exposição 45 mil (9 posições de 5 mil)", 45_000, 5_000),
+    ("Exposição 2x a banca (6 posições)", 200, 200 / 6),
+    ("Exposição 3,1x a banca (9 posições)", 310, 310 / 9),
 )
 
 
@@ -105,7 +105,7 @@ def main():
     mc = bs.da_config(tc, melhor_c)
     notas = {"cripto": resumo_nota(mc, base, prep, melhor_c[0], corte_c)}
     for periodo, mm in (("período todo", mc), ("só o teste", mc[mc["ent"] >= corte_c])):
-        L += bs.carteira(mm, "só cripto, exposição 29 mil", periodo, 29_000, 29_000 / 6)
+        L += bs.carteira(mm, "só cripto, exposição 2x a banca", periodo, 200, 200 / 6)
 
     # ---------------- ações (mesma conta do backtest_swing.py) e carteira combinada
     bs.POR_DIA, bs.FATOR_FUND = 7, 1.4

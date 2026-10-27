@@ -199,7 +199,7 @@ def metricas(curva, dias, mascara):
 
 
 def main():
-    capital = json.load(open("carteira.json"))["capital_inicial"]
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
     tick, dias, campos, spy, qqq = carregar()
     inicio_util = 200
     dias_idx = pd.DatetimeIndex(dias)

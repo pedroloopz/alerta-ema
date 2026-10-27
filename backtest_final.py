@@ -471,7 +471,7 @@ def main():
     b = montar(precos, refs, cr, com_cripto=True)
     b_sem = montar(precos, refs, cr, com_cripto=False)
     pregoes = refs["SPY"].index
-    capital = json.load(open("carteira.json", encoding="utf-8")).get("capital_inicial", 7087.88)
+    capital = 100.0                                   # capital fictício (repositório público); os % não mudam
 
     L = ["BACKTEST FINAL - DONCHIAN 55/10 NA CARTEIRA EUA (+ ASTER) x ALTERNATIVOS", ""]
     L.append(f"Universo: {len(precos)} acoes de universo_ondo.json + {', '.join(cripto)} "

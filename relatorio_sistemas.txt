@@ -2,46 +2,46 @@ VEREDITO: Donchian 20/10
 
 COMPARATIVO DE SISTEMAS - EUA, SO COMPRADO, SPOT 1x
 76 acoes | 19/10/2015 a 25/09/2026 | validacao a partir de 01/01/2022
-carteira simulada: US$ 7.088, ate 7 posicoes de 1/7 | custo +0,20% por lado x1.5
+carteira simulada: US$ 0.088, ate 7 posicoes de 1/7 | custo +0,20% por lado x1.5
 
 Aprovacao: lucro/trade > 0 no treino e na validacao, > 0 com custo em dobro,
 t >= 2.0 na validacao e CAGR na validacao acima do SPY.
 
 Donchian 20/10: APROVADO ✅
   trades 646 | acerto 43% | lucro/trade treino +1,85% | valid +6,24% | custo x2 +3,60% | t 2.8
-  carteira: CAGR +24,3% (valid +44,7%) | pior queda -77,8% (valid -41,4%) | US$ 7.088 -> US$ 76.808
+  carteira: CAGR +24,3% (valid +44,7%) | pior queda -77,8% (valid -41,4%) | US$ 100 -> US$ 1.084
 
 Momentum mensal (top 7): reprovado (4/5 criterios)
   trades 241 | acerto 50% | lucro/trade treino +8,99% | valid +9,69% | custo x2 +9,10% | t 1.9
-  carteira: CAGR +21,9% (valid +24,1%) | pior queda -64,5% (valid -41,5%) | US$ 7.088 -> US$ 61.683
+  carteira: CAGR +21,9% (valid +24,1%) | pior queda -64,5% (valid -41,5%) | US$ 100 -> US$ 870
 
 Bollinger na tendencia: reprovado (3/5 criterios)
   trades 846 | acerto 57% | lucro/trade treino +0,91% | valid +1,01% | custo x2 +0,76% | t 1.9
-  carteira: CAGR +9,6% (valid +9,8%) | pior queda -35,9% (valid -27,6%) | US$ 7.088 -> US$ 19.353
+  carteira: CAGR +9,6% (valid +9,8%) | pior queda -35,9% (valid -27,6%) | US$ 100 -> US$ 273
 
 Pullback 2 ATR (bot atual): reprovado (3/5 criterios)
   trades 942 | acerto 60% | lucro/trade treino +0,18% | valid +0,32% | custo x2 +0,04% | t 0.6
-  carteira: CAGR +0,1% (valid +1,6%) | pior queda -55,8% (valid -40,6%) | US$ 7.088 -> US$ 7.151
+  carteira: CAGR +0,1% (valid +1,6%) | pior queda -55,8% (valid -40,6%) | US$ 100 -> US$ 101
 
 Setup 9.1: reprovado (1/5 criterios)
   trades 2520 | acerto 28% | lucro/trade treino -0,05% | valid +0,21% | custo x2 -0,13% | t 0.5
-  carteira: CAGR -4,7% (valid -4,4%) | pior queda -75,2% (valid -63,5%) | US$ 7.088 -> US$ 4.204
+  carteira: CAGR -4,7% (valid -4,4%) | pior queda -75,2% (valid -63,5%) | US$ 100 -> US$ 59
 
 123 + Eden: reprovado (1/5 criterios)
   trades 2160 | acerto 53% | lucro/trade treino +0,22% | valid -0,08% | custo x2 -0,11% | t -0.2
-  carteira: CAGR -0,9% (valid -7,0%) | pior queda -69,4% (valid -57,4%) | US$ 7.088 -> US$ 6.455
+  carteira: CAGR -0,9% (valid -7,0%) | pior queda -69,4% (valid -57,4%) | US$ 100 -> US$ 91
 
 PFR na tendencia: reprovado (1/5 criterios)
   trades 1939 | acerto 37% | lucro/trade treino +0,01% | valid -0,32% | custo x2 -0,34% | t -1.0
-  carteira: CAGR -5,9% (valid -11,0%) | pior queda -68,1% (valid -60,5%) | US$ 7.088 -> US$ 3.639
+  carteira: CAGR -5,9% (valid -11,0%) | pior queda -68,1% (valid -60,5%) | US$ 100 -> US$ 51
 
 IFR2: reprovado (0/5 criterios)
   trades 2558 | acerto 60% | lucro/trade treino -0,25% | valid -0,05% | custo x2 -0,36% | t -0.3
-  carteira: CAGR -6,2% (valid -3,2%) | pior queda -65,1% (valid -39,8%) | US$ 7.088 -> US$ 3.540
+  carteira: CAGR -6,2% (valid -3,2%) | pior queda -65,1% (valid -39,8%) | US$ 100 -> US$ 50
 
 123 + inside bar: reprovado (0/5 criterios)
   trades 1584 | acerto 45% | lucro/trade treino -0,47% | valid -0,14% | custo x2 -0,53% | t -0.5
-  carteira: CAGR -7,4% (valid -3,9%) | pior queda -64,9% (valid -32,8%) | US$ 7.088 -> US$ 3.062
+  carteira: CAGR -7,4% (valid -3,9%) | pior queda -64,9% (valid -32,8%) | US$ 100 -> US$ 43
 
 Comprar e segurar SPY: CAGR +14,8% (valid +12,2%) | pior queda -33,7% (valid -24,5%)
 Comprar e segurar QQQ: CAGR +20,1% (valid +14,6%) | pior queda -35,1% (valid -34,8%)
