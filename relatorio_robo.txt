@@ -1,31 +1,31 @@
-# Backtest das regras atuais do robô — 24/10/2026 13:26 UTC
+# Backtest das regras atuais do robô — 27/10/2026 00:57 UTC
 Custos: 0.1% por lado + funding 0.01%/8h. R = resultado ÷ risco (3% normal, 5% perfil diário). Janela de 2 meses = soma do R de 61 dias, andando de semana em semana.
-Dados: 56 criptos e 69 ações/ETFs (1h).
+Dados: 53 criptos e 69 ações/ETFs (1h).
 
 ## Regras atuais do robô (2 anos)
-tudo: 15670 trades (108.0/semana) · acerto 53% · média -0.075R · total -1180.1R · fator de lucro 0.69 · maior queda 1194.2R
-cripto: 12347 trades (85.1/semana) · acerto 56% · média -0.071R · total -877.1R · fator de lucro 0.70 · maior queda 909.7R
-ações: 3323 trades (22.9/semana) · acerto 42% · média -0.091R · total -303.0R · fator de lucro 0.66 · maior queda 304.2R
-   ações · long · nr7: 357 trades (2.5/semana) · acerto 46% · média -0.054R · total -19.3R · fator de lucro 0.77 · maior queda 19.3R
-   ações · long · recuo: 391 trades (2.7/semana) · acerto 50% · média -0.054R · total -21.2R · fator de lucro 0.80 · maior queda 30.4R
-   ações · long · rompimento: 543 trades (3.7/semana) · acerto 45% · média -0.065R · total -35.4R · fator de lucro 0.76 · maior queda 42.9R
-   ações · long · squeeze: 492 trades (3.4/semana) · acerto 45% · média -0.048R · total -23.7R · fator de lucro 0.77 · maior queda 31.0R
-   ações · long · varrida: 50 trades (0.3/semana) · acerto 50% · média -0.071R · total -3.5R · fator de lucro 0.74 · maior queda 8.4R
-   ações · short · nr7: 226 trades (1.6/semana) · acerto 40% · média -0.093R · total -21.0R · fator de lucro 0.66 · maior queda 25.9R
-   ações · short · recuo: 442 trades (3.0/semana) · acerto 38% · média -0.156R · total -69.0R · fator de lucro 0.53 · maior queda 70.7R
-   ações · short · rompimento: 408 trades (2.8/semana) · acerto 38% · média -0.102R · total -41.8R · fator de lucro 0.63 · maior queda 44.5R
-   ações · short · squeeze: 363 trades (2.5/semana) · acerto 31% · média -0.165R · total -60.1R · fator de lucro 0.45 · maior queda 60.2R
-   ações · short · varrida: 51 trades (0.4/semana) · acerto 41% · média -0.158R · total -8.0R · fator de lucro 0.54 · maior queda 8.1R
-   cripto · long · repique: 5810 trades (40.0/semana) · acerto 54% · média -0.085R · total -493.2R · fator de lucro 0.65 · maior queda 535.6R
-   cripto · short · nr7: 1348 trades (9.3/semana) · acerto 57% · média -0.073R · total -98.9R · fator de lucro 0.70 · maior queda 109.4R
-   cripto · short · rompimento: 2621 trades (18.1/semana) · acerto 57% · média -0.062R · total -163.7R · fator de lucro 0.74 · maior queda 182.9R
-   cripto · short · squeeze: 2172 trades (15.0/semana) · acerto 56% · média -0.027R · total -59.4R · fator de lucro 0.86 · maior queda 82.8R
-   cripto · short · varrida: 396 trades (2.7/semana) · acerto 59% · média -0.157R · total -62.0R · fator de lucro 0.53 · maior queda 67.0R
-   por semestre → 2024-S1: 561 tr, -0.047R, total -26.6R | 2024-S2: 1479 tr, -0.096R, total -141.9R | 2025-S1: 3481 tr, -0.120R, total -417.6R | 2025-S2: 3823 tr, -0.056R, total -215.9R | 2026-S1: 3916 tr, -0.051R, total -199.1R | 2026-S2: 2410 tr, -0.074R, total -179.0R
+tudo: 14092 trades (96.9/semana) · acerto 52% · média -0.078R · total -1105.5R · fator de lucro 0.68 · maior queda 1114.1R
+cripto: 10786 trades (74.2/semana) · acerto 55% · média -0.075R · total -804.6R · fator de lucro 0.69 · maior queda 817.8R
+ações: 3306 trades (22.7/semana) · acerto 42% · média -0.091R · total -300.9R · fator de lucro 0.66 · maior queda 301.8R
+   ações · long · nr7: 357 trades (2.5/semana) · acerto 46% · média -0.051R · total -18.3R · fator de lucro 0.78 · maior queda 19.0R
+   ações · long · recuo: 393 trades (2.7/semana) · acerto 50% · média -0.059R · total -23.0R · fator de lucro 0.78 · maior queda 32.1R
+   ações · long · rompimento: 542 trades (3.7/semana) · acerto 45% · média -0.059R · total -32.2R · fator de lucro 0.77 · maior queda 39.3R
+   ações · long · squeeze: 486 trades (3.3/semana) · acerto 46% · média -0.045R · total -21.9R · fator de lucro 0.79 · maior queda 29.2R
+   ações · long · varrida: 49 trades (0.3/semana) · acerto 51% · média -0.010R · total -0.5R · fator de lucro 0.95 · maior queda 6.4R
+   ações · short · nr7: 225 trades (1.5/semana) · acerto 40% · média -0.088R · total -19.7R · fator de lucro 0.68 · maior queda 25.8R
+   ações · short · recuo: 437 trades (3.0/semana) · acerto 38% · média -0.168R · total -73.4R · fator de lucro 0.51 · maior queda 74.0R
+   ações · short · rompimento: 403 trades (2.8/semana) · acerto 38% · média -0.106R · total -42.8R · fator de lucro 0.62 · maior queda 45.2R
+   ações · short · squeeze: 361 trades (2.5/semana) · acerto 31% · média -0.166R · total -60.0R · fator de lucro 0.44 · maior queda 60.3R
+   ações · short · varrida: 53 trades (0.4/semana) · acerto 42% · média -0.169R · total -9.0R · fator de lucro 0.51 · maior queda 9.0R
+   cripto · long · repique: 5131 trades (35.3/semana) · acerto 54% · média -0.093R · total -477.4R · fator de lucro 0.63 · maior queda 497.3R
+   cripto · short · nr7: 1142 trades (7.9/semana) · acerto 58% · média -0.074R · total -84.4R · fator de lucro 0.70 · maior queda 92.4R
+   cripto · short · rompimento: 2320 trades (16.0/semana) · acerto 56% · média -0.066R · total -152.9R · fator de lucro 0.73 · maior queda 170.6R
+   cripto · short · squeeze: 1866 trades (12.8/semana) · acerto 56% · média -0.033R · total -61.9R · fator de lucro 0.84 · maior queda 73.3R
+   cripto · short · varrida: 327 trades (2.2/semana) · acerto 59% · média -0.086R · total -28.0R · fator de lucro 0.67 · maior queda 29.8R
+   por semestre → 2024-S1: 553 tr, -0.049R, total -27.2R | 2024-S2: 1343 tr, -0.100R, total -133.7R | 2025-S1: 3037 tr, -0.111R, total -337.4R | 2025-S2: 3309 tr, -0.060R, total -198.7R | 2026-S1: 3496 tr, -0.062R, total -216.2R | 2026-S2: 2354 tr, -0.082R, total -192.3R
 
 ## Janelas de 2 meses
-Robô atual (tudo): 137 janelas de 2 meses · positivas 2% · mediana -73.4R · pior -209.8R · melhor +6.7R
-Robô atual (cripto): 96 janelas de 2 meses · positivas 2% · mediana -72.2R · pior -186.7R · melhor +17.9R
-Robô atual (ações): 137 janelas de 2 meses · positivas 2% · mediana -15.0R · pior -46.4R · melhor +6.7R
-Últimos 2 meses: 1330 trades (152.6/semana) · acerto 53% · média -0.059R · total -78.2R · fator de lucro 0.74 · maior queda 96.4R
-Força relativa cripto 7d/7d (soma % por semana): 96 janelas de 2 meses · positivas 41% · mediana -5.0% · pior -32.4% · melhor +48.2%
+Robô atual (tudo): 137 janelas de 2 meses · positivas 2% · mediana -76.3R · pior -181.0R · melhor +4.3R
+Robô atual (cripto): 96 janelas de 2 meses · positivas 2% · mediana -69.5R · pior -150.7R · melhor +9.9R
+Robô atual (ações): 137 janelas de 2 meses · positivas 3% · mediana -15.1R · pior -47.6R · melhor +4.3R
+Últimos 2 meses: 1275 trades (146.3/semana) · acerto 53% · média -0.066R · total -83.9R · fator de lucro 0.72 · maior queda 93.6R
+Força relativa cripto 7d/7d (soma % por semana): 96 janelas de 2 meses · positivas 33% · mediana -10.2% · pior -37.3% · melhor +74.4%
