@@ -1,0 +1,41 @@
+name: cofre-ajuste
+
+# Edição à mão de um arquivo do cofre (ex.: tirar uma posição do perps.json).
+# Quem edita sobe o script ajuste_cofre.py; este workflow abre o cofre, roda o script,
+# fecha o cofre e apaga o script. O arquivo aberto nunca vai para o repositório.
+on:
+  push:
+    branches: [main]
+    paths: [ajuste_cofre.py]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-carteira          # o mesmo grupo do bot: nunca roda junto com ele
+  cancel-in-progress: false
+
+jobs:
+  ajustar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Abrir, ajustar e fechar
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+        run: |
+          [ -f ajuste_cofre.py ] || exit 0
+          python3 cofre.py abrir
+          python3 ajuste_cofre.py
+          python3 cofre.py fechar
+      - name: Gravar
+        run: |
+          [ -f ajuste_cofre.py ] || exit 0
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -- *.enc
+          git rm -q ajuste_cofre.py
+          git commit -qm "cofre: ajuste à mão"
+          git pull -q --rebase || true
+          git push -q
