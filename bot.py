@@ -46,6 +46,7 @@ import mercado as mk
 
 MODO = os.environ.get("MODO", "auto")
 TESTE = MODO == "teste"
+TEXTO_OCULTO = "(texto fora do log: o repositório é público; ensaio com MODO=teste mostra tudo)"
 TOKEN = "" if TESTE else os.environ.get("TELEGRAM_TOKEN", "")
 CHAT_ID = "" if TESTE else os.environ.get("TELEGRAM_CHAT_ID", "")
 # Topico do grupo (vazio = manda como antes, sem topico)
@@ -100,7 +101,7 @@ def enviar(texto, botao=None, silencioso=False):
     """Envia e devolve o id da mensagem. botao = (rotulo, dado_do_callback).
     silencioso=True chega sem som (so para o que nao pede acao)."""
     print("\n>>> TELEGRAM" + (" [sem som]" if silencioso else " [com som]")
-          + (f" [botao {botao[0]}]" if botao else "") + "\n" + texto)
+          + (f" [botao {botao[0]}]" if botao else "") + "\n" + (texto if TESTE else TEXTO_OCULTO))
     if central.ativa():
         central.publicar_item("trade", "mensagem", texto, extra={"silencioso": silencioso})
         return None
@@ -118,7 +119,7 @@ def apagar(msg_id):
 
 
 def enviar_foto(caminho, legenda, silencioso=False):
-    print(f"\n>>> TELEGRAM FOTO {caminho}" + (" [sem som]" if silencioso else "") + f"\n{legenda}")
+    print(f"\n>>> TELEGRAM FOTO {caminho}" + (" [sem som]" if silencioso else "") + f"\n{legenda if TESTE else TEXTO_OCULTO}")
     if central.ativa():
         central.publicar_item("trade", "foto", legenda, arquivos=[(caminho, "")], extra={"silencioso": silencioso})
         return
@@ -1094,7 +1095,7 @@ def migrar():
         json.dump(nova, f, indent=2, ensure_ascii=False)
     with open(ARQ_ESTADO, "w", encoding="utf-8") as f:
         json.dump(migrar_estado(est_antigo), f, indent=2, ensure_ascii=False)
-    print(json.dumps(nova, indent=2, ensure_ascii=False))
+    print(f"carteira migrada: {len(nova.get('ativos', {}))} ativo(s) (detalhes fora do log)")
 
 
 # ================================================================== MAIN

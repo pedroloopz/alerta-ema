@@ -1,0 +1,49 @@
+name: cofre
+
+# Guarda criptografados (*.enc) os arquivos com posições e capital, porque o repositório é público.
+# - migrar: roda sozinho quando este arquivo muda; cria os .enc e tira as versões abertas do repositório.
+# - trocar: só se trocar a chave da conta de serviço do Drive. Antes, crie o segredo
+#   GDRIVE_SA_JSON_ANTIGO com o JSON velho; depois de rodar, pode apagá-lo.
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/cofre.yml]
+  workflow_dispatch:
+    inputs:
+      acao:
+        description: "O que fazer"
+        type: choice
+        default: migrar
+        options: [migrar, trocar]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-carteira          # o mesmo grupo do bot: nunca roda junto com ele
+  cancel-in-progress: false
+
+jobs:
+  cofre:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+
+      - name: Migrar ou trocar a chave
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+          GDRIVE_SA_JSON_ANTIGO: ${{ secrets.GDRIVE_SA_JSON_ANTIGO }}
+          ACAO: ${{ inputs.acao || 'migrar' }}
+        run: |
+          if [ "$ACAO" = "trocar" ]; then python3 cofre.py trocar; else python3 cofre.py abrir && python3 cofre.py fechar; fi
+
+      - name: Gravar
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -- *.enc backups/*.enc
+          git rm -q --cached --ignore-unmatch $(python3 -c "import cofre; print(' '.join(cofre.SENSIVEIS))")
+          git diff --staged --quiet || git commit -qm "cofre: arquivos de carteira criptografados"
+          git pull -q --rebase || true
+          git push -q

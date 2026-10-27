@@ -84,6 +84,7 @@ jobs:
       - name: Avisar falha (topico Avisos)
         if: always()
         env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}

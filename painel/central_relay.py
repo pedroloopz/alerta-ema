@@ -13,6 +13,7 @@ import os
 import pathlib
 import shutil
 import subprocess
+import sys
 
 REPOS = ["pedroloopz/alerta-ema", "pedroloopz/Jornal-DE-JP", "pedroloopz/diario-cultural"]
 FEED_ID = "12EmX3rQd0CZg1c0NQ0GgUVvu5k2ByoGa"
@@ -68,6 +69,10 @@ def main():
         proprio = repo == os.environ.get("GITHUB_REPOSITORY")
         r = subprocess.run(["git", *(auth if proprio else []), "clone", "-q", "--depth", "1", "-b", "central",
                             f"https://github.com/{repo}", str(destino)], capture_output=True, text=True)
+        if r.returncode == 0 and (destino / "saida.jsonl.enc").exists():   # alerta-ema: feed no cofre
+            sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+            import cofre
+            cofre.abrir_pasta(destino, cofre.senha())
         if r.returncode != 0 or not (destino / "saida.jsonl").exists():
             print(f"{repo}: ainda sem branch central")
             diag[repo] = (r.stderr or "sem saida.jsonl").strip()[-200:]

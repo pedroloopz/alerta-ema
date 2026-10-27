@@ -63,6 +63,15 @@ def publicar_branch():
         return
     repo = os.environ.get("GITHUB_REPOSITORY")
     url = f"https://github.com/{repo}" if repo else None
+    chave = None
+    try:
+        import cofre                                # só o alerta-ema tem: feed com posições e valores
+        chave = cofre.senha()
+    except ImportError:
+        pass
+    except Exception as e:
+        print(f"Central: sem a chave do cofre ({e}); não publiquei para não expor o texto")
+        return
     # usa a credencial que o actions/checkout já deixou no repositório principal
     cab = _git("config", "--get", "http.https://github.com/.extraheader", check=False).stdout.strip()
     auth = ["-c", f"http.https://github.com/.extraheader={cab}"] if cab else []
@@ -73,6 +82,8 @@ def publicar_branch():
         if not r or r.returncode != 0:
             tmp.mkdir(parents=True, exist_ok=True)
         antigo = _git("rev-parse", "HEAD", cwd=tmp, check=False).stdout.strip() if (tmp / ".git").exists() else ""
+        if chave:
+            cofre.abrir_pasta(tmp, chave)
         (tmp / "arquivos").mkdir(exist_ok=True)
         itens = []
         if (tmp / "saida.jsonl").exists():
@@ -92,6 +103,8 @@ def publicar_branch():
             if f.name not in vivos:
                 f.unlink()
         (tmp / "saida.jsonl").write_text("".join(json.dumps(i, ensure_ascii=False) + "\n" for i in itens), encoding="utf-8")
+        if chave:
+            cofre.fechar_pasta(tmp, chave)
         shutil.rmtree(tmp / ".git", ignore_errors=True)
         _git("init", "-q", cwd=tmp)
         _git("checkout", "-q", "-b", "central", cwd=tmp)

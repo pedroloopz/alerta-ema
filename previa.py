@@ -154,7 +154,7 @@ def main():
              + f"futuros {len(futuros)}/2")
 
     texto = "\n".join(L)
-    print(texto)
+    print(texto if os.environ.get("MODO") == "teste" else f"prévia montada ({len(L)} linhas; texto fora do log)")
     nucleo.enviar(texto)
 
 

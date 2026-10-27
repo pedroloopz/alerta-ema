@@ -14,13 +14,14 @@ Wallet + cripto ASTER) e carteira B3 (operada no app do BRB). Regras detalhadas 
 | `fase3` (`backtest_fase3.py`) | só à mão | Backtest da FASE 3 (base x M1/M2/M3, EUA e B3) e resumo no tópico Trade |
 
 - Posições: `carteira.json`, `carteira_b3.json`, `perps.json` (editáveis à mão). `estado_*.json` e `placar_notas*.csv` são do bot.
+- **Cofre (repositório público):** posições, saldos e estados ficam só como `*.enc` (`cofre.py`, lista em `SENSIVEIS`). Workflow que lê: passo `python3 cofre.py abrir`; que grava: `python3 cofre.py fechar` e `git add` dos `.enc`. Chave derivada do segredo `GDRIVE_SA_JSON`. A branch `central` também vai criptografada. Mensagens dos bots não vão para o log (só com `MODO=teste`). Para editar uma posição à mão: me peça (o arquivo aberto não sobe).
 - Universo EUA: `universo_ondo.json` (gerado por `montar_universo.py`).
 - Dados (`fontes.py`): ações por yfinance (reserva: API do Yahoo direto); ASTER/BTC por ccxt na Binance spot via `data-api.binance.vision` (api.binance.com bloqueia o GitHub; reserva: REST direto). Falha de fonte só vai pro log.
 - Cache de históricos: workflow `historico` (`historico.py`, sábado 10h17) grava na branch `dados` (diário desde 2013 + 1h; 1 commit só, regravado). Backtest: traga a branch para `dados/` e use `DADOS=dados`.
 - Telegram: botão ❌ Recusar desfaz a entrada e **apaga a mensagem**; comandos (`/recusar`, `/carteira`, `/pausa`…) no `README_BOT.md`.
 
 ## Segredos e variáveis (só os nomes)
-- Secrets: `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID` (o grupo "Central")
+- Secrets: `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID` (o grupo "Central"), `GDRIVE_SA_JSON` (Drive do painel e chave do cofre), `ROBO_TOKEN`, `DISCORD_WEBHOOKS`
 - Variables: `TELEGRAM_THREAD_ID` (tópico 📈 Trade), `TELEGRAM_AVISOS_THREAD_ID` (tópico ⚠️ Avisos)
 - Env dos workflows/testes: `MODO`, `CRON`, `BINANCE_KLINES`, `DADOS`, `DADOS_LOCAIS`, `AGORA`
 

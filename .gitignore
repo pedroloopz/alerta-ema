@@ -4,3 +4,17 @@ __pycache__/
 heatmap_eua.png
 mapa_dia.png
 central_novo/
+# cofre: só as versões .enc vão para o repositório (cofre.py)
+carteira.json
+carteira_b3.json
+perps.json
+estado_bot.json
+estado_b3.json
+estado_perps.json
+estado_rotacao.json
+carteira_antiga.json
+estado_bot_antigo.json
+estado.json
+sinais.csv
+backups/*.json
+run.log
