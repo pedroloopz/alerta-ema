@@ -2,6 +2,7 @@ name: cofre
 
 # Guarda criptografados (*.enc) os arquivos com posições e capital, porque o repositório é público.
 # - migrar: roda sozinho quando este arquivo muda; cria os .enc e tira as versões abertas do repositório.
+#   Rodar de novo é seguro: abre com a chave e só regrava o que mudou (serve de teste da chave).
 # - trocar: só se trocar a chave da conta de serviço do Drive. Antes, crie o segredo
 #   GDRIVE_SA_JSON_ANTIGO com o JSON velho; depois de rodar, pode apagá-lo.
 on:
