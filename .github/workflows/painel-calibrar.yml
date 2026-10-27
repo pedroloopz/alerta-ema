@@ -30,8 +30,8 @@ jobs:
       TELEGRAM_AVISOS_THREAD_ID: ${{ vars.TELEGRAM_AVISOS_THREAD_ID }}
       DISCORD_WEBHOOKS: ${{ secrets.DISCORD_WEBHOOKS }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7
         with:
           python-version: "3.12"
       - run: pip install pandas==3.1.0 numpy==2.5.4 scikit-learn==1.9.1
@@ -41,7 +41,7 @@ jobs:
         shell: bash
         run: python painel/calibrar.py --max "${{ github.event.inputs.max || '0' }}" 2>&1 | tee painel/calibrar.log; exit ${PIPESTATUS[0]}
       - name: Guardar o modelo (cache, lido pelo scanner)
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830  # v4
         with:
           path: painel/modelo.pkl
           key: modelo-${{ github.run_id }}
