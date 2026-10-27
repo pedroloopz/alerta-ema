@@ -1,46 +1,46 @@
 # Backtest v2 — ONDO, ASTER, PENDLE (1h + 4h, isolada US$ 100 × 10x)
 
-Cada par é testado no seu histórico inteiro; a carteira junta usa só o período comum aos 3 pares: 16/10/2025 a 24/10/2026.
+Cada par é testado no seu histórico inteiro; a carteira junta usa só o período comum aos 3 pares: 16/10/2025 a 26/10/2026.
 
-## ONDO-USDT — 21/04/2025 a 24/10/2026 (dados: Binance spot)
+## ONDO-USDT — 21/04/2025 a 26/10/2026 (dados: Binance spot)
 
 | | A Entrada única | B Piramidação | C DCA de futuros | D Martingale |
 |---|---|---|---|---|
-| Lucro total (US$) | -256 | -317 | -1000 | -1000 |
+| Lucro total (US$) | -256 | -325 | -1000 | -1000 |
 | Pior queda acumulada (US$) | -614 | -459 | -1148 | -1377 |
-| Trades por semana | 2.2 | 2.2 | 2.2 | 0.2 |
-| Semanas no positivo | 32% | 28% | 10% | 6% |
-| Semana típica (mediana, US$) | -7 | -8 | +0 | +0 |
-| Semana ruim (1 em 10, US$) | -49 | -32 | -102 | +0 |
-| Semana boa (1 em 10, US$) | +44 | +31 | +7 | +0 |
+| Trades por semana | 2.1 | 2.2 | 2.1 | 0.2 |
+| Semanas no positivo | 31% | 28% | 10% | 6% |
+| Semana típica (mediana, US$) | -6 | -8 | +0 | +0 |
+| Semana ruim (1 em 10, US$) | -48 | -32 | -101 | +0 |
+| Semana boa (1 em 10, US$) | +44 | +31 | +3 | +0 |
 | Pior semana (US$) | -89 | -45 | -212 | -786 |
 | Melhor semana (US$) | +152 | +55 | +167 | +322 |
 | Long | 63 trades, acerto 30%, US$ -121 | 65 trades, acerto 22%, US$ -178 | 90 trades, acerto 77%, US$ -459 | 11 trades, acerto 91%, US$ +137 |
-| Short | 107 trades, acerto 36%, US$ -137 | 108 trades, acerto 29%, US$ -140 | 82 trades, acerto 73%, US$ -735 | 7 trades, acerto 71%, US$ -1427 |
+| Short | 107 trades, acerto 36%, US$ -136 | 108 trades, acerto 29%, US$ -147 | 82 trades, acerto 73%, US$ -735 | 7 trades, acerto 71%, US$ -1427 |
 | Liquidações | 0 | 0 | 1 | 3 |
 
-## ASTER-USDT — 16/10/2025 a 24/10/2026 (dados: Binance spot)
+## ASTER-USDT — 16/10/2025 a 26/10/2026 (dados: Binance spot)
 
 | | A Entrada única | B Piramidação | C DCA de futuros | D Martingale |
 |---|---|---|---|---|
-| Lucro total (US$) | -809 | -485 | -627 | -1000 |
-| Pior queda acumulada (US$) | -907 | -555 | -1139 | -1236 |
-| Trades por semana | 1.8 | 1.8 | 3.4 | 0.3 |
-| Semanas no positivo | 11% | 11% | 39% | 2% |
-| Semana típica (mediana, US$) | -15 | -10 | -12 | +0 |
-| Semana ruim (1 em 10, US$) | -39 | -26 | -110 | +0 |
-| Semana boa (1 em 10, US$) | +2 | +2 | +93 | +0 |
+| Lucro total (US$) | -821 | -491 | -615 | -1000 |
+| Pior queda acumulada (US$) | -919 | -561 | -1139 | -1236 |
+| Trades por semana | 1.8 | 1.8 | 3.3 | 0.3 |
+| Semanas no positivo | 11% | 11% | 40% | 2% |
+| Semana típica (mediana, US$) | -14 | -9 | -10 | +0 |
+| Semana ruim (1 em 10, US$) | -39 | -26 | -109 | +0 |
+| Semana boa (1 em 10, US$) | +2 | +2 | +92 | +0 |
 | Pior semana (US$) | -71 | -44 | -202 | -734 |
 | Melhor semana (US$) | +72 | +51 | +236 | +79 |
 | Long | 43 trades, acerto 21%, US$ -359 | 43 trades, acerto 19%, US$ -201 | 79 trades, acerto 81%, US$ +80 | 0 trades |
-| Short | 56 trades, acerto 18%, US$ -450 | 56 trades, acerto 14%, US$ -284 | 102 trades, acerto 71%, US$ -707 | 16 trades, acerto 81%, US$ -1143 |
+| Short | 57 trades, acerto 18%, US$ -463 | 57 trades, acerto 14%, US$ -290 | 103 trades, acerto 71%, US$ -696 | 16 trades, acerto 81%, US$ -1143 |
 | Liquidações | 0 | 0 | 0 | 3 |
 
-## PENDLE-USDT — 13/07/2023 a 24/10/2026 (dados: Binance spot)
+## PENDLE-USDT — 13/07/2023 a 26/10/2026 (dados: Binance spot)
 
 | | A Entrada única | B Piramidação | C DCA de futuros | D Martingale |
 |---|---|---|---|---|
-| Lucro total (US$) | -387 | -304 | -1000 | -1000 |
+| Lucro total (US$) | -392 | -317 | -1000 | -1000 |
 | Pior queda acumulada (US$) | -824 | -658 | -1281 | -1747 |
 | Trades por semana | 1.3 | 1.3 | 1.6 | 0.4 |
 | Semanas no positivo | 24% | 24% | 15% | 8% |
@@ -50,7 +50,7 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 | Pior semana (US$) | -78 | -59 | -237 | -862 |
 | Melhor semana (US$) | +138 | +129 | +163 | +478 |
 | Long | 101 trades, acerto 35%, US$ -173 | 102 trades, acerto 28%, US$ -127 | 129 trades, acerto 72%, US$ -1736 | 34 trades, acerto 97%, US$ +1737 |
-| Short | 126 trades, acerto 31%, US$ -215 | 128 trades, acerto 24%, US$ -178 | 151 trades, acerto 84%, US$ +442 | 30 trades, acerto 83%, US$ -3125 |
+| Short | 126 trades, acerto 31%, US$ -219 | 128 trades, acerto 24%, US$ -190 | 151 trades, acerto 84%, US$ +442 | 30 trades, acerto 83%, US$ -3125 |
 | Liquidações | 0 | 0 | 1 | 6 |
 
 ## Os 3 pares juntos (carteira de US$ 1.000)
@@ -59,15 +59,15 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 |---|---|---|---|---|
 | Lucro total (US$) | -1000 | -1000 | -1000 | -1000 |
 | Pior queda acumulada (US$) | -1160 | -1080 | -1483 | -1615 |
-| Trades por semana | 5.7 | 5.8 | 12.9 | 4.0 |
-| Semanas no positivo | 19% | 17% | 22% | 0% |
-| Semana típica (mediana, US$) | -18 | -22 | +0 | +0 |
-| Semana ruim (1 em 10, US$) | -87 | -57 | -132 | +0 |
-| Semana boa (1 em 10, US$) | +47 | +29 | +117 | +0 |
+| Trades por semana | 5.7 | 5.7 | 12.7 | 3.9 |
+| Semanas no positivo | 18% | 16% | 22% | 0% |
+| Semana típica (mediana, US$) | -15 | -21 | +0 | +0 |
+| Semana ruim (1 em 10, US$) | -87 | -56 | -132 | +0 |
+| Semana boa (1 em 10, US$) | +46 | +28 | +109 | +0 |
 | Pior semana (US$) | -139 | -82 | -386 | -797 |
 | Melhor semana (US$) | +140 | +85 | +227 | +0 |
 | Long | 120 trades, acerto 28%, US$ -597 | 121 trades, acerto 22%, US$ -446 | 260 trades, acerto 82%, US$ +261 | 86 trades, acerto 95%, US$ +1476 |
-| Short | 190 trades, acerto 29%, US$ -686 | 191 trades, acerto 23%, US$ -535 | 437 trades, acerto 76%, US$ -2044 | 131 trades, acerto 94%, US$ +2337 |
+| Short | 191 trades, acerto 29%, US$ -701 | 192 trades, acerto 22%, US$ -560 | 438 trades, acerto 77%, US$ -2000 | 131 trades, acerto 95%, US$ +2366 |
 | Liquidações | 0 | 0 | 1 | 11 |
 
 ## Só comprado (sem shorts) — os 3 pares juntos
@@ -76,11 +76,11 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 |---|---|---|---|---|
 | Lucro total (US$) | -597 | -446 | +1075 | -1000 |
 | Pior queda acumulada (US$) | -634 | -449 | -501 | -1250 |
-| Trades por semana | 2.2 | 2.2 | 6.2 | 2.6 |
-| Semanas no positivo | 17% | 19% | 48% | 2% |
-| Semana típica (mediana, US$) | -1 | +0 | +0 | +0 |
-| Semana ruim (1 em 10, US$) | -61 | -31 | -90 | +0 |
-| Semana boa (1 em 10, US$) | +19 | +6 | +143 | +0 |
+| Trades por semana | 2.2 | 2.2 | 6.1 | 2.6 |
+| Semanas no positivo | 16% | 18% | 47% | 2% |
+| Semana típica (mediana, US$) | +0 | +0 | +0 | +0 |
+| Semana ruim (1 em 10, US$) | -61 | -31 | -88 | +0 |
+| Semana boa (1 em 10, US$) | +17 | +6 | +142 | +0 |
 | Pior semana (US$) | -73 | -59 | -239 | -607 |
 | Melhor semana (US$) | +86 | +51 | +247 | +146 |
 | Long | 120 trades, acerto 28%, US$ -597 | 121 trades, acerto 22%, US$ -446 | 333 trades, acerto 83%, US$ +1075 | 143 trades, acerto 92%, US$ -798 |
@@ -94,9 +94,9 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 📅 Maior chance de fechar UMA semana no positivo: C DCA de futuros (22% das semanas).  
   
 💵 Numa semana com A Entrada única (3 pares juntos, US$ 1.000):  
-   • Semana típica: -18 US$  
+   • Semana típica: -15 US$  
    • 1 em cada 10 semanas: perde mais que 87 US$  
-   • 1 em cada 10 semanas: ganha mais que 47 US$  
+   • 1 em cada 10 semanas: ganha mais que 46 US$  
    • Pior semana do teste: -139 US$ · melhor: +140 US$  
 ⚠️ Nenhuma variante passou sem liquidação e com queda menor que US$ 300.  
 ⚠️ Nenhuma variante deu lucro no período: não opere com dinheiro real.  
@@ -104,12 +104,12 @@ Cada par é testado no seu histórico inteiro; a carteira junta usa só o perío
 SÓ COMPRADO (sem shorts):  
 🏆 O que mais funcionou no período: C DCA de futuros  
    Lucro total +1075 US$, pior queda -501 US$, liquidações: 0.  
-📅 Maior chance de fechar UMA semana no positivo: C DCA de futuros (48% das semanas).  
+📅 Maior chance de fechar UMA semana no positivo: C DCA de futuros (47% das semanas).  
   
 💵 Numa semana com C DCA de futuros (3 pares juntos, US$ 1.000):  
    • Semana típica: +0 US$  
-   • 1 em cada 10 semanas: perde mais que 90 US$  
-   • 1 em cada 10 semanas: ganha mais que 143 US$  
+   • 1 em cada 10 semanas: perde mais que 88 US$  
+   • 1 em cada 10 semanas: ganha mais que 142 US$  
    • Pior semana do teste: -239 US$ · melhor: +247 US$  
 ⚠️ Nenhuma variante passou sem liquidação e com queda menor que US$ 300.
 
