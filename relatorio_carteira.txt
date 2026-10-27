@@ -1,5 +1,5 @@
-TESTE DE CARTEIRA — 24/10/2026 13:39 UTC
-Desde 01/01/2020 · 96 criptos (Binance) + 257 ações da BingX (Yahoo, diário) · custo 0.3% por trade · funding real nas criptos (ações: média das criptos no dia, suposição)
+TESTE DE CARTEIRA — 27/10/2026 01:17 UTC
+Desde 01/01/2020 · 92 criptos (Binance) + 260 ações da BingX (Yahoo, diário) · custo 0.3% por trade · funding real nas criptos (ações: média das criptos no dia, suposição)
 Sistemas: Donchian 55/10, RSI(2), Keltner, Bollinger (diário) + Ichimoku e Momento (semanal).
 Filtro de mercado (BTC p/ cripto, SPY p/ ações): long só em alta, short (Donchian e RSI(2)) só em baixa.
 Tamanho: risco fixo sobre o stop, mas cada posição até 1x o saldo e todas juntas até 5x.
@@ -13,78 +13,78 @@ SPY comprar e segurar: US$ 7.000 -> US$ 16,375 · +13% ao ano · pior queda 34%
   por ano: 2020 +15% · 2021 +27% · 2022 -19% · 2023 +24% · 2024 +23% · 2025 +16% · 2026 +11%
 
 == Tendência alavancada: BTC + ETH + QQQ, comprado só acima da média de 40 semanas ==
-1x: US$ 7.000 -> US$ 38,050 · +28% ao ano · pior queda 42%
-  por ano: 2020 +95% · 2021 +59% · 2022 -18% · 2023 +40% · 2024 +39% · 2025 +1% · 2026 +9%
-2x: US$ 7.000 -> US$ 101,366 · +48% ao ano · pior queda 68%
-  por ano: 2020 +260% · 2021 +76% · 2022 -33% · 2023 +81% · 2024 +70% · 2025 -6% · 2026 +17%
-3x: US$ 7.000 -> US$ 129,941 · +54% ao ano · pior queda 88%
-  por ano: 2020 +526% · 2021 +33% · 2022 -46% · 2023 +117% · 2024 +86% · 2025 -18% · 2026 +25%
+1x: US$ 7.000 -> US$ 37,656 · +28% ao ano · pior queda 42%
+  por ano: 2020 +95% · 2021 +58% · 2022 -18% · 2023 +40% · 2024 +38% · 2025 +1% · 2026 +9%
+2x: US$ 7.000 -> US$ 99,268 · +48% ao ano · pior queda 69%
+  por ano: 2020 +259% · 2021 +74% · 2022 -33% · 2023 +81% · 2024 +70% · 2025 -6% · 2026 +17%
+3x: US$ 7.000 -> US$ 125,905 · +53% ao ano · pior queda 88%
+  por ano: 2020 +525% · 2021 +31% · 2022 -46% · 2023 +116% · 2024 +85% · 2025 -18% · 2026 +24%
 
 == Carteira por filtro de mercado (risco 3%, 10 vagas) ==
 [filtro 200 dias]
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 560 em 6.8 anos · -31% ao ano · média -1.5%/mês · meses positivos 39/82 · pior mês -39% · pior queda 96% · funding pago US$ 6,619
-  por ano: 2020 -71% · 2021 +157% · 2022 -56% · 2023 -68% · 2024 -47% · 2025 +24% · 2026 +20%
+US$ 7.000 -> US$ 738 em 6.8 anos · -28% ao ano · média -1.3%/mês · meses positivos 36/82 · pior mês -36% · pior queda 95% · funding pago US$ 6,153
+  por ano: 2020 -64% · 2021 +25% · 2022 -48% · 2023 -61% · 2024 -19% · 2025 +15% · 2026 +26%
 [filtro 40 semanas]
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 764 em 6.8 anos · -28% ao ano · média -1.1%/mês · meses positivos 35/82 · pior mês -41% · pior queda 95% · funding pago US$ 5,670
-  por ano: 2020 -72% · 2021 +79% · 2022 -52% · 2023 -50% · 2024 -13% · 2025 -4% · 2026 +8%
+US$ 7.000 -> US$ 656 em 6.8 anos · -29% ao ano · média -1.4%/mês · meses positivos 33/82 · pior mês -41% · pior queda 94% · funding pago US$ 6,613
+  por ano: 2020 -61% · 2021 +31% · 2022 -54% · 2023 -53% · 2024 -26% · 2025 +18% · 2026 -4%
 [filtro 20 semanas]
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 167 em 6.8 anos · -42% ao ano · média -3.2%/mês · meses positivos 31/82 · pior mês -39% · pior queda 98% · funding pago US$ 4,640
-  por ano: 2020 -73% · 2021 -2% · 2022 -78% · 2023 -53% · 2024 +7% · 2025 +12% · 2026 -27%
+US$ 7.000 -> US$ 325 em 6.8 anos · -36% ao ano · média -2.5%/mês · meses positivos 28/82 · pior mês -36% · pior queda 96% · funding pago US$ 5,416
+  por ano: 2020 -66% · 2021 +6% · 2022 -65% · 2023 -44% · 2024 -33% · 2025 +19% · 2026 -18%
 
-== Só volta à média x só tendência (filtro 40 semanas, risco 3%, 10 vagas) ==
+== Só volta à média x só tendência (filtro 200 dias, risco 3%, 10 vagas) ==
 [volta à média (RSI(2), Keltner, Bollinger)]
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 3 em 6.8 anos · -68% ao ano · média -6.7%/mês · meses positivos 31/82 · pior mês -47% · pior queda 100% · funding pago US$ 3,548
-  por ano: 2020 -77% · 2021 -85% · 2022 -69% · 2023 -61% · 2024 -73% · 2025 -14% · 2026 -58%
+US$ 7.000 -> US$ 2 em 6.8 anos · -69% ao ano · média -6.8%/mês · meses positivos 28/82 · pior mês -50% · pior queda 100% · funding pago US$ 3,439
+  por ano: 2020 -80% · 2021 -82% · 2022 -71% · 2023 -72% · 2024 -75% · 2025 +10% · 2026 -56%
 [tendência (Donchian, Ichimoku, Momento)]
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 13,867 em 6.8 anos · +11% ao ano · média +1.9%/mês · meses positivos 37/82 · pior mês -26% · pior queda 58% · funding pago US$ 13,197
-  por ano: 2020 -29% · 2021 -7% · 2022 +36% · 2023 +15% · 2024 +39% · 2025 +30% · 2026 +7%
+US$ 7.000 -> US$ 13,081 em 6.8 anos · +10% ao ano · média +1.8%/mês · meses positivos 35/82 · pior mês -26% · pior queda 64% · funding pago US$ 12,687
+  por ano: 2020 -25% · 2021 -16% · 2022 +27% · 2023 -10% · 2024 +81% · 2025 +12% · 2026 +29%
 
-(daqui para baixo: filtro '40 semanas', o melhor acima)
+(daqui para baixo: filtro '200 dias', o melhor acima)
 
 == Cada sistema sozinho (todos os sinais, sem limite de vagas) ==
 sistema         mercado       trades  acerto  R méd  dias  por ano (R médio)
-Bollinger       cripto short     621     65%  +0.02     6  2020 -0.30 · 2021 -0.36 · 2022 +0.14 · 2023 -0.83 · 2024 -0.40 · 2025 +0.14 · 2026 +0.05
-Bollinger       cripto long      363     62%  +0.04     9  2020 +0.33 · 2021 -0.01 · 2023 +0.20 · 2024 +0.00 · 2025 -0.04 · 2026 +0.41
-Bollinger       ações short      743     47%  -0.15     9  2020 -0.39 · 2022 -0.11 · 2023 -0.47 · 2025 +0.07 · 2026 -0.69
-Bollinger       ações long      2589     61%  +0.06     9  2020 +0.18 · 2021 +0.10 · 2022 -0.51 · 2023 +0.03 · 2024 +0.06 · 2025 +0.05 · 2026 -0.00
-Donchian        cripto short     443     41%  +0.03    27  2020 +0.03 · 2021 -0.77 · 2022 +0.20 · 2024 -0.51 · 2025 -0.23 · 2026 +0.09
-Donchian        cripto long      600     38%  +0.49    28  2020 +5.25 · 2021 +0.78 · 2022 -0.52 · 2023 +0.58 · 2024 +0.32 · 2025 -0.23 · 2026 -0.28
-Donchian        ações short     1311     27%  -0.26    28  2020 +0.05 · 2022 -0.17 · 2023 -0.54 · 2025 -0.35 · 2026 -0.67
-Donchian        ações long      3761     42%  +0.23    37  2020 +0.29 · 2021 -0.00 · 2022 -0.28 · 2023 +0.18 · 2024 +0.41 · 2025 +0.42 · 2026 +0.15
-Ichimoku sem.   cripto long      136     24%  -0.08    49  2021 -0.90 · 2023 +0.43 · 2024 -0.33 · 2025 +0.09 · 2026 +1.16
-Ichimoku sem.   ações long      1230     44%  +0.81   103  2020 +2.49 · 2021 +0.10 · 2022 -0.08 · 2023 +0.44 · 2024 +0.79 · 2025 +1.49 · 2026 -0.12
-Keltner         cripto short     308     48%  -0.09     6  2020 -1.03 · 2021 -1.02 · 2022 +0.23 · 2023 -0.91 · 2024 +0.16 · 2025 -0.16 · 2026 -0.00
-Keltner         cripto long      127     59%  +0.03     9  2020 +1.00 · 2021 +0.14 · 2023 +0.13 · 2024 -0.11 · 2025 +0.20
-Keltner         ações short      819     44%  -0.16    10  2020 -0.21 · 2022 -0.05 · 2023 -0.56 · 2025 -0.25 · 2026 -0.80
-Keltner         ações long      2309     55%  +0.06    10  2020 -0.06 · 2021 +0.22 · 2022 -0.52 · 2023 +0.07 · 2024 +0.06 · 2025 +0.08 · 2026 +0.02
-Momento sem.    cripto long      591     23%  +0.26    32  2020 +3.83 · 2021 +0.40 · 2022 -0.95 · 2023 +0.50 · 2024 +0.26 · 2025 -0.36 · 2026 -0.72
-Momento sem.    ações long      4386     31%  +0.37    43  2020 +0.64 · 2021 +0.07 · 2022 -0.50 · 2023 +0.41 · 2024 +0.42 · 2025 +0.70 · 2026 +0.11
-RSI(2)          cripto short    1616     60%  -0.08     3  2020 -0.53 · 2021 -0.19 · 2022 +0.07 · 2023 -0.71 · 2024 -0.03 · 2025 +0.11 · 2026 -0.12
-RSI(2)          cripto long     1327     61%  -0.01     4  2020 -0.01 · 2021 -0.02 · 2022 -0.03 · 2023 +0.03 · 2024 -0.06 · 2025 -0.01 · 2026 +0.19
-RSI(2)          ações short     2793     59%  -0.04     5  2020 -0.01 · 2022 +0.04 · 2023 -0.37 · 2025 -0.16 · 2026 -0.32
-RSI(2)          ações long      9228     63%  +0.02     5  2020 -0.03 · 2021 +0.05 · 2022 -0.41 · 2023 -0.01 · 2024 +0.05 · 2025 +0.04 · 2026 +0.04
+Bollinger       cripto short     675     66%  +0.02     6  2021 -0.90 · 2022 +0.10 · 2023 -0.29 · 2024 -0.15 · 2025 +0.21 · 2026 +0.09
+Bollinger       cripto long      348     63%  +0.06     9  2020 +0.14 · 2021 -0.01 · 2023 +0.21 · 2024 +0.01 · 2025 -0.00 · 2026 +0.45
+Bollinger       ações short      704     46%  -0.17     9  2020 -0.20 · 2022 -0.10 · 2023 -0.63 · 2025 -0.23 · 2026 -0.52
+Bollinger       ações long      2682     61%  +0.06     9  2020 +0.13 · 2021 +0.10 · 2022 -0.53 · 2023 +0.04 · 2024 +0.07 · 2025 +0.04 · 2026 -0.01
+Donchian        cripto short     547     36%  -0.07    25  2020 +0.62 · 2021 -0.73 · 2022 +0.20 · 2023 -0.29 · 2024 -0.54 · 2025 -0.21 · 2026 +0.10
+Donchian        cripto long      604     40%  +0.51    29  2020 +2.79 · 2021 +0.67 · 2023 +0.76 · 2024 +0.32 · 2025 -0.22 · 2026 -0.12
+Donchian        ações short     1381     29%  -0.22    29  2020 +0.25 · 2022 -0.17 · 2023 -0.52 · 2025 -0.32 · 2026 -0.67
+Donchian        ações long      3865     41%  +0.22    37  2020 +0.29 · 2021 +0.00 · 2022 -0.33 · 2023 +0.17 · 2024 +0.40 · 2025 +0.39 · 2026 +0.17
+Ichimoku sem.   cripto long      128     26%  -0.05    49  2021 -0.69 · 2023 +0.43 · 2024 -0.30 · 2025 +0.13 · 2026 +1.16
+Ichimoku sem.   ações long      1248     44%  +0.80   103  2020 +2.45 · 2021 +0.10 · 2022 -0.08 · 2023 +0.39 · 2024 +0.79 · 2025 +1.48 · 2026 -0.13
+Keltner         cripto short     305     52%  -0.04     7  2021 -0.98 · 2022 +0.15 · 2023 -0.49 · 2024 +0.22 · 2025 -0.24 · 2026 +0.01
+Keltner         cripto long      115     60%  +0.02     9  2020 +0.52 · 2021 -0.17 · 2023 +0.02 · 2024 -0.12 · 2025 +0.20
+Keltner         ações short      747     42%  -0.19    10  2020 -0.08 · 2022 -0.08 · 2023 -0.62 · 2025 -0.62 · 2026 -0.73
+Keltner         ações long      2307     55%  +0.07    10  2020 -0.04 · 2021 +0.23 · 2022 -0.60 · 2023 +0.08 · 2024 +0.06 · 2025 +0.07 · 2026 +0.03
+Momento sem.    cripto long      557     22%  +0.24    32  2020 +2.51 · 2021 -0.00 · 2023 +0.56 · 2024 +0.22 · 2025 -0.35 · 2026 -0.72
+Momento sem.    ações long      4442     30%  +0.37    43  2020 +0.63 · 2021 +0.07 · 2022 -0.45 · 2023 +0.40 · 2024 +0.43 · 2025 +0.68 · 2026 +0.11
+RSI(2)          cripto short    1782     59%  -0.09     3  2021 -0.21 · 2022 +0.05 · 2023 -0.34 · 2024 -0.28 · 2025 -0.06 · 2026 -0.07
+RSI(2)          cripto long     1261     62%  +0.00     4  2020 +0.04 · 2021 +0.01 · 2023 +0.05 · 2024 -0.05 · 2025 +0.00 · 2026 +0.17
+RSI(2)          ações short     2561     58%  -0.05     5  2020 +0.01 · 2022 +0.02 · 2023 -0.46 · 2025 -0.23 · 2026 -0.21
+RSI(2)          ações long      9209     63%  +0.02     5  2020 -0.05 · 2021 +0.05 · 2022 -0.50 · 2023 -0.01 · 2024 +0.05 · 2025 +0.04 · 2026 +0.04
 
 == Carteira (mistura de tudo, como o robô faria) ==
 -- risco 3% por trade, até 10 posições (risco aberto máx. 30%) --
-US$ 7.000 -> US$ 764 em 6.8 anos · -28% ao ano · média -1.1%/mês · meses positivos 35/82 · pior mês -41% · pior queda 95% · funding pago US$ 5,670
-  por ano: 2020 -72% · 2021 +79% · 2022 -52% · 2023 -50% · 2024 -13% · 2025 -4% · 2026 +8%
-  contribuição por sistema (US$): Donchian -54 · RSI(2) -237 · Momento sem. -319 · Ichimoku sem. -542 · Keltner -914 · Bollinger -4,171
-  trades feitos: 1418 (~17 por mês)
+US$ 7.000 -> US$ 738 em 6.8 anos · -28% ao ano · média -1.3%/mês · meses positivos 36/82 · pior mês -36% · pior queda 95% · funding pago US$ 6,153
+  por ano: 2020 -64% · 2021 +25% · 2022 -48% · 2023 -61% · 2024 -19% · 2025 +15% · 2026 +26%
+  contribuição por sistema (US$): Ichimoku sem. +1,061 · Momento sem. -169 · Keltner -465 · RSI(2) -535 · Donchian -2,524 · Bollinger -3,631
+  trades feitos: 1422 (~17 por mês)
 
 -- risco 3% por trade, até 15 posições (risco aberto máx. 45%) --
-US$ 7.000 -> US$ 145 em 6.8 anos · -43% ao ano · média -2.0%/mês · meses positivos 37/82 · pior mês -49% · pior queda 99% · funding pago US$ 6,452
-  por ano: 2020 -74% · 2021 +65% · 2022 -80% · 2023 -73% · 2024 +3% · 2025 +40% · 2026 -38%
+US$ 7.000 -> US$ 235 em 6.8 anos · -39% ao ano · média -1.4%/mês · meses positivos 37/82 · pior mês -51% · pior queda 98% · funding pago US$ 6,685
+  por ano: 2020 -78% · 2021 +103% · 2022 -61% · 2023 -81% · 2024 +43% · 2025 +6% · 2026 -35%
 
 -- risco 2% por trade, até 10 posições (risco aberto máx. 20%) --
-US$ 7.000 -> US$ 1,930 em 6.8 anos · -17% ao ano · média -0.9%/mês · meses positivos 37/82 · pior mês -31% · pior queda 82% · funding pago US$ 5,190
-  por ano: 2020 -59% · 2021 +55% · 2022 -35% · 2023 -34% · 2024 -15% · 2025 +16% · 2026 +4%
+US$ 7.000 -> US$ 1,540 em 6.8 anos · -20% ao ano · média -1.2%/mês · meses positivos 38/82 · pior mês -29% · pior queda 87% · funding pago US$ 4,938
+  por ano: 2020 -62% · 2021 +28% · 2022 -28% · 2023 -45% · 2024 -18% · 2025 +14% · 2026 +22%
 
 -- risco 1% por trade, até 10 posições (risco aberto máx. 10%) --
-US$ 7.000 -> US$ 4,162 em 6.8 anos · -7% ao ano · média -0.5%/mês · meses positivos 36/82 · pior mês -16% · pior queda 53% · funding pago US$ 3,854
-  por ano: 2020 -35% · 2021 +28% · 2022 -17% · 2023 -17% · 2024 -10% · 2025 +11% · 2026 +4%
+US$ 7.000 -> US$ 3,695 em 6.8 anos · -9% ao ano · média -0.6%/mês · meses positivos 38/82 · pior mês -15% · pior queda 61% · funding pago US$ 3,867
+  por ano: 2020 -37% · 2021 +17% · 2022 -13% · 2023 -25% · 2024 -12% · 2025 +9% · 2026 +13%
 
