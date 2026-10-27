@@ -463,6 +463,7 @@ GRUPOS_RECUO = {
     "energia": {"Petróleo WTI", "Petróleo Brent", "Gás natural"},
 }
 GRUPOS_FORA = {"big tech", "energia", "ações outras"}
+GRUPOS_SOMBRA = {"big tech"}          # 27/10/2026: fora das ordens, mas medidos no modo sombra pelo robo-bingx
 
 
 def grupo_de(r):
@@ -475,14 +476,14 @@ def grupo_de(r):
     return {"cripto": "cripto alt", "ação": "ações outras"}.get(r["tipo"], "metais")
 
 
-def plano_recuo(r, agora=None):
+def plano_recuo(r, agora=None, fora=GRUPOS_FORA):
     """Trade do setup recuo (ou None): 70%+ dos caminhos a favor e mediana andando 0,4%+."""
     lado = "LONG" if r["p_alta"] >= 0.5 else "SHORT"
     s = 1 if lado == "LONG" else -1
     p_dir = r["p_alta"] if s == 1 else 1 - r["p_alta"]
     g = grupo_de(r)
     agora = agora or datetime.datetime.now(datetime.timezone.utc)
-    if p_dir < RECUO_P_MIN or s * r["ret_mediano"] < RECUO_MOVE_MIN or g in GRUPOS_FORA:
+    if p_dir < RECUO_P_MIN or s * r["ret_mediano"] < RECUO_MOVE_MIN or g in fora:
         return None
     if r["tipo"] == "ação" and (agora.weekday() >= 5 or (agora.weekday() == 4 and agora.hour >= 20)):
         return None
@@ -534,6 +535,8 @@ def juntar():
     sinais["leituras"] = {r["simbolo"]: {"p_alta": round(r["p_alta"], 3), "ret_mediano": round(r["ret_mediano"], 5)}
                           for r in rs}                   # leitura de todos (o robô mede a regra de saída antecipada)
     sinais["recuo"] = sorted([p for p in (plano_recuo(r, agora) for r in rs) if p], key=lambda p: -p["nota"])
+    sinais["recuo_sombra"] = [p for p in (plano_recuo(r, agora, GRUPOS_FORA - GRUPOS_SOMBRA) for r in rs)
+                              if p and p["grupo"] in GRUPOS_SOMBRA]     # só anotado pelo robô, sem ordem
     os.makedirs(os.path.join(AQUI), exist_ok=True)
     json.dump(sinais, open(os.path.join(AQUI, "sinais.json"), "w"), ensure_ascii=False, indent=1)
     prev = {"id": sid, "gerado_em": sinais["gerado_em"], "ativos": rs}
