@@ -28,6 +28,9 @@ SAIDA = os.environ.get("KRONOS_SAIDA", "saida")
 KRONOS_DIR = os.environ.get("KRONOS_DIR", "Kronos")
 CTX, H = 512, 24                    # 512 velas de contexto, 24 velas previstas
 N_VIVO = int(os.environ.get("N_VIVO", 100))
+MODELO = os.environ.get("KRONOS_MODELO", "NeoQuasar/Kronos-small")   # 28/10: sombra testa o Kronos-base
+INTERVALO = os.environ.get("KRONOS_INTERVALO", "1h")                 # 28/10: sombra testa velas de 4h
+PASSO_MS = {"1h": 3_600_000, "4h": 14_400_000}[INTERVALO]
 N_TESTE = int(os.environ.get("N_TESTE", 8))
 SEMANAS = int(os.environ.get("SEMANAS", 52))
 LOTE = 48                           # linhas (série x sorteio) por passada: cabe na memória do GitHub
@@ -110,7 +113,7 @@ def velas(simbolo, n):
     por, fim = {}, None
     agora_ms = int(time.time() * 1000)
     while len(por) < n:
-        p = {"symbol": simbolo, "interval": "1h", "limit": 1440}
+        p = {"symbol": simbolo, "interval": INTERVALO, "limit": 1440}
         if fim:
             p["endTime"] = fim
         d = [x for x in (bingx("/openApi/swap/v3/quote/klines", p) or []) if isinstance(x, dict)]
@@ -125,7 +128,7 @@ def velas(simbolo, n):
         fim = menor - 1
     df = pd.DataFrame([{"t": t, "open": float(x["open"]), "high": float(x["high"]), "low": float(x["low"]),
                         "close": float(x["close"]), "volume": float(x.get("volume") or 0)}
-                       for t, x in sorted(por.items()) if t + 3_600_000 <= agora_ms])     # só velas fechadas
+                       for t, x in sorted(por.items()) if t + PASSO_MS <= agora_ms])     # só velas fechadas
     df["data"] = pd.to_datetime(df["t"], unit="ms", utc=True)
     return df.tail(n).reset_index(drop=True)
 
@@ -172,7 +175,7 @@ def carregar_modelo():
     ns = {}
     exec(fonte.replace("preds = np.mean(preds, axis=1)", "pass"), mk.__dict__, ns)   # devolve TODOS os sorteios
     tok = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base").eval()
-    mod = Kronos.from_pretrained("NeoQuasar/Kronos-small").eval()
+    mod = Kronos.from_pretrained(MODELO).eval()
     return tok, mod, ns["auto_regressive_inference"], mk.calc_time_stamps
 
 
@@ -189,7 +192,8 @@ def amostrar(motor, janelas, n):
         m, s = x.mean(0), x.std(0)
         xs.append(np.clip((x - m) / (s + 1e-5), -5, 5))
         xst.append(stamps(w["data"].reset_index(drop=True)).values.astype(np.float32))
-        fut = pd.Series(pd.date_range(w["data"].iloc[-1] + pd.Timedelta(hours=1), periods=H, freq="h"))
+        fut = pd.Series(pd.date_range(w["data"].iloc[-1] + pd.Timedelta(milliseconds=PASSO_MS), periods=H,
+                                      freq=pd.Timedelta(milliseconds=PASSO_MS)))
         yst.append(stamps(fut).values.astype(np.float32))
         med.append(m)
         dp.append(s)
@@ -235,7 +239,10 @@ def resumo_caminhos(a, ultimo):
 
 
 def rodar(i, n_partes):
-    ativos = json.load(open(os.path.join(SAIDA, "universo.json")))[i::n_partes]
+    ativos = json.load(open(os.path.join(SAIDA, "universo.json")))
+    if os.environ.get("KRONOS_SOMBRA_N"):              # sombra: só os primeiros N do universo (índices, cripto, big tech, IA)
+        ativos = ativos[:int(os.environ["KRONOS_SOMBRA_N"])]
+    ativos = ativos[i::n_partes]
     ja_testados = set()                 # rodada rápida: pula o teste de 1 ano de quem já tem teste da semana
     if os.environ.get("KRONOS_RAPIDA") == "1":
         p = os.path.join(AQUI, "teste_semanal.json")
@@ -717,6 +724,22 @@ def conferir():
     json.dump({"dia": hoje}, open(estado_p, "w"))
 
 
+def sombra_juntar(tag):
+    """28/10: variante na sombra (Kronos-base ou velas de 4h). Só os planos do setup recuo, sem filtro de setor;
+    o robo-bingx anota e mede, sem ordem."""
+    rs = []
+    for nome in sorted(os.listdir(SAIDA)):
+        if nome.startswith("parte_"):
+            rs += json.load(open(os.path.join(SAIDA, nome)))
+    agora = datetime.datetime.now(datetime.timezone.utc)
+    out = {"id": agora.strftime("%Y%m%d%H"), "gerado_em": agora.isoformat(timespec="seconds"), "tag": tag,
+           "modelo": MODELO.split("/")[-1], "intervalo": INTERVALO, "caminhos": N_VIVO,
+           "ativos": [r["simbolo"] for r in rs],
+           "recuo": [p for p in (plano_recuo(r, agora, set()) for r in rs) if p]}
+    json.dump(out, open(os.path.join(AQUI, f"sombra_{tag}.json"), "w"), ensure_ascii=False, indent=1)
+    log(f"sombra {tag}: {len(rs)} ativos, {len(out['recuo'])} planos")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "lista":
@@ -727,3 +750,5 @@ if __name__ == "__main__":
         juntar()
     elif cmd == "conferir":
         conferir()
+    elif cmd == "sombra_juntar":
+        sombra_juntar(sys.argv[2])
