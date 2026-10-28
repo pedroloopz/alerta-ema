@@ -31,7 +31,7 @@ concurrency:
 env:
   RAPIDA: ${{ (github.event.schedule == '37 * * * *' || inputs.rapida) && '1' || '0' }}
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
-  PARTES: 40                 # o GitHub roda 20 por vez; partes menores não estouram o tempo
+  PARTES: 64                 # 28/10: ~160 ativos; o GitHub roda 20 por vez; partes menores não estouram o tempo
 
 jobs:
   lista:
@@ -58,7 +58,7 @@ jobs:
     timeout-minutes: 150
     strategy:
       fail-fast: false
-      max-parallel: 14        # a conta tem 20 máquinas ao mesmo tempo: sobram vagas para o robô, o scanner e o bot
+      max-parallel: 16        # a conta tem 20 máquinas ao mesmo tempo: sobram vagas para o robô, o scanner e o bot
       matrix:
         parte: ${{ fromJson(needs.lista.outputs.partes) }}
     steps:

@@ -33,10 +33,24 @@ SEMANAS = int(os.environ.get("SEMANAS", 52))
 LOTE = 48                           # linhas (série x sorteio) por passada: cabe na memória do GitHub
 CUSTO = 0.0012                      # taxas de ida e volta + deslize
 N_CRIPTO = 60                       # mais candidatas: só passa quem tem vantagem no teste
-ACOES = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "AVGO", "TSLA", "JPM", "LLY", "V", "WMT", "ORCL",
-         "MA", "NFLX", "COST", "AMD", "PLTR", "UNH",                                   # top 20 EUA (tese)
-         "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR",   # neoclouds (tese)
-         "ASML", "TSM", "BABA", "SAP", "SONY", "TM", "NVO", "SHOP", "ARM", "PDD"]           # de outros países
+# 28/10/2026: universo por setor (EUA + Japão + Coreia + outros mercados). Nome = como a BingX chama o contrato
+# (NCSK<nome>2USD-USDT); quem não tiver contrato só aparece no log. Alemanha: a BingX só tem o índice (DAX).
+SETORES = {
+    "big tech": "AAPL MSFT AMZN GOOGL META NVDA TSLA AVGO ORCL AMD ARM ASML".split(),
+    "ia": "PLTR MU INTC QCOM TXN LRCX KLAC AMAT MRVL SMCI DELL CRDO ALAB SNDK WDC STX ADI CDNS SNOW NOW CRM ADBE PANW CRWD TOKYOEL ADVANTEST LASERTEC KIOXIA FUJIKURA SUMIELEC SAMSUNG SKHYNIX".split(),
+    "neoclouds": "CRWV NBIS IREN APLD CIFR WULF HUT CORZ GLXY BTDR".split(),
+    "comunicação": "NETFLIX DIS TTWO RDDT FOXA ZM TWLO".split(),
+    "consumo": "HD MCD NKE SBUX LULU BKNG ABNB UBER DASH EBAY CVNA MAR HLT BABA PDD SHOP MELI TM SONY HYUNDAI NIO RIVN".split(),
+    "consumer staples": "WMT COST KO PG TGT".split(),
+    "saúde": "LLY UNH JNJ ABBV ABT MRK DHR MDT MRNA HIMS CVS NVO AZN".split(),
+    "financeiro": "JPM BAC GS MA V AXP COIN HOOD SOFI PYPL IBKR BX BRKB NU MUFG".split(),
+    "industrial": "GE GEV CAT DE ETN BA LMT NOC RTX UNP MMM FIX".split(),
+    "imobiliário": "AMT CCI".split(),
+    "energia": "XOM CVX COP OXY MPC BP PBR WMB KMI CEG TLN OKLO SMR CCJ".split(),
+    "outros mercados": "EWZ INDA KWEB BHP RIO".split(),
+}
+ACOES = [t for v in SETORES.values() for t in v]
+CRIPTOS = ["BTC", "ONDO", "ASTER"]          # 28/10/2026: só essas três
 EXTRAS = {"NASDAQ 100": "NCSINASDAQ1002USD-USDT", "DAX (Alemanha)": "NCSIGER2USD-USDT",
           "Nikkei 225 (Japão)": "NCSINIKKEI2252USD-USDT", "Ouro": "NCCOGOLD2USD-USDT", "Prata": "NCCOXAG2USD-USDT",
           "S&P 500": "NCSISP5002USD-USDT", "Dow Jones": "NCSIDOWJONES2USD-USDT", "Russell 2000": "NCSIRUSSELL20002USD-USDT",
@@ -130,22 +144,12 @@ def lista():
         json.dump(ativos, open(os.path.join(SAIDA, "universo.json"), "w"), ensure_ascii=False)
         log(f"{len(ativos)} ativos: " + ", ".join(a["ativo"] for a in ativos))
         return
-    try:
-        mercado = _get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
-                       "&per_page=120&page=1")
-        simbolos = [str(x["symbol"]).upper() for x in mercado]
-    except Exception as e:
-        log(f"CoinGecko falhou ({e}); uso a lista fixa")
-        simbolos = ("BTC ETH XRP BNB SOL TRX DOGE ADA HYPE LINK BCH XLM SUI AVAX LTC HBAR TON SHIB DOT UNI XMR "
-                    "AAVE ENA PEPE NEAR APT ONDO ETC ICP TAO POL ARB FIL ATOM").split()
-    for s in simbolos:
-        if s in ESTAVEIS:
-            continue
-        sim = next((f"{p}{s}-USDT" for p in ("", "1000") if f"{p}{s}-USDT" in contratos), None)
-        if sim and all(a["simbolo"] != sim for a in ativos):
-            ativos.append({"ativo": s, "simbolo": sim, "tipo": "cripto"})
-        if len(ativos) >= N_CRIPTO:
-            break
+    for c in CRIPTOS:
+        sim = next((f"{p}{c}-USDT" for p in ("", "1000") if f"{p}{c}-USDT" in contratos), None)
+        if sim:
+            ativos.append({"ativo": c, "simbolo": sim, "tipo": "cripto"})
+        else:
+            log(f"{c}: sem contrato na BingX")
     for t in ACOES:
         sim = next((s for s in contratos if s.upper().startswith(f"NCSK{t}2")), None)
         if sim:
@@ -455,15 +459,13 @@ def plano(r):
 # sem alvo, trailing de 5 ATR, 24h. Grupos ruins no treino e fora da amostra ficam de fora.
 RECUO_P_MIN, RECUO_MOVE_MIN, RECUO_K, RECUO_TRAIL_ATR = 0.70, 0.004, 1.0, 5
 GRUPOS_RECUO = {
-    "cripto grande": {"BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "TRX", "DOGE", "BCH", "LTC", "LINK", "XLM", "HBAR", "DOT"},
-    "neoclouds": {"IREN", "NBIS", "CRWV", "APLD", "CIFR", "WULF", "HUT", "CORZ", "GLXY", "BTDR"},
-    "big tech": {"AAPL", "MSFT", "AMZN", "NVDA", "AMD", "AVGO", "ARM", "ASML", "TSLA", "ORCL", "META", "GOOGL"},
-    "ações outras": {"JPM", "LLY", "MA", "V", "UNH", "WMT", "COST", "NVO", "SONY", "TM", "BABA", "PDD", "SHOP"},
+    "cripto grande": {"BTC"},
+    **{g: set(v) for g, v in SETORES.items()},
     "metais": {"Ouro", "Prata", "Platina", "Paládio", "Cobre"},
-    "energia": {"Petróleo WTI", "Petróleo Brent", "Gás natural"},
+    "energia": set(SETORES["energia"]) | {"Petróleo WTI", "Petróleo Brent", "Gás natural"},
 }
-GRUPOS_FORA = {"big tech", "energia", "ações outras"}
-GRUPOS_SOMBRA = {"big tech"}          # 27/10/2026: fora das ordens, mas medidos no modo sombra pelo robo-bingx
+GRUPOS_FORA = set()                   # 28/10/2026: todos os setores operam (antes: big tech, energia e ações outras fora)
+GRUPOS_SOMBRA = set()
 
 
 def grupo_de(r):
