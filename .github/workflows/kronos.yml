@@ -58,7 +58,7 @@ jobs:
     timeout-minutes: 150
     strategy:
       fail-fast: false
-      max-parallel: 16        # a conta tem 20 máquinas ao mesmo tempo: sobram vagas para o robô, o scanner e o bot
+      max-parallel: 18        # 28/10: a conta tem 20 máquinas ao mesmo tempo: sobram 2 para o robô e o scanner
       matrix:
         parte: ${{ fromJson(needs.lista.outputs.partes) }}
     steps:
