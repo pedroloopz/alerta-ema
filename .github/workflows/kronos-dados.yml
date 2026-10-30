@@ -7,8 +7,7 @@ name: kronos-dados
 # estão feitos, não faz nada. Ordem: primeiro os ativos que o robô opera (acerto 59%+ no teste semanal).
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "41 * * * *"
+  # 30/10/2026: horário desligado — o robô passou para velas de 4h; a base nova é a do kronos-bt4h.
 
 permissions:
   contents: write
