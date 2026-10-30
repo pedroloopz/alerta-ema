@@ -10,9 +10,8 @@ on:
       variante:
         description: "base ou 4h"
         default: "base"
-  schedule:
-    - cron: "20 5,13,21 * * *"   # base, a cada 8h
-    - cron: "20 1,9,17 * * *"    # 4h, a cada 8h (intercalado com o base)
+  # 29/10/2026: horários desligados. Base saiu (0 de 5 positivos na sombra) e o 4h virou o Kronos ao vivo
+  # (workflow kronos). Fica só o disparo à mão.
 
 permissions:
   contents: write

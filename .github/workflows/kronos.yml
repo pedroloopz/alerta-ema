@@ -1,6 +1,6 @@
 name: kronos
 
-# Kronos-small: 100 futuros das próximas 24 velas de 1h para 30 criptos + ações dos EUA (BingX),
+# Kronos-small: 100 futuros das próximas 24 velas de 4h (29/10; antes 1h) para 30 criptos + ações dos EUA (BingX),
 # teste semanal de 1 ano e trades para o robô (kronos/sinais.json na branch kronos).
 # Repositório público: minutos grátis e 20 máquinas em paralelo. Nenhuma chave da BingX aqui.
 on:
@@ -19,7 +19,7 @@ on:
     paths: [kronos/prever.py, kronos/modelo_grafico.html, .github/workflows/kronos.yml]
   schedule:
     - cron: "7 23 * * 1"     # toda segunda, 20h07 de Brasília: completa (100 futuros + teste de 1 ano)
-    # a rodada rápida de hora em hora é disparada pelo painel-scanner (kronos/acordar.py)
+    # a rodada rápida a cada 4h (fechamento da vela de 4h) é disparada pelo painel-scanner (kronos/acordar.py)
 
 permissions:
   contents: write
@@ -32,6 +32,8 @@ env:
   RAPIDA: ${{ (github.event.schedule == '37 * * * *' || inputs.rapida) && '1' || '0' }}
   KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
   PARTES: 64                 # 28/10: ~160 ativos; o GitHub roda 20 por vez; partes menores não estouram o tempo
+  KRONOS_INTERVALO: "4h"     # 29/10: o robô passa a operar só pelas velas de 4h (24 velas = 4 dias previstos)
+  SEMANAS: "0"               # 29/10: sem teste de 1 ano (era calibrado em 1h; o setup recuo não usa)
 
 jobs:
   lista:
