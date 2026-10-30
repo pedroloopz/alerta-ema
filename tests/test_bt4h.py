@@ -55,4 +55,4 @@ def test_um_por_ativo_e_relatorio(tmp_path):
     B.principal(str(tmp_path), str(tmp_path / "out.json"))
     out = json.load(open(tmp_path / "out.json"))
     assert out["principal"]["n"] == 6                                            # 96h > 52h: pula um a cada dois
-    assert out["previsiveis"] == ["BTC"] and len(out["variantes"]) == 16
+    assert out["previsiveis"] == ["BTC"] and len(out["variantes"]) == 16 and len(out["tamanho"]) == 16

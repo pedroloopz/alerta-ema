@@ -150,20 +150,28 @@ def resumo(tr):
 
 
 def carteira(tr, risco=0.01, max_abertos=8):
-    """Juros compostos com risco fixo em % e no máximo `max_abertos` ao mesmo tempo (teto de 8% de risco)."""
-    banca, abertos, curva, pico, dd = 1.0, [], [], 1.0, 0.0
+    """Juros compostos com risco fixo em % e no máximo `max_abertos` ao mesmo tempo. Também mede a exposição
+    (soma das posições ÷ banca) média e máxima, para saber quanto da conta fica de fato em uso."""
+    banca, abertos, pico, dd = 1.0, [], 1.0, 0.0
+    exp, n_ab, pulados = [], [], 0
     for x in tr:
         for a in [a for a in abertos if a["fim"] <= x["t"]]:
             banca += a["risco"] * a["r"]
             abertos.remove(a)
-        if len(abertos) >= max_abertos:
-            continue
-        abertos.append({**x, "risco": banca * risco})
         pico = max(pico, banca)
         dd = max(dd, 1 - banca / pico)
+        if len(abertos) >= max_abertos:
+            pulados += 1
+            continue
+        abertos.append({**x, "risco": banca * risco})
+        exp.append(sum(a["risco"] / a["sl"] for a in abertos) / banca)
+        n_ab.append(len(abertos))
     for a in abertos:
         banca += a["risco"] * a["r"]
-    return {"retorno": round(banca - 1, 4), "dd_max": round(max(dd, 1 - banca / max(pico, banca)), 4)}
+    return {"retorno": round(banca - 1, 4), "dd_max": round(max(dd, 1 - banca / max(pico, banca)), 4),
+            "abertos_medio": round(sum(n_ab) / len(n_ab), 1) if n_ab else 0, "abertos_max": max(n_ab or [0]),
+            "exposicao_media": round(sum(exp) / len(exp), 2) if exp else 0, "exposicao_max": round(max(exp or [0]), 2),
+            "sinais_pulados_por_falta_de_vaga": pulados}
 
 
 def por_ativo(tr, corte_ms):
@@ -211,6 +219,8 @@ def principal(pasta, destino):
            "corte_fora_da_amostra": datetime.datetime.fromtimestamp(corte / 1000, datetime.timezone.utc).date().isoformat()
            if todos_t else None,
            "principal": {**PRINCIPAL, **resumo(tr), "carteira_1pct": carteira(tr), "por_mes_r": meses},
+           "tamanho": [{"risco": r, "max_abertos": m, **carteira(tr, r, m)}                 # quanto usar da conta
+                       for r in (0.005, 0.01, 0.015, 0.02) for m in (8, 12, 16, 24)],
            "variantes": sorted(variantes, key=lambda v: -(v.get("r_total") or -1e9)),
            "previsiveis": [a["ativo"] for a in ranking if a["previsivel"]],
            "por_ativo": ranking}
