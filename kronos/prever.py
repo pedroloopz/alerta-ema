@@ -108,8 +108,56 @@ def bingx(caminho, params):
     raise erro
 
 
+# 31/10/2026: backtest dos contratos novos da BingX com o histórico do Yahoo (KRONOS_FONTE=yahoo)
+YAHOO = {"GER": "^GDAXI", "KOSPI1": "^KS11", "BRKB": "BRK-B", "ADVANTEST": "6857.T", "FUJIKURA": "5803.T",
+         "KIOXIA": "285A.T", "LASERTEC": "6920.T", "SUMIELEC": "5802.T", "TOKYOEL": "8035.T", "HYUNDAI": "005380.KS",
+         "SAMSUNG": "005930.KS", "SKHYNIX": "000660.KS", "NETFLIX": "NFLX", "CISCO": "CSCO"}
+
+
+def ticker_yahoo(simbolo):
+    """NCSK<TICKER>2USD-USDT / NCSI<ÍNDICE>2USD-USDT -> ticker do Yahoo."""
+    nome = simbolo.split("-")[0]
+    for pre in ("NCSK", "NCSI", "NCCO"):
+        if nome.startswith(pre):
+            nome = nome[len(pre):]
+    nome = nome[:-4] if nome.endswith("2USD") else nome
+    return YAHOO.get(nome, nome)
+
+
+def velas_yahoo(simbolo, n):
+    """Velas de 1h do Yahoo (até 730 dias, com pré e pós-mercado) num relógio de 24h: fora do horário a vela fica
+    parada no último preço (como os perpétuos de ação da BingX, que quase não andam com a bolsa fechada) e depois
+    agrupada no mesmo tempo gráfico do robô (4h, alinhado em 00h UTC). Só velas fechadas."""
+    import yfinance as yf
+    h = yf.Ticker(ticker_yahoo(simbolo)).history(period="730d", interval="1h", prepost=True, auto_adjust=True)
+    if h.empty:
+        raise RuntimeError(f"Yahoo sem dados para {ticker_yahoo(simbolo)}")
+    h.index = h.index.tz_convert("UTC").floor("h")
+    h = h[~h.index.duplicated(keep="last")][["Open", "High", "Low", "Close", "Volume"]]
+    h.columns = ["open", "high", "low", "close", "volume"]
+    grade = pd.date_range(h.index[0], pd.Timestamp.now(tz="UTC").floor("h") - pd.Timedelta(hours=1), freq="h")
+    h = h.reindex(grade)
+    h["close"] = h["close"].ffill()
+    for c in ("open", "high", "low"):
+        h[c] = h[c].fillna(h["close"])
+    h["volume"] = h["volume"].fillna(0)
+    regra = f"{PASSO_MS // 3_600_000}h"
+    v = h.resample(regra, origin="epoch").agg({"open": "first", "high": "max", "low": "min", "close": "last",
+                                                 "volume": "sum"}).dropna()
+    agora_ms = int(time.time() * 1000)
+    t_ms = ((v.index - pd.Timestamp(0, tz="UTC")) // pd.Timedelta(milliseconds=1)).astype("int64")
+    df = pd.DataFrame({"t": t_ms, "open": v["open"].values,
+                       "high": v["high"].values, "low": v["low"].values, "close": v["close"].values,
+                       "volume": v["volume"].values})
+    df = df[df["t"] + PASSO_MS <= agora_ms]
+    df["data"] = pd.to_datetime(df["t"], unit="ms", utc=True)
+    return df.tail(n).reset_index(drop=True)
+
+
 def velas(simbolo, n):
     """Últimas n velas FECHADAS de 1h da BingX (pagina para trás de 1.440 em 1.440)."""
+    if os.environ.get("KRONOS_FONTE") == "yahoo":
+        return velas_yahoo(simbolo, n)
     por, fim = {}, None
     agora_ms = int(time.time() * 1000)
     while len(por) < n:
