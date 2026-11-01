@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-01T17:14:59+00:00",
+ "gerado_em": "2026-11-01T17:19:38+00:00",
  "ativos": 109,
  "partidas": 9156,
  "periodo": [
@@ -2334,5 +2334,5 @@
    "r_100": -8.413
   }
  ],
- "faltavam_no_inicio_da_rodada": 43
+ "faltavam_no_inicio_da_rodada": 3
 }
