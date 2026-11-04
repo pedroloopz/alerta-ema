@@ -1,4 +1,4 @@
-universo: 186 ativos (90 cripto, 96 ações)
+universo: 186 ativos (89 cripto, 97 ações)
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -151,6 +151,7 @@ universo: 186 ativos (90 cripto, 96 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKCOP2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -185,155 +186,153 @@ universo: 186 ativos (90 cripto, 96 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-sinais simulados: 472779 em 194s
-  acao: 94 ativos, de 2026-10-24 06:30:00+00:00 a 2026-11-03 06:15:00+00:00
-  cripto: 90 ativos, de 2026-08-05 16:00:00+00:00 a 2026-11-03 06:30:00+00:00
-fontes: {'bingx': np.int64(113), 'binance': np.int64(73)}
-modelo de fluxo: 149471 linhas, 73 ativos
-  faixas 1 [{'de': 0.676863, 'ate': 0.744721, 'n': 1785, 'acerto': 0.464, 'r': -0.135}, {'de': 0.744721, 'ate': 0.784684, 'n': 266, 'acerto': 0.526, 'r': -0.034}, {'de': 0.784684, 'ate': None, 'n': 87, 'acerto': 0.471, 'r': 0.021}]
-  faixas -1 [{'de': 0.601851, 'ate': 0.677099, 'n': 2274, 'acerto': 0.511, 'r': -0.036}, {'de': 0.677099, 'ate': 0.722484, 'n': 607, 'acerto': 0.54, 'r': -0.005}, {'de': 0.722484, 'ate': None, 'n': 210, 'acerto': 0.538, 'r': -0.027}]
+sinais simulados: 468162 em 193s
+  acao: 93 ativos, de 2026-10-25 06:30:00+00:00 a 2026-11-04 06:45:00+00:00
+  cripto: 89 ativos, de 2026-08-06 16:15:00+00:00 a 2026-11-04 06:45:00+00:00
+fontes: {'bingx': np.int64(114), 'binance': np.int64(72)}
+modelo de fluxo: 147378 linhas, 72 ativos
+  faixas 1 [{'de': 0.673131, 'ate': 0.742976, 'n': 1935, 'acerto': 0.496, 'r': -0.088}, {'de': 0.742976, 'ate': 0.78342, 'n': 300, 'acerto': 0.487, 'r': -0.11}, {'de': 0.78342, 'ate': None, 'n': 54, 'acerto': 0.463, 'r': -0.218}]
+  faixas -1 [{'de': 0.601816, 'ate': 0.679695, 'n': 2205, 'acerto': 0.531, 'r': -0.028}, {'de': 0.679695, 'ate': 0.725316, 'n': 443, 'acerto': 0.567, 'r': 0.021}, {'de': 0.725316, 'ate': None, 'n': 129, 'acerto': 0.62, 'r': 0.061}]
 saídas escolhidas: {
  "acao|PULL|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.525,
-  "r": -0.24,
-  "n": 339
+  "p": 0.532,
+  "r": -0.232,
+  "n": 385
  },
  "acao|PULL|1": {
   "sl": 2.0,
   "tp": 1.5,
-  "p": 0.425,
-  "r": -0.321,
-  "n": 294
+  "p": 0.449,
+  "r": -0.254,
+  "n": 292
  },
  "acao|ROMP|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.311,
-  "r": -0.024,
-  "n": 424
+  "p": 0.321,
+  "r": -0.026,
+  "n": 476
  },
  "acao|ROMP|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.583,
-  "r": -0.195,
-  "n": 295
+  "p": 0.604,
+  "r": -0.157,
+  "n": 381
  },
  "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.501,
-  "r": -0.394,
-  "n": 517
+  "p": 0.514,
+  "r": -0.354,
+  "n": 457
  },
  "acao|SQZ|1": {
   "sl": 2.0,
-  "tp": 1.5,
-  "p": 0.431,
-  "r": -0.346,
-  "n": 418
+  "tp": 2.0,
+  "p": 0.375,
+  "r": -0.267,
+  "n": 411
  },
  "cripto|EXA|-1": {
   "sl": 2.0,
   "tp": 1.0,
   "p": 0.581,
-  "r": -0.134,
-  "n": 1523
+  "r": -0.133,
+  "n": 1521
  },
  "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.232,
-  "r": -0.055,
-  "n": 669
+  "p": 0.235,
+  "r": -0.049,
+  "n": 639
  },
  "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.235,
-  "r": -0.095,
-  "n": 2304
+  "p": 0.234,
+  "r": -0.103,
+  "n": 2248
  },
  "cripto|PULL|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.23,
-  "r": -0.066,
-  "n": 1671
+  "p": 0.232,
+  "r": -0.055,
+  "n": 1661
  },
  "cripto|ROMP|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.614,
-  "r": -0.116,
-  "n": 16029
+  "p": 0.611,
+  "r": -0.119,
+  "n": 15739
  },
  "cripto|ROMP|1": {
   "sl": 2.0,
-  "tp": 1.0,
-  "p": 0.636,
-  "r": -0.099,
-  "n": 18209
+  "tp": 3.0,
+  "p": 0.309,
+  "r": -0.094,
+  "n": 18135
  },
  "cripto|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.608,
-  "r": -0.169,
-  "n": 5016
+  "p": 0.611,
+  "r": -0.166,
+  "n": 4847
  },
  "cripto|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.63,
-  "r": -0.146,
-  "n": 4742
+  "p": 0.633,
+  "r": -0.143,
+  "n": 4740
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 466,
+  "n": 502,
   "acerto": 0.468,
-  "r_medio": -0.646
+  "r_medio": -0.592
  },
  "2": {
-  "n": 2105,
-  "acerto": 0.549,
-  "r_medio": -0.116
+  "n": 2187,
+  "acerto": 0.544,
+  "r_medio": -0.118
  },
  "3": {
-  "n": 3832,
-  "acerto": 0.528,
-  "r_medio": -0.091
+  "n": 3695,
+  "acerto": 0.533,
+  "r_medio": -0.094
  },
  "4": {
-  "n": 2370,
-  "acerto": 0.495,
-  "r_medio": -0.105
+  "n": 2230,
+  "acerto": 0.496,
+  "r_medio": -0.1
  },
  "5": {
-  "n": 3530,
-  "acerto": 0.347,
-  "r_medio": -0.151
+  "n": 3476,
+  "acerto": 0.363,
+  "r_medio": -0.132
  },
  "6": {
-  "n": 489,
-  "acerto": 0.62,
-  "r_medio": -0.079
+  "n": 559,
+  "acerto": 0.655,
+  "r_medio": -0.015
  },
  "7": {
-  "n": 51,
-  "acerto": 0.745,
-  "r_medio": 0.107
+  "n": 93,
+  "acerto": 0.71,
+  "r_medio": 0.038
  },
  "8": {
   "n": 3,
   "acerto": 1.0,
-  "r_medio": 0.46
+  "r_medio": 0.467
  },
  "9": {
   "n": 3,
@@ -343,17 +342,17 @@ validação fora da amostra: {
  "8+": {
   "n": 6,
   "acerto": 0.667,
-  "r_medio": 0.047
+  "r_medio": 0.051
  },
  "3-": {
-  "n": 6403,
-  "acerto": 0.53,
-  "r_medio": -0.139
+  "n": 6384,
+  "acerto": 0.532,
+  "r_medio": -0.142
  },
  "todos": {
-  "n": 12849,
-  "acerto": 0.478,
-  "r_medio": -0.133
+  "n": 12748,
+  "acerto": 0.486,
+  "r_medio": -0.125
  }
 }
-ok em 206s; stats.json 81 KB
+ok em 205s; stats.json 81 KB
