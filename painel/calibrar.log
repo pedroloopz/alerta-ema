@@ -1,4 +1,4 @@
-universo: 186 ativos (89 cripto, 97 ações)
+universo: 185 ativos (85 cripto, 100 ações)
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -47,8 +47,10 @@ universo: 186 ativos (89 cripto, 97 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKTSMU2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou CAP-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -123,6 +125,7 @@ universo: 186 ativos (89 cripto, 97 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKHLT2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -131,6 +134,7 @@ universo: 186 ativos (89 cripto, 97 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
+falhou NCSKCLS2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -151,7 +155,6 @@ universo: 186 ativos (89 cripto, 97 ações)
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-falhou NCSKCOP2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后重试
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
@@ -184,175 +187,178 @@ falhou NCSKCOP2USD-USDT: BingX /openApi/swap/v3/quote/klines: 100410 请稍后�
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
 /home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
   perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-/home/runner/work/alerta-ema/alerta-ema/painel/calibrar.py:104: Pandas4Warning: DatetimeIndex.dayofweek is deprecated and will be removed in a future version. Use DatetimeIndex.day_of_week instead.
-  perfil = v.groupby([df.index.dayofweek, df.index.hour]).mean()
-sinais simulados: 468162 em 193s
-  acao: 93 ativos, de 2026-10-25 06:30:00+00:00 a 2026-11-04 06:45:00+00:00
-  cripto: 89 ativos, de 2026-08-06 16:15:00+00:00 a 2026-11-04 06:45:00+00:00
-fontes: {'bingx': np.int64(114), 'binance': np.int64(72)}
-modelo de fluxo: 147378 linhas, 72 ativos
-  faixas 1 [{'de': 0.673131, 'ate': 0.742976, 'n': 1935, 'acerto': 0.496, 'r': -0.088}, {'de': 0.742976, 'ate': 0.78342, 'n': 300, 'acerto': 0.487, 'r': -0.11}, {'de': 0.78342, 'ate': None, 'n': 54, 'acerto': 0.463, 'r': -0.218}]
-  faixas -1 [{'de': 0.601816, 'ate': 0.679695, 'n': 2205, 'acerto': 0.531, 'r': -0.028}, {'de': 0.679695, 'ate': 0.725316, 'n': 443, 'acerto': 0.567, 'r': 0.021}, {'de': 0.725316, 'ate': None, 'n': 129, 'acerto': 0.62, 'r': 0.061}]
+sinais simulados: 460395 em 123s
+  acao: 92 ativos, de 2026-10-26 06:15:00+00:00 a 2026-11-05 06:30:00+00:00
+  cripto: 84 ativos, de 2026-08-07 16:00:00+00:00 a 2026-11-05 06:30:00+00:00
+fontes: {'bingx': np.int64(115), 'binance': np.int64(70)}
+modelo de fluxo: 143327 linhas, 70 ativos
+  faixas 1 [{'de': 0.672716, 'ate': 0.734382, 'n': 2032, 'acerto': 0.527, 'r': -0.036}, {'de': 0.734382, 'ate': 0.773887, 'n': 284, 'acerto': 0.405, 'r': -0.251}, {'de': 0.773887, 'ate': None, 'n': 24, 'acerto': 0.375, 'r': -0.27}]
+  faixas -1 [{'de': 0.60582, 'ate': 0.679402, 'n': 2075, 'acerto': 0.525, 'r': -0.03}, {'de': 0.679402, 'ate': 0.721995, 'n': 403, 'acerto': 0.578, 'r': 0.012}, {'de': 0.721995, 'ate': None, 'n': 166, 'acerto': 0.572, 'r': 0.041}]
 saídas escolhidas: {
  "acao|PULL|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.532,
-  "r": -0.232,
-  "n": 385
+  "p": 0.53,
+  "r": -0.247,
+  "n": 421
  },
  "acao|PULL|1": {
   "sl": 2.0,
   "tp": 1.5,
-  "p": 0.449,
-  "r": -0.254,
-  "n": 292
+  "p": 0.432,
+  "r": -0.281,
+  "n": 285
  },
  "acao|ROMP|-1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.321,
-  "r": -0.026,
-  "n": 476
+  "p": 0.3,
+  "r": -0.025,
+  "n": 563
  },
  "acao|ROMP|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.604,
-  "r": -0.157,
-  "n": 381
+  "p": 0.616,
+  "r": -0.123,
+  "n": 425
  },
  "acao|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.514,
-  "r": -0.354,
-  "n": 457
+  "p": 0.499,
+  "r": -0.344,
+  "n": 523
  },
  "acao|SQZ|1": {
   "sl": 2.0,
   "tp": 2.0,
-  "p": 0.375,
-  "r": -0.267,
-  "n": 411
+  "p": 0.363,
+  "r": -0.284,
+  "n": 419
  },
  "cripto|EXA|-1": {
   "sl": 2.0,
   "tp": 1.0,
   "p": 0.581,
-  "r": -0.133,
-  "n": 1521
+  "r": -0.134,
+  "n": 1511
  },
  "cripto|EXA|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.235,
-  "r": -0.049,
-  "n": 639
+  "p": 0.23,
+  "r": -0.068,
+  "n": 635
  },
  "cripto|PULL|-1": {
   "sl": 2.0,
   "tp": 3.0,
   "p": 0.234,
-  "r": -0.103,
-  "n": 2248
+  "r": -0.105,
+  "n": 2145
  },
  "cripto|PULL|1": {
   "sl": 2.0,
-  "tp": 3.0,
-  "p": 0.232,
-  "r": -0.055,
-  "n": 1661
+  "tp": 2.0,
+  "p": 0.397,
+  "r": -0.029,
+  "n": 1634
  },
  "cripto|ROMP|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.611,
-  "r": -0.119,
-  "n": 15739
+  "p": 0.613,
+  "r": -0.118,
+  "n": 15203
  },
  "cripto|ROMP|1": {
   "sl": 2.0,
   "tp": 3.0,
-  "p": 0.309,
-  "r": -0.094,
-  "n": 18135
+  "p": 0.31,
+  "r": -0.089,
+  "n": 17960
  },
  "cripto|SQZ|-1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.611,
-  "r": -0.166,
-  "n": 4847
+  "p": 0.613,
+  "r": -0.161,
+  "n": 4764
  },
  "cripto|SQZ|1": {
   "sl": 2.0,
   "tp": 1.0,
-  "p": 0.633,
-  "r": -0.143,
-  "n": 4740
+  "p": 0.628,
+  "r": -0.15,
+  "n": 4570
  }
 }
 validação fora da amostra: {
  "1": {
-  "n": 502,
-  "acerto": 0.468,
-  "r_medio": -0.592
+  "n": 418,
+  "acerto": 0.445,
+  "r_medio": -0.631
  },
  "2": {
-  "n": 2187,
-  "acerto": 0.544,
-  "r_medio": -0.118
+  "n": 1555,
+  "acerto": 0.549,
+  "r_medio": -0.082
  },
  "3": {
-  "n": 3695,
-  "acerto": 0.533,
-  "r_medio": -0.094
+  "n": 3287,
+  "acerto": 0.489,
+  "r_medio": -0.141
  },
  "4": {
-  "n": 2230,
-  "acerto": 0.496,
-  "r_medio": -0.1
+  "n": 2174,
+  "acerto": 0.479,
+  "r_medio": -0.111
  },
  "5": {
-  "n": 3476,
-  "acerto": 0.363,
-  "r_medio": -0.132
+  "n": 3918,
+  "acerto": 0.348,
+  "r_medio": -0.154
  },
  "6": {
-  "n": 559,
-  "acerto": 0.655,
-  "r_medio": -0.015
+  "n": 661,
+  "acerto": 0.651,
+  "r_medio": -0.044
  },
  "7": {
-  "n": 93,
-  "acerto": 0.71,
-  "r_medio": 0.038
+  "n": 145,
+  "acerto": 0.683,
+  "r_medio": -0.01
  },
  "8": {
-  "n": 3,
-  "acerto": 1.0,
-  "r_medio": 0.467
+  "n": 18,
+  "acerto": 0.778,
+  "r_medio": 0.18
  },
  "9": {
-  "n": 3,
-  "acerto": 0.333,
-  "r_medio": -0.366
+  "n": 5,
+  "acerto": 0.6,
+  "r_medio": 0.014
+ },
+ "10": {
+  "n": 4,
+  "acerto": 0.5,
+  "r_medio": -0.155
  },
  "8+": {
-  "n": 6,
-  "acerto": 0.667,
-  "r_medio": 0.051
+  "n": 27,
+  "acerto": 0.704,
+  "r_medio": 0.099
  },
  "3-": {
-  "n": 6384,
-  "acerto": 0.532,
-  "r_medio": -0.142
+  "n": 5260,
+  "acerto": 0.503,
+  "r_medio": -0.162
  },
  "todos": {
-  "n": 12748,
-  "acerto": 0.486,
-  "r_medio": -0.125
+  "n": 12185,
+  "acerto": 0.46,
+  "r_medio": -0.142
  }
 }
-ok em 205s; stats.json 81 KB
+ok em 135s; stats.json 80 KB
