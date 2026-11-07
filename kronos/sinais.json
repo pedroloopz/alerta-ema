@@ -1,0 +1,650 @@
+{
+ "id": "2026110717",
+ "gerado_em": "2026-11-07T17:27:39+00:00",
+ "prazo_h": 24,
+ "modelo": "Kronos-small",
+ "trades": [
+  {
+   "ativo": "Coreia (EWY)",
+   "simbolo": "NCSIEWY2USD-USDT",
+   "tipo": "índice",
+   "gatilhos": [
+    0.0299
+   ],
+   "lado": "LONG",
+   "p_dir": 0.97,
+   "sl": 0.05,
+   "tp1": 0.0787,
+   "tp2": 0.0943,
+   "alav": 2,
+   "nota": 0.7359,
+   "barrado": null,
+   "alvo1_antes": 0.49,
+   "stop_antes": 0.33,
+   "preco_previsao": 137.59,
+   "peso": 0.5,
+   "acerto_teste": 0.7586206896551724,
+   "r_medio_teste": 0.6056757610012798,
+   "semanas_teste": 29
+  },
+  {
+   "ativo": "Japão (EWJ)",
+   "simbolo": "NCSIEWJ2USD-USDT",
+   "tipo": "índice",
+   "gatilhos": [
+    0.0116
+   ],
+   "lado": "LONG",
+   "p_dir": 0.98,
+   "sl": 0.0255,
+   "tp1": 0.0389,
+   "tp2": 0.0447,
+   "alav": 5,
+   "nota": 0.595,
+   "barrado": null,
+   "alvo1_antes": 0.59,
+   "stop_antes": 0.14999999999999997,
+   "preco_previsao": 88.56,
+   "peso": 0.5,
+   "acerto_teste": 0.6071428571428571,
+   "r_medio_teste": 0.2669188915639688,
+   "semanas_teste": 28
+  }
+ ],
+ "leituras": {
+  "NCSINASDAQ1002USD-USDT": {
+   "p_alta": 0.73,
+   "ret_mediano": 0.02164
+  },
+  "NCSKSKHYNIX2USD-USDT": {
+   "p_alta": 0.95,
+   "ret_mediano": 0.0564
+  },
+  "NCSKHOOD2USD-USDT": {
+   "p_alta": 0.23,
+   "ret_mediano": -0.01062
+  },
+  "NCSKCRWV2USD-USDT": {
+   "p_alta": 0.53,
+   "ret_mediano": 0.00142
+  },
+  "NCSKSOFI2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.10337
+  },
+  "NCCO1OILWTI2USD-USDT": {
+   "p_alta": 0.06,
+   "ret_mediano": -0.06937
+  },
+  "NCSKNETFLIX2USD-USDT": {
+   "p_alta": 0.91,
+   "ret_mediano": 0.01597
+  },
+  "NCSKCAT2USD-USDT": {
+   "p_alta": 0.66,
+   "ret_mediano": 0.07024
+  },
+  "NCCO1OILBRENT2USD-USDT": {
+   "p_alta": 0.34,
+   "ret_mediano": -0.01668
+  },
+  "NCSKDIS2USD-USDT": {
+   "p_alta": 0.01,
+   "ret_mediano": -0.12352
+  },
+  "NCCO724COPPER2USD-USDT": {
+   "p_alta": 0.98,
+   "ret_mediano": 0.01864
+  },
+  "NCSKTTWO2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.1341
+  },
+  "NCCOXPT2USD-USDT": {
+   "p_alta": 0.51,
+   "ret_mediano": 0.00089
+  },
+  "NCSKRDDT2USD-USDT": {
+   "p_alta": 0.57,
+   "ret_mediano": 0.0243
+  },
+  "NCCOPALLADIUM2USD-USDT": {
+   "p_alta": 0.06,
+   "ret_mediano": -0.05936
+  },
+  "NCSKLMT2USD-USDT": {
+   "p_alta": 0.12,
+   "ret_mediano": -0.03237
+  },
+  "NCCO7241NATGAS2USD-USDT": {
+   "p_alta": 0.08,
+   "ret_mediano": -0.04294
+  },
+  "NCSKZM2USD-USDT": {
+   "p_alta": 0.15,
+   "ret_mediano": -0.02613
+  },
+  "NCSIEWJ2USD-USDT": {
+   "p_alta": 0.98,
+   "ret_mediano": 0.03895
+  },
+  "NCSKTWLO2USD-USDT": {
+   "p_alta": 0.38,
+   "ret_mediano": -0.01316
+  },
+  "NCSKRTX2USD-USDT": {
+   "p_alta": 0.01,
+   "ret_mediano": -0.06407
+  },
+  "NCSIEWY2USD-USDT": {
+   "p_alta": 0.97,
+   "ret_mediano": 0.07871
+  },
+  "NCSKHD2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.17893
+  },
+  "BTC-USDT": {
+   "p_alta": 0.04,
+   "ret_mediano": -0.04104
+  },
+  "NCSKMCD2USD-USDT": {
+   "p_alta": 0.92,
+   "ret_mediano": 0.01552
+  },
+  "ONDO-USDT": {
+   "p_alta": 0.16,
+   "ret_mediano": -0.04682
+  },
+  "NCSKNKE2USD-USDT": {
+   "p_alta": 0.15,
+   "ret_mediano": -0.10383
+  },
+  "NCSKNBIS2USD-USDT": {
+   "p_alta": 0.85,
+   "ret_mediano": 0.03473
+  },
+  "NCSKPYPL2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.08503
+  },
+  "ASTER-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.14901
+  },
+  "NCSKAAPL2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.09839
+  },
+  "NCSKMSFT2USD-USDT": {
+   "p_alta": 0.2,
+   "ret_mediano": -0.01193
+  },
+  "NCSKXOM2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.06313
+  },
+  "NCSKAMZN2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.06943
+  },
+  "NCSKCVX2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.06759
+  },
+  "NCSKGOOGL2USD-USDT": {
+   "p_alta": 0.56,
+   "ret_mediano": 0.00863
+  },
+  "NCSKUBER2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.07046
+  },
+  "NCSKCOP2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.12105
+  },
+  "NCSKMETA2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.05616
+  },
+  "NCSKOXY2USD-USDT": {
+   "p_alta": 0.62,
+   "ret_mediano": 0.00374
+  },
+  "NCSKNVDA2USD-USDT": {
+   "p_alta": 0.74,
+   "ret_mediano": 0.03666
+  },
+  "NCSKEBAY2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.17713
+  },
+  "NCSKTSLA2USD-USDT": {
+   "p_alta": 0.62,
+   "ret_mediano": 0.00787
+  },
+  "NCSKAVGO2USD-USDT": {
+   "p_alta": 0.31,
+   "ret_mediano": -0.00858
+  },
+  "NCSKORCL2USD-USDT": {
+   "p_alta": 1.0,
+   "ret_mediano": 0.0565
+  },
+  "NCCOGOLD2USD-USDT": {
+   "p_alta": 0.39,
+   "ret_mediano": -0.00443
+  },
+  "NCSKIREN2USD-USDT": {
+   "p_alta": 0.83,
+   "ret_mediano": 0.05591
+  },
+  "NCSKAMD2USD-USDT": {
+   "p_alta": 0.89,
+   "ret_mediano": 0.03442
+  },
+  "NCSKBABA2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.11473
+  },
+  "NCSKARM2USD-USDT": {
+   "p_alta": 1.0,
+   "ret_mediano": 0.11252
+  },
+  "NCSKPDD2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.05436
+  },
+  "NCSKASML2USD-USDT": {
+   "p_alta": 0.98,
+   "ret_mediano": 0.04441
+  },
+  "NCSKSHOP2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.1109
+  },
+  "NCSKPLTR2USD-USDT": {
+   "p_alta": 0.96,
+   "ret_mediano": 0.03887
+  },
+  "NCSKOKLO2USD-USDT": {
+   "p_alta": 0.51,
+   "ret_mediano": 0.0033
+  },
+  "NCSKMU2USD-USDT": {
+   "p_alta": 0.79,
+   "ret_mediano": 0.0758
+  },
+  "NCSKTM2USD-USDT": {
+   "p_alta": 0.27,
+   "ret_mediano": -0.02533
+  },
+  "NCSKSMR2USD-USDT": {
+   "p_alta": 0.64,
+   "ret_mediano": 0.03933
+  },
+  "NCSKINTC2USD-USDT": {
+   "p_alta": 0.34,
+   "ret_mediano": -0.0692
+  },
+  "NCSKSONY2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.1451
+  },
+  "NCSKEWZ2USD-USDT": {
+   "p_alta": 0.52,
+   "ret_mediano": 0.00088
+  },
+  "NCSKQCOM2USD-USDT": {
+   "p_alta": 0.91,
+   "ret_mediano": 0.02024
+  },
+  "NCSKHYUNDAI2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.07459
+  },
+  "NCSKTXN2USD-USDT": {
+   "p_alta": 0.15,
+   "ret_mediano": -0.01876
+  },
+  "NCSKLRCX2USD-USDT": {
+   "p_alta": 0.96,
+   "ret_mediano": 0.09326
+  },
+  "NCSKRIVN2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.14399
+  },
+  "NCSKKLAC2USD-USDT": {
+   "p_alta": 0.94,
+   "ret_mediano": 0.0237
+  },
+  "NCSKWMT2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.14997
+  },
+  "NCCOXAG2USD-USDT": {
+   "p_alta": 0.7,
+   "ret_mediano": 0.00625
+  },
+  "NCSKAPLD2USD-USDT": {
+   "p_alta": 0.2,
+   "ret_mediano": -0.04269
+  },
+  "NCSKBX2USD-USDT": {
+   "p_alta": 1.0,
+   "ret_mediano": 0.14825
+  },
+  "NCSKAMAT2USD-USDT": {
+   "p_alta": 0.97,
+   "ret_mediano": 0.0844
+  },
+  "NCSKCOST2USD-USDT": {
+   "p_alta": 0.05,
+   "ret_mediano": -0.13855
+  },
+  "NCSKMRVL2USD-USDT": {
+   "p_alta": 0.75,
+   "ret_mediano": 0.03424
+  },
+  "NCSKKO2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.10649
+  },
+  "NCSKSMCI2USD-USDT": {
+   "p_alta": 0.99,
+   "ret_mediano": 0.08178
+  },
+  "NCSKDELL2USD-USDT": {
+   "p_alta": 0.97,
+   "ret_mediano": 0.17229
+  },
+  "NCSKCRDO2USD-USDT": {
+   "p_alta": 0.9,
+   "ret_mediano": 0.06694
+  },
+  "NCSKLLY2USD-USDT": {
+   "p_alta": 0.02,
+   "ret_mediano": -0.14907
+  },
+  "NCSKALAB2USD-USDT": {
+   "p_alta": 0.96,
+   "ret_mediano": 0.19223
+  },
+  "NCSKUNH2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.05668
+  },
+  "NCSKSNDK2USD-USDT": {
+   "p_alta": 0.91,
+   "ret_mediano": 0.19514
+  },
+  "NCSKJNJ2USD-USDT": {
+   "p_alta": 0.01,
+   "ret_mediano": -0.07717
+  },
+  "NCSKWDC2USD-USDT": {
+   "p_alta": 0.97,
+   "ret_mediano": 0.10041
+  },
+  "NCSKSTX2USD-USDT": {
+   "p_alta": 1.0,
+   "ret_mediano": 0.16476
+  },
+  "NCSKADI2USD-USDT": {
+   "p_alta": 0.07,
+   "ret_mediano": -0.03341
+  },
+  "NCSISP5002USD-USDT": {
+   "p_alta": 0.33,
+   "ret_mediano": -0.00401
+  },
+  "NCSKCIFR2USD-USDT": {
+   "p_alta": 0.04,
+   "ret_mediano": -0.17158
+  },
+  "NCSKBRKB2USD-USDT": {
+   "p_alta": 0.18,
+   "ret_mediano": -0.13155
+  },
+  "NCSKCDNS2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.10978
+  },
+  "NCSKSNOW2USD-USDT": {
+   "p_alta": 0.99,
+   "ret_mediano": 0.05585
+  },
+  "NCSKNOW2USD-USDT": {
+   "p_alta": 0.05,
+   "ret_mediano": -0.12047
+  },
+  "NCSKMRNA2USD-USDT": {
+   "p_alta": 0.9,
+   "ret_mediano": 0.14546
+  },
+  "NCSKCRM2USD-USDT": {
+   "p_alta": 0.01,
+   "ret_mediano": -0.06108
+  },
+  "NCSKHIMS2USD-USDT": {
+   "p_alta": 0.78,
+   "ret_mediano": 0.02068
+  },
+  "NCSKADBE2USD-USDT": {
+   "p_alta": 0.08,
+   "ret_mediano": -0.02274
+  },
+  "NCSKPANW2USD-USDT": {
+   "p_alta": 0.99,
+   "ret_mediano": 0.05202
+  },
+  "NCSKNVO2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.1008
+  },
+  "NCSKCRWD2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.09798
+  },
+  "NCSKJPM2USD-USDT": {
+   "p_alta": 0.96,
+   "ret_mediano": 0.06436
+  },
+  "NCSKADVANTEST2USD-USDT": {
+   "p_alta": 0.88,
+   "ret_mediano": 0.02597
+  },
+  "NCSKBAC2USD-USDT": {
+   "p_alta": 0.15,
+   "ret_mediano": -0.03119
+  },
+  "NCSKLASERTEC2USD-USDT": {
+   "p_alta": 0.05,
+   "ret_mediano": -0.05197
+  },
+  "NCSKGS2USD-USDT": {
+   "p_alta": 0.94,
+   "ret_mediano": 0.02194
+  },
+  "NCSKMA2USD-USDT": {
+   "p_alta": 0.01,
+   "ret_mediano": -0.16455
+  },
+  "NCSKV2USD-USDT": {
+   "p_alta": 0.02,
+   "ret_mediano": -0.16747
+  },
+  "NCSKSUMIELEC2USD-USDT": {
+   "p_alta": 0.23,
+   "ret_mediano": -0.07874
+  },
+  "NCSKSAMSUNG2USD-USDT": {
+   "p_alta": 0.98,
+   "ret_mediano": 0.08269
+  },
+  "NCSKCOIN2USD-USDT": {
+   "p_alta": 0.3,
+   "ret_mediano": -0.05561
+  },
+  "NCSKMUFG2USD-USDT": {
+   "p_alta": 0.35,
+   "ret_mediano": -0.00331
+  },
+  "NCSKGE2USD-USDT": {
+   "p_alta": 0.0,
+   "ret_mediano": -0.11461
+  },
+  "NCSKGEV2USD-USDT": {
+   "p_alta": 0.97,
+   "ret_mediano": 0.0392
+  }
+ },
+ "recuo": [
+  {
+   "ativo": "ASTER",
+   "simbolo": "ASTER-USDT",
+   "tipo": "cripto",
+   "grupo": "cripto alt",
+   "lado": "SHORT",
+   "p_dir": 1.0,
+   "sl": 0.0097,
+   "recuo": 0.001,
+   "trail": 0.0645,
+   "preco_previsao": 0.6759,
+   "nota": 1.0
+  },
+  {
+   "ativo": "Cobre",
+   "simbolo": "NCCO724COPPER2USD-USDT",
+   "tipo": "commodity",
+   "grupo": "metais",
+   "lado": "LONG",
+   "p_dir": 0.98,
+   "sl": 0.0116,
+   "recuo": 0.0072,
+   "trail": 0.0411,
+   "preco_previsao": 6.28,
+   "nota": 0.98
+  },
+  {
+   "ativo": "Japão (EWJ)",
+   "simbolo": "NCSIEWJ2USD-USDT",
+   "tipo": "índice",
+   "grupo": "índices",
+   "lado": "LONG",
+   "p_dir": 0.98,
+   "sl": 0.0255,
+   "recuo": 0.0116,
+   "trail": 0.0494,
+   "preco_previsao": 88.56,
+   "nota": 0.98
+  },
+  {
+   "ativo": "Coreia (EWY)",
+   "simbolo": "NCSIEWY2USD-USDT",
+   "tipo": "índice",
+   "grupo": "índices",
+   "lado": "LONG",
+   "p_dir": 0.97,
+   "sl": 0.05,
+   "recuo": 0.0299,
+   "trail": 0.1,
+   "preco_previsao": 137.59,
+   "nota": 0.97
+  },
+  {
+   "ativo": "BTC",
+   "simbolo": "BTC-USDT",
+   "tipo": "cripto",
+   "grupo": "cripto grande",
+   "lado": "SHORT",
+   "p_dir": 0.96,
+   "sl": 0.0122,
+   "recuo": 0.0036,
+   "trail": 0.056,
+   "preco_previsao": 75727.6,
+   "nota": 0.96
+  },
+  {
+   "ativo": "Petróleo WTI",
+   "simbolo": "NCCO1OILWTI2USD-USDT",
+   "tipo": "commodity",
+   "grupo": "energia",
+   "lado": "SHORT",
+   "p_dir": 0.94,
+   "sl": 0.0239,
+   "recuo": 0.0123,
+   "trail": 0.0763,
+   "preco_previsao": 90.15,
+   "nota": 0.94
+  },
+  {
+   "ativo": "Paládio",
+   "simbolo": "NCCOPALLADIUM2USD-USDT",
+   "tipo": "commodity",
+   "grupo": "metais",
+   "lado": "SHORT",
+   "p_dir": 0.94,
+   "sl": 0.05,
+   "recuo": 0.0508,
+   "trail": 0.0593,
+   "preco_previsao": 1025.9,
+   "nota": 0.94
+  },
+  {
+   "ativo": "Gás natural",
+   "simbolo": "NCCO7241NATGAS2USD-USDT",
+   "tipo": "commodity",
+   "grupo": "energia",
+   "lado": "SHORT",
+   "p_dir": 0.92,
+   "sl": 0.0391,
+   "recuo": 0.0259,
+   "trail": 0.0583,
+   "preco_previsao": 3.098,
+   "nota": 0.92
+  },
+  {
+   "ativo": "ONDO",
+   "simbolo": "ONDO-USDT",
+   "tipo": "cripto",
+   "grupo": "cripto alt",
+   "lado": "SHORT",
+   "p_dir": 0.84,
+   "sl": 0.05,
+   "recuo": 0.0593,
+   "trail": 0.1,
+   "preco_previsao": 0.3631,
+   "nota": 0.84
+  },
+  {
+   "ativo": "NASDAQ 100",
+   "simbolo": "NCSINASDAQ1002USD-USDT",
+   "tipo": "índice",
+   "grupo": "índices",
+   "lado": "LONG",
+   "p_dir": 0.73,
+   "sl": 0.0472,
+   "recuo": 0.0272,
+   "trail": 0.0487,
+   "preco_previsao": 26954.51,
+   "nota": 0.73
+  },
+  {
+   "ativo": "Prata",
+   "simbolo": "NCCOXAG2USD-USDT",
+   "tipo": "commodity",
+   "grupo": "metais",
+   "lado": "LONG",
+   "p_dir": 0.7,
+   "sl": 0.0236,
+   "recuo": 0.0139,
+   "trail": 0.0584,
+   "preco_previsao": 52.21,
+   "nota": 0.7
+  }
+ ],
+ "recuo_sombra": []
+}
